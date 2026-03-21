@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "accessories-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BL",
+            "title": "Blankets",
+            "subtitle": "Custom branded blankets for events, corporate gifting, and promotional programs",
+            "detail_1": "Great for outdoor and event giveaways",
+            "detail_2": "Available for embroidery and print",
+            "detail_3": "Wide range of sizes and weights",
+            "link": "/collections/blankets"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "AP",
+            "title": "Aprons",
+            "subtitle": "Branded aprons for restaurants, events, and food service teams",
+            "detail_1": "Great for hospitality and food service",
+            "detail_2": "Available for embroidery and screen print",
+            "detail_3": "Multiple styles and colors",
+            "link": "/collections/aprons"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "TW",
+            "title": "Towels",
+            "subtitle": "Custom towels for gyms, sports teams, and promotional events",
+            "detail_1": "Best for sports and fitness branding",
+            "detail_2": "Multiple sizes available",
+            "detail_3": "Great for embroidery",
+            "link": "/collections/towels"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SK",
+            "title": "Socks",
+            "subtitle": "Custom branded socks for teams, events, and merch programs",
+            "detail_1": "Fully customizable designs",
+            "detail_2": "Great for team and event branding",
+            "detail_3": "Multiple lengths and styles",
+            "link": "/collections/socks"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "FC",
+            "title": "Face Coverings",
+            "subtitle": "Branded face coverings and neck gaiters for teams and staff",
+            "detail_1": "Available for full-color printing",
+            "detail_2": "Lightweight and breathable",
+            "detail_3": "Great for events and staff programs",
+            "link": "/collections/face-coverings"
+          }
+        },
+        "subtype_6": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "OT",
+            "title": "Other Accessories",
+            "subtitle": "Belts, scarves, ties, and other brandable accessories",
+            "detail_1": "Wide range of accessory types",
+            "detail_2": "Available for custom decoration",
+            "detail_3": "Quote-based ordering",
+            "link": "/collections/other-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5",
+        "subtype_6"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Accessories",
+        "text": "<p>Browse our full range of brandable accessories including blankets, aprons, towels, socks, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Accessory Category",
+        "subtypes_text": "Each category helps you find the right accessory for your project faster.",
+        "help_heading": "Need Help Picking The Right Accessories?",
+        "help_text": "Whether you need branded blankets for events, custom aprons for your restaurant, or promotional towels, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

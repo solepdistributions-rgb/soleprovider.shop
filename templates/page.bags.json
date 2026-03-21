@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "bags-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BP",
+            "title": "Backpacks",
+            "subtitle": "Custom branded backpacks for schools, teams, corporate programs, and events",
+            "detail_1": "Best for everyday and school use",
+            "detail_2": "Great for embroidery and heat transfer",
+            "detail_3": "Multiple sizes and compartments",
+            "link": "/collections/backpacks"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "DF",
+            "title": "Duffels",
+            "subtitle": "Branded duffel bags for sports teams, gyms, and travel programs",
+            "detail_1": "Best for sports and travel",
+            "detail_2": "Available for embroidery and screen print",
+            "detail_3": "Multiple sizes available",
+            "link": "/collections/duffels"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "TT",
+            "title": "Totes",
+            "subtitle": "Custom tote bags for retail, events, conferences, and promotional use",
+            "detail_1": "Best for events and retail branding",
+            "detail_2": "Great for screen print and heat transfer",
+            "detail_3": "Eco-friendly options available",
+            "link": "/collections/totes"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "DS",
+            "title": "Drawstring Bags",
+            "subtitle": "Lightweight drawstring bags for giveaways, sports, and promotional events",
+            "detail_1": "Most affordable bag option",
+            "detail_2": "Great for large-quantity events",
+            "detail_3": "Full-color print available",
+            "link": "/collections/drawstring-bags"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CL",
+            "title": "Coolers",
+            "subtitle": "Insulated cooler bags for corporate gifting, events, and outdoor programs",
+            "detail_1": "Best for outdoor and event giveaways",
+            "detail_2": "Multiple sizes and formats",
+            "detail_3": "Great for embroidery and print",
+            "link": "/collections/coolers"
+          }
+        },
+        "subtype_6": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "MS",
+            "title": "Messenger Bags",
+            "subtitle": "Professional messenger and laptop bags for corporate branding and staff programs",
+            "detail_1": "Best for corporate and professional use",
+            "detail_2": "Laptop-compatible options",
+            "detail_3": "Available for embroidery",
+            "link": "/collections/messenger-bags"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5",
+        "subtype_6"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Bags",
+        "text": "<p>Browse our full range of brandable bags including backpacks, duffels, totes, messenger bags, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Bag Category",
+        "subtypes_text": "Each category helps you find the right bag for your project faster.",
+        "help_heading": "Need Help Picking The Right Bags?",
+        "help_text": "Whether you need branded backpacks for events, custom totes for retail, or promotional duffels for teams, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
