@@ -1,453 +1,141 @@
-{% comment %}
-  Variant List Row
+<section class="promo-sourcing-cta">
+  <div class="page-width">
+    <div class="promo-sourcing-cta__card">
+      {% if section.settings.eyebrow != blank %}
+        <p class="promo-sourcing-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
 
-  Accepts:
-  - item: {Object} Variant or Product object
-  - sku: {String} Sku of Product or Variant (optional)
-  - image: {Object} Product or Variant image (optional)
-  Usage:
-  {% render 'quick-order-list-row' variant: variant %}
-{% endcomment %}
+      {% if section.settings.heading != blank %}
+        <h2 class="promo-sourcing-cta__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
 
-{% # theme-check-disable %}
-{% assign cart_qty = cart | item_count_for_variant: variant.id %}
-{% # theme-check-enable %}
+      {% if section.settings.text != blank %}
+        <p class="promo-sourcing-cta__text">{{ section.settings.text }}</p>
+      {% endif %}
 
-<tr
-  class="variant-item{% unless show_image %} variant-item--no-media{% endunless %}{% if item.available and item.unit_price_measurement %} variant-item--unit-price{% endif %}"
-  id="Variant-{{ variant.id }}"
-  data-variant-id="{{ variant.id }}"
->
-  <td class="variant-item__inner{% unless sku and show_sku %} variant-item__inner--no-sku{% endunless %}">
-    {%- if show_image -%}
-      <div class="variant-item__media">
-        <div class="variant-item__image-container global-media-settings{% unless is_modal %} gradient{% endunless %}{% unless image %} variant-item__image-container--no-img{% endunless %}">
-          {% if image %}
-            {%- assign img_height = 43 | divided_by: image.aspect_ratio | ceil -%}
-            {{
-              image
-              | image_url: width: 86
-              | image_tag:
-                loading: 'lazy',
-                fetchpriority: 'low',
-                decoding: 'async',
-                class: 'variant-item__image',
-                width: 43,
-                height: img_height,
-                widths: '86',
-                alt: image.alt
-              | escape
-            }}
-          {% endif %}
-        </div>
-      </div>
-    {%- endif -%}
-    <div class="small-hide medium-hide">
-      <span class="variant-item__name h4 break">{{ item.title | escape }}</span>
-      {%- if show_sku -%}
-        <span class="variant-item__sku break">{{ sku | escape }}</span>
-      {%- endif -%}
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="promo-sourcing-cta__button">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
     </div>
-  </td>
+  </div>
+</section>
 
-  <td class="variant-item__details large-up-hide">
-    <div class="variant-item__info">
-      <span class="variant-item__name h4 break">{{ item.title | escape }}</span>
-      {%- if show_sku -%}
-        <span class="variant-item__sku break">{{ sku | escape }}</span>
-      {%- endif -%}
-    </div>
+<style>
+  .promo-sourcing-cta {
+    padding: 64px 0;
+    background: #f5f5f5;
+  }
 
-    {%- assign item_price = item.price | money -%}
-    {%- if item.compare_at_price -%}
-      <dl class="variant-item__discounted-prices">
-        <dt class="visually-hidden">
-          {{ 'products.product.price.regular_price' | t }}
-        </dt>
-        <dd>
-          <s class="variant-item__old-price price price--end">
-            {{ item.compare_at_price | money }}
-          </s>
-        </dd>
-        <dt class="visually-hidden">
-          {{ 'products.product.price.sale_price' | t }}
-        </dt>
-        <dd class="price">
-          {%- if variant.quantity_price_breaks.size > 0 -%}
-            {%- liquid
-              assign volume_pricing_array = variant.quantity_price_breaks | sort: 'quantity' | reverse
-            -%}
-            <price-per-item
-              class="variant-item__price-per-item"
-              id="Price-Per-Item-{{ variant.id }}"
-              data-variant-id="{{ variant.id }}"
-            >
-              <div class="price-per-item">
-                {%- if cart_qty < volume_pricing_array.last.minimum_quantity -%}
-                  {%- assign variant_price = variant.price | money -%}
-                  <span class="price-per-item--current price">
-                    {{- 'sections.quick_order_list.each' | t: money: variant_price -}}
-                  </span>
-                {%- else -%}
-                  {%- for price_break in volume_pricing_array -%}
-                    {%- if cart_qty >= price_break.minimum_quantity -%}
-                      {%- assign price_break_price = price_break.price | money -%}
-                      <span class="price-per-item--current price">
-                        {{- 'sections.quick_order_list.each' | t: money: price_break_price -}}
-                      </span>
-                      {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                {%- endif -%}
-              </div>
-            </price-per-item>
-          {%- else -%}
-            <span class="price">
-              {{- 'sections.quick_order_list.each' | t: money: item_price -}}
-            </span>
-          {%- endif -%}
-        </dd>
-      </dl>
-    {%- else -%}
-      {%- if variant.quantity_price_breaks.size > 0 -%}
-        {%- liquid
-          assign volume_pricing_array = variant.quantity_price_breaks | sort: 'quantity' | reverse
-        -%}
-        <price-per-item
-          class="variant-item__price-per-item"
-          id="Price-Per-Item-{{ variant.id }}"
-          data-variant-id="{{ variant.id }}"
-        >
-          <div class="price-per-item">
-            {%- if cart_qty < volume_pricing_array.last.minimum_quantity -%}
-              {%- assign variant_price = variant.price | money -%}
-              <span class="price-per-item--current price">
-                {{- 'sections.quick_order_list.each' | t: money: variant_price -}}
-              </span>
-            {%- else -%}
-              {%- for price_break in volume_pricing_array -%}
-                {%- if cart_qty >= price_break.minimum_quantity -%}
-                  {%- assign price_break_price = price_break.price | money -%}
-                  <span class="price-per-item--current price">
-                    {{- 'sections.quick_order_list.each' | t: money: price_break_price -}}
-                  </span>
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-          </div>
-        </price-per-item>
-      {%- else -%}
-        <span class="price">
-          {{- 'sections.quick_order_list.each' | t: money: item_price -}}
-        </span>
-      {%- endif -%}
-    {%- endif -%}
+  .promo-sourcing-cta__card {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 42px 36px;
+    text-align: center;
+    background: linear-gradient(135deg, #111111 0%, #1a1a1a 68%, #c41230 155%);
+    border-radius: 22px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+  }
 
-    {%- if item.available and item.unit_price_measurement -%}
-      {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
-    {%- endif -%}
-  </td>
+  .promo-sourcing-cta__eyebrow {
+    margin: 0 0 10px;
+    color: rgba(255,255,255,0.86);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
 
-  <td class="variant-item__totals right large-up-hide">
-    {%- render 'loading-spinner' -%}
-    {% comment %} TODO: enable theme-check once `line_items_for` is accepted as valid filter {% endcomment %}
-    {% # theme-check-disable %}
-    <span class="price">{{ cart | line_items_for: item | sum: 'original_line_price' | money }}</span>
-    {% # theme-check-enable %}
-  </td>
+  .promo-sourcing-cta__heading {
+    margin: 0 0 14px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.8rem, 4vw, 4.8rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
 
-  <td class="variant-item__quantity">
-    {%- liquid
-      assign check_against_inventory = true
-      if variant.inventory_management != 'shopify' or variant.inventory_policy == 'continue'
-        assign check_against_inventory = false
-      endif
-      if variant.quantity_rule.min > variant.inventory_quantity and check_against_inventory
-        assign quantity_rule_soldout = true
-      endif
+  .promo-sourcing-cta__text {
+    margin: 0 auto 22px;
+    max-width: 64rem;
+    font-size: 1.65rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.9);
+  }
 
-      assign has_qty_rules = false
-      if variant.quantity_rule.increment > 1 or variant.quantity_rule.min > 1 or variant.quantity_rule.max != null
-        assign has_qty_rules = true
-      endif
+  .promo-sourcing-cta__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0 20px;
+    background: #ffffff;
+    color: #111111;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    border: 2px solid #ffffff;
+    transition: all 0.25s ease;
+  }
 
-      assign has_vol_pricing = false
-      if variant.quantity_price_breaks.size > 0
-        assign has_vol_pricing = true
-      endif
+  .promo-sourcing-cta__button:hover {
+    background: #c41230;
+    color: #ffffff;
+    border-color: #c41230;
+  }
 
-      assign is_available = false
-      assign has_popover = false
-      unless variant.available == false or quantity_rule_soldout
-        assign is_available = true
-      endunless
-      if has_qty_rules or has_vol_pricing
-        assign has_popover = true
-      endif
-    -%}
-    <quantity-popover>
-      <div class="variant-item__quantity-wrapper quantity-popover-wrapper{% unless has_popover %} variant-item__quantity-wrapper--no-info{% endunless %}">
-        <label class="visually-hidden" for="Quantity-{{ variant.id }}">
-          {{ 'products.product.quantity.label' | t }}
-        </label>
-        <div class="quantity-popover-container{% if is_available and has_popover %} quantity-popover-container--hover{% endif %}{% if cart_qty == 0 %} quantity-popover-container--empty{% endif %}">
-          {%- if has_qty_rules or has_vol_pricing -%}
-            <button
-              type="button"
-              aria-expanded="false"
-              aria-controls="quantity-popover-info-{{ variant.id }}"
-              aria-label="
-                {%- if has_vol_pricing -%}
-                  {{ 'products.product.volume_pricing.note' | t }}
-                {%- elsif has_qty_rules -%}
-                  {{ 'products.product.quantity.note' | t }}
-                {%- endif -%}
-              "
-              class="quantity-popover__info-button quantity-popover__info-button--icon-only button button--tertiary small-hide medium-hide no-js-hidden"
-            >
-              {{- 'icon-info.svg' | inline_asset_content -}}
-            </button>
-            <div
-              class="global-settings-popup quantity-popover__info"
-              tabindex="-1"
-              hidden
-              id="quantity-popover-info-{{ variant.id }}"
-            >
-              {%- if has_qty_rules == false -%}
-                <span class="volume-pricing-label caption">{{ 'products.product.volume_pricing.title' | t }}</span>
-              {%- endif -%}
-              <div class="quantity__rules caption no-js-hidden">
-                {%- if variant.quantity_rule.increment > 1 -%}
-                  <span class="divider">
-                    {{- 'products.product.quantity.multiples_of' | t: quantity: variant.quantity_rule.increment -}}
-                  </span>
-                {%- endif -%}
-                {%- if variant.quantity_rule.min > 1 -%}
-                  <span class="divider">
-                    {{- 'products.product.quantity.min_of' | t: quantity: variant.quantity_rule.min -}}
-                  </span>
-                {%- endif -%}
-                {%- if variant.quantity_rule.max != null -%}
-                  <span class="divider">
-                    {{- 'products.product.quantity.max_of' | t: quantity: variant.quantity_rule.max -}}
-                  </span>
-                {%- endif -%}
-              </div>
-              <button
-                class="button-close button button--tertiary large-up-hide"
-                type="button"
-                aria-label="{{ 'accessibility.close' | t }}"
-              >
-                {{- 'icon-close.svg' | inline_asset_content -}}
-              </button>
-              {%- if variant.quantity_price_breaks.size > 0 -%}
-                <volume-pricing class="parent-display">
-                  <ul class="list-unstyled">
-                    <li>
-                      <span>{{ variant.quantity_rule.min }}+</span>
-                      {%- assign price = variant.price | money_with_currency -%}
-                      <span>{{ 'sections.quick_order_list.each' | t: money: price }}</span>
-                    </li>
-                    {%- for price_break in variant.quantity_price_breaks -%}
-                      <li>
-                        <span>
-                          {{- price_break.minimum_quantity -}}
-                          <span aria-hidden="true">+</span></span
-                        >
-                        {%- assign price = price_break.price | money_with_currency -%}
-                        <span> {{ 'sections.quick_order_list.each' | t: money: price }}</span>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </volume-pricing>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
-          {%- if variant.available == false or quantity_rule_soldout -%}
-            <span class="variant-item__sold-out"> {{ 'products.product.sold_out' | t }} </span>
-          {%- else -%}
-            {% comment %} TODO: Remove theme check {% endcomment %}
-            {% # theme-check-disable %}
-            {% assign cart_qty = cart | item_count_for_variant: variant.id %}
-            {% # theme-check-enable %}
-            {% render 'quantity-input', variant: variant, min: 0 %}
-          {%- endif -%}
-        </div>
-        {% if cart_qty > 0 %}
-          <div
-            id="Remove-{{ variant.id }}"
-            class="quick-order-list-remove-button"
-            data-index="{{ variant.id }}"
-          >
-            <button
-              class="button button--tertiary"
-              aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
-              data-target="remove-{{ variant.id }}"
-            >
-              <span class="svg-wrapper">
-                {{- 'icon-remove.svg' | inline_asset_content -}}
-              </span>
-            </button>
-          </div>
-        {% endif %}
-      </div>
-      {%- if has_popover -%}
-        <button
-          type="button"
-          class="quantity-popover__info-button quantity-popover__info-button--icon-with-label button button--tertiary large-up-hide"
-          aria-expanded="false"
-        >
-          {{- 'icon-info.svg' | inline_asset_content -}}
-          <span>
-            {%- if has_vol_pricing -%}
-              {{ 'products.product.volume_pricing.note' | t }}
-            {%- elsif has_qty_rules -%}
-              {{ 'products.product.quantity.note' | t }}
-            {%- endif -%}
-          </span>
-        </button>
-      {%- endif -%}
-      <div
-        class="variant-item__error large-up-hide"
-        id="Quick-order-list-item-error-mobile-{{ variant.id }}"
-        role="alert"
-      >
-        <small class="variant-item__error-text"></small>
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-      </div>
-    </quantity-popover>
-  </td>
-  {%- assign item_price = item.price | money -%}
-  <td class="variant-item__price small-hide medium-hide">
-    {%- if item.compare_at_price -%}
-      <dl class="variant-item__discounted-prices">
-        <dt class="visually-hidden">
-          {{ 'products.product.price.regular_price' | t }}
-        </dt>
-        <dd>
-          <s class="variant-item__old-price price price--end">
-            {{ item.compare_at_price | money }}
-          </s>
-        </dd>
-        <dt class="visually-hidden">
-          {{ 'products.product.price.sale_price' | t }}
-        </dt>
-        <dd class="price">
-          {%- if variant.quantity_price_breaks.size > 0 -%}
-            {%- liquid
-              assign volume_pricing_array = variant.quantity_price_breaks | sort: 'quantity' | reverse
-            -%}
-            <price-per-item
-              class="variant-item__price-per-item"
-              id="Price-Per-Item-{{ variant.id }}"
-              data-variant-id="{{ variant.id }}"
-            >
-              <div class="price-per-item">
-                {%- if cart_qty < volume_pricing_array.last.minimum_quantity -%}
-                  {%- assign variant_price = variant.price | money -%}
-                  <span class="price-per-item--current price">
-                    {{- 'sections.quick_order_list.each' | t: money: variant_price -}}
-                  </span>
-                {%- else -%}
-                  {%- for price_break in volume_pricing_array -%}
-                    {%- if cart_qty >= price_break.minimum_quantity -%}
-                      {%- assign price_break_price = price_break.price | money -%}
-                      <span class="price-per-item--current price">
-                        {{- 'sections.quick_order_list.each' | t: money: price_break_price -}}
-                      </span>
-                      {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                {%- endif -%}
-              </div>
-            </price-per-item>
-          {%- else -%}
-            <span class="price">
-              {{- 'sections.quick_order_list.each' | t: money: item_price -}}
-            </span>
-          {%- endif -%}
-        </dd>
-      </dl>
-    {%- else -%}
-      {%- if variant.quantity_price_breaks.size > 0 -%}
-        {%- liquid
-          assign volume_pricing_array = variant.quantity_price_breaks | sort: 'quantity' | reverse
-        -%}
-        <price-per-item
-          class="variant-item__price-per-item"
-          id="Price-Per-Item-{{ variant.id }}"
-          data-variant-id="{{ variant.id }}"
-        >
-          <div class="price-per-item">
-            {%- if cart_qty < volume_pricing_array.last.minimum_quantity -%}
-              {%- assign variant_price = variant.price | money -%}
-              <span class="price-per-item--current price">
-                {{- 'sections.quick_order_list.each' | t: money: variant_price -}}
-              </span>
-            {%- else -%}
-              {%- for price_break in volume_pricing_array -%}
-                {%- if cart_qty >= price_break.minimum_quantity -%}
-                  {%- assign price_break_price = price_break.price | money -%}
-                  <span class="price-per-item--current price">
-                    {{- 'sections.quick_order_list.each' | t: money: price_break_price -}}
-                  </span>
-                  {%- break -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- endif -%}
-          </div>
-        </price-per-item>
-      {%- else -%}
-        <span class="price">
-          {{- 'sections.quick_order_list.each' | t: money: item_price -}}
-        </span>
-      {%- endif -%}
-    {%- endif -%}
+  @media screen and (max-width: 989px) {
+    .promo-sourcing-cta {
+      padding: 52px 0;
+    }
 
-    {%- if item.available and item.unit_price_measurement -%}
-      {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
-    {%- endif -%}
-  </td>
-  <td class="variant-item__totals right small-hide medium-hide">
-    {%- render 'loading-spinner' -%}
-    {% comment %} TODO: enable theme-check once `line_items_for` is accepted as valid filter {% endcomment %}
-    {% # theme-check-disable %}
-    <span class="price">{{ cart | line_items_for: item | sum: 'original_line_price' | money }}</span>
-    {% # theme-check-enable %}
-  </td>
-</tr>
-<tr class="small-hide medium-hide hidden desktop-row-error">
-  <td></td>
-  <td>
-    <div class="variant-item__error" id="Quick-order-list-item-error-desktop-{{ variant.id }}" role="alert">
-      <small class="variant-item__error-text"></small>
-      <span class="svg-wrapper">{{ 'icon-error.svg' | inline_asset_content }}</span>
-    </div>
-  </td>
-  <td></td>
-  <td></td>
-</tr>
+    .promo-sourcing-cta__card {
+      padding: 34px 24px;
+    }
+  }
+</style>
 
-{%- if product.quantity_price_breaks_configured? -%}
-  <volume-pricing class="hidden" id="Volume-{{ variant.id }}">
-    <ul>
-      <li>
-        <span>{{ variant.quantity_rule.min }}</span>
-        {%- assign price = variant.price | money -%}
-        <span data-text="{{ price }}">{{ price }}</span>
-      </li>
-      {%- for price_break in variant.quantity_price_breaks -%}
-        {%- assign price_break_price = price_break.price | money -%}
-        <li>
-          <span>
-            {{- price_break.minimum_quantity -}}
-          </span>
-          <span data-text="{{ price_break_price }}">{{- price_break.price | money }}</span>
-        </li>
-      {%- endfor -%}
-    </ul>
-  </volume-pricing>
-{%- endif -%}
+{% schema %}
+{
+  "name": "Promo Sourcing CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Need Something Specific?"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Don’t See What You Need?"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text",
+      "default": "If you don’t see the exact product you’re looking for, send us a request and we’ll help source the right option for your project."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Request a Product"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Sourcing CTA"
+    }
+  ]
+}
+{% endschema %}

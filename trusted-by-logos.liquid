@@ -1,0 +1,438 @@
+<section class="ts-page">
+  <div class="ts-page__hero">
+    <div class="page-width">
+      <div class="ts-page__hero-inner">
+        {% if section.settings.eyebrow != blank %}
+          <p class="ts-page__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+
+        {% if section.settings.heading != blank %}
+          <h1 class="ts-page__heading">{{ section.settings.heading }}</h1>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="ts-page__text rte">{{ section.settings.text }}</div>
+        {% endif %}
+
+        <div class="ts-page__hero-actions">
+          {% if section.settings.primary_label != blank %}
+            <a href="{{ section.settings.primary_link | default: '/pages/request-quote' }}" class="ts-page__btn ts-page__btn--primary">
+              {{ section.settings.primary_label }}
+            </a>
+          {% endif %}
+
+          {% if section.settings.secondary_label != blank %}
+            <a href="#ts-process" class="ts-page__btn ts-page__btn--secondary">
+              {{ section.settings.secondary_label }}
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts-page__section ts-page__section--light" id="ts-process">
+    <div class="page-width">
+      <div class="ts-page__section-intro">
+        <p class="ts-page__section-eyebrow">{{ section.settings.process_eyebrow }}</p>
+        <h2 class="ts-page__section-heading">{{ section.settings.process_heading }}</h2>
+        <div class="ts-page__section-text rte">{{ section.settings.process_text }}</div>
+      </div>
+
+      <div class="ts-page__steps">
+        <div class="ts-page__step">
+          <span class="ts-page__step-num">01</span>
+          <h3 class="ts-page__step-title">{{ section.settings.step_1_title }}</h3>
+          <p class="ts-page__step-text">{{ section.settings.step_1_text }}</p>
+        </div>
+
+        <div class="ts-page__step">
+          <span class="ts-page__step-num">02</span>
+          <h3 class="ts-page__step-title">{{ section.settings.step_2_title }}</h3>
+          <p class="ts-page__step-text">{{ section.settings.step_2_text }}</p>
+        </div>
+
+        <div class="ts-page__step">
+          <span class="ts-page__step-num">03</span>
+          <h3 class="ts-page__step-title">{{ section.settings.step_3_title }}</h3>
+          <p class="ts-page__step-text">{{ section.settings.step_3_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts-page__section ts-page__section--dark">
+    <div class="page-width">
+      <div class="ts-page__section-intro ts-page__section-intro--dark">
+        <p class="ts-page__section-eyebrow">{{ section.settings.benefits_eyebrow }}</p>
+        <h2 class="ts-page__section-heading">{{ section.settings.benefits_heading }}</h2>
+        <div class="ts-page__section-text rte">{{ section.settings.benefits_text }}</div>
+      </div>
+
+      <div class="ts-page__cards">
+        <div class="ts-page__card">
+          <h3 class="ts-page__card-title">{{ section.settings.benefit_1_title }}</h3>
+          <p class="ts-page__card-text">{{ section.settings.benefit_1_text }}</p>
+        </div>
+
+        <div class="ts-page__card">
+          <h3 class="ts-page__card-title">{{ section.settings.benefit_2_title }}</h3>
+          <p class="ts-page__card-text">{{ section.settings.benefit_2_text }}</p>
+        </div>
+
+        <div class="ts-page__card">
+          <h3 class="ts-page__card-title">{{ section.settings.benefit_3_title }}</h3>
+          <p class="ts-page__card-text">{{ section.settings.benefit_3_text }}</p>
+        </div>
+
+        <div class="ts-page__card">
+          <h3 class="ts-page__card-title">{{ section.settings.benefit_4_title }}</h3>
+          <p class="ts-page__card-text">{{ section.settings.benefit_4_text }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ts-page__section ts-page__section--white">
+    <div class="page-width">
+      <div class="ts-page__cta">
+        <p class="ts-page__cta-eyebrow">{{ section.settings.cta_eyebrow }}</p>
+        <h2 class="ts-page__cta-heading">{{ section.settings.cta_heading }}</h2>
+        <div class="ts-page__cta-text rte">{{ section.settings.cta_text }}</div>
+
+        {% if section.settings.cta_button_label != blank %}
+          <a href="{{ section.settings.cta_button_link | default: '/pages/request-quote' }}" class="ts-page__btn ts-page__btn--primary">
+            {{ section.settings.cta_button_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ts-page {
+    color: #111111;
+  }
+
+  .ts-page__hero {
+    padding: 84px 0 72px;
+    background:
+      radial-gradient(circle at top right, rgba(196,18,48,0.22), transparent 28%),
+      linear-gradient(135deg, #0f0f10 0%, #171717 58%, #1f1f1f 100%);
+    color: #ffffff;
+  }
+
+  .ts-page__hero-inner {
+    max-width: 840px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .ts-page__eyebrow,
+  .ts-page__section-eyebrow,
+  .ts-page__cta-eyebrow {
+    margin: 0 0 12px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .ts-page__heading,
+  .ts-page__section-heading,
+  .ts-page__cta-heading {
+    margin: 0 0 16px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(3.2rem, 5vw, 6rem);
+    line-height: 0.94;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .ts-page__text,
+  .ts-page__section-text,
+  .ts-page__cta-text {
+    font-size: 1.6rem;
+    line-height: 1.75;
+  }
+
+  .ts-page__text {
+    color: rgba(255,255,255,0.78);
+  }
+
+  .ts-page__hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .ts-page__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 24px;
+    border: 2px solid transparent;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    transition: all 0.22s ease;
+  }
+
+  .ts-page__btn--primary {
+    background: #c41230;
+    border-color: #c41230;
+    color: #ffffff;
+  }
+
+  .ts-page__btn--primary:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #111111;
+  }
+
+  .ts-page__btn--secondary {
+    background: transparent;
+    border-color: rgba(255,255,255,0.45);
+    color: #ffffff;
+  }
+
+  .ts-page__btn--secondary:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #111111;
+  }
+
+  .ts-page__section {
+    padding: 78px 0;
+  }
+
+  .ts-page__section--light {
+    background: #f5f5f5;
+  }
+
+  .ts-page__section--dark {
+    background: #111111;
+    color: #ffffff;
+  }
+
+  .ts-page__section--white {
+    background: #ffffff;
+  }
+
+  .ts-page__section-intro {
+    max-width: 760px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+
+  .ts-page__section-intro--dark .ts-page__section-text {
+    color: rgba(255,255,255,0.76);
+  }
+
+  .ts-page__section--light .ts-page__section-text,
+  .ts-page__section--white .ts-page__section-text,
+  .ts-page__cta-text {
+    color: #555555;
+  }
+
+  .ts-page__steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .ts-page__step,
+  .ts-page__card {
+    padding: 26px 22px;
+    background: #ffffff;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 6px 0 #d9d9d9, 0 10px 24px rgba(0,0,0,0.06);
+  }
+
+  .ts-page__step-num {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-family: var(--sole-heading-font);
+    font-size: 2.8rem;
+    line-height: 1;
+    font-weight: 900;
+    color: #c41230;
+  }
+
+  .ts-page__step-title,
+  .ts-page__card-title {
+    margin: 0 0 10px;
+    font-family: var(--sole-heading-font);
+    font-size: 2rem;
+    line-height: 0.98;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .ts-page__step-text,
+  .ts-page__card-text {
+    margin: 0;
+    font-size: 1.45rem;
+    line-height: 1.7;
+    color: #555555;
+  }
+
+  .ts-page__cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .ts-page__section--dark .ts-page__card {
+    background: #1a1a1a;
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 6px 0 #000000, 0 10px 24px rgba(0,0,0,0.18);
+  }
+
+  .ts-page__section--dark .ts-page__card-title {
+    color: #ffffff;
+  }
+
+  .ts-page__section--dark .ts-page__card-text {
+    color: rgba(255,255,255,0.76);
+  }
+
+  .ts-page__cta {
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 44px 30px;
+    background: linear-gradient(135deg, #111111 0%, #1b1b1b 70%, #c41230 150%);
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.14);
+  }
+
+  .ts-page__cta .ts-page__cta-text,
+  .ts-page__cta .ts-page__cta-text * {
+    color: rgba(255,255,255,0.86);
+  }
+
+  @media screen and (max-width: 989px) {
+    .ts-page__hero,
+    .ts-page__section {
+      padding: 64px 0;
+    }
+
+    .ts-page__steps,
+    .ts-page__cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ts-page__hero-actions {
+      align-items: stretch;
+    }
+
+    .ts-page__btn {
+      width: 100%;
+    }
+
+    .ts-page__cta {
+      padding: 32px 20px;
+    }
+  }
+  .ts-page__hero,
+.ts-page__hero .ts-page__heading,
+.ts-page__hero .ts-page__text,
+.ts-page__hero .ts-page__text *,
+.ts-page__hero .rte,
+.ts-page__hero .rte *,
+.ts-page__hero p,
+.ts-page__hero li,
+.ts-page__hero span,
+.ts-page__hero strong,
+.ts-page__hero em,
+.ts-page__hero a {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.ts-page__section--dark,
+.ts-page__section--dark .ts-page__section-heading,
+.ts-page__section--dark .ts-page__section-text,
+.ts-page__section--dark .ts-page__section-text *,
+.ts-page__section--dark .rte,
+.ts-page__section--dark .rte *,
+.ts-page__section--dark p,
+.ts-page__section--dark li,
+.ts-page__section--dark span,
+.ts-page__section--dark strong,
+.ts-page__section--dark em,
+.ts-page__section--dark a,
+.ts-page__section--dark .ts-page__card-title,
+.ts-page__section--dark .ts-page__card-text {
+  color: rgba(255,255,255,0.9) !important;
+}
+
+.ts-page__cta,
+.ts-page__cta .ts-page__cta-heading,
+.ts-page__cta .ts-page__cta-text,
+.ts-page__cta .ts-page__cta-text *,
+.ts-page__cta .rte,
+.ts-page__cta .rte *,
+.ts-page__cta p,
+.ts-page__cta li,
+.ts-page__cta span,
+.ts-page__cta strong,
+.ts-page__cta em,
+.ts-page__cta a {
+  color: rgba(255,255,255,0.92) !important;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Team Stores Page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Team Stores" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Custom Online Stores for Teams, Schools, and Organizations" },
+    { "type": "richtext", "id": "text", "label": "Hero text", "default": "<p>We build custom online stores that make it easy for your group to order branded apparel and merch without the headache of collecting sizes, payments, or order details manually.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Start a Team Store" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "How It Works" },
+
+    { "type": "text", "id": "process_eyebrow", "label": "Process eyebrow", "default": "Simple Process" },
+    { "type": "text", "id": "process_heading", "label": "Process heading", "default": "How Team Stores Work" },
+    { "type": "richtext", "id": "process_text", "label": "Process text", "default": "<p>We help organize the store setup, product selection, and artwork so your group can share one clean link and let people order directly.</p>" },
+    { "type": "text", "id": "step_1_title", "label": "Step 1 title", "default": "Plan the Store" },
+    { "type": "textarea", "id": "step_1_text", "label": "Step 1 text", "default": "We review your goals, audience, items, and timeline to build the right store setup." },
+    { "type": "text", "id": "step_2_title", "label": "Step 2 title", "default": "Launch and Share" },
+    { "type": "textarea", "id": "step_2_text", "label": "Step 2 text", "default": "Once approved, your team gets a dedicated store link to share with members, parents, fans, or staff." },
+    { "type": "text", "id": "step_3_title", "label": "Step 3 title", "default": "Collect and Produce" },
+    { "type": "textarea", "id": "step_3_text", "label": "Step 3 text", "default": "Orders are collected through the store window, then we organize production and fulfillment." },
+
+    { "type": "text", "id": "benefits_eyebrow", "label": "Benefits eyebrow", "default": "Best For" },
+    { "type": "text", "id": "benefits_heading", "label": "Benefits heading", "default": "Why Teams and Organizations Use Them" },
+    { "type": "richtext", "id": "benefits_text", "label": "Benefits text", "default": "<p>Team stores help keep ordering simple, organized, and easier to manage for everyone involved.</p>" },
+    { "type": "text", "id": "benefit_1_title", "label": "Benefit 1 title", "default": "No Manual Order Collection" },
+    { "type": "textarea", "id": "benefit_1_text", "label": "Benefit 1 text", "default": "No more chasing down sizes, payments, or handwritten order forms." },
+    { "type": "text", "id": "benefit_2_title", "label": "Benefit 2 title", "default": "Branded Experience" },
+    { "type": "textarea", "id": "benefit_2_text", "label": "Benefit 2 text", "default": "Your group gets a polished store page that feels organized and professional." },
+    { "type": "text", "id": "benefit_3_title", "label": "Benefit 3 title", "default": "Flexible for Different Groups" },
+    { "type": "textarea", "id": "benefit_3_text", "label": "Benefit 3 text", "default": "Great for schools, sports teams, clubs, staff stores, events, and fundraisers." },
+    { "type": "text", "id": "benefit_4_title", "label": "Benefit 4 title", "default": "Cleaner Fulfillment Flow" },
+    { "type": "textarea", "id": "benefit_4_text", "label": "Benefit 4 text", "default": "Orders are organized in one place so production and delivery are easier to manage." },
+
+    { "type": "text", "id": "cta_eyebrow", "label": "CTA eyebrow", "default": "Ready to Launch?" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "Let’s Build Your Team Store" },
+    { "type": "richtext", "id": "cta_text", "label": "CTA text", "default": "<p>If you want to set up a store for your team, school, business, or event, send us the basics and we’ll help map out the best setup.</p>" },
+    { "type": "text", "id": "cta_button_label", "label": "CTA button label", "default": "Request a Team Store" },
+    { "type": "url", "id": "cta_button_link", "label": "CTA button link" }
+  ],
+  "presets": [
+    { "name": "Team Stores Page" }
+  ]
+}
+{% endschema %}

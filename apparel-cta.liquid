@@ -1,0 +1,528 @@
+{% comment %}
+  Apparel Collection Hero — sections/apparel-collection-hero.liquid
+  - Branded black header with breadcrumb
+  - Category switcher pill bar
+  - Collapsible filter dropdowns (tag-based, native Shopify URL params)
+{% endcomment %}
+
+{% liquid
+  assign current_handle = collection.handle
+  assign current_tags = current_tags | default: collection.current_type
+%}
+
+<div class="ac-wrap">
+
+  <!-- ── HEADER ── -->
+  <div class="ac-header">
+    <div class="page-width">
+      <div class="ac-header__inner">
+        <div class="ac-header__left">
+          <nav class="ac-breadcrumb" aria-label="Breadcrumb">
+            <a href="/" class="ac-breadcrumb__link">Home</a>
+            <span class="ac-breadcrumb__sep">→</span>
+            <a href="/pages/apparel" class="ac-breadcrumb__link">Apparel</a>
+            <span class="ac-breadcrumb__sep">→</span>
+            <span class="ac-breadcrumb__current">{{ collection.title }}</span>
+          </nav>
+          <h1 class="ac-header__title">{{ collection.title }}</h1>
+        </div>
+        <div class="ac-header__right">
+          <span class="ac-header__count">{{ collection.products_count }} Style{% if collection.products_count != 1 %}s{% endif %}</span>
+          <span class="ac-header__tag">· Add Any Item to Quote</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CATEGORY SWITCHER ── -->
+  <div class="ac-cats">
+    <div class="page-width">
+      <div class="ac-cats__inner">
+        <span class="ac-cats__label">Category</span>
+        <div class="ac-cats__pills">
+          {% for block in section.blocks %}
+            {% if block.type == 'category' %}
+              
+                href="{{ block.settings.collection_link }}"
+                class="ac-cats__pill{% if current_handle == block.settings.collection_handle %} ac-cats__pill--active{% endif %}"
+              >
+                {{ block.settings.label }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FILTER BAR ── -->
+  <div class="ac-filters" id="ac-filter-bar">
+    <div class="page-width">
+      <div class="ac-filters__inner">
+        <span class="ac-filters__label">Filter By</span>
+
+        <div class="ac-filters__dropdowns">
+
+          <!-- Gender -->
+          <div class="ac-filter" data-filter="gender">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Gender
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% assign gender_filters = 'Unisex,Womens Cut,Youth' | split: ',' %}
+              {% assign gender_tags = 'fit:unisex,fit:womens,fit:youth' | split: ',' %}
+              {% for label in gender_filters %}
+                {% assign tag = gender_tags[forloop.index0] %}
+                <a href="{{ collection.url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags contains tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags contains tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ collection.url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          <!-- Size -->
+          <div class="ac-filter" data-filter="size">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Size
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% assign sizes = 'XS,S,M,L,XL,2XL,3XL,4XL' | split: ',' %}
+              {% for size in sizes %}
+                {% assign size_tag = 'size:' | append: size | downcase %}
+                <a href="{{ collection.url }}?filter.p.tag={{ size_tag | url_encode }}" class="ac-filter__option{% if current_tags contains size_tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags contains size_tag %}✓{% endif %}</span>
+                  {{ size }}
+                </a>
+              {% endfor %}
+              <a href="{{ collection.url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+                    <!-- Decoration -->
+          <div class="ac-filter" data-filter="decoration">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Decoration
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% assign decoration_labels = 'Screen Print,Embroidery,DTF,Heat Transfer,Sublimation' | split: ',' %}
+              {% assign decoration_tags = 'deco:screen-print,deco:embroidery,deco:dtf,deco:heat-transfer,deco:sublimation' | split: ',' %}
+              {% for label in decoration_labels %}
+                {% assign tag = decoration_tags[forloop.index0] %}
+                <a href="{{ collection.url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags contains tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags contains tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ collection.url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          <!-- Hood -->
+          <div class="ac-filter" data-filter="hood">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Hood
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% assign hood_labels = 'Has Hood,No Hood,Full Zip,Quarter Zip' | split: ',' %}
+              {% assign hood_tags = 'hood:yes,hood:no,hood:fullzip,hood:quarterzip' | split: ',' %}
+              {% for label in hood_labels %}
+                {% assign tag = hood_tags[forloop.index0] %}
+                <a href="{{ collection.url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags contains tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags contains tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ collection.url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          <!-- Weight -->
+          <div class="ac-filter" data-filter="weight">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Weight
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none">
+                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% assign weight_labels = 'Lightweight,Midweight,Heavyweight,Performance' | split: ',' %}
+              {% assign weight_tags = 'weight:lightweight,weight:midweight,weight:heavyweight,weight:performance' | split: ',' %}
+              {% for label in weight_labels %}
+                {% assign tag = weight_tags[forloop.index0] %}
+                <a href="{{ collection.url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags contains tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags contains tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ collection.url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        <!-- Active filter tags + clear all -->
+        <div class="ac-filters__active" id="ac-active-tags">
+          {% if collection.url contains '?' %}
+            <a href="{{ collection.url }}" class="ac-filters__clear-all">✕ Clear all filters</a>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  /* ── HEADER ── */
+  .ac-wrap { border-bottom: 1px solid #e0e0e0; }
+
+  .ac-header {
+    background: #111111;
+    padding: 32px 0 24px;
+    border-bottom: 3px solid #c41230;
+  }
+  .ac-header__inner {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .ac-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .ac-breadcrumb__link {
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s;
+  }
+  .ac-breadcrumb__link:hover { color: #c41230; }
+  .ac-breadcrumb__sep { color: rgba(255,255,255,0.2); font-size: 1rem; }
+  .ac-breadcrumb__current {
+    color: rgba(255,255,255,0.75);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .ac-header__title {
+    margin: 0;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.8rem, 4vw, 4.8rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+  .ac-header__right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 4px;
+    flex-shrink: 0;
+  }
+  .ac-header__count {
+    background: #c41230;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+  }
+  .ac-header__tag {
+    color: rgba(255,255,255,0.45);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CATEGORY PILLS ── */
+  .ac-cats {
+    background: #1a1a1a;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .ac-cats__inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ac-cats__inner::-webkit-scrollbar { display: none; }
+  .ac-cats__label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ac-cats__pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+  .ac-cats__pill {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+  .ac-cats__pill:hover {
+    border-color: #c41230;
+    color: #ffffff;
+    background: rgba(196,18,48,0.15);
+  }
+  .ac-cats__pill--active {
+    background: #c41230 !important;
+    border-color: #c41230 !important;
+    color: #ffffff !important;
+  }
+
+  /* ── FILTER BAR ── */
+  .ac-filters {
+    background: #ffffff;
+    border-bottom: 2px solid #eeeeee;
+    position: sticky;
+    top: 56px;
+    z-index: 30;
+  }
+  .ac-filters__inner {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    min-height: 52px;
+    flex-wrap: wrap;
+  }
+  .ac-filters__label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999999;
+    padding-right: 16px;
+    white-space: nowrap;
+    border-right: 1px solid #eeeeee;
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+  }
+  .ac-filters__dropdowns {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+  .ac-filters__active {
+    margin-left: auto;
+    padding: 0 0 0 12px;
+  }
+  .ac-filters__clear-all {
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .ac-filters__clear-all:hover { color: #111111; }
+
+  /* ── FILTER DROPDOWN ── */
+  .ac-filter {
+    position: relative;
+    border-right: 1px solid #eeeeee;
+  }
+  .ac-filter__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 52px;
+    padding: 0 18px;
+    background: none;
+    border: none;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #111111;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+    white-space: nowrap;
+  }
+  .ac-filter__trigger:hover { color: #c41230; background: #fafafa; }
+  .ac-filter__trigger[aria-expanded="true"] { color: #c41230; }
+  .ac-filter__trigger[aria-expanded="true"] .ac-filter__chevron { transform: rotate(180deg); }
+  .ac-filter__chevron { transition: transform 0.2s ease; flex-shrink: 0; }
+
+  .ac-filter__panel {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    min-width: 200px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-top: 3px solid #c41230;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    z-index: 50;
+    padding: 8px 0;
+  }
+  .ac-filter__panel[hidden] { display: none; }
+
+  .ac-filter__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    color: #333333;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+  }
+  .ac-filter__option:hover { background: #f5f5f5; color: #c41230; }
+  .ac-filter__option--active { color: #c41230; font-weight: 700; }
+  .ac-filter__check {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #d0d0d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #c41230;
+    flex-shrink: 0;
+    transition: border-color 0.2s;
+  }
+  .ac-filter__option--active .ac-filter__check { border-color: #c41230; background: rgba(196,18,48,0.08); }
+  .ac-filter__clear {
+    display: block;
+    padding: 8px 18px;
+    margin-top: 4px;
+    border-top: 1px solid #eeeeee;
+    color: #999999;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .ac-filter__clear:hover { color: #c41230; }
+
+  /* ── RESPONSIVE ── */
+  @media screen and (max-width: 989px) {
+    .ac-header__right { display: none; }
+    .ac-filters { top: 0; position: relative; }
+    .ac-filters__label { display: none; }
+    .ac-filter__trigger { padding: 0 12px; font-size: 1.15rem; }
+  }
+  @media screen and (max-width: 749px) {
+    .ac-filters__dropdowns { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+    .ac-filters__dropdowns::-webkit-scrollbar { display: none; }
+    .ac-filters__active { display: none; }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const filters = document.querySelectorAll('.ac-filter');
+
+    filters.forEach(function(filter) {
+      const trigger = filter.querySelector('.ac-filter__trigger');
+      const panel = filter.querySelector('.ac-filter__panel');
+
+      trigger.addEventListener('click', function(e) {
+        const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+        // Close all others first
+        filters.forEach(function(f) {
+          f.querySelector('.ac-filter__trigger').setAttribute('aria-expanded', 'false');
+          f.querySelector('.ac-filter__panel').hidden = true;
+        });
+
+        // Toggle this one
+        if (!isOpen) {
+          trigger.setAttribute('aria-expanded', 'true');
+          panel.hidden = false;
+        }
+      });
+    });
+
+    // Close on click outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.ac-filter')) {
+        filters.forEach(function(f) {
+          f.querySelector('.ac-filter__trigger').setAttribute('aria-expanded', 'false');
+          f.querySelector('.ac-filter__panel').hidden = true;
+        });
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Apparel Collection Header",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Pill",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "T-Shirts" },
+        { "type": "url", "id": "collection_link", "label": "Collection link" },
+        { "type": "text", "id": "collection_handle", "label": "Collection handle (exact)", "info": "e.g. apparel-tshirts — used to highlight the active pill", "default": "apparel-tshirts" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apparel Collection Header",
+      "blocks": [
+        { "type": "category", "settings": { "label": "T-Shirts", "collection_link": "/collections/apparel-tshirts", "collection_handle": "apparel-tshirts" } },
+        { "type": "category", "settings": { "label": "Hoodies", "collection_link": "/collections/apparel-hoodies", "collection_handle": "apparel-hoodies" } },
+        { "type": "category", "settings": { "label": "Polos", "collection_link": "/collections/apparel-polos", "collection_handle": "apparel-polos" } },
+        { "type": "category", "settings": { "label": "Hats", "collection_link": "/collections/apparel-hats", "collection_handle": "apparel-hats" } },
+        { "type": "category", "settings": { "label": "Outerwear", "collection_link": "/collections/apparel-outerwear", "collection_handle": "apparel-outerwear" } },
+        { "type": "category", "settings": { "label": "Youth", "collection_link": "/collections/apparel-youth", "collection_handle": "apparel-youth" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
