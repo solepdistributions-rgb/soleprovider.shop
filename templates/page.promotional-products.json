@@ -35,7 +35,7 @@
           "type": "category_card",
           "settings": {
             "title": "Bags",
-            "link": ""
+            "link": "/pages/bags"
           }
         },
         "category_card_3": {
@@ -49,20 +49,13 @@
           "type": "category_card",
           "settings": {
             "title": "Accessories",
-            "link": ""
+            "link": "/pages/accessories"
           }
         },
         "category_card_5": {
           "type": "category_card",
           "settings": {
             "title": "Signage & Print",
-            "link": ""
-          }
-        },
-        "category_card_6": {
-          "type": "category_card",
-          "settings": {
-            "title": "Giveaways",
             "link": ""
           }
         }
@@ -72,8 +65,7 @@
         "category_card_2",
         "category_card_3",
         "category_card_4",
-        "category_card_5",
-        "category_card_6"
+        "category_card_5"
       ],
       "settings": {
         "eyebrow": "Browse Categories",
