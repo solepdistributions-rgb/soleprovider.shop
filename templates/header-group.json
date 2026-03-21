@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "gd_hero": {
+      "type": "graphic-design-hero",
+      "settings": {}
+    },
+    "gd_work": {
+      "type": "graphic-design-work",
+      "settings": {}
+    },
+    "gd_quote": {
+      "type": "graphic-design-quote",
+      "settings": {}
+    },
+    "gd_cta": {
+      "type": "graphic-design-cta",
+      "settings": {}
+    }
+  },
+  "order": ["gd_hero", "gd_work", "gd_quote", "gd_cta"]
+}

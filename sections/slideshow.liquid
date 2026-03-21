@@ -1,0 +1,324 @@
+<section class="service-paths">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <div class="service-paths__intro">
+        <p class="service-paths__eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="service-paths__heading">{{ section.settings.heading }}</h2>
+        {% if section.settings.subheading != blank %}
+          <p class="service-paths__subheading">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="service-paths__grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="service-card" {{ block.shopify_attributes }}>
+          <div class="service-card__media">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 900 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            {% else %}
+              <div class="service-card__icon-wrap">
+                <span class="service-card__icon">{{ block.settings.icon_text }}</span>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="service-card__content">
+            <h3 class="service-card__title">{{ block.settings.title }}</h3>
+
+            {% if block.settings.text != blank %}
+              <p class="service-card__text">{{ block.settings.text }}</p>
+            {% endif %}
+
+            <span class="service-card__cta">{{ block.settings.cta_text }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .service-paths {
+    padding: 72px 0;
+    background: #ffffff;
+  }
+
+  .service-paths__intro {
+    max-width: 760px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  .service-paths__eyebrow {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c41230;
+  }
+
+  .service-paths__heading {
+    margin: 0 0 12px;
+    font-size: clamp(2.4rem, 4vw, 4rem);
+    line-height: 1.05;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .service-paths__subheading {
+    margin: 0;
+    font-size: 1.7rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+  }
+
+  .service-paths__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid rgba(17, 17, 17, 0.1);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    color: inherit;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+    border-color: rgba(196, 18, 48, 0.3);
+  }
+
+  .service-card__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: linear-gradient(135deg, #121212 0%, #1f1f1f 100%);
+    overflow: hidden;
+  }
+
+  .service-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .service-card__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background:
+      linear-gradient(135deg, rgba(196,18,48,0.96) 0%, rgba(17,17,17,1) 100%);
+  }
+
+  .service-card__icon {
+    color: #ffffff;
+    font-size: clamp(2.4rem, 4vw, 4.8rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .service-card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px 20px 24px;
+    flex: 1 1 auto;
+  }
+
+  .service-card__title {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.1;
+    font-weight: 800;
+    color: #111111;
+  }
+
+  .service-card__text {
+    margin: 0;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    color: #505050;
+    flex-grow: 1;
+  }
+
+  .service-card__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #c41230;
+  }
+
+  .service-card__cta::after {
+    content: "→";
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 989px) {
+    .service-paths {
+      padding: 56px 0;
+    }
+
+    .service-paths__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .service-paths__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card__content {
+      padding: 20px 18px 22px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Service Path Cards",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Explore Services"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for Businesses, Universities, and Ideas"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Service Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card title",
+          "default": "Promotional Products"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Card text",
+          "default": "Custom merch, promotional products, and branded items built for your audience."
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "CTA text",
+          "default": "Explore"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "text",
+          "id": "icon_text",
+          "label": "Fallback icon text",
+          "default": "SP"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service Path Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Products & Apparel",
+            "text": "Custom merch, promotional products, and branded goods built for your audience.",
+            "cta_text": "Explore",
+            "icon_text": "PA"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Graphic Design Services",
+            "text": "Creative support for apparel, branding, print pieces, and promotional visuals.",
+            "cta_text": "View Design",
+            "icon_text": "GD"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Portfolio",
+            "text": "See past work, creative projects, and branding examples.",
+            "cta_text": "View Work",
+            "icon_text": "PF"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Exclusive Drops",
+            "text": "Shop Sole Provider products, featured pieces, and exclusive releases.",
+            "cta_text": "Shop Drops",
+            "icon_text": "XD"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Team Stores",
+            "text": "Shop active stores for schools, teams, organizations, and group orders.",
+            "cta_text": "View Stores",
+            "icon_text": "TS"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Request Quote",
+            "text": "Tell us what you need and we’ll help bring your project to life.",
+            "cta_text": "Start Here",
+            "icon_text": "RQ"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

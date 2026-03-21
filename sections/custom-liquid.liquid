@@ -1,0 +1,461 @@
+<section class="contact-page-section">
+  <div class="page-width">
+    <div class="contact-page-section__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="contact-page-section__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="contact-page-section__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="contact-page-section__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="contact-page-section__layout">
+      <div class="contact-page-section__main">
+        {% form 'contact', class: 'contact-page-form', id: 'ContactPageForm' %}
+          {% if form.posted_successfully? %}
+            <div class="contact-page-form__message contact-page-form__message--success" tabindex="-1" autofocus>
+              Thanks — your message was sent. We’ll get back to you soon.
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="contact-page-form__message contact-page-form__message--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <input type="hidden" name="contact[inquiry_type]" value="General Contact">
+
+          <div class="contact-page-form__grid">
+            <div class="contact-page-field">
+              <label class="contact-page-field__label" for="ContactPage-name">Name *</label>
+              <input
+                class="contact-page-field__input"
+                id="ContactPage-name"
+                type="text"
+                name="contact[name]"
+                value="{% if form.name %}{{ form.name | escape }}{% endif %}"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="contact-page-field">
+              <label class="contact-page-field__label" for="ContactPage-company">Business / Organization</label>
+              <input
+                class="contact-page-field__input"
+                id="ContactPage-company"
+                type="text"
+                name="contact[company]"
+                value="{{ form.company | escape }}"
+                autocomplete="organization"
+              >
+            </div>
+
+            <div class="contact-page-field">
+              <label class="contact-page-field__label" for="ContactPage-email">Email *</label>
+              <input
+                class="contact-page-field__input"
+                id="ContactPage-email"
+                type="email"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email | escape }}{% endif %}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                required
+              >
+            </div>
+
+            <div class="contact-page-field">
+              <label class="contact-page-field__label" for="ContactPage-phone">Phone</label>
+              <input
+                class="contact-page-field__input"
+                id="ContactPage-phone"
+                type="tel"
+                name="contact[phone]"
+                value="{% if form.phone %}{{ form.phone | escape }}{% endif %}"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="contact-page-field contact-page-field--full">
+              <label class="contact-page-field__label" for="ContactPage-topic">What can we help with?</label>
+              <select class="contact-page-field__input contact-page-field__select" id="ContactPage-topic" name="contact[topic]">
+                <option value="">Select one</option>
+                <option value="General Question">General Question</option>
+                <option value="Order Help">Order Help</option>
+                <option value="Artwork / Design Question">Artwork / Design Question</option>
+                <option value="Team Stores">Team Stores</option>
+                <option value="Promo Products">Promo Products</option>
+                <option value="Apparel">Apparel</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="contact-page-field contact-page-field--full">
+              <label class="contact-page-field__label" for="ContactPage-message">Message *</label>
+              <textarea
+                class="contact-page-field__input contact-page-field__textarea"
+                id="ContactPage-message"
+                name="contact[body]"
+                rows="8"
+                required
+                placeholder="Tell us what you need help with and include any helpful details."
+              >{% if form.body %}{{ form.body | escape }}{% endif %}</textarea>
+            </div>
+          </div>
+
+          <div class="contact-page-form__footer">
+            <p class="contact-page-form__note">
+              Need pricing, custom apparel, branded merchandise, or design work? Use the Request Quote page for faster project help.
+            </p>
+
+            <button class="contact-page-form__submit" type="submit">
+              {{ section.settings.button_label }}
+            </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <aside class="contact-page-section__side">
+        <div class="contact-side-card">
+          <h2 class="contact-side-card__title">{{ section.settings.side_heading }}</h2>
+          <div class="contact-side-card__text rte">{{ section.settings.side_text }}</div>
+        </div>
+
+        <div class="contact-side-card contact-side-card--dark">
+          <h3 class="contact-side-card__title contact-side-card__title--small">{{ section.settings.help_heading }}</h3>
+          <div class="contact-side-card__text rte">{{ section.settings.help_text }}</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-page-section {
+    padding: 84px 0;
+    background:
+      radial-gradient(circle at top right, rgba(196,18,48,0.08), transparent 25%),
+      #f5f5f5;
+    color: #111111;
+  }
+
+  .contact-page-section__intro {
+    max-width: 780px;
+    margin: 0 auto 42px;
+    text-align: center;
+  }
+
+  .contact-page-section__eyebrow {
+    margin: 0 0 12px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .contact-page-section__heading {
+    margin: 0 0 14px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(3rem, 5vw, 5.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .contact-page-section__text {
+    font-size: 1.6rem;
+    line-height: 1.75;
+    color: #555555;
+  }
+
+  .contact-page-section__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .contact-page-section__main,
+  .contact-side-card {
+    background: #ffffff;
+    border: 1px solid #e4e4e4;
+    box-shadow: 0 6px 0 #d9d9d9, 0 12px 28px rgba(0,0,0,0.06);
+  }
+
+  .contact-page-section__main {
+    padding: 32px;
+  }
+
+  .contact-page-form__message {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    border-left: 4px solid #c41230;
+  }
+
+  .contact-page-form__message--success {
+    background: #f2f8f2;
+    border-left-color: #2e7d32;
+  }
+
+  .contact-page-form__message--error {
+    background: #fff3f3;
+    border-left-color: #c41230;
+  }
+
+  .contact-page-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .contact-page-field {
+    min-width: 0;
+  }
+
+  .contact-page-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .contact-page-field__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .contact-page-field__input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 16px;
+    border: 1px solid #d8d8d8;
+    background: #ffffff;
+    color: #111111;
+    font-size: 1.45rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .contact-page-field__input:focus {
+    outline: none;
+    border-color: #c41230;
+    box-shadow: 0 0 0 2px rgba(196,18,48,0.12);
+  }
+
+  .contact-page-field__select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #111111 50%),
+      linear-gradient(135deg, #111111 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) calc(50% - 3px),
+      calc(100% - 12px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 36px;
+  }
+
+  .contact-page-field__textarea {
+    min-height: 180px;
+    padding: 14px 16px;
+    resize: vertical;
+  }
+
+  .contact-page-form__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+
+  .contact-page-form__note {
+    margin: 0;
+    max-width: 500px;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #666666;
+  }
+
+  .contact-page-form__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 26px;
+    border: 2px solid #c41230;
+    background: #c41230;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+
+  .contact-page-form__submit:hover {
+    background: #111111;
+    border-color: #111111;
+  }
+
+  .contact-page-section__side {
+    display: grid;
+    gap: 18px;
+  }
+
+  .contact-side-card {
+    padding: 24px;
+  }
+
+  .contact-side-card--dark {
+    background: #111111;
+    border-color: #111111;
+    box-shadow: 0 6px 0 #000000, 0 12px 28px rgba(0,0,0,0.16);
+    color: #ffffff;
+  }
+
+  .contact-side-card__title {
+    margin: 0 0 12px;
+    font-family: var(--sole-heading-font);
+    font-size: 2.4rem;
+    line-height: 0.98;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .contact-side-card__title--small {
+    font-size: 2rem;
+  }
+
+  .contact-side-card__text {
+    font-size: 1.45rem;
+    line-height: 1.7;
+    color: #555555;
+  }
+
+  .contact-side-card--dark,
+  .contact-side-card--dark .contact-side-card__title,
+  .contact-side-card--dark .contact-side-card__title--small,
+  .contact-side-card--dark .contact-side-card__text,
+  .contact-side-card--dark .contact-side-card__text *,
+  .contact-side-card--dark .rte,
+  .contact-side-card--dark .rte *,
+  .contact-side-card--dark p,
+  .contact-side-card--dark li,
+  .contact-side-card--dark span,
+  .contact-side-card--dark strong,
+  .contact-side-card--dark em,
+  .contact-side-card--dark a {
+    color: rgba(255,255,255,0.92) !important;
+  }
+
+  .contact-side-card__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .contact-page-section {
+      padding: 64px 0;
+    }
+
+    .contact-page-section__layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .contact-page-section__main {
+      padding: 22px 18px;
+    }
+
+    .contact-page-form__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .contact-page-form__footer {
+      align-items: stretch;
+    }
+
+    .contact-page-form__submit {
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Contact Page Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Get in Touch"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Us"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>Have a question, need help, or want to talk through your next idea? Send us a message and we’ll point you in the right direction.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Send Message"
+    },
+    {
+      "type": "text",
+      "id": "side_heading",
+      "label": "Side card heading",
+      "default": "Best For"
+    },
+    {
+      "type": "richtext",
+      "id": "side_text",
+      "label": "Side card text",
+      "default": "<p>Use this page for general questions, order help, or anything that does not need a formal quote.</p>"
+    },
+    {
+      "type": "text",
+      "id": "help_heading",
+      "label": "Help card heading",
+      "default": "Need a Quote Instead?"
+    },
+    {
+      "type": "richtext",
+      "id": "help_text",
+      "label": "Help card text",
+      "default": "<p>If you need pricing, custom apparel, promo products, or design help, head to the Request Quote page so we can get the right details from the start.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Page Form"
+    }
+  ]
+}
+{% endschema %}

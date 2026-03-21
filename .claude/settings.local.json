@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'C:\\\\Users\\\\seand\\\\Claude Code' -type f -name *)",
+      "Bash(find 'C:\\\\Users\\\\seand\\\\Claude Code' -type f ! -path */.git/*)",
+      "Bash(done)",
+      "Bash(grep -l '{% schema %}' C:UsersseandClaude Code/*.liquid)",
+      "Bash(for f:*)",
+      "Bash(do if:*)",
+      "Bash(then echo:*)",
+      "Bash(fi)",
+      "Bash(ls -1 \"C:\\\\Users\\\\seand\\\\Claude Code\"/*.json)",
+      "Bash(xargs -I {} basename {})"
+    ]
+  }
+}

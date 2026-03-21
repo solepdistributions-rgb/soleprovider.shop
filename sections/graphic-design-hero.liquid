@@ -1,0 +1,192 @@
+{% liquid
+  assign primary_link = section.settings.primary_link | default: '/pages/request-quote'
+  assign secondary_link = section.settings.secondary_link | default: '/pages/portfolio#pf-design'
+%}
+
+<section class="gd-cta">
+  <div class="page-width">
+    <div class="gd-cta__card">
+      {% if section.settings.eyebrow != blank %}
+        <p class="gd-cta__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="gd-cta__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <p class="gd-cta__text">{{ section.settings.text }}</p>
+      {% endif %}
+
+      <div class="gd-cta__buttons">
+        {% if section.settings.primary_label != blank %}
+          <a href="{{ primary_link }}" class="gd-cta__btn gd-cta__btn--primary">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank %}
+  <a href="{{ secondary_link }}" class="gd-cta__btn gd-cta__btn--outline">
+    {{ section.settings.secondary_label }}
+  </a>
+{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .gd-cta {
+    padding: 84px 0;
+    background: #111111;
+  }
+
+  .gd-cta__card {
+    position: relative;
+    overflow: hidden;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 56px 44px;
+    text-align: center;
+    background: linear-gradient(135deg, #111111 0%, #1b1b1b 70%, #c41230 150%);
+    border-radius: 24px;
+    box-shadow: 0 24px 54px rgba(0,0,0,0.28);
+  }
+
+  .gd-cta__card::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -45%;
+    width: 32%;
+    height: 170%;
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(255,255,255,0.18) 45%,
+      rgba(255,255,255,0.32) 50%,
+      rgba(196,18,48,0.18) 55%,
+      rgba(255,255,255,0) 100%
+    );
+    transform: rotate(18deg);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .gd-cta__card:hover::before {
+    animation: gdCtaSheen 1.15s ease forwards;
+  }
+
+  @keyframes gdCtaSheen {
+    0% { left: -45%; opacity: 0; }
+    15% { opacity: 1; }
+    100% { left: 125%; opacity: 0; }
+  }
+
+  .gd-cta__card > * {
+    position: relative;
+    z-index: 3;
+  }
+
+  .gd-cta__eyebrow {
+    margin: 0 0 10px;
+    color: rgba(255,255,255,0.72);
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .gd-cta__heading {
+    margin: 0 0 16px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.8rem, 4vw, 4.8rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .gd-cta__text {
+    margin: 0 auto 28px;
+    max-width: 66rem;
+    font-size: 1.7rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.88);
+  }
+
+  .gd-cta__buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .gd-cta__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 26px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: 0.06em;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+  }
+
+  .gd-cta__btn--primary {
+    background: #c41230;
+    color: #ffffff;
+    border-color: #c41230;
+  }
+
+  .gd-cta__btn--primary:hover {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+  }
+
+  .gd-cta__btn--outline {
+    background: transparent;
+    color: #ffffff;
+    border-color: rgba(255,255,255,0.55);
+  }
+
+  .gd-cta__btn--outline:hover {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+  }
+
+  @media screen and (max-width: 989px) {
+    .gd-cta {
+      padding: 64px 0;
+    }
+
+    .gd-cta__card {
+      padding: 40px 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Graphic Design CTA",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Let's Create" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Ready to Build Something Great?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Whether you need a logo from scratch or artwork cleanup for production, our in-house team handles it all." },
+    { "type": "text", "id": "primary_label", "label": "Primary button", "default": "Request a Design Quote" },
+    { "type": "url", "id": "primary_link", "label": "Primary link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button", "default": "See Our Work" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link" }
+  ],
+  "presets": [
+    { "name": "Graphic Design CTA" }
+  ]
+}
+{% endschema %}

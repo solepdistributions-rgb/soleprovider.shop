@@ -1,0 +1,901 @@
+<section class="rq-form-section">
+  <div class="page-width">
+    <div class="rq-form-section__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="rq-form-section__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="rq-form-section__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="rq-form-section__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="rq-form-section__layout">
+      <div class="rq-form-section__main">
+        <div class="rq-project-context" id="rqProjectContext" hidden>
+          <div class="rq-project-context__media">
+            <img id="rqProjectContextImage" src="" alt="" hidden>
+          </div>
+          <div class="rq-project-context__content">
+            <h2 class="rq-project-context__title" id="rqProjectContextTitle"></h2>
+            <p class="rq-project-context__meta" id="rqProjectContextMeta"></p>
+          </div>
+        </div>
+
+        {% form 'contact', class: 'rq-form', id: 'RequestQuoteForm' %}
+          {% if form.posted_successfully? %}
+            <div class="rq-form__message rq-form__message--success rq-form__message--success-box" tabindex="-1" autofocus>
+              <strong>Your quote request was submitted successfully.</strong><br>
+              We’ll review your request and follow up soon. If you submitted files through the artwork upload form below, we’ll match them using the same Request ID.
+              <div id="rq-success-request-id" class="rq-form__success-request-id"></div>
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div class="rq-form__message rq-form__message--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <input type="hidden" name="contact[request_type]" value="Request Quote">
+          <input type="hidden" name="contact[source]" id="RequestQuote-source" value="">
+          <input type="hidden" name="contact[portfolio_project]" id="RequestQuote-portfolio-project" value="">
+          <input type="hidden" name="contact[portfolio_category]" id="RequestQuote-portfolio-category" value="">
+          <input type="hidden" name="contact[portfolio_client]" id="RequestQuote-portfolio-client" value="">
+          <input type="hidden" name="contact[portfolio_image]" id="RequestQuote-portfolio-image" value="">
+          <input type="hidden" name="contact[request_id]" id="RequestQuote-request-id" value="">
+          <input type="hidden" name="contact[source_page]" id="RequestQuote-source-page" value="">
+          <input type="hidden" id="rq-form-success-flag" value="{% if form.posted_successfully? %}true{% else %}false{% endif %}">
+
+          <div class="rq-form__grid">
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-name">Name *</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-name"
+                type="text"
+                name="contact[name]"
+                value="{% if form.name %}{{ form.name | escape }}{% endif %}"
+                autocomplete="name"
+                required
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-company">Business / Organization</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-company"
+                type="text"
+                name="contact[company]"
+                value="{{ form.company | escape }}"
+                autocomplete="organization"
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-email">Email *</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-email"
+                type="email"
+                name="contact[email]"
+                value="{% if form.email %}{{ form.email | escape }}{% endif %}"
+                autocomplete="email"
+                autocorrect="off"
+                autocapitalize="off"
+                required
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-phone">Phone</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-phone"
+                type="tel"
+                name="contact[phone]"
+                value="{% if form.phone %}{{ form.phone | escape }}{% endif %}"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-project-type">Project Type *</label>
+              <select class="rq-field__input rq-field__select" id="RequestQuote-project-type" name="contact[project_type]" required>
+                <option value="Apparel">Apparel</option>
+                <option value="Graphic Design">Graphic Design</option>
+                <option value="Promo Products">Promo Products</option>
+                <option value="Team Store">Team Store</option>
+                <option value="Multi-Service Project">Multi-Service Project</option>
+                <option value="Not Sure Yet">Not Sure Yet</option>
+              </select>
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-service">Service Needed</label>
+              <select class="rq-field__input rq-field__select" id="RequestQuote-service" name="contact[service_needed]">
+                <option value="">Select one</option>
+                <option value="Screen Print">Screen Print</option>
+                <option value="Embroidery">Embroidery</option>
+                <option value="DTF / Transfers">DTF / Transfers</option>
+                <option value="Logo Design">Logo Design</option>
+                <option value="Branding">Branding</option>
+                <option value="Team Store Setup">Team Store Setup</option>
+                <option value="Promo Item Sourcing">Promo Item Sourcing</option>
+                <option value="Artwork Cleanup">Artwork Cleanup</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-quantity">Estimated Quantity</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-quantity"
+                type="text"
+                name="contact[quantity]"
+                placeholder="Example: 24 shirts, 100 bottles, 1 logo package"
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-deadline">Desired Deadline</label>
+              <input
+                class="rq-field__input"
+                id="RequestQuote-deadline"
+                type="text"
+                name="contact[deadline]"
+                placeholder="Example: Need by May 15"
+              >
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-budget">Budget Range</label>
+              <select class="rq-field__input rq-field__select" id="RequestQuote-budget" name="contact[budget_range]">
+                <option value="">Select one</option>
+                <option value="Under $250">Under $250</option>
+                <option value="$250 - $500">$250 - $500</option>
+                <option value="$500 - $1,000">$500 - $1,000</option>
+                <option value="$1,000 - $2,500">$1,000 - $2,500</option>
+                <option value="$2,500+">$2,500+</option>
+                <option value="Not Sure Yet">Not Sure Yet</option>
+              </select>
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-contact-method">Preferred Contact Method</label>
+              <select class="rq-field__input rq-field__select" id="RequestQuote-contact-method" name="contact[preferred_contact_method]">
+                <option value="">Select one</option>
+                <option value="Email">Email</option>
+                <option value="Phone">Phone</option>
+                <option value="Text">Text</option>
+              </select>
+            </div>
+
+            <div class="rq-field">
+              <label class="rq-field__label" for="RequestQuote-artwork-status">Artwork Status</label>
+              <select class="rq-field__input rq-field__select" id="RequestQuote-artwork-status" name="contact[artwork_status]">
+                <option value="">Select one</option>
+                <option value="Ready to send">Ready to send</option>
+                <option value="Need artwork cleanup">Need artwork cleanup</option>
+                <option value="Need design created">Need design created</option>
+                <option value="Still deciding">Still deciding</option>
+              </select>
+            </div>
+
+            <div class="rq-field rq-field--full">
+              <label class="rq-field__label" for="RequestQuote-details">Project Details *</label>
+              <textarea
+                class="rq-field__input rq-field__textarea"
+                id="RequestQuote-details"
+                name="contact[body]"
+                rows="8"
+                required
+                placeholder="Tell us what you're looking for, what items or design work you need, the style you want, your quantity, colors, deadline, and anything else that helps us quote it accurately."
+              >{% if form.body %}{{ form.body | escape }}{% endif %}</textarea>
+            </div>
+
+            <div class="rq-field rq-field--full">
+              <label class="rq-field__label" for="RequestQuote-inspiration">Reference Links / Inspiration</label>
+              <textarea
+                class="rq-field__input rq-field__textarea rq-field__textarea--small"
+                id="RequestQuote-inspiration"
+                name="contact[inspiration_links]"
+                rows="4"
+                placeholder="Paste website links, Instagram links, product links, or describe files you want us to reference."
+              ></textarea>
+            </div>
+
+            <div class="rq-field rq-field--full">
+              <label class="rq-field__label" for="RequestQuote-artwork-notes">Artwork Notes</label>
+              <textarea
+                class="rq-field__input rq-field__textarea rq-field__textarea--small"
+                id="RequestQuote-artwork-notes"
+                name="contact[artwork_notes]"
+                rows="4"
+                placeholder="Tell us what files you have and whether anything needs to be cleaned up or recreated."
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="rq-form__footer">
+            <p class="rq-form__note">
+              Upload artwork below if you have it ready. If not, you can still submit the form and we’ll follow up with next steps.
+            </p>
+
+            <button class="rq-form__submit" type="submit">
+              {{ section.settings.button_label }}
+            </button>
+          </div>
+        {% endform %}
+
+        <div class="rq-upload-block">
+          <div class="rq-upload-block__intro">
+            <p class="rq-upload-block__eyebrow">Artwork Upload</p>
+            <h3 class="rq-upload-block__title">Upload Artwork or Project Files</h3>
+            <p class="rq-upload-block__text">
+              Upload logos, screenshots, design files, or reference images for this request.
+            </p>
+          </div>
+
+          [nerdy-form:18187]
+        </div>
+      </div>
+
+      <aside class="rq-form-section__side">
+        <div class="rq-side-card">
+          <h2 class="rq-side-card__title">{{ section.settings.side_heading }}</h2>
+          <div class="rq-side-card__text rte">{{ section.settings.side_text }}</div>
+        </div>
+
+        <div class="rq-side-card rq-side-card--dark">
+          <h3 class="rq-side-card__title rq-side-card__title--small">{{ section.settings.tips_heading }}</h3>
+          <div class="rq-side-card__text rte">{{ section.settings.tips_text }}</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rq-form-section {
+    padding: 84px 0;
+    background:
+      radial-gradient(circle at top right, rgba(196,18,48,0.08), transparent 25%),
+      #f5f5f5;
+    color: #111111;
+  }
+
+  .rq-form-section__intro {
+    max-width: 780px;
+    margin: 0 auto 42px;
+    text-align: center;
+  }
+
+  .rq-form-section__eyebrow {
+    margin: 0 0 12px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .rq-form-section__heading {
+    margin: 0 0 14px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(3rem, 5vw, 5.8rem);
+    line-height: 0.94;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .rq-form-section__text {
+    font-size: 1.6rem;
+    line-height: 1.75;
+    color: #555555;
+  }
+
+  .rq-form-section__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .rq-form-section__main,
+  .rq-side-card {
+    background: #ffffff;
+    border: 1px solid #e4e4e4;
+    box-shadow: 0 6px 0 #d9d9d9, 0 12px 28px rgba(0,0,0,0.06);
+  }
+
+  .rq-form-section__main {
+    padding: 32px;
+  }
+
+  .rq-project-context {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #fff8f9;
+    border: 1px solid rgba(196,18,48,0.18);
+    box-shadow: 0 4px 0 rgba(196,18,48,0.08);
+  }
+
+  .rq-project-context[hidden] {
+    display: none !important;
+  }
+
+  .rq-project-context__media {
+    width: 100%;
+  }
+
+  .rq-project-context__media img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid #e3e3e3;
+  }
+
+  .rq-project-context__title {
+    margin: 0 0 6px;
+    font-family: var(--sole-heading-font);
+    font-size: 2rem;
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .rq-project-context__meta {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: #555555;
+  }
+
+  .rq-form__message {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    border-left: 4px solid #c41230;
+  }
+
+  .rq-form__message--success {
+    background: #f2f8f2;
+    border-left-color: #2e7d32;
+  }
+
+  .rq-form__message--success-box {
+    border-left: 0;
+    border: 1px solid rgba(46, 125, 50, 0.22);
+    border-radius: 14px;
+    padding: 16px 18px;
+    line-height: 1.7;
+  }
+
+  .rq-form__success-request-id {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #111111;
+  }
+
+  .rq-form__message--error {
+    background: #fff3f3;
+    border-left-color: #c41230;
+  }
+
+  .rq-form__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .rq-field {
+    min-width: 0;
+  }
+
+  .rq-field--full {
+    grid-column: 1 / -1;
+  }
+
+  .rq-field__label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .rq-field__input {
+    width: 100%;
+    min-height: 50px;
+    padding: 0 16px;
+    border: 1px solid #d8d8d8;
+    background: #ffffff;
+    color: #111111;
+    font-size: 1.45rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .rq-field__input:focus {
+    outline: none;
+    border-color: #c41230;
+    box-shadow: 0 0 0 2px rgba(196,18,48,0.12);
+  }
+
+  .rq-field__select {
+    appearance: none;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #111111 50%),
+      linear-gradient(135deg, #111111 50%, transparent 50%);
+    background-position:
+      calc(100% - 18px) calc(50% - 3px),
+      calc(100% - 12px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 36px;
+  }
+
+  .rq-field__textarea {
+    min-height: 180px;
+    padding: 14px 16px;
+    resize: vertical;
+  }
+
+  .rq-field__textarea--small {
+    min-height: 110px;
+  }
+
+  .rq-form__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    margin-top: 26px;
+  }
+
+  .rq-form__note {
+    margin: 0;
+    max-width: 560px;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #666666;
+  }
+
+  .rq-form__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 26px;
+    border: 2px solid #c41230;
+    background: #c41230;
+    color: #ffffff;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+
+  .rq-form__submit:hover {
+    background: #111111;
+    border-color: #111111;
+  }
+
+  .rq-upload-block {
+    margin-top: 24px;
+    padding: 20px;
+    background: #fff8f9;
+    border: 1px solid rgba(196,18,48,0.18);
+    box-shadow: 0 4px 0 rgba(196,18,48,0.08);
+  }
+
+  .rq-upload-block__eyebrow {
+    margin: 0 0 6px;
+    color: #c41230;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .rq-upload-block__title {
+    margin: 0 0 8px;
+    font-family: var(--sole-heading-font);
+    font-size: 2rem;
+    line-height: 1;
+    text-transform: uppercase;
+    font-weight: 900;
+    color: #111111;
+  }
+
+  .rq-upload-block__text {
+    margin: 0 0 12px;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: #555555;
+  }
+
+  .rq-side-card {
+    padding: 24px;
+  }
+
+  .rq-side-card--dark {
+    background: #111111;
+    border-color: #111111;
+    box-shadow: 0 6px 0 #000000, 0 12px 28px rgba(0,0,0,0.16);
+    color: #ffffff;
+  }
+
+  .rq-side-card__title {
+    margin: 0 0 12px;
+    font-family: var(--sole-heading-font);
+    font-size: 2.4rem;
+    line-height: 0.98;
+    text-transform: uppercase;
+    font-weight: 900;
+  }
+
+  .rq-side-card__title--small {
+    font-size: 2rem;
+  }
+
+  .rq-side-card--dark .rq-side-card__text,
+  .rq-side-card--dark .rq-side-card__text p,
+  .rq-side-card--dark .rq-side-card__text li,
+  .rq-side-card--dark .rq-side-card__text span,
+  .rq-side-card--dark .rq-side-card__text strong,
+  .rq-side-card--dark .rq-side-card__text em,
+  .rq-side-card--dark .rq-side-card__text a {
+    color: #ffffff !important;
+  }
+
+  .rq-side-card__text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .rq-form-section {
+      padding: 64px 0;
+    }
+
+    .rq-form-section__layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .rq-form-section__main {
+      padding: 22px 18px;
+    }
+
+    .rq-form__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .rq-form__footer {
+      align-items: stretch;
+    }
+
+    .rq-form__submit {
+      width: 100%;
+    }
+
+    .rq-project-context {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .rq-side-card--dark,
+  .rq-side-card--dark .rq-side-card__title,
+  .rq-side-card--dark .rq-side-card__title--small,
+  .rq-side-card--dark .rq-side-card__text,
+  .rq-side-card--dark .rq-side-card__text *,
+  .rq-side-card--dark .rte,
+  .rq-side-card--dark .rte *,
+  .rq-side-card--dark p,
+  .rq-side-card--dark li,
+  .rq-side-card--dark span,
+  .rq-side-card--dark strong,
+  .rq-side-card--dark em,
+  .rq-side-card--dark a {
+    color: rgba(255,255,255,0.92) !important;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('RequestQuoteForm');
+    if (!form) return;
+
+    var params = new URLSearchParams(window.location.search);
+
+    var source = params.get('source') || '';
+    var project = params.get('project') || '';
+    var category = params.get('category') || '';
+    var client = params.get('client') || '';
+    var image = params.get('image') || '';
+
+    var sourceField = document.getElementById('RequestQuote-source');
+    var projectField = document.getElementById('RequestQuote-portfolio-project');
+    var categoryField = document.getElementById('RequestQuote-portfolio-category');
+    var clientField = document.getElementById('RequestQuote-portfolio-client');
+    var imageField = document.getElementById('RequestQuote-portfolio-image');
+    var requestIdField = document.getElementById('RequestQuote-request-id');
+    var sourcePageField = document.getElementById('RequestQuote-source-page');
+    var successFlag = document.getElementById('rq-form-success-flag');
+    var successRequestIdBox = document.getElementById('rq-success-request-id');
+
+    if (sourceField) sourceField.value = source;
+    if (projectField) projectField.value = project;
+    if (categoryField) categoryField.value = category;
+    if (clientField) clientField.value = client;
+    if (imageField) imageField.value = image;
+
+    var contextWrap = document.getElementById('rqProjectContext');
+    var contextTitle = document.getElementById('rqProjectContextTitle');
+    var contextMeta = document.getElementById('rqProjectContextMeta');
+    var contextImage = document.getElementById('rqProjectContextImage');
+
+    if (source === 'portfolio' && project && contextWrap) {
+      if (contextTitle) contextTitle.textContent = project;
+
+      var metaParts = [];
+      if (category) metaParts.push(category);
+      if (client) metaParts.push(client);
+
+      if (contextMeta) {
+        contextMeta.textContent = metaParts.join(' • ');
+      }
+
+      if (contextImage && image) {
+        contextImage.src = image;
+        contextImage.alt = project;
+        contextImage.hidden = false;
+      }
+
+      contextWrap.hidden = false;
+    }
+
+    var projectTypeField = document.getElementById('RequestQuote-project-type');
+    if (projectTypeField && category) {
+      var normalized = category.toLowerCase();
+
+      if (normalized.indexOf('design') !== -1 || normalized.indexOf('logo') !== -1 || normalized.indexOf('branding') !== -1) {
+        projectTypeField.value = 'Graphic Design';
+      } else if (
+        normalized.indexOf('promo') !== -1 ||
+        normalized.indexOf('koozie') !== -1 ||
+        normalized.indexOf('bottle') !== -1 ||
+        normalized.indexOf('tumbler') !== -1 ||
+        normalized.indexOf('drinkware') !== -1
+      ) {
+        projectTypeField.value = 'Promo Products';
+      } else if (
+        normalized.indexOf('apparel') !== -1 ||
+        normalized.indexOf('screen print') !== -1 ||
+        normalized.indexOf('embroidery') !== -1 ||
+        normalized.indexOf('dtf') !== -1 ||
+        normalized.indexOf('transfer') !== -1
+      ) {
+        projectTypeField.value = 'Apparel';
+      }
+    }
+
+    var detailsField = document.getElementById('RequestQuote-details');
+    if (detailsField && source === 'portfolio' && project) {
+      var existingValue = detailsField.value.trim();
+
+      if (!existingValue) {
+        var lines = [];
+        lines.push('Portfolio reference: ' + project);
+        if (category) lines.push('Category: ' + category);
+        if (client) lines.push('Client: ' + client);
+        if (image) lines.push('Reference image: ' + image);
+        lines.push('');
+        lines.push('Project details:');
+
+        detailsField.value = lines.join('\n');
+      }
+    }
+
+    function getOrCreateRequestId() {
+      var storageKey = 'sole_provider_request_id_' + window.location.pathname;
+      var existing = sessionStorage.getItem(storageKey);
+
+      if (existing) return existing;
+
+      var requestId = 'SP-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
+      sessionStorage.setItem(storageKey, requestId);
+      return requestId;
+    }
+
+    function syncFormState() {
+      var requestId = getOrCreateRequestId();
+      var sourcePage = window.location.pathname;
+
+      if (requestIdField) {
+        requestIdField.value = requestId;
+      }
+
+      if (sourcePageField) {
+        sourcePageField.value = sourcePage;
+      }
+    }
+
+    function setNerdyField(placeholder, value) {
+      var field = document.querySelector('input[placeholder="' + placeholder + '"]');
+      if (!field) return;
+
+      field.value = value || '';
+      field.readOnly = true;
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+      field.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function hideNerdyField(placeholder) {
+      var field = document.querySelector('input[placeholder="' + placeholder + '"]');
+      if (field) {
+        var wrapper = field.closest('.nf-col-12');
+        if (wrapper) {
+          wrapper.style.display = 'none';
+        }
+      }
+
+      if (placeholder.toLowerCase() === 'your email') {
+        var emailWrapper = document.getElementById('nf-container-email');
+        if (emailWrapper) {
+          emailWrapper.style.display = 'none';
+        }
+      }
+    }
+
+    function syncNerdyFields() {
+      var requestId = getOrCreateRequestId();
+      var sourcePage = window.location.pathname;
+      var customerName = document.getElementById('RequestQuote-name') ? document.getElementById('RequestQuote-name').value : '';
+      var customerEmail = document.getElementById('RequestQuote-email') ? document.getElementById('RequestQuote-email').value : '';
+      var projectType = document.getElementById('RequestQuote-project-type') ? document.getElementById('RequestQuote-project-type').value : '';
+
+      setNerdyField('Request ID', requestId);
+      setNerdyField('Source Page', sourcePage);
+      setNerdyField('Customer Name', customerName);
+      setNerdyField('Project Type', projectType);
+      setNerdyField('Your email', customerEmail);
+
+      hideNerdyField('Request ID');
+      hideNerdyField('Source Page');
+      hideNerdyField('Customer Name');
+      hideNerdyField('Project Type');
+      hideNerdyField('Your email');
+    }
+
+    function handleSuccessfulSubmission() {
+      if (!successFlag || successFlag.value !== 'true') return;
+
+      var requestId = getOrCreateRequestId();
+
+      if (successRequestIdBox) {
+        successRequestIdBox.textContent = 'Request ID: ' + requestId;
+      }
+    }
+
+    var syncAttempts = 0;
+    var syncInterval = setInterval(function () {
+      syncAttempts += 1;
+      syncFormState();
+      syncNerdyFields();
+
+      if (syncAttempts >= 12) {
+        clearInterval(syncInterval);
+      }
+    }, 500);
+
+    var nameField = document.getElementById('RequestQuote-name');
+    if (nameField) {
+      nameField.addEventListener('input', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    }
+
+    var emailField = document.getElementById('RequestQuote-email');
+    if (emailField) {
+      emailField.addEventListener('input', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    }
+
+    if (projectTypeField) {
+      projectTypeField.addEventListener('change', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    }
+
+    handleSuccessfulSubmission();
+    syncFormState();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Request Quote Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Start a Project"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Request a Quote"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Intro text",
+      "default": "<p>Tell us what you need and we’ll point you in the right direction with the next steps, pricing guidance, or a custom quote.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Submit button label",
+      "default": "Send Request"
+    },
+    {
+      "type": "text",
+      "id": "side_heading",
+      "label": "Side card heading",
+      "default": "What Happens Next"
+    },
+    {
+      "type": "richtext",
+      "id": "side_text",
+      "label": "Side card text",
+      "default": "<p>We review your request, ask any needed follow-up questions, and help guide product, design, or decoration choices so your project is accurate from the start.</p>"
+    },
+    {
+      "type": "text",
+      "id": "tips_heading",
+      "label": "Tips heading",
+      "default": "Helpful Details"
+    },
+    {
+      "type": "richtext",
+      "id": "tips_text",
+      "label": "Tips text",
+      "default": "<p>Include quantity, sizes, colors, item type, logo placement, deadline, and links to any inspiration. The more detail you share, the faster we can help.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Request Quote Form"
+    }
+  ]
+}
+{% endschema %}
