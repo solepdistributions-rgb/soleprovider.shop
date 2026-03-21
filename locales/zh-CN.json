@@ -1,20 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
-      "login_form_heading": "Vào cửa hàng bằng mật khẩu:",
-      "login_password_button": "Vào bằng mật khẩu",
-      "login_form_password_label": "Mật khẩu",
-      "login_form_password_placeholder": "Mật khẩu của bạn",
-      "login_form_error": "Sai mật khẩu!",
-      "login_form_submit": "Vào",
-      "admin_link_html": "Bạn có phải chủ cửa hàng không? <a href=\"/admin\" class=\"link underlined-link\">Đăng nhập tại đây</a>",
-      "powered_by_shopify_html": "Cửa hàng này sẽ do {{ shopify }} cung cấp"
+      "login_form_heading": "使用密码进入商店：",
+      "login_password_button": "使用密码进入",
+      "login_form_password_label": "密码",
+      "login_form_password_placeholder": "您的密码",
+      "login_form_error": "密码错误！",
+      "login_form_submit": "输入",
+      "admin_link_html": "您是否为店主？<a href=\"/admin\" class=\"link underlined-link\">在此处登录</a>",
+      "powered_by_shopify_html": "此商店由 {{ shopify }} 提供支持"
     },
     "social": {
       "alt_text": {
-        "share_on_facebook": "Chia sẻ trên Facebook",
-        "share_on_twitter": "Chia sẻ trên X",
-        "share_on_pinterest": "Ghim trên Pinterest"
+        "share_on_facebook": "在 Facebook 上共享",
+        "share_on_twitter": "在 X 上分享",
+        "share_on_pinterest": "固定在 Pinterest 上"
       },
       "links": {
         "twitter": "X (Twitter)",
@@ -28,503 +37,503 @@
         "tiktok": "TikTok"
       }
     },
-    "continue_shopping": "Tiếp tục mua sắm",
+    "continue_shopping": "继续购物",
     "pagination": {
-      "label": "Phân trang",
-      "page": "Trang {{ number }}",
-      "next": "Trang sau",
-      "previous": "Trang trước"
+      "label": "分页",
+      "page": "第 {{ number }} 页",
+      "next": "下一页",
+      "previous": "上一页"
     },
     "search": {
-      "search": "Tìm kiếm",
-      "reset": "Xóa cụm từ tìm kiếm"
+      "search": "搜索",
+      "reset": "清除搜索词"
     },
     "cart": {
-      "view": "Xem giỏ hàng ({{ count }})",
-      "item_added": "Mặt hàng đã thêm vào giỏ hàng",
-      "view_empty_cart": "Xem giỏ hàng"
+      "view": "查看购物车 ({{ count }})",
+      "item_added": "商品已加入购物车",
+      "view_empty_cart": "查看购物车"
     },
     "share": {
-      "copy_to_clipboard": "Sao chép liên kết",
-      "share_url": "Liên kết",
-      "success_message": "Đã sao chép liên kết vào bảng nhớ tạm",
-      "close": "Đóng cửa sổ chia sẻ"
+      "copy_to_clipboard": "复制链接",
+      "share_url": "链接",
+      "success_message": "链接已复制到剪贴板",
+      "close": "关闭分享"
     },
     "slider": {
-      "of": "trong số",
-      "next_slide": "Trượt sang phải",
-      "previous_slide": "Trượt sang trái",
-      "name": "Thanh trượt"
+      "of": "/",
+      "next_slide": "向右滑动",
+      "previous_slide": "向左滑动",
+      "name": "滑块"
     }
   },
   "newsletter": {
-    "label": "Email",
-    "success": "Cảm ơn bạn đã đăng ký",
-    "button_label": "Đăng ký"
+    "label": "电子邮件",
+    "success": "感谢您订阅",
+    "button_label": "订阅"
   },
   "accessibility": {
-    "skip_to_text": "Chuyển đến nội dung",
-    "close": "Đóng",
-    "unit_price_separator": "trên",
-    "vendor": "Nhà cung cấp:",
-    "error": "Lỗi",
-    "refresh_page": "Khi bạn chọn một mục, toàn bộ trang sẽ được làm mới.",
+    "skip_to_text": "跳到内容",
+    "close": "关闭",
+    "unit_price_separator": "单价",
+    "vendor": "厂商：",
+    "error": "错误",
+    "refresh_page": "选择某一选项会使整个页面刷新。",
     "link_messages": {
-      "new_window": "Mở trong cửa sổ mới.",
-      "external": "Mở trang web bên ngoài."
+      "new_window": "在新窗口中打开。",
+      "external": "打开外部网站。"
     },
-    "loading": "Đang tải...",
-    "skip_to_product_info": "Chuyển đến thông tin sản phẩm",
-    "total_reviews": "tổng số lượt đánh giá",
-    "star_reviews_info": "{{ rating_value }}/{{ rating_max }} sao",
-    "collapsible_content_title": "Nội dung có thể thu gọn",
-    "complementary_products": "Sản phẩm bổ sung"
+    "loading": "正在加载…",
+    "skip_to_product_info": "跳至产品信息",
+    "total_reviews": "总评论数",
+    "star_reviews_info": "{{ rating_value }}/{{ rating_max }} 星",
+    "collapsible_content_title": "可折叠内容",
+    "complementary_products": "互补产品"
   },
   "blogs": {
     "article": {
-      "blog": "Blog",
-      "read_more_title": "Đọc thêm: {{ title }}",
+      "blog": "博客",
+      "read_more_title": "阅读详细内容：{{ title }}",
       "comments": {
-        "one": "{{ count }} bình luận",
-        "other": "{{ count }} bình luận"
+        "one": "{{ count }} 条评论",
+        "other": "{{ count }} 条评论"
       },
-      "moderated": "Xin lưu ý, bình luận cần được phê duyệt trước khi được đăng.",
-      "comment_form_title": "Để lại bình luận",
-      "name": "Tên",
-      "email": "Email",
-      "message": "Bình luận",
-      "post": "Gửi bình luận",
-      "back_to_blog": "Quay lại blog",
-      "share": "Chia sẻ bài viết này",
-      "success": "Bạn đã gửi bình luận thành công! Xin cảm ơn!",
-      "success_moderated": "Bạn đã gửi bình luận thành công. Chúng tôi sẽ đăng bình luận sau chốc lát, khi blog của chúng tôi được kiểm duyệt."
+      "moderated": "请注意，评论必须在发布之前获得批准。",
+      "comment_form_title": "发表评论",
+      "name": "名称",
+      "email": "电子邮件",
+      "message": "评论",
+      "post": "发布评论",
+      "back_to_blog": "返回博客",
+      "share": "分享此文章",
+      "success": "您的评论已成功发布！谢谢！",
+      "success_moderated": "您的评论已成功发布。由于我们的博客要经过审核，我们会在稍后将其发布。"
     }
   },
   "onboarding": {
-    "product_title": "Tiêu đề sản phẩm mẫu",
-    "collection_title": "Tên bộ sưu tập của bạn"
+    "product_title": "产品标题示例",
+    "collection_title": "您的产品系列的名称"
   },
   "products": {
     "product": {
-      "add_to_cart": "Thêm vào giỏ hàng",
-      "description": "Mô tả",
-      "on_sale": "Giảm giá",
-      "product_variants": "Mẫu mã sản phẩm",
+      "add_to_cart": "添加到购物车",
+      "description": "描述",
+      "on_sale": "促销",
+      "product_variants": "产品多属性",
       "quantity": {
-        "label": "Số lượng",
-        "input_label": "Số lượng của {{ product }}",
-        "increase": "Tăng số lượng của {{ product }}",
-        "decrease": "Giảm số lượng của {{ product }}",
-        "minimum_of": "Tối thiểu {{ quantity }}",
-        "maximum_of": "Tối đa {{ quantity }}",
-        "multiples_of": "Số lượng gia tăng {{ quantity }}",
-        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> trong giỏ hàng",
-        "note": "Xem quy tắc số lượng",
-        "min_of": "Tối thiểu {{ quantity }}",
-        "max_of": "Tối đa {{ quantity }}",
-        "in_cart_aria_label": "Số lượng ({{ quantity }} trong giỏ hàng)"
+        "label": "数量",
+        "input_label": "{{ product }} 的数量",
+        "increase": "增加 {{ product }} 的数量",
+        "decrease": "减少 {{ product }} 的数量",
+        "minimum_of": "最小值为 {{ quantity }}",
+        "maximum_of": "最大值为 {{ quantity }}",
+        "multiples_of": "增量为 {{ quantity }}",
+        "in_cart_html": "购物车中 <span class=\"quantity-cart\">{{ quantity }}</span> 件",
+        "note": "查看数量规则",
+        "min_of": "最小值 {{ quantity }}",
+        "max_of": "最大值 {{ quantity }}",
+        "in_cart_aria_label": "数量（购物车中有 {{ quantity }} 件）"
       },
       "price": {
-        "from_price_html": "Từ {{ price }}",
-        "regular_price": "Giá thông thường",
-        "sale_price": "Giá ưu đãi",
-        "unit_price": "Đơn giá"
+        "from_price_html": "来自 {{ price }}",
+        "regular_price": "常规价格",
+        "sale_price": "促销价",
+        "unit_price": "单价"
       },
-      "share": "Chia sẻ sản phẩm này",
-      "sold_out": "Đã bán hết",
-      "unavailable": "Không có sẵn",
-      "vendor": "Nhà cung cấp",
-      "video_exit_message": "{{ title }} mở video toàn màn hình ở cùng một cửa sổ.",
-      "xr_button": "Xem tại không gian của bạn",
-      "xr_button_label": "Xem tại không gian của bạn, tải mặt hàng trong cửa sổ thực tế ảo tăng cường",
+      "share": "分享此产品",
+      "sold_out": "售罄",
+      "unavailable": "不可用",
+      "vendor": "厂商",
+      "video_exit_message": "{{ title }} 在同一窗口中打开全屏视频。",
+      "xr_button": "在您的空间中查看",
+      "xr_button_label": "在您的空间中查看，在增强现实窗口中加载商品",
       "pickup_availability": {
-        "view_store_info": "Xem thông tin cửa hàng",
-        "check_other_stores": "Kiểm tra tình trạng còn hàng tại các cửa hàng khác",
-        "pick_up_available": "Có thể nhận hàng tại cửa hàng",
-        "pick_up_available_at_html": "Có thể nhận hàng tại <span class=\"color-foreground\">{{ location_name }}</span>",
-        "pick_up_unavailable_at_html": "Hiện chưa thể nhận hàng tại <span class=\"color-foreground\">{{ location_name }}</span>",
-        "unavailable": "Không thể tải khả năng nhận hàng tại cửa hàng",
-        "refresh": "Làm mới"
+        "view_store_info": "查看商店信息",
+        "check_other_stores": "查看在其他商店的可用情况",
+        "pick_up_available": "提供取货服务",
+        "pick_up_available_at_html": "<span class=\"color-foreground\">{{ location_name }}</span> 提供取货服务",
+        "pick_up_unavailable_at_html": "<span class=\"color-foreground\">{{ location_name }}</span> 目前不提供取货服务",
+        "unavailable": "无法加载取货服务可用情况",
+        "refresh": "刷新"
       },
       "media": {
-        "open_media": "Mở phương tiện {{ index }} trong hộp tương tác",
-        "play_model": "Mở Trình xem 3D",
-        "play_video": "Phát video",
-        "gallery_viewer": "Trình xem thư viện",
-        "load_image": "Tải hình ảnh {{ index }} trong chế độ xem thư viện",
-        "load_model": "Tải mô hình 3D {{ index }} trong chế độ xem thư viện",
-        "load_video": "Phát video {{ index }} trong chế độ xem thư viện",
-        "image_available": "Hình ảnh {{ index }} hiện đã có trong chế độ xem thư viện"
+        "open_media": "在模态窗口中打开媒体文件 {{ index }}",
+        "play_model": "播放 3D 查看器",
+        "play_video": "播放视频",
+        "gallery_viewer": "图库查看器",
+        "load_image": "在图库视图中加载图片 {{ index }}",
+        "load_model": "在图库视图中加载 3D 模型 {{ index }}",
+        "load_video": "在图库视图中播放视频 {{ index }}",
+        "image_available": "图片 {{ index }} 现已在图库视图中可用"
       },
-      "nested_label": "{{ title }} cho {{ parent_title }}",
-      "view_full_details": "Xem toàn bộ chi tiết",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Phí vận chuyển</a> được tính khi thanh toán.",
-      "choose_options": "Chọn các tùy chọn",
-      "choose_product_options": "Chọn tùy chọn cho {{ product_name }}",
-      "value_unavailable": "{{ option_value }} - Không khả dụng",
-      "variant_sold_out_or_unavailable": "Mẫu mã đã bán hết hoặc không còn hàng",
-      "inventory_in_stock": "Còn hàng",
-      "inventory_in_stock_show_count": "Còn {{ quantity }} hàng lưu kho",
-      "inventory_low_stock": "Sắp hết hàng",
-      "inventory_low_stock_show_count": "Sắp hết hàng: Còn {{ quantity }}",
-      "inventory_out_of_stock": "Hết hàng",
-      "inventory_out_of_stock_continue_selling": "Còn hàng",
+      "nested_label": "{{ title }}，适用于 {{ parent_title }}",
+      "view_full_details": "查看完整详细信息",
+      "shipping_policy_html": "结账时计算的<a href=\"{{ link }}\">运费</a>。",
+      "choose_options": "选择选项",
+      "choose_product_options": "选择用于 {{ product_name }} 的选项",
+      "value_unavailable": "{{ option_value }} - 不可用",
+      "variant_sold_out_or_unavailable": "多属性已售罄或不可用",
+      "inventory_in_stock": "现货",
+      "inventory_in_stock_show_count": "{{ quantity }} 件存货",
+      "inventory_low_stock": "低库存",
+      "inventory_low_stock_show_count": "低库存：剩余 {{ quantity }}",
+      "inventory_out_of_stock": "缺货",
+      "inventory_out_of_stock_continue_selling": "现货",
       "sku": "SKU",
       "volume_pricing": {
-        "title": "Định giá theo số lượng",
-        "note": "Có sẵn định giá theo số lượng",
-        "minimum": "Hơn {{ quantity }}",
+        "title": "批量定价",
+        "note": "提供批量定价",
+        "minimum": "{{ quantity }}+",
         "price_range": "{{ minimum }} - {{ maximum }}",
-        "price_at_each_html": "với giá {{ price }}/sản phẩm"
+        "price_at_each_html": "{{ price }}/件"
       },
-      "taxes_included": "Đã bao gồm thuế.",
-      "duties_included": "Đã bao gồm thuế nhập khẩu.",
-      "duties_and_taxes_included": "Đã bao gồm thuế và thuế nhập khẩu."
+      "taxes_included": "已含税费。",
+      "duties_included": "已含关税。",
+      "duties_and_taxes_included": "已含关税和税费。"
     },
     "modal": {
-      "label": "Thư viện phương tiện"
+      "label": "媒体图库"
     },
     "facets": {
-      "apply": "Áp dụng",
-      "clear": "Xóa",
-      "clear_all": "Xóa tất cả",
-      "from": "Từ",
-      "filter_and_sort": "Lọc và sắp xếp",
-      "filter_by_label": "Bộ lọc:",
-      "filter_button": "Bộ lọc",
+      "apply": "应用",
+      "clear": "清除",
+      "clear_all": "全部删除",
+      "from": "从",
+      "filter_and_sort": "筛选和排序",
+      "filter_by_label": "筛选条件：",
+      "filter_button": "筛选",
       "filters_selected": {
-        "one": "Đã chọn {{ count }}",
-        "other": "Đã chọn {{ count }}"
+        "one": "已选择 {{ count }} 个",
+        "other": "已选择 {{ count }} 个"
       },
-      "max_price": "Giá cao nhất là {{ price }}",
+      "max_price": "最高价格为 {{ price }}",
       "product_count": {
-        "one": "{{ product_count }}/{{ count }} sản phẩm",
-        "other": "{{ product_count }}/{{ count }} sản phẩm"
+        "one": "{{ product_count }}/{{ count }} 件产品",
+        "other": "{{ product_count }}/{{ count }} 件产品"
       },
       "product_count_simple": {
-        "one": "{{ count }} sản phẩm",
-        "other": "{{ count }} sản phẩm"
+        "one": "{{ count }} 件产品",
+        "other": "{{ count }} 件产品"
       },
-      "reset": "Đặt lại",
-      "sort_button": "Sắp xếp",
-      "sort_by_label": "Sắp xếp theo:",
-      "to": "Đến",
-      "clear_filter": "Xóa bộ lọc",
-      "filter_selected_accessibility": "{{ type }} (Đã chọn {{ count }} bộ lọc)",
-      "show_more": "Hiển thị thêm",
-      "show_less": "Rút gọn",
-      "filter_and_operator_subtitle": "Phù hợp với tất cả"
+      "reset": "重置",
+      "sort_button": "排序",
+      "sort_by_label": "排序依据：",
+      "to": "到",
+      "clear_filter": "删除筛选条件",
+      "filter_selected_accessibility": "{{ type }}（已选择 {{ count }} 个筛选条件）",
+      "show_more": "显示更多内容",
+      "show_less": "隐藏部分内容",
+      "filter_and_operator_subtitle": "匹配全部"
     }
   },
   "templates": {
     "search": {
-      "no_results": "Không tìm thấy kết quả cho \"{{ terms }}\". Kiểm tra chính tả hoặc sử dụng một từ hoặc cụm từ khác.",
+      "no_results": "未找到“{{ terms }}”的结果。请检查拼写或使用其他词或短语。",
       "results_with_count": {
-        "one": "{{ count }} kết quả",
-        "other": "{{ count }} kết quả"
+        "one": "{{ count }} 条结果",
+        "other": "{{ count }} 条结果"
       },
-      "title": "Kết quả tìm kiếm",
-      "page": "Trang",
-      "products": "Sản phẩm",
-      "search_for": "Tìm kiếm “{{ terms }}”",
+      "title": "搜索结果",
+      "page": "页面",
+      "products": "产品",
+      "search_for": "搜索“{{ terms }}”",
       "results_with_count_and_term": {
-        "one": "Tìm thấy {{ count }} kết quả cho “{{ terms }}”",
-        "other": "Tìm thấy {{ count }} kết quả cho “{{ terms }}”"
+        "one": "找到“{{ terms }}”的 {{ count }} 条结果",
+        "other": "找到“{{ terms }}”的 {{ count }} 条结果"
       },
       "results_pages_with_count": {
-        "one": "Trang {{ count }}",
-        "other": "{{ count }} trang"
-      },
-      "results_suggestions_with_count": {
-        "one": "{{ count }} gợi ý",
-        "other": "{{ count }} gợi ý"
+        "one": "{{ count }} 个页面",
+        "other": "{{ count }} 个页面"
       },
       "results_products_with_count": {
-        "one": "{{ count }} sản phẩm",
-        "other": "{{ count }} sản phẩm"
+        "one": "{{ count }} 件产品",
+        "other": "{{ count }} 件产品"
       },
-      "suggestions": "Gợi ý",
-      "pages": "Trang"
+      "suggestions": "建议",
+      "pages": "页面",
+      "results_suggestions_with_count": {
+        "one": "{{ count }} 个建议",
+        "other": "{{ count }} 个建议"
+      }
     },
     "cart": {
-      "cart": "Giỏ hàng"
+      "cart": "购物车"
     },
     "contact": {
       "form": {
-        "name": "Tên",
-        "email": "Email",
-        "phone": "Số điện thoại",
-        "comment": "Bình luận",
-        "send": "Gửi",
-        "post_success": "Cảm ơn đã liên hệ với chúng tôi. Chúng tôi sẽ liên hệ lại với bạn trong thời gian sớm nhất.",
-        "error_heading": "Vui lòng điều chỉnh các mục sau:",
-        "title": "Biểu mẫu liên hệ"
+        "name": "名称",
+        "email": "电子邮件",
+        "phone": "电话号码",
+        "comment": "评论",
+        "send": "发送",
+        "post_success": "感谢您联系我们。我们会尽快回复您。",
+        "error_heading": "请调整以下内容：",
+        "title": "联系表"
       }
     },
     "404": {
-      "title": "Không tìm thấy trang",
+      "title": "找不到页面",
       "subtext": "404"
     }
   },
   "sections": {
     "header": {
-      "announcement": "Thông báo",
-      "menu": "Menu",
+      "announcement": "公告",
+      "menu": "菜单",
       "cart_count": {
-        "one": "{{ count }} mặt hàng",
-        "other": "{{ count }} mặt hàng"
+        "one": "{{ count }} 件产品",
+        "other": "{{ count }} 件产品"
       }
     },
     "cart": {
-      "title": "Giỏ hàng của bạn",
-      "caption": "Các mặt hàng trong giỏ hàng",
-      "remove_title": "Xóa {{ title }}",
-      "note": "Hướng dẫn đặc biệt của đơn hàng",
-      "checkout": "Thanh toán",
-      "empty": "Giỏ hàng của bạn đang trống",
-      "cart_error": "Đã xảy ra lỗi khi cập nhật giỏ hàng. Vui lòng thử lại.",
-      "cart_quantity_error_html": "Bạn chỉ có thể thêm {{ quantity }} mặt hàng này vào giỏ hàng.",
+      "title": "您的购物车",
+      "caption": "购物车商品",
+      "remove_title": "删除 {{ title }}",
+      "note": "订单特殊说明",
+      "checkout": "结账",
+      "empty": "您的购物车为空",
+      "cart_error": "更新购物车时出错。请重试。",
+      "cart_quantity_error_html": "您只能向购物车添加 {{ quantity }} 件此商品。",
       "headings": {
-        "product": "Sản phẩm",
-        "price": "Giá",
-        "total": "Tổng",
-        "quantity": "Số lượng",
-        "image": "Hình ảnh sản phẩm"
+        "product": "产品",
+        "price": "价格",
+        "total": "总计",
+        "quantity": "数量",
+        "image": "产品图片"
       },
-      "update": "Cập nhật",
+      "update": "更新",
       "login": {
-        "title": "Bạn đã có tài khoản?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Đăng nhập</a> để thanh toán nhanh hơn."
+        "title": "已有账户？",
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">登录</a>以快速结账。"
       },
-      "estimated_total": "Tổng số tiền ước tính",
-      "new_estimated_total": "Tổng số tiền ước tính mới",
-      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "Đã bao gồm thuế và thuế nhập khẩu. Ưu đãi giảm giá và <a href=\"{{ link }}\">phí vận chuyển</a> được tính khi thanh toán.",
-      "duties_and_taxes_included_shipping_at_checkout_without_policy": "Đã bao gồm thuế và thuế nhập khẩu. Ưu đãi giảm giá và phí vận chuyển được tính khi thanh toán.",
-      "taxes_included_shipping_at_checkout_with_policy_html": "Đã bao gồm thuế. Ưu đãi giảm giá và <a href=\"{{ link }}\">phí vận chuyển</a> được tính khi thanh toán.",
-      "taxes_included_shipping_at_checkout_without_policy": "Đã bao gồm thuế. Ưu đãi giảm giá và phí vận chuyển được tính khi thanh toán.",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "Đã bao gồm thuế nhập khẩu. Thuế, ưu đãi giảm giá và <a href=\"{{ link }}\">phí vận chuyển</a> được tính khi thanh toán.",
-      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "Đã bao gồm thuế nhập khẩu. Thuế, ưu đãi giảm giá và phí vận chuyển được tính khi thanh toán.",
-      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "Thuế, ưu đãi giảm giá và <a href=\"{{ link }}\">phí vận chuyển</a> được tính khi thanh toán.",
-      "taxes_at_checkout_shipping_at_checkout_without_policy": "Thuế, ưu đãi giảm giá và phí vận chuyển được tính khi thanh toán."
+      "estimated_total": "预计总额",
+      "new_estimated_total": "没有预计总额",
+      "duties_and_taxes_included_shipping_at_checkout_with_policy_html": "已含关税和税费。结账时计算折扣和<a href=\"{{ link }}\">运费</a>。",
+      "duties_and_taxes_included_shipping_at_checkout_without_policy": "已含关税和税费。结账时计算折扣和运费。",
+      "taxes_included_shipping_at_checkout_with_policy_html": "已含税费。结账时计算折扣和<a href=\"{{ link }}\">运费</a>。",
+      "taxes_included_shipping_at_checkout_without_policy": "已含税费。结账时计算折扣和运费。",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_with_policy_html": "已含关税。结账时计算税费、折扣和<a href=\"{{ link }}\">运费</a>。",
+      "duties_included_taxes_at_checkout_shipping_at_checkout_without_policy": "已含关税。结账时计算税费、折扣和运费。",
+      "taxes_at_checkout_shipping_at_checkout_with_policy_html": "结账时计算税费、折扣和<a href=\"{{ link }}\">运费</a>。",
+      "taxes_at_checkout_shipping_at_checkout_without_policy": "结账时计算税费、折扣和运费。"
     },
     "footer": {
-      "payment": "Phương thức thanh toán"
+      "payment": "付款方式"
     },
     "featured_blog": {
-      "view_all": "Xem tất cả",
-      "onboarding_title": "Bài viết blog",
-      "onboarding_content": "Cho khách hàng xem tóm tắt bài viết blog"
+      "view_all": "查看全部",
+      "onboarding_title": "博客文章",
+      "onboarding_content": "向您的客户提供一份博客文章的摘要"
     },
     "featured_collection": {
-      "view_all": "Xem tất cả",
-      "view_all_label": "Xem toàn bộ sản phẩm trong bộ sưu tập {{ collection_name }}"
+      "view_all": "查看全部",
+      "view_all_label": "查看 {{ collection_name }} 产品系列中的所有产品"
     },
     "collection_list": {
-      "view_all": "Xem tất cả"
+      "view_all": "查看全部"
     },
     "collection_template": {
-      "title": "Bộ sưu tập",
-      "empty": "Không tìm thấy sản phẩm",
-      "use_fewer_filters_html": "Sử dụng ít bộ lọc hơn hoặc <a class=\"{{ class }}\" href=\"{{ link }}\">xóa tất cả</a>"
+      "title": "收藏",
+      "empty": "未找到产品",
+      "use_fewer_filters_html": "减少使用的筛选条件数量或<a class=\"{{ class }}\" href=\"{{ link }}\">删除所有筛选条件</a>"
     },
     "video": {
-      "load_video": "Tải video: {{ description }}"
+      "load_video": "加载视频：{{ description }}"
     },
     "slideshow": {
-      "load_slide": "Tải trang chiếu",
-      "previous_slideshow": "Trang chiếu trước",
-      "next_slideshow": "Trang chiếu sau",
-      "pause_slideshow": "Tạm dừng bản trình chiếu",
-      "play_slideshow": "Phát bản trình chiếu",
-      "carousel": "Quay vòng",
-      "slide": "Trang chiếu"
+      "load_slide": "加载幻灯片",
+      "previous_slideshow": "上一张幻灯片",
+      "next_slideshow": "下一张幻灯片",
+      "pause_slideshow": "暂停幻灯片",
+      "play_slideshow": "播放幻灯片",
+      "carousel": "轮播",
+      "slide": "幻灯片"
     },
     "page": {
-      "title": "Tiêu đề trang"
+      "title": "页面标题"
     },
     "announcements": {
-      "previous_announcement": "Thông báo trước",
-      "next_announcement": "Thông báo sau",
-      "carousel": "Quay vòng",
-      "announcement": "Thông báo",
-      "announcement_bar": "Thanh thông báo"
+      "previous_announcement": "上一个公告",
+      "next_announcement": "下一个公告",
+      "carousel": "轮播",
+      "announcement": "公告",
+      "announcement_bar": "公告栏"
     },
     "quick_order_list": {
-      "product_total": "Tổng phụ sản phẩm",
-      "view_cart": "Xem giỏ hàng",
-      "each": "{{ money }}/chiếc",
-      "product": "Sản phẩm",
-      "variant": "Mẫu mã",
-      "variant_total": "Tổng số mẫu mã",
+      "product_total": "产品小计",
+      "view_cart": "查看购物车",
+      "each": "{{ money }}/件",
+      "product": "产品",
+      "variant": "多属性",
+      "variant_total": "多属性总计",
       "items_added": {
-        "one": "Đã thêm {{ quantity }} mặt hàng",
-        "other": "Đã thêm {{ quantity }} mặt hàng"
+        "one": "已添加 {{ quantity }} 件商品",
+        "other": "已添加 {{ quantity }} 件商品"
       },
       "items_removed": {
-        "one": "Đã xóa {{ quantity }} mặt hàng",
-        "other": "Đã xóa {{ quantity }} mặt hàng"
+        "one": "已删除 {{ quantity }} 件商品",
+        "other": "已删除 {{ quantity }} 件商品"
       },
-      "product_variants": "Mẫu mã sản phẩm",
-      "total_items": "Tổng số mặt hàng",
-      "remove_all_items_confirmation": "Xóa tất cả {{ quantity }} mặt hàng khỏi giỏ hàng của bạn?",
-      "remove_all": "Xóa tất cả",
-      "cancel": "Hủy",
-      "remove_all_single_item_confirmation": "Xóa 1 mặt hàng khỏi giỏ hàng?",
-      "min_error": "Mặt hàng này có tối thiểu {{ min }}",
-      "max_error": "Mặt hàng này có tối đa {{ max }}",
-      "step_error": "Bạn chỉ có thể thêm mặt hàng này theo đơn vị giao dịch {{ step }}"
+      "product_variants": "产品多属性",
+      "total_items": "商品总数",
+      "remove_all_items_confirmation": "删除您购物车中的全部 {{ quantity }} 件商品？",
+      "remove_all": "全部删除",
+      "cancel": "取消",
+      "remove_all_single_item_confirmation": "从购物车中删除 1 件商品？",
+      "min_error": "此商品的最小值为 {{ min }}",
+      "max_error": "此商品的最大值为 {{ max }}",
+      "step_error": "您只能以 {{ step }} 为增量来添加此商品"
     }
   },
   "localization": {
-    "country_label": "Quốc gia/khu vực",
-    "language_label": "Ngôn ngữ",
-    "update_language": "Cập nhật ngôn ngữ",
-    "update_country": "Cập nhật quốc gia/khu vực",
-    "search": "Tìm kiếm",
-    "popular_countries_regions": "Quốc gia/khu vực phổ biến",
-    "country_results_count": "Đã tìm thấy {{ count }} quốc gia/khu vực"
+    "country_label": "国家/地区",
+    "language_label": "语言",
+    "update_language": "更新语言",
+    "update_country": "更新国家/地区",
+    "search": "搜索",
+    "popular_countries_regions": "热门国家/地区",
+    "country_results_count": "找到 {{ count }} 个国家/地区"
   },
   "customer": {
     "account": {
-      "title": "Tài khoản",
-      "details": "Chi tiết tài khoản",
-      "view_addresses": "Xem địa chỉ",
-      "return": "Quay lại Chi tiết tài khoản"
+      "title": "账户",
+      "details": "账户详细信息",
+      "view_addresses": "查看地址",
+      "return": "返回账户详细信息"
     },
-    "account_fallback": "Tài khoản",
+    "account_fallback": "账户",
     "activate_account": {
-      "title": "Kích hoạt tài khoản",
-      "subtext": "Tạo mật khẩu để kích hoạt tài khoản.",
-      "password": "Mật khẩu",
-      "password_confirm": "Xác nhận mật khẩu",
-      "submit": "Kích hoạt tài khoản",
-      "cancel": "Từ chối lời mời"
+      "title": "激活账户",
+      "subtext": "创建密码以激活您的账户。",
+      "password": "密码",
+      "password_confirm": "确认密码",
+      "submit": "激活账户",
+      "cancel": "拒绝邀请"
     },
     "addresses": {
-      "title": "Địa chỉ",
-      "default": "Mặc định",
-      "add_new": "Thêm địa chỉ mới",
-      "edit_address": "Sửa địa chỉ",
-      "first_name": "Tên",
-      "last_name": "Họ",
-      "company": "Công ty",
-      "address1": "Địa chỉ 1",
-      "address2": "Địa chỉ 2",
-      "city": "Thành phố",
-      "country": "Quốc gia/khu vực",
-      "province": "Tỉnh",
-      "zip": "Mã bưu chính/mã ZIP",
-      "phone": "Điện thoại",
-      "set_default": "Đặt làm địa chỉ mặc định",
-      "add": "Thêm địa chỉ",
-      "update": "Cập nhật địa chỉ",
-      "cancel": "Hủy",
-      "edit": "Chỉnh sửa",
-      "delete": "Xóa",
-      "delete_confirm": "Bạn có chắc chắn muốn xóa địa chỉ này không?"
+      "title": "地址",
+      "default": "默认",
+      "add_new": "添加新地址",
+      "edit_address": "编辑地址",
+      "first_name": "名字",
+      "last_name": "姓氏",
+      "company": "公司",
+      "address1": "地址 1",
+      "address2": "地址 2",
+      "city": "城市",
+      "country": "国家/地区",
+      "province": "省",
+      "zip": "邮政编码",
+      "phone": "电话",
+      "set_default": "设为默认地址",
+      "add": "添加地址",
+      "update": "更新地址",
+      "cancel": "取消",
+      "edit": "“编辑”。",
+      "delete": "删除",
+      "delete_confirm": "确定要删除此地址吗？"
     },
-    "log_in": "Đăng nhập",
-    "log_out": "Đăng xuất",
+    "log_in": "登录",
+    "log_out": "登出",
     "login_page": {
-      "cancel": "Hủy",
-      "create_account": "Tạo tài khoản",
-      "email": "Email",
-      "forgot_password": "Quên mật khẩu?",
-      "guest_continue": "Tiếp tục",
-      "guest_title": "Tiếp tục với tư cách khách",
-      "password": "Mật khẩu",
-      "title": "Đăng nhập",
-      "sign_in": "Đăng nhập",
-      "submit": "Gửi",
-      "alternate_provider_separator": "hoặc"
+      "cancel": "取消",
+      "create_account": "创建账户",
+      "email": "电子邮件",
+      "forgot_password": "忘记了密码？",
+      "guest_continue": "继续",
+      "guest_title": "以访客身份继续",
+      "password": "密码",
+      "title": "登录",
+      "sign_in": "登录",
+      "submit": "提交",
+      "alternate_provider_separator": "或"
     },
     "orders": {
-      "title": "Lịch sử đặt hàng",
-      "order_number": "Đơn hàng",
-      "order_number_link": "Mã đơn hàng {{ number }}",
-      "date": "Ngày",
-      "payment_status": "Trạng thái thanh toán",
-      "fulfillment_status": "Trạng thái thực hiện",
-      "total": "Tổng",
-      "none": "Bạn chưa đặt đơn hàng nào."
+      "title": "订单历史记录",
+      "order_number": "订单",
+      "order_number_link": "订单号 {{ number }}",
+      "date": "日期",
+      "payment_status": "付款状态",
+      "fulfillment_status": "发货状态",
+      "total": "总计",
+      "none": "您尚未创建任何订单。"
     },
     "recover_password": {
-      "title": "Đặt lại mật khẩu",
-      "subtext": "Chúng tôi sẽ gửi email cho bạn để đặt lại mật khẩu",
-      "success": "Chúng tôi đã gửi cho bạn email chứa liên kết cập nhật mật khẩu."
+      "title": "重置密码",
+      "subtext": "我们将向您发送用于重置密码的电子邮件",
+      "success": "我们已向您发送电子邮件，其中包含更新密码的链接。"
     },
     "register": {
-      "title": "Tạo tài khoản",
-      "first_name": "Tên",
-      "last_name": "Họ",
-      "email": "Email",
-      "password": "Mật khẩu",
-      "submit": "Tạo"
+      "title": "创建账户",
+      "first_name": "名字",
+      "last_name": "姓氏",
+      "email": "电子邮件",
+      "password": "密码",
+      "submit": "创建"
     },
     "reset_password": {
-      "title": "Đặt lại mật khẩu tài khoản",
-      "subtext": "Nhập mật khẩu mới",
-      "password": "Mật khẩu",
-      "password_confirm": "Xác nhận mật khẩu",
-      "submit": "Đặt lại mật khẩu"
+      "title": "重置账户密码",
+      "subtext": "输入新密码",
+      "password": "密码",
+      "password_confirm": "确认密码",
+      "submit": "重置密码"
     },
     "order": {
-      "title": "Đơn hàng {{ name }}",
-      "date_html": "Đặt vào {{ date }}",
-      "cancelled_html": "Đơn hàng đã bị hủy vào {{ date }}",
-      "cancelled_reason": "Lý do: {{ reason }}",
-      "billing_address": "Địa chỉ thanh toán",
-      "payment_status": "Trạng thái thanh toán",
-      "shipping_address": "Địa chỉ giao hàng",
-      "fulfillment_status": "Trạng thái thực hiện",
-      "discount": "Giảm giá",
-      "shipping": "Vận chuyển",
-      "tax": "Thuế",
-      "product": "Sản phẩm",
+      "title": "订单 {{ name }}",
+      "date_html": "下单日期：{{ date }}",
+      "cancelled_html": "订单取消日期：{{ date }}",
+      "cancelled_reason": "原因：{{ reason }}",
+      "billing_address": "账单地址",
+      "payment_status": "付款状态",
+      "shipping_address": "收货地址",
+      "fulfillment_status": "发货状态",
+      "discount": "折扣",
+      "shipping": "运输",
+      "tax": "税费",
+      "product": "产品",
       "sku": "SKU",
-      "price": "Giá",
-      "quantity": "Số lượng",
-      "total": "Tổng",
-      "fulfilled_at_html": "Đã thực hiện {{ date }}",
-      "track_shipment": "Theo dõi lô hàng",
-      "tracking_url": "Liên kết theo dõi",
-      "tracking_company": "Hãng vận chuyển",
-      "tracking_number": "Mã theo dõi",
-      "subtotal": "Tổng phụ",
-      "total_duties": "Thuế hải quan",
-      "total_refunded": "Đã hoàn tiền"
+      "price": "价格",
+      "quantity": "数量",
+      "total": "总计",
+      "fulfilled_at_html": "发货日期：{{ date }}",
+      "track_shipment": "跟踪货件",
+      "tracking_url": "跟踪链接",
+      "tracking_company": "承运商",
+      "tracking_number": "跟踪编号",
+      "subtotal": "小计",
+      "total_duties": "关税",
+      "total_refunded": "已退款"
     }
   },
   "gift_cards": {
     "issued": {
-      "title": "Đây là số dư thẻ quà tặng trị giá {{ value }} của bạn cho {{ shop }}!",
-      "subtext": "Thẻ quà tặng của bạn",
-      "gift_card_code": "Mã thẻ quà tặng",
-      "shop_link": "Truy cập cửa hàng trực tuyến",
-      "add_to_apple_wallet": "Thêm vào Apple Wallet",
-      "qr_image_alt": "Mã QR — quét để đổi thẻ quà tặng",
-      "copy_code": "Sao chép mã thẻ quà tặng",
-      "expired": "Đã hết hạn",
-      "copy_code_success": "Đã sao chép mã thành công",
-      "how_to_use_gift_card": "Sử dụng mã thẻ quà tặng trực tuyến hoặc mã QR tại cửa hàng",
-      "expiration_date": "Hết hạn vào {{ expires_on }}"
+      "title": "您的 {{ shop }} 的礼品卡余额为 {{ value }}！",
+      "subtext": "您的礼品卡",
+      "gift_card_code": "礼品卡代码",
+      "shop_link": "访问在线商店",
+      "add_to_apple_wallet": "添加到 Apple Wallet",
+      "qr_image_alt": "二维码 — 扫描兑换礼品卡",
+      "copy_code": "复制礼品卡代码",
+      "expired": "已过期",
+      "copy_code_success": "已成功复制代码",
+      "how_to_use_gift_card": "在线使用礼品卡代码或在店内使用二维码",
+      "expiration_date": "过期日期：{{ expires_on }}"
     }
   },
   "recipient": {
     "form": {
-      "checkbox": "Tôi muốn gửi làm quà",
-      "email_label": "Email người nhận",
-      "email": "Email",
-      "name_label": "Tên người nhận (không bắt buộc)",
-      "name": "Tên",
-      "message_label": "Tin nhắn (không bắt buộc)",
-      "message": "Tin nhắn",
-      "max_characters": "Tối đa {{ max_chars }} ký tự",
-      "email_label_optional_for_no_js_behavior": "Email người nhận (không bắt buộc)",
-      "send_on": "DD-MM-YYYY",
-      "send_on_label": "Ngày gửi (tùy chọn)",
-      "expanded": "Đã mở rộng biểu mẫu người nhận thẻ quà tặng",
-      "collapsed": "Đã thu nhỏ biểu mẫu người nhận thẻ quà tặng"
+      "checkbox": "我想将此礼品卡发送为礼品",
+      "email_label": "收件人邮箱",
+      "email": "邮箱",
+      "name_label": "收件人姓名（可选）",
+      "name": "姓名",
+      "message_label": "消息（可选）",
+      "message": "消息",
+      "max_characters": "不超过 {{ max_chars }} 个字符",
+      "email_label_optional_for_no_js_behavior": "收件人邮箱（可选）",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "发送日期（可选）",
+      "expanded": "礼品卡收件人表单已展开",
+      "collapsed": "礼品卡收件人表单已折叠"
     }
   }
 }

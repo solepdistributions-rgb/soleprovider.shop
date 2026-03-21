@@ -1,52 +1,32 @@
 {% comment %}
-  Renders a swatch input component.
+  Renders a swatch component.
   Accepts:
-  - id: {String} unique input id
-  - type: {String} input type. Accepts 'radio' or 'checkbox', defaults to 'radio' (optional)
-  - name: {String} input name,
-  - value: {ProductOptionValueDrop} input value
-  - swatch: {SwatchDrop} the swatch drop
-  - product_form_id: {String} id of the form associted with the input
-  - checked: {Boolean} default checked status
-  - disabled: {Boolean} default disabled status (optional)
-  - visually_disabled: {Boolean} style the swatch as disabled, but leave the input enabled (optional)
-  - shape: {String} swatch shape. Accepts 'square', defaults to circle (optional)
-  - help_text: {String} additional content to render inside the label (optional)
-  - additional_props: {String} (optional) additional properties to attach to the input
+  - swatch: {Object} a swatch object
+  - shape: {String} swatch shape. Accepts 'square', defaults to circle.
 
   Usage:
-   {% render 'swatch-input',
-      id: input_id,
-      name: input_name,
-      value: input_value,
-      swatch: swatch,
-      product_form_id: product_form_id,
-      checked: checked
-    %}
+  {% render 'swatch',
+    swatch: value.swatch
+    shape: 'square'
+  %}
 {% endcomment %}
 
-<input
-  type="{{ type | default: 'radio' }}"
-  id="{{ id }}"
-  name="{{ name }}"
-  value="{{ value }}"
-  form="{{ product_form_id }}"
-  class="swatch-input__input{% if visually_disabled %} visually-disabled{% endif %}"
-  {% if checked %}
-    checked
+{%- liquid
+  assign swatch_value = null
+  if swatch.image
+    assign image_url = swatch.image | image_url: width: 50
+    assign swatch_value = 'url(' | append: image_url | append: ')'
+    assign swatch_focal_point = swatch.image.presentation.focal_point
+  elsif swatch.color
+    assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+  endif
+-%}
+
+<span
+  {% if swatch_value %}
+    class="swatch{% if shape == 'square' %} swatch--square{% endif %}"
+    style="--swatch--background: {{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}"
+  {% else %}
+    class="swatch swatch--unavailable{% if shape == 'square' %} swatch--square{% endif %}"
   {% endif %}
-  {% if disabled %}
-    disabled
-  {% endif %}
-  {% if additional_props %}
-    {{ additional_props }}
-  {% endif %}
->
-<label
-  for="{{ id }}"
-  title="{{ value }}"
-  class="swatch-input__label{% if shape == 'square' %} swatch-input__label--square{% endif %}"
->
-  {% render 'swatch', swatch: swatch, shape: shape %}
-  {{ help_text }}
-</label>
+></span>

@@ -1,71 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": {
-      "type": "polos-landing",
+    "promo_products_hero": {
+      "type": "promo-products-hero",
+      "settings": {
+        "eyebrow": "Branded Solutions",
+        "heading": "Promotional Products",
+        "text": "Branded merchandise, giveaway items, print collateral, signage, and promotional solutions designed to support your business, event, or organization with quality, flexibility, and attention to detail.",
+        "primary_label": "Browse Categories",
+        "primary_link": "#promo-categories",
+        "secondary_label": "Start a Quote",
+        "secondary_link": "/pages/request-quote"
+      }
+    },
+    "promo_categories_grid": {
+      "type": "promo-categories-grid",
       "blocks": {
-        "subtype_1": {
-          "type": "subtype",
+        "category_card_1": {
+          "type": "category_card",
           "settings": {
-            "icon_text": "PP",
-            "title": "Performance Polos",
-            "subtitle": "Moisture-wicking polos for active use, teams, and warm-weather wear",
-            "detail_1": "Great for athletic and event use",
-            "detail_2": "Lightweight and breathable",
-            "detail_3": "Strong option for embroidery",
-            "link": "/collections/performance-polos"
+            "title": "Drinkware",
+            "link": "/collections/drinkware"
           }
         },
-        "subtype_2": {
-          "type": "subtype",
+        "category_card_2": {
+          "type": "category_card",
           "settings": {
-            "icon_text": "CP",
-            "title": "Cotton Polos",
-            "subtitle": "Classic softer polos for everyday branded apparel and casual uniforms",
-            "detail_1": "Traditional polo look and feel",
-            "detail_2": "Comfort-focused option",
-            "detail_3": "Good for office and general use",
-            "link": "/collections/cotton-polos"
+            "title": "Bags",
+            "link": ""
           }
         },
-        "subtype_3": {
-          "type": "subtype",
+        "category_card_3": {
+          "type": "category_card",
           "settings": {
-            "icon_text": "WP",
-            "title": "Work Polos",
-            "subtitle": "Built for durability, uniform programs, and harder-wearing environments",
-            "detail_1": "Ideal for crews and service teams",
-            "detail_2": "Made for repeat wear",
-            "detail_3": "Practical for branded uniforms",
-            "link": "/collections/work-polos"
+            "title": "Office",
+            "link": ""
+          }
+        },
+        "category_card_4": {
+          "type": "category_card",
+          "settings": {
+            "title": "Accessories",
+            "link": ""
+          }
+        },
+        "category_card_5": {
+          "type": "category_card",
+          "settings": {
+            "title": "Signage & Print",
+            "link": ""
+          }
+        },
+        "category_card_6": {
+          "type": "category_card",
+          "settings": {
+            "title": "Giveaways",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "subtype_1",
-        "subtype_2",
-        "subtype_3"
+        "category_card_1",
+        "category_card_2",
+        "category_card_3",
+        "category_card_4",
+        "category_card_5",
+        "category_card_6"
       ],
       "settings": {
-        "eyebrow": "Custom Apparel",
-        "heading": "Polos",
-        "text": "<p>Choose the polo category that fits your project, then narrow by brand, color, material, and size. Whether you need uniforms, corporate apparel, team wear, or durable work polos, we can help guide the best option.</p>",
-        "primary_label": "Request a Quote",
+        "eyebrow": "Browse Categories",
+        "heading": "Explore Promotional Categories",
+        "text": "Browse promotional categories including branded merchandise, event giveaways, signage, and printed marketing materials to find the right fit for your business, event, or organization."
+      }
+    },
+    "promo_sourcing_cta": {
+      "type": "promo-sourcing-cta",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Don’t See What You Need?",
+        "text": "If you don’t see the exact product, printed piece, or promotional item you’re looking for, send us a request and we’ll help source the right option for your project.",
+        "button_label": "Request a Product",
+        "button_link": "/pages/request-quote"
+      }
+    },
+    "promo_how_it_works": {
+      "type": "promo-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Browse Products",
+            "text": "Explore categories and find the products, print pieces, or promotional items that fit your business, event, or organization."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Add to Quote",
+            "text": "Select the items you’re interested in and build one organized request instead of submitting multiple forms."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Add Details",
+            "text": "Include quantities, artwork notes, print specs, and anything else we should know about the project."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Submit Once",
+            "text": "Send everything in one request and we’ll help finalize the right products, pricing, and next steps."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "eyebrow": "How It Works",
+        "heading": "One Organized Quote Process",
+        "text": "Browse products, printed materials, and promotional items, then submit one organized request with quantities, notes, and project details all in one place."
+      }
+    },
+    "promo_quote_cta": {
+      "type": "promo-quote-cta",
+      "settings": {
+        "eyebrow": "Organized Ordering",
+        "heading": "Build One Organized Quote",
+        "text": "Add multiple items, keep your order organized, and submit one quote request for merchandise, print, and promotional needs at once.",
+        "primary_label": "Start a Quote",
         "primary_link": "/pages/request-quote",
-        "secondary_label": "View Design Work",
-        "secondary_link": "/pages/portfolio#pf-design",
-        "subtypes_eyebrow": "Shop By Style",
-        "subtypes_heading": "Choose Your Polo Category",
-        "subtypes_text": "Each category is designed to help you get to the right polo faster.",
-        "help_heading": "Need Help Picking The Right Polo?",
-        "help_text": "If you are deciding between performance, cotton, or work polos, we can recommend the best direction based on budget, decoration method, durability, and end use.",
-        "help_primary_label": "Request a Quote",
-        "help_primary_link": "/pages/request-quote",
-        "help_secondary_label": "Contact Us",
-        "help_secondary_link": "/pages/contact"
+        "secondary_label": "Contact Us",
+        "secondary_link": "/pages/contact"
       }
     }
   },
   "order": [
-    "main"
+    "promo_products_hero",
+    "promo_categories_grid",
+    "promo_sourcing_cta",
+    "promo_how_it_works",
+    "promo_quote_cta"
   ]
 }

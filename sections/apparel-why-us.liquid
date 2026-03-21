@@ -1,80 +1,91 @@
-<section class="ap-process">
+<section class="ap-why">
   <div class="page-width">
-    <div class="ap-process__intro">
-      {% if section.settings.eyebrow != blank %}
-        <p class="ap-process__eyebrow">{{ section.settings.eyebrow }}</p>
-      {% endif %}
-      {% if section.settings.heading != blank %}
-        <h2 class="ap-process__heading">{{ section.settings.heading }}</h2>
-      {% endif %}
-    </div>
-    <div class="ap-process__steps">
-      {% for block in section.blocks %}
-        <div class="ap-process__step" {{ block.shopify_attributes }}>
-          <div class="ap-process__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</div>
-          <div class="ap-process__step-body">
-            <h3 class="ap-process__step-title">{{ block.settings.title }}</h3>
-            {% if block.settings.text != blank %}
-              <p class="ap-process__step-text">{{ block.settings.text }}</p>
-            {% endif %}
+    <div class="ap-why__inner">
+      <div class="ap-why__left">
+        {% if section.settings.eyebrow != blank %}
+          <p class="ap-why__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.heading != blank %}
+          <h2 class="ap-why__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          <p class="ap-why__text">{{ section.settings.text }}</p>
+        {% endif %}
+        {% if section.settings.button_label != blank %}
+          <a href="{{ section.settings.button_link }}" class="ap-why__btn">{{ section.settings.button_label }}</a>
+        {% endif %}
+      </div>
+      <div class="ap-why__right">
+        {% for block in section.blocks %}
+          <div class="ap-why__item" {{ block.shopify_attributes }}>
+            <div class="ap-why__check">✓</div>
+            <div class="ap-why__item-body">
+              <strong class="ap-why__item-title">{{ block.settings.title }}</strong>
+              {% if block.settings.text != blank %}
+                <p class="ap-why__item-text">{{ block.settings.text }}</p>
+              {% endif %}
+            </div>
           </div>
-        </div>
-        {% unless forloop.last %}
-          <div class="ap-process__connector" aria-hidden="true"></div>
-        {% endunless %}
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .ap-process { padding: 84px 0; background: #111111; color: #ffffff; }
-  .ap-process__intro { text-align: center; max-width: 680px; margin: 0 auto 52px; }
-  .ap-process__eyebrow { margin: 0 0 10px; color: rgba(255,255,255,0.7); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
-  .ap-process__heading { margin: 0; font-family: var(--sole-heading-font); font-size: clamp(2.8rem, 4vw, 4.8rem); line-height: 0.95; font-weight: 900; text-transform: uppercase; color: #ffffff; }
+  .ap-why { padding: 84px 0; background: #f7f7f7; }
+  .ap-why__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .ap-why__left { position: sticky; top: 100px; }
+  .ap-why__eyebrow { margin: 0 0 10px; color: #c41230; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .ap-why__heading { margin: 0 0 16px; font-family: var(--sole-heading-font); font-size: clamp(2.8rem, 4vw, 4.8rem); line-height: 0.95; font-weight: 900; text-transform: uppercase; color: #111111; }
+  .ap-why__text { margin: 0 0 28px; font-size: 1.65rem; line-height: 1.7; color: #4a4a4a; }
+  .ap-why__btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 26px; background: #c41230; color: #ffffff; text-decoration: none; text-transform: uppercase; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.06em; border: 2px solid #c41230; transition: all 0.25s ease; }
+  .ap-why__btn:hover { background: #111111; border-color: #111111; }
 
-  .ap-process__steps { display: flex; align-items: flex-start; }
-  .ap-process__step { flex: 1; padding: 32px 24px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); transition: background 0.28s ease, border-color 0.28s ease, transform 0.28s ease; }
-  .ap-process__step:hover { background: rgba(196,18,48,0.1); border-color: rgba(196,18,48,0.45); transform: translateY(-4px); }
-  .ap-process__connector { width: 32px; flex-shrink: 0; height: 2px; background: rgba(196,18,48,0.5); align-self: center; position: relative; }
-  .ap-process__connector::after { content: ''; position: absolute; right: -5px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid rgba(196,18,48,0.5); }
-  .ap-process__num { font-family: var(--sole-heading-font); font-size: 3.2rem; font-weight: 900; color: #c41230; line-height: 1; margin-bottom: 14px; }
-  .ap-process__step-title { margin: 0 0 10px; font-family: var(--sole-heading-font); font-size: 1.9rem; line-height: 1.05; font-weight: 900; text-transform: uppercase; color: #ffffff; }
-  .ap-process__step-text { margin: 0; font-size: 1.45rem; line-height: 1.65; color: rgba(255,255,255,0.72); }
+  .ap-why__right { display: flex; flex-direction: column; }
+  .ap-why__item { display: flex; gap: 20px; padding: 24px 0; border-bottom: 1px solid #e2e2e2; transition: transform 0.22s ease; }
+  .ap-why__item:first-child { border-top: 1px solid #e2e2e2; }
+  .ap-why__item:hover { transform: translateX(6px); }
+  .ap-why__check { flex-shrink: 0; width: 34px; height: 34px; background: #c41230; color: #ffffff; font-weight: 900; font-size: 1.5rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .ap-why__item-title { display: block; font-family: var(--sole-heading-font); font-size: 1.85rem; font-weight: 900; text-transform: uppercase; color: #111111; margin-bottom: 6px; }
+  .ap-why__item-text { margin: 0; font-size: 1.5rem; line-height: 1.65; color: #555555; }
 
   @media screen and (max-width: 989px) {
-    .ap-process { padding: 64px 0; }
-    .ap-process__steps { flex-direction: column; }
-    .ap-process__connector { width: 2px; height: 28px; align-self: auto; margin: 0 32px; }
-    .ap-process__connector::after { right: 50%; bottom: -5px; top: auto; transform: translateX(50%); border-top: 7px solid rgba(196,18,48,0.5); border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: none; }
+    .ap-why { padding: 64px 0; }
+    .ap-why__inner { grid-template-columns: 1fr; gap: 40px; }
+    .ap-why__left { position: static; }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Apparel Process",
+  "name": "Apparel Why Us",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How It Works" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "From Idea to Delivery" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Difference" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Why Work With Us" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "We treat every order with the same attention to detail and quality standard." },
+    { "type": "text", "id": "button_label", "label": "Button", "default": "Request a Quote" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
   ],
   "blocks": [
     {
-      "type": "step",
-      "name": "Process Step",
+      "type": "reason",
+      "name": "Reason",
       "settings": [
-        { "type": "text", "id": "title", "label": "Step title", "default": "Submit Your Request" },
-        { "type": "textarea", "id": "text", "label": "Description", "default": "Tell us what you need and we handle the rest." }
+        { "type": "text", "id": "title", "label": "Title", "default": "No Hidden Fees" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Transparent pricing from the start." }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Apparel Process",
+      "name": "Apparel Why Us",
       "blocks": [
-        { "type": "step", "settings": { "title": "Submit Your Request", "text": "Share your idea — quantity, style, decoration, and timeline — through our quote form." } },
-        { "type": "step", "settings": { "title": "Review Your Quote", "text": "We send a detailed quote with pricing, product options, and production timeline." } },
-        { "type": "step", "settings": { "title": "Approve & Submit Artwork", "text": "Approve the quote and submit your artwork. Need design help? We've got you covered." } },
-        { "type": "step", "settings": { "title": "Production & Delivery", "text": "We manage production and ship directly to you or your team. Simple." } }
+        { "type": "reason", "settings": { "title": "Transparent Pricing", "text": "No surprise fees. What we quote is what you pay — every time." } },
+        { "type": "reason", "settings": { "title": "Low Minimums", "text": "Most decoration methods start at 12 pieces. Small teams and test runs are welcome." } },
+        { "type": "reason", "settings": { "title": "In-House Design Support", "text": "Don't have print-ready files? Our design team can build or refine your artwork for production." } },
+        { "type": "reason", "settings": { "title": "Trusted Vendor Network", "text": "We work with vetted production partners to ensure quality and on-time delivery every order." } },
+        { "type": "reason", "settings": { "title": "White-Glove Service", "text": "Every order gets a dedicated point of contact. We stay with you from quote to delivery." } }
       ]
     }
   ]

@@ -1,22 +1,400 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "github_test_hero": {
-      "type": "github-test-hero",
+    "sole_hero_98Uh78": {
+      "type": "sole-hero",
+      "name": "Sole Hero",
       "settings": {
-        "heading": "Connected via GitHub",
-        "subheading": "This banner was deployed through the Shopify-GitHub integration"
+        "eyebrow": "The Sole Provider",
+        "heading": "Where Business Meets Creativity",
+        "subheading": "From corporate branding to creative drops, we bring your vision to life.",
+        "hero_image": "shopify://shop_images/Founders_078_Oct2025.jpg",
+        "primary_button_label": "Request Quote",
+        "primary_button_link": "/pages/request-quote",
+        "secondary_button_label": "View Portfolio",
+        "secondary_button_link": "/pages/portfolio"
       }
     },
-    "main": {
-      "type": "main-register",
+    "service_path_cards_RfJAEY": {
+      "type": "service-path-cards",
+      "blocks": {
+        "card_bgkii4": {
+          "type": "card",
+          "settings": {
+            "title": "Apparel",
+            "text": "Custom apparel built to meet your needs",
+            "cta_text": "Explore",
+            "link": "/pages/apparel",
+            "icon_text": "AP"
+          }
+        },
+        "card_WeER7F": {
+          "type": "card",
+          "settings": {
+            "title": "Promotional Products",
+            "text": "Custom merch, promotional products, branded print pieces, and giveaway items built for your audience.",
+            "cta_text": "Explore",
+            "link": "/pages/promotional-products#promo-categories",
+            "icon_text": "PP"
+          }
+        },
+        "card_qmiYEA": {
+          "type": "card",
+          "settings": {
+            "title": "Graphic Design Services",
+            "text": "Creative support for apparel, branding, print pieces, and promotional visuals.",
+            "cta_text": "View Design",
+            "link": "/pages/graphic-design",
+            "icon_text": "GD"
+          }
+        },
+        "card_hNk9JT": {
+          "type": "card",
+          "settings": {
+            "title": "Exclusive Drops",
+            "text": "Shop Sole Provider featured products, limited releases, and exclusive monthly drops.",
+            "cta_text": "Shop Drops",
+            "link": "/pages/exclusive-drops",
+            "icon_text": "XD"
+          }
+        },
+        "card_Qtifi4": {
+          "type": "card",
+          "settings": {
+            "title": "Team Stores",
+            "text": "Shop active stores for schools, teams, organizations, and group orders.",
+            "cta_text": "View Stores",
+            "link": "shopify://pages/team-stores",
+            "icon_text": "TS"
+          }
+        },
+        "card_MjaiBd": {
+          "type": "card",
+          "settings": {
+            "title": "Request Quote",
+            "text": "Tell us what you need and we’ll help bring your project to life.",
+            "cta_text": "Start Here",
+            "link": "shopify://pages/request-quote",
+            "icon_text": "RQ"
+          }
+        }
+      },
+      "block_order": [
+        "card_bgkii4",
+        "card_WeER7F",
+        "card_qmiYEA",
+        "card_hNk9JT",
+        "card_Qtifi4",
+        "card_MjaiBd"
+      ],
+      "name": "Service Path Cards",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
+        "eyebrow": "Explore Services",
+        "heading": "Built for Businesses, Universities, and Ideas"
+      }
+    },
+    "brand_story_td4Ntt": {
+      "type": "brand-story",
+      "name": "Brand Story",
+      "settings": {
+        "eyebrow": "Built With Purpose",
+        "heading": "More Than a Name",
+        "paragraph_1": "The Sole Provider was founded in 2021 with $125 as a sneaker resale company. The name and slogans were dreamed up by Sean and his father at a brewery in Burlington, VT. Over time, The Sole Provider grew in the industry, becoming a well known name in the sneaker world. What began with a passion for product, style, and culture evolved into a full-service promotional branding agency. Built to make things easier for our clients.",
+        "paragraph_2": "Today, the name represents what we aim to be for every client: a one-stop source for custom apparel, branded items, creative design, and promotional support. We focus on quality, detail, and service at every step, while keeping the process approachable and affordable.",
+        "paragraph_3": "At its core, The Sole Provider is about more than products. It is about helping people feel seen, supported, and confident that their vision is being handled with real care.",
+        "logo_image": "shopify://shop_images/Fullcolor_Shirt.png",
+        "placeholder_text": "The Sole Provider",
+        "button_label": "View on Instagram",
+        "button_link": "https://www.instagram.com/the_sole_provider_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+      }
+    },
+    "value_pillars_WygKLy": {
+      "type": "value-pillars",
+      "blocks": {
+        "pillar_gy4kKe": {
+          "type": "pillar",
+          "settings": {
+            "title": "Small Business, Big Reach",
+            "text": "Personalized service with the capabilities and product access to support brands of any size."
+          }
+        },
+        "pillar_AM4Ywg": {
+          "type": "pillar",
+          "settings": {
+            "title": "Quality First",
+            "text": "From product selection to final delivery, quality stays at the center of every project."
+          }
+        },
+        "pillar_xBLfAm": {
+          "type": "pillar",
+          "settings": {
+            "title": "Detail Oriented",
+            "text": "The small details matter, and we treat them like they make the difference — because they do."
+          }
+        },
+        "pillar_CD7iJ6": {
+          "type": "pillar",
+          "settings": {
+            "title": "Relationship Focused",
+            "text": "We believe every client should feel valued, supported, and treated like our top priority."
+          }
+        }
+      },
+      "block_order": [
+        "pillar_gy4kKe",
+        "pillar_AM4Ywg",
+        "pillar_xBLfAm",
+        "pillar_CD7iJ6"
+      ],
+      "name": "Value Pillars",
+      "settings": {
+        "eyebrow": "The Difference",
+        "heading": "What Sets Us Apart"
+      }
+    },
+    "featured_work_grid_wLQL3F": {
+      "type": "featured-work-grid",
+      "blocks": {
+        "work_card_VcVft7": {
+          "type": "work_card",
+          "settings": {
+            "title": "Apparel",
+            "link": "/pages/portfolio#pf-apparel"
+          }
+        },
+        "work_card_6xQHHG": {
+          "type": "work_card",
+          "settings": {
+            "title": "Graphic Design",
+            "link": "/pages/portfolio#pf-design"
+          }
+        },
+        "work_card_rDMrW8": {
+          "type": "work_card",
+          "settings": {
+            "title": "Promo Products",
+            "link": "/pages/portfolio#pf-promo"
+          }
+        },
+        "work_card_tEHMFb": {
+          "type": "work_card",
+          "settings": {
+            "title": "Large Format Branding",
+            "link": "/pages/portfolio#pf-large-format"
+          }
+        }
+      },
+      "block_order": [
+        "work_card_VcVft7",
+        "work_card_6xQHHG",
+        "work_card_rDMrW8",
+        "work_card_tEHMFb"
+      ],
+      "name": "Featured Work Grid",
+      "settings": {
+        "eyebrow": "Portfolio",
+        "heading": "Featured Work",
+        "button_label": "View Portfolio",
+        "button_link": "/pages/portfolio"
+      }
+    },
+    "drops_banner_jLiRXf": {
+      "type": "drops-banner",
+      "name": "Drops Banner",
+      "settings": {
+        "eyebrow": "Limited Release",
+        "heading": "Sole Provider Drops",
+        "text": "Explore exclusive releases, featured pieces, and brand-driven drops from The Sole Provider.",
+        "banner_image": "shopify://shop_images/DSC_0555.jpg",
+        "button_label": "Shop Drops",
+        "button_link": "/pages/exclusive-drops"
+      }
+    },
+    "team_stores_grid_i883rN": {
+      "type": "team-stores-grid",
+      "blocks": {
+        "store_card_7hU3Pb": {
+          "type": "store_card",
+          "settings": {
+            "title": "Bryant Running Club",
+            "link": "",
+            "button_label": "View Store"
+          }
+        },
+        "store_card_WABDwL": {
+          "type": "store_card",
+          "settings": {
+            "title": "Staff Apparel",
+            "link": "",
+            "button_label": "View Store"
+          }
+        },
+        "store_card_dV6fi6": {
+          "type": "store_card",
+          "settings": {
+            "title": "Youth Baseball",
+            "link": "",
+            "button_label": "View Store"
+          }
+        }
+      },
+      "block_order": [
+        "store_card_7hU3Pb",
+        "store_card_WABDwL",
+        "store_card_dV6fi6"
+      ],
+      "disabled": true,
+      "name": "Team Stores Grid",
+      "settings": {
+        "eyebrow": "Organization Stores",
+        "heading": "Team Stores",
+        "text": "Private team stores make it easy for organizations, schools, and groups to offer custom merchandise through a dedicated shopping experience.",
+        "bottom_button_label": "Start a Team Store",
+        "bottom_button_link": ""
+      }
+    },
+    "trusted_by_logos_gqDpXQ": {
+      "type": "trusted-by-logos",
+      "blocks": {
+        "logo_gr8RXh": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/bryant_seal_blk_1.jpg",
+            "name": "Client Name"
+          }
+        },
+        "logo_UWFxpJ": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Screenshot_2026-03-06_205154.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_kWCrJK": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Screenshot_2026-03-06_204952.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_mGdnGK": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/download_2.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_Cfj8Rj": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Bryant_IDEA_logo_rgb_black-yellow.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_MbxDDt": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/black_copy_3_200x_f85af7f2-c291-42b4-9c11-05c7d95b2319.avif",
+            "name": "Client Name"
+          }
+        },
+        "logo_CtJnnH": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/Screenshot_2026-03-06_204400.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_3MKUhA": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/CUSTOM_DEFENSE_LOGO_DESIGN_-_BARREL_ON_DARK-01_Cropped_1.jpg",
+            "name": "Client Name"
+          }
+        },
+        "logo_iYmiPn": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/img-489-920x168-href_920x168_052ebe76-cfac-4319-9bbb-ca27c014d3ad.png",
+            "name": "Client Name"
+          }
+        },
+        "logo_ACzCPJ": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/CEO_logo.png",
+            "name": "Client Name"
+          }
+        }
+      },
+      "block_order": [
+        "logo_gr8RXh",
+        "logo_UWFxpJ",
+        "logo_kWCrJK",
+        "logo_mGdnGK",
+        "logo_Cfj8Rj",
+        "logo_MbxDDt",
+        "logo_CtJnnH",
+        "logo_3MKUhA",
+        "logo_iYmiPn",
+        "logo_ACzCPJ"
+      ],
+      "name": "Trusted By Logos",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Trusted By"
+      }
+    },
+    "meet_the_owner_VMejFr": {
+      "type": "meet-the-owner",
+      "name": "Meet the Owner",
+      "settings": {
+        "eyebrow": "Founder Story",
+        "heading": "Meet the Owner",
+        "image": "shopify://shop_images/Sprague_Jan2026_039_1.jpg",
+        "name": "Sean D. Nelson",
+        "title": "Founder, The Sole Provider",
+        "paragraph_1": "The Sole Provider is built on creativity, resilience, and a genuine commitment to people. Founded by Sean D. Nelson, the brand grew from a passion for products and design into a full-service promotional branding agency focused on making custom merchandise and branded materials easier, more personal, and more effective for every client.",
+        "paragraph_2": "Part of that journey has been shaped by personal challenges, including brain surgery, which helped deepen Sean’s perspective on resilience, purpose, and the importance of building something meaningful. That perspective carries into the business today through a focus on relationships, attention to detail, and making every client feel valued.",
+        "paragraph_3": "Whether working with a small team, a growing brand, or a larger organization, the goal is always the same: to create work that feels intentional, high quality, and built with care.",
+        "linkedin_label": "Connect on LinkedIn",
+        "linkedin_link": "https://www.linkedin.com/in/sean-nelson-518bb82b3",
+        "contact_label": "Contact Me",
+        "contact_link": ""
+      }
+    },
+    "final_cta_8GJBya": {
+      "type": "final-cta",
+      "name": "Final CTA",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Ready to Build Something Great?",
+        "text": "From apparel and promotional products to design support and team stores, The Sole Provider is built to help bring your vision to life.",
+        "primary_label": "Request Quote",
+        "primary_link": "shopify://pages/request-quote",
+        "secondary_label": "Contact Us",
+        "secondary_link": ""
       }
     }
   },
   "order": [
-    "github_test_hero",
-    "main"
+    "sole_hero_98Uh78",
+    "service_path_cards_RfJAEY",
+    "brand_story_td4Ntt",
+    "value_pillars_WygKLy",
+    "featured_work_grid_wLQL3F",
+    "drops_banner_jLiRXf",
+    "team_stores_grid_i883rN",
+    "trusted_by_logos_gqDpXQ",
+    "meet_the_owner_VMejFr",
+    "final_cta_8GJBya"
   ]
 }

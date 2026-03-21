@@ -1,13 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-list-collections",
+      "type": "dress-shirts-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WS",
+            "title": "Woven Shirts",
+            "subtitle": "Classic button-down options for polished uniforms, office wear, and branded apparel",
+            "detail_1": "Traditional professional look",
+            "detail_2": "Strong for embroidery",
+            "detail_3": "Great for office and hospitality use",
+            "link": "/collections/woven-shirts"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "EC",
+            "title": "Easy Care Dress Shirts",
+            "subtitle": "Low-maintenance shirts designed for repeat wear and easy upkeep",
+            "detail_1": "Ideal for uniform programs",
+            "detail_2": "Wrinkle-resistant direction",
+            "detail_3": "Strong for day-to-day business wear",
+            "link": "/collections/easy-care-dress-shirts"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "ST",
+            "title": "Stretch Dress Shirts",
+            "subtitle": "Modern flexible shirting with extra comfort and movement built in",
+            "detail_1": "Great for all-day wear",
+            "detail_2": "More mobility and comfort",
+            "detail_3": "Elevated option for premium programs",
+            "link": "/collections/stretch-dress-shirts"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SS",
+            "title": "Short Sleeve Dress Shirts",
+            "subtitle": "Warmer-weather button-down options for staff uniforms and branded apparel",
+            "detail_1": "Good for hospitality and service teams",
+            "detail_2": "Lighter warm-weather choice",
+            "detail_3": "Keeps a polished look with more comfort",
+            "link": "/collections/short-sleeve-dress-shirts"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4"
+      ],
       "settings": {
-        "title": "Collections",
-        "sort": "alphabetical",
-        "image_ratio": "square",
-        "columns_desktop": 3,
-        "columns_mobile": "2"
+        "eyebrow": "Custom Apparel",
+        "heading": "Dress Shirts",
+        "text": "<p>Start with the dress shirt category that fits your project, then narrow by brand, color, material, and size. Whether you need polished office apparel, uniforms, hospitality wear, or elevated branded shirts, we can help guide the right option.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Dress Shirt Category",
+        "subtypes_text": "Each category is built to help you get to the right level of polish, comfort, and care faster.",
+        "help_heading": "Need Help Picking The Right Dress Shirt?",
+        "help_text": "If you are deciding between woven, easy care, stretch, or short sleeve options, we can recommend the best direction based on budget, environment, comfort, and end use.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
       }
     }
   },

@@ -1,84 +1,108 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "t-shirts-landing",
+      "type": "main-product",
       "blocks": {
-        "subtype_1": {
-          "type": "subtype",
+        "vendor": {
+          "type": "text",
           "settings": {
-            "icon_text": "BT",
-            "title": "Basic Tees",
-            "subtitle": "Versatile everyday blanks for events, merch, and teams",
-            "detail_1": "Great starting point for most projects",
-            "detail_2": "Works well for screen print and DTF",
-            "detail_3": "Balanced price and wearability",
-            "link": "/collections/basic-tees"
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
           }
         },
-        "subtype_2": {
-          "type": "subtype",
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
           "settings": {
-            "icon_text": "PT",
-            "title": "Performance Tees",
-            "subtitle": "Moisture-wicking styles built for active use and warm-weather wear",
-            "detail_1": "Ideal for teams, workouts, and events",
-            "detail_2": "Lightweight and breathable",
-            "detail_3": "Great for athletic branding",
-            "link": "/collections/performance-tees"
+            "picker_type": "button",
+            "swatch_shape": "circle"
           }
         },
-        "subtype_3": {
-          "type": "subtype",
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
           "settings": {
-            "icon_text": "HW",
-            "title": "Heavyweight Tees",
-            "subtitle": "Premium heavier garments for streetwear, merch, and elevated builds",
-            "detail_1": "Thicker hand feel and structure",
-            "detail_2": "Strong option for premium branding",
-            "detail_3": "Popular for fashion-forward projects",
-            "link": "/collections/heavyweight-tees"
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
           }
         },
-        "subtype_4": {
-          "type": "subtype",
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
           "settings": {
-            "icon_text": "LS",
-            "title": "Long Sleeve Tees",
-            "subtitle": "Extra coverage with the same flexibility as classic tees",
-            "detail_1": "Great for seasonal programs",
-            "detail_2": "Works for casual and team use",
-            "detail_3": "Easy layering piece",
-            "link": "/collections/long-sleeve-tees"
+            "share_label": "Share"
           }
         }
       },
       "block_order": [
-        "subtype_1",
-        "subtype_2",
-        "subtype_3",
-        "subtype_4"
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "share"
       ],
       "settings": {
-        "eyebrow": "Custom Apparel",
-        "heading": "T-Shirts",
-        "text": "<p>Start with the type of tee that fits your project, then narrow by brand, color, material, and size. Whether you need event shirts, premium merch, uniforms, or team apparel, we can help guide the right garment choice.</p>",
-        "primary_label": "Request a Quote",
-        "primary_link": "/pages/request-quote",
-        "secondary_label": "View Design Work",
-        "secondary_link": "/pages/portfolio#pf-design",
-        "subtypes_eyebrow": "Shop By Style",
-        "subtypes_heading": "Choose Your T-Shirt Category",
-        "subtypes_text": "Each category is built to help you get to the right fit and feel faster.",
-        "help_heading": "Need Help Picking The Right Tee?",
-        "help_text": "If you are deciding between performance, heavyweight, basics, or long sleeve options, we can recommend the best direction based on budget, decoration method, and end use.",
-        "help_primary_label": "Request a Quote",
-        "help_primary_link": "/pages/request-quote",
-        "help_secondary_label": "Contact Us",
-        "help_secondary_link": "/pages/contact"
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "related-products"
   ]
 }

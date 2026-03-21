@@ -10,7 +10,11 @@
       "Bash(then echo:*)",
       "Bash(fi)",
       "Bash(ls -1 \"C:\\\\Users\\\\seand\\\\Claude Code\"/*.json)",
-      "Bash(xargs -I {} basename {})"
+      "Bash(xargs -I {} basename {})",
+      "Bash(shopify version:*)",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(shopify theme:*)"
     ]
   }
 }

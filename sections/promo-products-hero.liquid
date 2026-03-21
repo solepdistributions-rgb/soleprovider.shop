@@ -1,220 +1,240 @@
-<section class="promo-how">
+<section class="promo-hero">
   <div class="page-width">
-    <div class="promo-how__intro">
-      {% if section.settings.eyebrow != blank %}
-        <p class="promo-how__eyebrow">{{ section.settings.eyebrow }}</p>
-      {% endif %}
+    <div class="promo-hero__grid">
+      <div class="promo-hero__content">
+        {% if section.settings.eyebrow != blank %}
+          <p class="promo-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+        {% endif %}
 
-      {% if section.settings.heading != blank %}
-        <h2 class="promo-how__heading">{{ section.settings.heading }}</h2>
-      {% endif %}
+        {% if section.settings.heading != blank %}
+          <h1 class="promo-hero__heading">{{ section.settings.heading }}</h1>
+        {% endif %}
 
-      {% if section.settings.text != blank %}
-        <p class="promo-how__text">{{ section.settings.text }}</p>
-      {% endif %}
-    </div>
+        {% if section.settings.text != blank %}
+          <p class="promo-hero__text">{{ section.settings.text }}</p>
+        {% endif %}
 
-    <div class="promo-how__grid">
-      {% for block in section.blocks %}
-        <div class="promo-how__card" {{ block.shopify_attributes }}>
-          <p class="promo-how__number">
-            {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
-          </p>
+        <div class="promo-hero__buttons">
+          {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
+            <a href="{{ section.settings.primary_link }}" class="promo-hero__button promo-hero__button--primary">
+              {{ section.settings.primary_label }}
+            </a>
+          {% endif %}
 
-          <h3 class="promo-how__title">{{ block.settings.title }}</h3>
-
-          {% if block.settings.text != blank %}
-            <p class="promo-how__card-text">{{ block.settings.text }}</p>
+          {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+            <a href="{{ section.settings.secondary_link }}" class="promo-hero__button promo-hero__button--secondary">
+              {{ section.settings.secondary_label }}
+            </a>
           {% endif %}
         </div>
-      {% endfor %}
+      </div>
+
+      <div class="promo-hero__media">
+        {% if section.settings.hero_image != blank %}
+          <img
+            src="{{ section.settings.hero_image | image_url: width: 1800 }}"
+            alt="{{ section.settings.heading | escape }}"
+            loading="lazy"
+            width="{{ section.settings.hero_image.width }}"
+            height="{{ section.settings.hero_image.height }}"
+          >
+        {% else %}
+          <div class="promo-hero__placeholder">
+            <span>Promotional Products</span>
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .promo-how {
+  .promo-hero {
     padding: 84px 0;
-    background: #ffffff;
+    background: linear-gradient(135deg, #111111 0%, #171717 55%, #c41230 165%);
+    color: #ffffff;
   }
 
-  .promo-how__intro {
-    text-align: center;
-    max-width: 820px;
-    margin: 0 auto 34px;
+  .promo-hero__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
   }
 
-  .promo-how__eyebrow {
-    margin: 0 0 10px;
-    color: #c41230;
+  .promo-hero__content {
+    max-width: 720px;
+  }
+
+  .promo-hero__eyebrow {
+    margin: 0 0 12px;
+    color: #ffffff;
     font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
+    opacity: 0.86;
   }
 
-  .promo-how__heading {
-    margin: 0 0 14px;
+  .promo-hero__heading {
+    margin: 0 0 18px;
     font-family: var(--sole-heading-font);
-    font-size: clamp(2.8rem, 4vw, 4.8rem);
+    font-size: clamp(3.2rem, 6vw, 6rem);
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .promo-hero__text {
+    margin: 0 0 26px;
+    font-size: 1.75rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.9);
+    max-width: 62rem;
+  }
+
+  .promo-hero__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .promo-hero__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+  }
+
+  .promo-hero__button--primary {
+    background: #c41230;
+    color: #ffffff;
+    border-color: #c41230;
+  }
+
+  .promo-hero__button--primary:hover {
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+  }
+
+  .promo-hero__button--secondary {
+    background: transparent;
+    color: #ffffff;
+    border-color: #ffffff;
+  }
+
+  .promo-hero__button--secondary:hover {
+    background: #ffffff;
     color: #111111;
   }
 
-  .promo-how__text {
-    margin: 0;
-    font-size: 1.65rem;
-    line-height: 1.7;
-    color: #4a4a4a;
+  .promo-hero__media img,
+  .promo-hero__placeholder {
+    display: block;
+    width: 100%;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.2);
   }
 
-  .promo-how__grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 22px;
+  .promo-hero__media img {
+    height: auto;
+    object-fit: cover;
   }
 
-  .promo-how__card {
-    background: #f5f5f5;
-    border: 1px solid rgba(17, 17, 17, 0.08);
-    border-radius: 18px;
-    padding: 28px 22px 30px;
-    min-height: 240px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  .promo-hero__placeholder {
+    min-height: 420px;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f1f1 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
   }
 
-  .promo-how__card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 18px 38px rgba(0, 0, 0, 0.12);
-    border-color: rgba(196, 18, 48, 0.35);
-  }
-
-  .promo-how__number {
-    margin: 0 0 16px;
+  .promo-hero__placeholder span {
     font-family: var(--sole-heading-font);
-    font-size: 2.2rem;
-    line-height: 1;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #c41230;
-  }
-
-  .promo-how__title {
-    margin: 0 0 12px;
-    font-family: var(--sole-heading-font);
-    font-size: 2rem;
+    font-size: 3rem;
     line-height: 1;
     font-weight: 900;
     text-transform: uppercase;
     color: #111111;
-  }
-
-  .promo-how__card-text {
-    margin: 0;
-    font-size: 1.55rem;
-    line-height: 1.7;
-    color: #4a4a4a;
+    text-align: center;
   }
 
   @media screen and (max-width: 989px) {
-    .promo-how {
+    .promo-hero {
       padding: 64px 0;
     }
 
-    .promo-how__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .promo-how__grid {
+    .promo-hero__grid {
       grid-template-columns: 1fr;
-    }
-
-    .promo-how__card {
-      min-height: auto;
+      gap: 28px;
     }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Promo How It Works",
+  "name": "Promo Products Hero",
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "How It Works"
+      "default": "Branded Solutions"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "One Organized Quote Process"
+      "default": "Promotional Products"
     },
     {
       "type": "textarea",
       "id": "text",
       "label": "Text",
-      "default": "Browse products, add what you need, and submit one organized request with quantities, notes, and details all in one place."
-    }
-  ],
-  "blocks": [
+      "default": "Branded merchandise, giveaway items, print collateral, signage, and promotional solutions designed to support your business, event, or organization with quality, flexibility, and attention to detail."
+    },
     {
-      "type": "step",
-      "name": "Step",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Step title",
-          "default": "Browse Products"
-        },
-        {
-          "type": "textarea",
-          "id": "text",
-          "label": "Step text",
-          "default": "Explore product categories and find the items that fit your project."
-        }
-      ]
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Browse Categories"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Start a Quote"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
     }
   ],
   "presets": [
     {
-      "name": "Promo How It Works",
-      "blocks": [
-        {
-          "type": "step",
-          "settings": {
-            "title": "Browse Products",
-            "text": "Explore categories and find the items that fit your business, event, or organization."
-          }
-        },
-        {
-          "type": "step",
-          "settings": {
-            "title": "Add to Quote",
-            "text": "Select products you’re interested in and build one organized request instead of submitting multiple forms."
-          }
-        },
-        {
-          "type": "step",
-          "settings": {
-            "title": "Add Details",
-            "text": "Include quantities, artwork notes, and anything else we should know about the project."
-          }
-        },
-        {
-          "type": "step",
-          "settings": {
-            "title": "Submit Once",
-            "text": "Send everything in one request and we’ll help finalize the right products, pricing, and next steps."
-          }
-        }
-      ]
+      "name": "Promo Products Hero"
     }
   ]
 }

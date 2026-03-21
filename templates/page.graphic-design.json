@@ -1,20 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": {
-      "type": "contact-page-form",
+    "gd_hero": {
+      "type": "graphic-design-hero",
       "settings": {
-        "eyebrow": "Get in Touch",
-        "heading": "Contact Us",
-        "text": "<p>Have a question, need help, or want to talk through your next idea? Send us a message and we’ll point you in the right direction.</p>",
-        "button_label": "Send Message",
-        "side_heading": "Best For",
-        "side_text": "<p>Use this page for general questions, order help, or anything that does not need a formal quote.</p>",
-        "help_heading": "Need a Quote Instead?",
-        "help_text": "<p>If you need pricing, custom apparel, promo products, or design help, head to the Request Quote page so we can get the right details from the start.</p>"
+        "eyebrow": "",
+        "heading": "Design That's Built to Print",
+        "text": "Our in-house design team creates logos, brand identity, and print-ready artwork tailored to your business. Every file is built for production — no back and forth, no extra fees."
+      }
+    },
+    "gd_quote": {
+      "type": "graphic-design-quote",
+      "settings": {
+        "eyebrow": "Get Started",
+        "heading": "Request a Design Quote",
+        "text": "Tell us what you need, what the design is for, and how you plan to use it. Even if you only have a rough idea, inspiration image, or existing file that needs cleanup, we can help shape it into a usable final design."
+      }
+    },
+    "gd_cta": {
+      "type": "graphic-design-cta",
+      "settings": {
+        "eyebrow": "Let's Create",
+        "heading": "Ready to Build Something Great?",
+        "text": "Whether you need a logo from scratch or artwork cleanup for production, our in-house team handles it all.",
+        "primary_label": "Request a Design Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "See Our Work",
+        "secondary_link": "/pages/portfolio#pf-design"
       }
     }
   },
   "order": [
-    "main"
+    "gd_hero",
+    "gd_quote",
+    "gd_cta"
   ]
 }

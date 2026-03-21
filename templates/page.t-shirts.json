@@ -1,1 +1,93 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"padding_top":28,"padding_bottom":28}},"quote_cart_page_hetfyy":{"type":"quote-cart-page","name":"Quote Cart Page","settings":{"eyebrow":"","heading":"Your Quote Cart","text":"Review your selected items, add project details, and submit one organized quote request. Grouping everything together helps us quote faster and keeps your project easier to manage."}}},"order":["main","quote_cart_page_hetfyy"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "t-shirts-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BT",
+            "title": "Basic Tees",
+            "subtitle": "Versatile everyday blanks for events, merch, and teams",
+            "detail_1": "Great starting point for most projects",
+            "detail_2": "Works well for screen print and DTF",
+            "detail_3": "Balanced price and wearability",
+            "link": "/collections/basic-tees"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PT",
+            "title": "Performance Tees",
+            "subtitle": "Moisture-wicking styles built for active use and warm-weather wear",
+            "detail_1": "Ideal for teams, workouts, and events",
+            "detail_2": "Lightweight and breathable",
+            "detail_3": "Great for athletic branding",
+            "link": "/collections/performance-tees"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "HW",
+            "title": "Heavyweight Tees",
+            "subtitle": "Premium heavier garments for streetwear, merch, and elevated builds",
+            "detail_1": "Thicker hand feel and structure",
+            "detail_2": "Strong option for premium branding",
+            "detail_3": "Popular for fashion-forward projects",
+            "link": "/collections/heavyweight-tees"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "LS",
+            "title": "Long Sleeve Tees",
+            "subtitle": "Extra coverage with the same flexibility as classic tees",
+            "detail_1": "Great for seasonal programs",
+            "detail_2": "Works for casual and team use",
+            "detail_3": "Easy layering piece",
+            "link": "/collections/long-sleeve-tees"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4"
+      ],
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "T-Shirts",
+        "text": "<p>Start with the type of tee that fits your project, then narrow by brand, color, material, and size. Whether you need event shirts, premium merch, uniforms, or team apparel, we can help guide the right garment choice.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your T-Shirt Category",
+        "subtypes_text": "Each category is built to help you get to the right fit and feel faster.",
+        "help_heading": "Need Help Picking The Right Tee?",
+        "help_text": "If you are deciding between performance, heavyweight, basics, or long sleeve options, we can recommend the best direction based on budget, decoration method, and end use.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

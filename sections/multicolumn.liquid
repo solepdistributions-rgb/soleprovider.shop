@@ -1,290 +1,454 @@
-<section class="meet-owner">
-  <div class="page-width">
-    <div class="meet-owner__grid">
-      <div class="meet-owner__media">
-        {% if section.settings.image != blank %}
-          <img
-            src="{{ section.settings.image | image_url: width: 1400 }}"
-            alt="{{ section.settings.name | escape }}"
-            loading="lazy"
-            width="{{ section.settings.image.width }}"
-            height="{{ section.settings.image.height }}"
+{{ 'section-multicolumn.css' | asset_url | stylesheet_tag }}
+{{ 'component-slider.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign columns_mobile_int = section.settings.columns_mobile | plus: 0
+  assign show_mobile_slider = false
+  if section.settings.swipe_on_mobile and section.blocks.size > columns_mobile_int
+    assign show_mobile_slider = true
+  endif
+-%}
+
+<div class="multicolumn color-{{ section.settings.color_scheme }} gradient{% unless section.settings.background_style == 'none' and settings.text_boxes_border_thickness > 0 or settings.text_boxes_shadow_opacity > 0 %} background-{{ section.settings.background_style }}{% endunless %}{% if section.settings.title == blank %} no-heading{% endif %}">
+  <div
+    class="page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    {% if settings.animations_reveal_on_scroll %}
+      data-cascade
+    {% endif %}
+  >
+    {%- unless section.settings.title == blank -%}
+      <div class="title-wrapper-with-link title-wrapper--self-padded-mobile title-wrapper--no-top-margin multicolumn__title">
+        <h2 class="title inline-richtext {{ section.settings.heading_size }}">
+          {{ section.settings.title }}
+        </h2>
+        {%- if section.settings.button_label != blank and show_mobile_slider -%}
+          <a href="{{ section.settings.button_link }}" class="link underlined-link large-up-hide">
+            {{- section.settings.button_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endunless -%}
+    <slider-component class="slider-mobile-gutter">
+      <ul
+        class="multicolumn-list contains-content-container grid grid--{{ section.settings.columns_mobile }}-col-tablet-down grid--{{ section.settings.columns_desktop }}-col-desktop{% if show_mobile_slider %} slider slider--tablet grid--peek{% endif %}"
+        id="Slider-{{ section.id }}"
+        role="list"
+      >
+        {%- liquid
+          assign highest_ratio = 0
+          for block in section.blocks
+            if block.settings.image.aspect_ratio > highest_ratio
+              assign highest_ratio = block.settings.image.aspect_ratio
+            endif
+          endfor
+        -%}
+        {%- for block in section.blocks -%}
+          {%- assign empty_column = '' -%}
+          {%- if block.settings.image == blank
+            and block.settings.title == blank
+            and block.settings.text == blank
+            and block.settings.link_label == blank
+          -%}
+            {%- assign empty_column = ' multicolumn-list__item--empty' -%}
+          {%- endif -%}
+
+          <li
+            id="Slide-{{ section.id }}-{{ forloop.index }}"
+            class="multicolumn-list__item grid__item{% if section.settings.swipe_on_mobile %} slider__slide{% endif %}{% if section.settings.column_alignment == 'center' %} center{% endif %}{{ empty_column }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+            {{ block.shopify_attributes }}
+            {% if settings.animations_reveal_on_scroll %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
           >
-        {% else %}
-          <div class="meet-owner__placeholder">
-            <span>{{ section.settings.name }}</span>
+            <div class="multicolumn-card content-container">
+              {%- if block.settings.image != blank -%}
+                {% if section.settings.image_ratio == 'adapt' or section.settings.image_ratio == 'circle' %}
+                  {% assign spaced_image = true %}
+                {% endif %}
+                <div class="multicolumn-card__image-wrapper multicolumn-card__image-wrapper--{{ section.settings.image_width }}-width{% if section.settings.image_width != 'full' or spaced_image %} multicolumn-card-spacing{% endif %}">
+                  <div
+                    class="media media--transparent media--{{ section.settings.image_ratio }}"
+                    {% if section.settings.image_ratio == 'adapt' %}
+                      style="padding-bottom: {{ 1 | divided_by: highest_ratio | times: 100 }}%;"
+                    {% endif %}
+                  >
+                    {%- liquid
+                      assign number_of_columns = section.settings.columns_desktop
+                      assign number_of_columns_mobile = section.settings.columns_mobile
+                      assign grid_space_desktop = number_of_columns | minus: 1 | times: settings.spacing_grid_horizontal | plus: 100 | append: 'px'
+                      assign grid_space_tablet = number_of_columns_mobile | minus: 1 | times: settings.spacing_grid_horizontal | plus: 100 | append: 'px'
+                      assign grid_space_mobile = number_of_columns_mobile | minus: 1 | times: settings.spacing_grid_horizontal | divided_by: 2 | plus: 30 | append: 'px'
+                      if section.settings.image_width == 'half'
+                        assign image_width = 0.5
+                      elsif section.settings.image_width == 'third'
+                        assign image_width = 0.33
+                      else
+                        assign image_width = 1
+                      endif
+                    -%}
+                    {% capture sizes %}
+                      (min-width: {{ settings.page_width }}px) calc(({{ settings.page_width }}px - {{ grid_space_desktop }}) * {{ image_width }} /  {{ number_of_columns }}),
+                      (min-width: 990px) calc((100vw - {{ grid_space_desktop }}) * {{ image_width }} / {{ number_of_columns }}),
+                      (min-width: 750px) calc((100vw - {{ grid_space_tablet }}) * {{ image_width }} / {{ number_of_columns_mobile }}),
+                      calc((100vw - {{ grid_space_mobile }}) * {{ image_width }} / {{ number_of_columns_mobile }})
+                    {% endcapture %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 3200
+                      | image_tag:
+                        widths: '50, 75, 100, 150, 200, 300, 400, 500, 750, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000, 3200',
+                        sizes: sizes,
+                        class: 'multicolumn-card__image'
+                    }}
+                  </div>
+                </div>
+              {%- endif -%}
+              <div class="multicolumn-card__info">
+                {%- if block.settings.title != blank -%}
+                  <h3 class="inline-richtext">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="rte">{{ block.settings.text }}</div>
+                {%- endif -%}
+                {%- if block.settings.link_label != blank -%}
+                  <a
+                    class="link animate-arrow"
+                    {% if block.settings.link == blank %}
+                      role="link" aria-disabled="true"
+                    {% else %}
+                      href="{{ block.settings.link }}"
+                    {% endif %}
+                  >
+                    {{- block.settings.link_label | escape -}}
+                    <span class="svg-wrapper"
+                      ><span class="icon-wrap">&nbsp;{{ 'icon-arrow.svg' | inline_asset_content }}</span></span
+                    >
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- if show_mobile_slider -%}
+        <div class="slider-buttons large-up-hide">
+          <button
+            type="button"
+            class="slider-button slider-button--prev"
+            name="previous"
+            aria-label="{{ 'general.slider.previous_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
+          <div class="slider-counter caption">
+            <span class="slider-counter--current">1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden">{{ 'general.slider.of' | t }}</span>
+            <span class="slider-counter--total">{{ section.blocks.size }}</span>
           </div>
-        {% endif %}
-      </div>
-
-      <div class="meet-owner__content">
-        {% if section.settings.eyebrow != blank %}
-          <p class="meet-owner__eyebrow">{{ section.settings.eyebrow }}</p>
-        {% endif %}
-
-        {% if section.settings.heading != blank %}
-          <h2 class="meet-owner__heading">{{ section.settings.heading }}</h2>
-        {% endif %}
-
-        {% if section.settings.name != blank %}
-          <h3 class="meet-owner__name">{{ section.settings.name }}</h3>
-        {% endif %}
-
-        {% if section.settings.title != blank %}
-          <p class="meet-owner__title">{{ section.settings.title }}</p>
-        {% endif %}
-
-        {% if section.settings.paragraph_1 != blank %}
-          <p class="meet-owner__text">{{ section.settings.paragraph_1 }}</p>
-        {% endif %}
-
-        {% if section.settings.paragraph_2 != blank %}
-          <p class="meet-owner__text">{{ section.settings.paragraph_2 }}</p>
-        {% endif %}
-
-        {% if section.settings.paragraph_3 != blank %}
-          <p class="meet-owner__text">{{ section.settings.paragraph_3 }}</p>
-        {% endif %}
-
-        <div class="meet-owner__buttons">
-          {% if section.settings.linkedin_label != blank and section.settings.linkedin_link != blank %}
-            <a href="{{ section.settings.linkedin_link }}" class="meet-owner__button meet-owner__button--primary">
-              {{ section.settings.linkedin_label }}
-            </a>
-          {% endif %}
-
-          {% if section.settings.contact_label != blank and section.settings.contact_link != blank %}
-            <a href="{{ section.settings.contact_link }}" class="meet-owner__button meet-owner__button--secondary">
-              {{ section.settings.contact_label }}
-            </a>
-          {% endif %}
+          <button
+            type="button"
+            class="slider-button slider-button--next"
+            name="next"
+            aria-label="{{ 'general.slider.next_slide' | t }}"
+          >
+            <span class="svg-wrapper">{{ 'icon-caret.svg' | inline_asset_content }}</span>
+          </button>
         </div>
-      </div>
+      {%- endif -%}
+    </slider-component>
+    <div class="center{% if show_mobile_slider %} small-hide medium-hide{% endif %}">
+      {%- if section.settings.button_label != blank -%}
+        <a
+          class="button button--primary"
+          {% if section.settings.button_link == blank %}
+            role="link" aria-disabled="true"
+          {% else %}
+            href="{{ section.settings.button_link }}"
+          {% endif %}
+        >
+          {{ section.settings.button_label | escape }}
+        </a>
+      {%- endif -%}
     </div>
   </div>
-</section>
-
-<style>
-  .meet-owner {
-    padding: 84px 0;
-    background: #ffffff;
-  }
-
-  .meet-owner__grid {
-    display: grid;
-    grid-template-columns: 0.95fr 1.05fr;
-    gap: 40px;
-    align-items: center;
-  }
-
-  .meet-owner__media img,
-  .meet-owner__placeholder {
-    display: block;
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
-  }
-
-  .meet-owner__media img {
-    height: auto;
-    object-fit: cover;
-  }
-
-  .meet-owner__placeholder {
-    min-height: 420px;
-    background: linear-gradient(135deg, #111111 0%, #c41230 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-
-  .meet-owner__placeholder span {
-    font-family: var(--sole-heading-font);
-    font-size: 3rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #ffffff;
-    text-align: center;
-    line-height: 1;
-  }
-
-  .meet-owner__eyebrow {
-    margin: 0 0 10px;
-    color: #c41230;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .meet-owner__heading {
-    margin: 0 0 14px;
-    font-family: var(--sole-heading-font);
-    font-size: clamp(2.8rem, 4vw, 4.8rem);
-    line-height: 0.95;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #111111;
-  }
-
-  .meet-owner__name {
-    margin: 0 0 6px;
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #111111;
-  }
-
-  .meet-owner__title {
-    margin: 0 0 18px;
-    font-size: 1.55rem;
-    font-weight: 700;
-    color: #c41230;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .meet-owner__text {
-    margin: 0 0 16px;
-    font-size: 1.65rem;
-    line-height: 1.75;
-    color: #444444;
-  }
-
-  .meet-owner__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 18px;
-  }
-
-  .meet-owner__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 20px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.05em;
-    border: 2px solid transparent;
-    transition: all 0.25s ease;
-  }
-
-  .meet-owner__button--primary {
-    background: #111111;
-    color: #ffffff;
-    border-color: #111111;
-  }
-
-  .meet-owner__button--primary:hover {
-    background: #c41230;
-    border-color: #c41230;
-    color: #ffffff;
-  }
-
-  .meet-owner__button--secondary {
-    background: transparent;
-    color: #111111;
-    border-color: #111111;
-  }
-
-  .meet-owner__button--secondary:hover {
-    background: #111111;
-    color: #ffffff;
-  }
-
-  @media screen and (max-width: 989px) {
-    .meet-owner {
-      padding: 64px 0;
-    }
-
-    .meet-owner__grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
-    }
-  }
-</style>
+</div>
 
 {% schema %}
 {
-  "name": "Meet the Owner",
+  "name": "t:sections.multicolumn.name",
+  "class": "section",
+  "tag": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Founder Story"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Meet the Owner"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Owner image"
-    },
-    {
-      "type": "text",
-      "id": "name",
-      "label": "Name",
-      "default": "Sean D. Nelson"
-    },
-    {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "title",
-      "label": "Title",
-      "default": "Founder, The Sole Provider"
+      "default": "t:sections.multicolumn.settings.title.default",
+      "label": "t:sections.multicolumn.settings.title.label"
     },
     {
-      "type": "textarea",
-      "id": "paragraph_1",
-      "label": "Paragraph 1",
-      "default": "The Sole Provider is built on creativity, resilience, and a genuine commitment to people. Founded by Sean D. Nelson, the brand grew from a passion for products and design into a full-service promotional branding agency focused on making custom merchandise and branded materials easier, more personal, and more effective for every client."
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "t:sections.all.heading_size.options__1.label"
+        },
+        {
+          "value": "h1",
+          "label": "t:sections.all.heading_size.options__2.label"
+        },
+        {
+          "value": "h0",
+          "label": "t:sections.all.heading_size.options__3.label"
+        },
+        {
+          "value": "hxl",
+          "label": "t:sections.all.heading_size.options__4.label"
+        },
+        {
+          "value": "hxxl",
+          "label": "t:sections.all.heading_size.options__5.label"
+        }
+      ],
+      "default": "h1",
+      "label": "t:sections.all.heading_size.label"
     },
     {
-      "type": "textarea",
-      "id": "paragraph_2",
-      "label": "Paragraph 2",
-      "default": "Part of that journey has been shaped by personal challenges, including brain surgery, which helped deepen Sean’s perspective on resilience, purpose, and the importance of building something meaningful. That perspective carries into the business today through a focus on relationships, attention to detail, and making every client feel valued."
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_image.content"
+    },    
+    {
+      "type": "select",
+      "id": "image_width",
+      "options": [
+        {
+          "value": "third",
+          "label": "t:sections.multicolumn.settings.image_width.options__1.label"
+        },
+        {
+          "value": "half",
+          "label": "t:sections.multicolumn.settings.image_width.options__2.label"
+        },
+        {
+          "value": "full",
+          "label": "t:sections.multicolumn.settings.image_width.options__3.label"
+        }
+      ],
+      "default": "full",
+      "label": "t:sections.multicolumn.settings.image_width.label"
     },
     {
-      "type": "textarea",
-      "id": "paragraph_3",
-      "label": "Paragraph 3",
-      "default": "Whether working with a small team, a growing brand, or a larger organization, the goal is always the same: to create work that feels intentional, high quality, and built with care."
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__1.label"
+        },
+        {
+          "value": "portrait",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__2.label"
+        },
+        {
+          "value": "square",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__3.label"
+        },
+        {
+          "value": "circle",
+          "label": "t:sections.multicolumn.settings.image_ratio.options__4.label"
+        }
+      ],
+      "default": "adapt",
+      "label": "t:sections.multicolumn.settings.image_ratio.label"
     },
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_button.content"
+    },    
     {
       "type": "text",
-      "id": "linkedin_label",
-      "label": "LinkedIn button label",
-      "default": "Connect on LinkedIn"
+      "id": "button_label",
+      "default": "t:sections.multicolumn.settings.button_label.default",
+      "label": "t:sections.multicolumn.settings.button_label.label", 
+      "info": "t:sections.multicolumn.settings.button_label.info"
     },
     {
       "type": "url",
-      "id": "linkedin_link",
-      "label": "LinkedIn link"
+      "id": "button_link",
+      "label": "t:sections.multicolumn.settings.button_link.label"
+    },    
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_layout.content"
+    },     
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "t:sections.multicolumn.settings.columns_desktop.label"
     },
     {
-      "type": "text",
-      "id": "contact_label",
-      "label": "Contact button label",
-      "default": "Contact Me"
+      "type": "select",
+      "id": "column_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__1.label"
+        },
+        {
+          "value": "center",
+          "label": "t:sections.multicolumn.settings.column_alignment.options__2.label"
+        }
+      ],
+      "default": "left",
+      "label": "t:sections.multicolumn.settings.column_alignment.label"
     },
     {
-      "type": "url",
-      "id": "contact_link",
-      "label": "Contact button link"
+      "type": "select",
+      "id": "background_style",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.multicolumn.settings.background_style.options__1.label"
+        },
+        {
+          "value": "primary",
+          "label": "t:sections.multicolumn.settings.background_style.options__2.label"
+        }
+      ],
+      "default": "primary",
+      "label": "t:sections.multicolumn.settings.background_style.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },    
+    {
+      "type": "header",
+      "content": "t:sections.multicolumn.settings.header_mobile.content"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__1.label"
+        },
+        {
+          "value": "2",
+          "label": "t:sections.multicolumn.settings.columns_mobile.options__2.label"
+        }
+      ],
+      "default": "1",
+      "label": "t:sections.multicolumn.settings.columns_mobile.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "swipe_on_mobile",
+      "default": false,
+      "label": "t:sections.multicolumn.settings.swipe_on_mobile.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.multicolumn.blocks.column.name",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.multicolumn.blocks.column.settings.image.label"
+        },
+        {
+          "type": "inline_richtext",
+          "id": "title",
+          "default": "t:sections.multicolumn.blocks.column.settings.title.default",
+          "label": "t:sections.multicolumn.blocks.column.settings.title.label"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "t:sections.multicolumn.blocks.column.settings.text.default",
+          "label": "t:sections.multicolumn.blocks.column.settings.text.label"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "t:sections.multicolumn.blocks.column.settings.link_label.label",
+          "info": "t:sections.multicolumn.blocks.column.settings.link_label.info"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "t:sections.multicolumn.blocks.column.settings.link.label"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Meet the Owner"
+      "name": "t:sections.multicolumn.presets.name",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
     }
   ]
 }

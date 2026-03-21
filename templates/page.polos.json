@@ -1,10 +1,76 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-page",
+      "type": "polos-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PP",
+            "title": "Performance Polos",
+            "subtitle": "Moisture-wicking polos for active use, teams, and warm-weather wear",
+            "detail_1": "Great for athletic and event use",
+            "detail_2": "Lightweight and breathable",
+            "detail_3": "Strong option for embroidery",
+            "link": "/collections/performance-polos"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CP",
+            "title": "Cotton Polos",
+            "subtitle": "Classic softer polos for everyday branded apparel and casual uniforms",
+            "detail_1": "Traditional polo look and feel",
+            "detail_2": "Comfort-focused option",
+            "detail_3": "Good for office and general use",
+            "link": "/collections/cotton-polos"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WP",
+            "title": "Work Polos",
+            "subtitle": "Built for durability, uniform programs, and harder-wearing environments",
+            "detail_1": "Ideal for crews and service teams",
+            "detail_2": "Made for repeat wear",
+            "detail_3": "Practical for branded uniforms",
+            "link": "/collections/work-polos"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3"
+      ],
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
+        "eyebrow": "Custom Apparel",
+        "heading": "Polos",
+        "text": "<p>Choose the polo category that fits your project, then narrow by brand, color, material, and size. Whether you need uniforms, corporate apparel, team wear, or durable work polos, we can help guide the best option.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Polo Category",
+        "subtypes_text": "Each category is designed to help you get to the right polo faster.",
+        "help_heading": "Need Help Picking The Right Polo?",
+        "help_text": "If you are deciding between performance, cotton, or work polos, we can recommend the best direction based on budget, decoration method, durability, and end use.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
       }
     }
   },

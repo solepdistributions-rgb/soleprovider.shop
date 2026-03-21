@@ -1,67 +1,47 @@
-<section class="trusted-logos">
+<section class="value-pillars">
   <div class="page-width">
-    <div class="trusted-logos__intro">
+    <div class="value-pillars__intro">
       {% if section.settings.eyebrow != blank %}
-        <p class="trusted-logos__eyebrow">{{ section.settings.eyebrow }}</p>
+        <p class="value-pillars__eyebrow">{{ section.settings.eyebrow }}</p>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h2 class="trusted-logos__heading">{{ section.settings.heading }}</h2>
+        <h2 class="value-pillars__heading">{{ section.settings.heading }}</h2>
       {% endif %}
     </div>
 
-    <div class="trusted-logos__marquee">
-      <div class="trusted-logos__track">
-        {% for block in section.blocks %}
-          <div class="trusted-logos__item" {{ block.shopify_attributes }}>
-            {% if block.settings.logo != blank %}
-              <img
-                src="{{ block.settings.logo | image_url: width: 600 }}"
-                alt="{{ block.settings.name | escape }}"
-                loading="lazy"
-                width="{{ block.settings.logo.width }}"
-                height="{{ block.settings.logo.height }}"
-              >
-            {% else %}
-              <span>{{ block.settings.name }}</span>
-            {% endif %}
-          </div>
-        {% endfor %}
+    <div class="value-pillars__grid">
+      {% for block in section.blocks %}
+        <div class="value-pillars__card" {{ block.shopify_attributes }}>
+          <p class="value-pillars__number">
+            {% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}
+          </p>
 
-        {% for block in section.blocks %}
-          <div class="trusted-logos__item trusted-logos__item--duplicate">
-            {% if block.settings.logo != blank %}
-              <img
-                src="{{ block.settings.logo | image_url: width: 600 }}"
-                alt="{{ block.settings.name | escape }}"
-                loading="lazy"
-                width="{{ block.settings.logo.width }}"
-                height="{{ block.settings.logo.height }}"
-              >
-            {% else %}
-              <span>{{ block.settings.name }}</span>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
+          <h3 class="value-pillars__title">{{ block.settings.title }}</h3>
+
+          {% if block.settings.text != blank %}
+            <p class="value-pillars__text">{{ block.settings.text }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 <style>
-  .trusted-logos {
-    padding: 72px 0;
-    background: #ffffff;
-    overflow: hidden;
+  .value-pillars {
+    padding: 84px 0;
+    background: #111111;
+    color: #ffffff;
   }
 
-  .trusted-logos__intro {
-    text-align: center;
-    margin: 0 auto 26px;
+  .value-pillars__intro {
     max-width: 760px;
+    margin: 0 auto 34px;
+    text-align: center;
   }
 
-  .trusted-logos__eyebrow {
+  .value-pillars__eyebrow {
     margin: 0 0 10px;
     color: #c41230;
     font-size: 1.2rem;
@@ -70,128 +50,196 @@
     text-transform: uppercase;
   }
 
-  .trusted-logos__heading {
+  .value-pillars__heading {
     margin: 0;
     font-family: var(--sole-heading-font);
-    font-size: clamp(2.6rem, 4vw, 4.4rem);
+    font-size: clamp(2.8rem, 4vw, 4.8rem);
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
-    color: #111111;
+    color: #ffffff;
   }
 
-  .trusted-logos__marquee {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
+  .value-pillars__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
   }
 
-  .trusted-logos__track {
+  .value-pillars__card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 28px 24px 30px;
+    min-height: 280px;
     display: flex;
-    align-items: center;
-    gap: 54px;
-    width: max-content;
-    animation: trustedLogosScroll 30s linear infinite;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   }
 
-  .trusted-logos__item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 140px;
-    max-width: 220px;
-    height: 92px;
-    flex: 0 0 auto;
-  }
+.value-pillars__card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 28px 24px 30px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
 
-  .trusted-logos__item img {
-    max-width: 100%;
-    max-height: 72px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    display: block;
-  }
+.value-pillars__card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: #c41230;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-  .trusted-logos__item span {
+.value-pillars__card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(196,18,48,0.65);
+  box-shadow: 0 26px 48px rgba(0,0,0,0.26);
+  background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+}
+
+.value-pillars__card:hover::before {
+  opacity: 1;
+}
+
+  .value-pillars__number {
+    margin: 0 0 18px;
     font-family: var(--sole-heading-font);
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     font-weight: 900;
+    color: #c41230;
+    line-height: 1;
     text-transform: uppercase;
-    color: #111111;
-    text-align: center;
   }
 
-  @keyframes trustedLogosScroll {
-    0% {
-      transform: translateX(0);
+.value-pillars__title {
+  margin: 0 0 14px;
+  font-family: var(--sole-heading-font);
+  font-size: 2.2rem;
+  line-height: 1;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #ffffff;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+.value-pillars__card:hover .value-pillars__title {
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+  .value-pillars__text {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.82);
+  }
+
+  @media screen and (max-width: 989px) {
+    .value-pillars {
+      padding: 64px 0;
     }
-    100% {
-      transform: translateX(-50%);
+
+    .value-pillars__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media screen and (max-width: 749px) {
-    .trusted-logos {
-      padding: 56px 0;
+    .value-pillars__grid {
+      grid-template-columns: 1fr;
     }
 
-    .trusted-logos__track {
-      gap: 34px;
-      animation-duration: 24s;
-    }
-
-    .trusted-logos__item {
-      min-width: 110px;
-      max-width: 180px;
-      height: 76px;
-    }
-
-    .trusted-logos__item img {
-      max-height: 56px;
+    .value-pillars__card {
+      min-height: auto;
     }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Trusted By Logos",
+  "name": "Value Pillars",
   "settings": [
     {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow",
-      "default": "Social Proof"
+      "default": "The Difference"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Trusted By"
+      "default": "What Sets Us Apart"
     }
   ],
   "blocks": [
     {
-      "type": "logo",
-      "name": "Logo",
+      "type": "pillar",
+      "name": "Pillar",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Small Business, Big Reach"
         },
         {
-          "type": "text",
-          "id": "name",
-          "label": "Name",
-          "default": "Client Name"
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Personalized service with the capabilities and product access to support brands of any size."
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Trusted By Logos"
+      "name": "Value Pillars",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Small Business, Big Reach",
+            "text": "Personalized service with the capabilities and product access to support brands of any size."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Quality First",
+            "text": "From product selection to final delivery, quality stays at the center of every project."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Detail Oriented",
+            "text": "The small details matter, and we treat them like they make the difference — because they do."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Relationship Focused",
+            "text": "We believe every client should feel valued, supported, and treated like our top priority."
+          }
+        }
+      ]
     }
   ]
 }

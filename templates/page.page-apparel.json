@@ -1,71 +1,153 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": {
-      "type": "headwear-landing",
+    "apparel_hero": {
+      "type": "apparel-hero",
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "Apparel Built For Your Brand",
+        "text": "From corporate polos to streetwear drops, we handle custom apparel from concept to delivery.",
+        "primary_label": "Request a Quote",
+        "primary_link": "",
+        "secondary_label": "View Portfolio",
+        "secondary_link": ""
+      }
+    },
+    "apparel_categories": {
+      "type": "apparel-categories",
       "blocks": {
-        "subtype_1": {
-          "type": "subtype",
+        "cat_1": {
+          "type": "category",
           "settings": {
-            "icon_text": "CP",
-            "title": "Caps",
-            "subtitle": "The most versatile headwear option for merch, teams, events, and staff programs",
-            "detail_1": "Best everyday headwear category",
-            "detail_2": "Great for embroidery and patches",
-            "detail_3": "Wide range of fits and styles",
-            "link": "/collections/caps"
+            "icon_text": "TS",
+            "title": "T-Shirts",
+            "subtitle": "Basics, performance, heavyweight, and long sleeve styles",
+            "link": "/pages/t-shirts"
           }
         },
-        "subtype_2": {
-          "type": "subtype",
+        "cat_2": {
+          "type": "category",
           "settings": {
-            "icon_text": "BN",
-            "title": "Beanies",
-            "subtitle": "Cold-weather knit headwear for merch, staff gear, and seasonal branded apparel",
-            "detail_1": "Best for colder seasons",
-            "detail_2": "Strong embroidery option",
-            "detail_3": "Great add-on for winter programs",
-            "link": "/collections/beanies"
+            "icon_text": "PL",
+            "title": "Polos",
+            "subtitle": "Performance, cotton, and work-ready options",
+            "link": "shopify://pages/polos"
           }
         },
-        "subtype_3": {
-          "type": "subtype",
+        "cat_3": {
+          "type": "category",
           "settings": {
-            "icon_text": "PH",
-            "title": "Performance Headwear",
-            "subtitle": "Lightweight active headwear built for movement, events, and warm-weather use",
-            "detail_1": "Good for active use",
-            "detail_2": "Breathable and lightweight",
-            "detail_3": "Best for sport and event applications",
-            "link": "/collections/performance-headwear"
+            "icon_text": "DS",
+            "title": "Dress Shirts",
+            "subtitle": "Woven, stretch, and easy-care dress shirt options",
+            "link": "/pages/dress-shirts"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "icon_text": "SW",
+            "title": "Sweatshirts",
+            "subtitle": "Hoodies, crewnecks, quarter-zips, and full-zips",
+            "link": "/pages/sweatshirts"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "icon_text": "OW",
+            "title": "Outerwear",
+            "subtitle": "Lightweight jackets, soft shells, fleece, vests, and rainwear",
+            "link": "/pages/outerwear"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "icon_text": "BT",
+            "title": "Bottoms",
+            "subtitle": "Joggers, shorts, athletic bottoms, and workwear bottoms",
+            "link": "/pages/bottoms"
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "icon_text": "HW",
+            "title": "Headwear",
+            "subtitle": "Caps, beanies, and performance headwear",
+            "link": "/pages/headwear"
           }
         }
       },
       "block_order": [
-        "subtype_1",
-        "subtype_2",
-        "subtype_3"
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7"
       ],
       "settings": {
-        "eyebrow": "Custom Apparel",
-        "heading": "Headwear",
-        "text": "<p>Choose the headwear category that fits your project, then narrow by brand, color, material, and size. Whether you need promotional caps, cold-weather pieces, or active headwear, we can help guide the right option.</p>",
+        "eyebrow": "Shop By Category",
+        "heading": "Browse Apparel",
+        "text": "Start with a category, then narrow your options by style, brand, color, size, and material."
+      }
+    },
+    "apparel_capabilities": {
+      "type": "apparel-capabilities",
+      "settings": {
+        "eyebrow": "What We Do",
+        "heading": "Full-Service Apparel Capabilities",
+        "text": "Whether you need 12 pieces or 1,200, we have the decoration methods and production relationships to make it happen."
+      }
+    },
+    "apparel_process": {
+      "type": "apparel-process",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "How It Works",
+        "heading": "From Idea to Delivery"
+      }
+    },
+    "apparel_why_us": {
+      "type": "apparel-why-us",
+      "settings": {
+        "eyebrow": "Not Sure Where to Start?",
+        "heading": "We Can Help You Figure It Out",
+        "text": "You do not need to have every detail locked in before reaching out. If you are still deciding on garments, decoration methods, quantities, or artwork direction, we can help narrow the options and build the right quote for your project.",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "apparel_cta": {
+      "type": "apparel-cta",
+      "settings": {
+        "eyebrow": "Let's Build",
+        "heading": "Ready to Outfit Your Team?",
+        "text": "Tell us what you need and we'll put together a quote. Fast turnaround, quality guaranteed.",
         "primary_label": "Request a Quote",
-        "primary_link": "/pages/request-quote",
-        "secondary_label": "View Design Work",
-        "secondary_link": "/pages/portfolio#pf-design",
-        "subtypes_eyebrow": "Shop By Style",
-        "subtypes_heading": "Choose Your Headwear Category",
-        "subtypes_text": "Each category is designed to help you get to the right type of headwear faster.",
-        "help_heading": "Need Help Picking The Right Headwear?",
-        "help_text": "If you are deciding between caps, beanies, or performance headwear, we can recommend the best direction based on season, decoration method, and intended use.",
-        "help_primary_label": "Request a Quote",
-        "help_primary_link": "/pages/request-quote",
-        "help_secondary_label": "Contact Us",
-        "help_secondary_link": "/pages/contact"
+        "primary_link": "",
+        "secondary_label": "Contact Us",
+        "secondary_link": ""
       }
     }
   },
   "order": [
-    "main"
+    "apparel_hero",
+    "apparel_categories",
+    "apparel_capabilities",
+    "apparel_process",
+    "apparel_why_us",
+    "apparel_cta"
   ]
 }

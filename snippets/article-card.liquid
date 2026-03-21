@@ -1,1397 +1,155 @@
 {% comment %}
-  Add to Quote Form — snippets/add-to-quote-form.liquid
-  Decoration options are driven by product tags: deco:screen-print, deco:embroidery, etc.
-  If no deco: tags exist on the product, all options are shown as fallback.
+  Renders an article card for a given blog with settings to either show the image or not.
+
+  Accepts:
+  - blog: {Object} Blog object
+  - article: {Object} Article object
+  - media_aspect_ratio: {String} The setting changes the aspect ratio of the article image, if shown
+  - media_height: {String} The setting changes the height of the article image. Overrides media_aspect_ratio.
+  - show_image: {String} The setting either show the article image or not. If it's not included it will show the image by default
+  - show_date: {String} The setting either show the article date or not. If it's not included it will not show the image by default
+  - show_author: {String} The setting either show the article author or not. If it's not included it will not show the author by default
+  - show_badge: {String} The setting either show the blog badge or not.
+  - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
+
+  Usage:
+  {% render 'article-card' blog: blog, article: article, show_image: section.settings.show_image %}
 {% endcomment %}
 
-{% assign deco_tags = '' %}
-{% for tag in product.tags %}
-  {% if tag contains 'deco:' %}
-    {% assign deco_tags = deco_tags | append: tag | append: ',' %}
-  {% endif %}
-{% endfor %}
-
-{% assign has_deco_tags = false %}
-{% if deco_tags != '' %}
-  {% assign has_deco_tags = true %}
-{% endif %}
-
-{% assign has_size_option = false %}
-{% assign size_option_position = 0 %}
-{% assign size_option_name = '' %}
-
-{% for option in product.options_with_values %}
-  {% assign option_name_downcase = option.name | downcase %}
-  {% if option_name_downcase contains 'size' and has_size_option == false %}
-    {% assign has_size_option = true %}
-    {% assign size_option_position = forloop.index %}
-    {% assign size_option_name = option.name %}
-  {% endif %}
-{% endfor %}
-
-<div
-  class="add-to-quote"
-  data-product-id="{{ product.id }}"
-  data-has-size-option="{% if has_size_option %}true{% else %}false{% endif %}"
-  data-size-option-position="{{ size_option_position }}"
-  data-size-option-name="{{ size_option_name | escape }}"
->
-  <p class="add-to-quote__heading">Add to Quote</p>
-
-  <div class="add-to-quote__top-grid">
-    {% if has_size_option %}
-      <div class="add-to-quote__panel add-to-quote__panel--size-plan">
-        <div class="add-to-quote__panel-label">Size Planning</div>
-
-        <div class="add-to-quote__mode-switch">
-          <label class="add-to-quote__mode-pill">
-            <input
-              type="radio"
-              name="quote-size-mode-{{ product.id }}"
-              value="breakdown"
-              checked
-            >
-            <span>Exact size breakdown</span>
-          </label>
-
-          <label class="add-to-quote__mode-pill">
-            <input
-              type="radio"
-              name="quote-size-mode-{{ product.id }}"
-              value="unknown"
-            >
-            <span>I don’t know yet</span>
-          </label>
-        </div>
-
-        <p class="add-to-quote__panel-help">
-          Enter exact sizes below, or choose an estimated quantity range instead.
-        </p>
-      </div>
-    {% else %}
-      <div class="add-to-quote__panel">
-        <label class="add-to-quote__panel-label" for="quote-qty-{{ product.id }}">Quantity</label>
-        <input
-          id="quote-qty-{{ product.id }}"
-          class="add-to-quote__input"
-          type="number"
-          min="1"
-          value="12"
-          placeholder="Quantity"
-        >
-      </div>
-    {% endif %}
-
-    <div class="add-to-quote__panel">
-      <label class="add-to-quote__panel-label" for="quote-decoration-{{ product.id }}">Decoration Method</label>
-      <select id="quote-decoration-{{ product.id }}" class="add-to-quote__input">
-        <option value="">Select a method</option>
-        {% if has_deco_tags %}
-          {% if deco_tags contains 'deco:screen-print' %}
-            <option value="Screen Print">Screen Print</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:embroidery' %}
-            <option value="Embroidery">Embroidery</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:dtf' %}
-            <option value="DTF Transfer">DTF Transfer</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:heat-transfer' %}
-            <option value="Heat Transfer">Heat Transfer</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:sublimation' %}
-            <option value="Dye Sublimation">Dye Sublimation</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:engraving' %}
-            <option value="Engraving">Engraving</option>
-          {% endif %}
-          {% if deco_tags contains 'deco:full-color' %}
-            <option value="Full Color Print">Full Color Print</option>
-          {% endif %}
-          <option value="Not Sure Yet">Not Sure Yet</option>
-        {% else %}
-          <option value="Screen Print">Screen Print</option>
-          <option value="Embroidery">Embroidery</option>
-          <option value="DTF Transfer">DTF Transfer</option>
-          <option value="Heat Transfer">Heat Transfer</option>
-          <option value="Dye Sublimation">Dye Sublimation</option>
-          <option value="Engraving">Engraving</option>
-          <option value="Full Color Print">Full Color Print</option>
-          <option value="Not Sure Yet">Not Sure Yet</option>
-        {% endif %}
-      </select>
-    </div>
-
-    <div class="add-to-quote__panel">
-      <label class="add-to-quote__panel-label" for="quote-artwork-status-{{ product.id }}">Artwork Status</label>
-      <select id="quote-artwork-status-{{ product.id }}" class="add-to-quote__input">
-        <option value="">Select status</option>
-        <option value="Artwork Ready">I have print-ready artwork</option>
-        <option value="Needs Cleanup">I have a logo that needs cleanup</option>
-        <option value="Need Design Help">I need full design help</option>
-        <option value="Not Sure Yet">Not sure yet</option>
-      </select>
-    </div>
-  </div>
-
-  {% if has_size_option %}
-    <div class="add-to-quote__detail-wrap">
-      <div
-        class="add-to-quote__detail-card"
-        id="quote-size-breakdown-wrap-{{ product.id }}"
-      >
-        <div class="add-to-quote__detail-head">
-          <div>
-            <p class="add-to-quote__detail-title">Size Breakdown</p>
-          </div>
-
-          <div class="add-to-quote__detail-total">
-            <span>Total</span>
-            <strong id="quote-size-total-{{ product.id }}">0</strong>
-          </div>
-        </div>
-
-        <div
-          id="quote-size-grid-{{ product.id }}"
-          class="add-to-quote__size-grid"
-        ></div>
-
-        <p
-          id="quote-size-empty-{{ product.id }}"
-          class="add-to-quote__size-empty"
-          hidden
-        >
-          No sizes were found for the current selection.
-        </p>
-      </div>
-
-      <div
-        class="add-to-quote__detail-card add-to-quote__detail-card--hidden"
-        id="quote-size-range-wrap-{{ product.id }}"
-      >
-        <p class="add-to-quote__detail-title">Estimated Quantity Range</p>
-
-        <select id="quote-estimated-range-{{ product.id }}" class="add-to-quote__input">
-          <option value="">Select a range</option>
-          <option value="1-11">1-11</option>
-          <option value="12-23">12-23</option>
-          <option value="24-35">24-35</option>
-          <option value="36-71">36-71</option>
-          <option value="72-143">72-143</option>
-          <option value="144-287">144-287</option>
-          <option value="288-575">288-575</option>
-          <option value="576-1249">576-1249</option>
-          <option value="1250-1999">1250-1999</option>
-          <option value="2000+">2000+</option>
-        </select>
-      </div>
-    </div>
-  {% endif %}
-
-  <div class="add-to-quote__field add-to-quote__field--full">
-    <label for="quote-notes-{{ product.id }}">Project Notes</label>
-    <textarea
-      id="quote-notes-{{ product.id }}"
-      class="add-to-quote__input"
-      rows="3"
-      placeholder="Sizes needed, print locations, colors, deadline, or anything else we should know."
-    ></textarea>
-  </div>
-
-  <div class="add-to-quote__actions">
-    <button
-      type="button"
-      class="add-to-quote__button js-add-to-quote"
-      data-product-id="{{ product.id }}"
-      data-title="{{ product.title | escape }}"
-      data-default-image="{% if product.featured_image %}{{ product.featured_image | image_url: width: 900 }}{% endif %}"
-      data-handle="{{ product.handle }}"
-      data-url="{{ product.url }}"
+{%- if article and article != empty -%}
+  {%- liquid
+    assign ratio = 1
+    if media_aspect_ratio != null
+      assign ratio = media_aspect_ratio
+    endif
+  -%}
+  <div class="article-card-wrapper card-wrapper underline-links-hover">
+    {% comment %} <article aria-labelledby="Article-{{ article.id }}"> {% endcomment %}
+    <div
+      class="
+        card article-card
+        card--{{ settings.blog_card_style }}
+        {% if media_height and media_height != 'adapt' %} article-card__image--{{ media_height }}{% endif %}
+        {% if article.image and show_image %} card--media{% else %} card--text{% endif %}
+        {% if settings.blog_card_style == 'card' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}
+        {% if settings.blog_card_style == 'card' and media_height == nil and article.image == empty or show_image == false %} ratio{% endif %}
+      "
+      style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
     >
-      Add to Quote
-    </button>
-
-    <a href="/pages/quote-cart" class="add-to-quote__view-link">View Quote Cart</a>
+      <div
+        class="card__inner {% if settings.blog_card_style == 'standard' %} color-{{ settings.blog_card_color_scheme }} gradient{% endif %}{% if article.image and show_image or settings.blog_card_style == 'standard' %} ratio{% endif %}"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
+        {%- if show_image == true and article.image -%}
+          <div class="article-card__image-wrapper card__media">
+            <div
+              class="article-card__image media media--hover-effect"
+              {% if section.settings.media_height == 'adapt' %}
+                style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
+              {% endif %}
+            >
+              {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+              <img
+                srcset="
+                  {%- if article.image.src.width >= 165 -%}{{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+                  {%- if article.image.src.width >= 360 -%}{{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+                  {%- if article.image.src.width >= 533 -%}{{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+                  {%- if article.image.src.width >= 720 -%}{{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+                  {%- if article.image.src.width >= 1000 -%}{{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+                  {%- if article.image.src.width >= 1500 -%}{{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+                  {{ article.image.src | image_url }} {{ article.image.src.width }}w
+                "
+                src="{{ article.image.src | image_url: width: 533 }}"
+                sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                alt="{{ article.image.src.alt | escape }}"
+                class="motion-reduce"
+                {% unless lazy_load == false %}
+                  loading="lazy"
+                {% endunless %}
+                width="{{ article.image.width }}"
+                height="{{ article.image.height }}"
+              >
+              {% comment %}theme-check-enable ImgLazyLoading{% endcomment %}
+            </div>
+          </div>
+        {%- endif -%}
+        <div class="card__content">
+          <div class="card__information">
+            <h3 class="card__heading{% if show_excerpt %} h2{% endif %}">
+              <a href="{{ article.url }}" class="full-unstyled-link">
+                {{ article.title | truncate: 50 | escape }}
+              </a>
+            </h3>
+            <div class="article-card__info caption-with-letter-spacing h5">
+              {%- if show_date -%}
+                <span class="circle-divider">{{ article.published_at | time_tag: format: 'date' }}</span>
+              {%- endif -%}
+              {%- if show_author -%}
+                <span>{{ article.author }}</span>
+              {%- endif -%}
+            </div>
+            {%- if show_excerpt -%}
+              {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+                <p class="article-card__excerpt rte-width">
+                  {%- if article.excerpt.size > 0 -%}
+                    {{ article.excerpt | strip_html | truncatewords: 30 }}
+                  {%- else -%}
+                    {{ article.content | strip_html | truncatewords: 30 }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+              <div class="article-card__footer">
+                {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                  <span>{{ 'blogs.article.comments' | t: count: article.comments_count }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+          {%- if show_badge -%}
+            <div class="card__badge {{ settings.badge_position }}">
+              <span class="badge color-{{ settings.color_schemes | first }}">{{ 'blogs.article.blog' | t }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="card__content">
+        <div class="card__information">
+          <h3 class="card__heading{% if show_excerpt %} h2{% endif %}">
+            <a href="{{ article.url }}" class="full-unstyled-link">
+              {{ article.title | truncate: 50 | escape }}
+            </a>
+          </h3>
+          <div class="article-card__info caption-with-letter-spacing h5">
+            {%- if show_date -%}
+              <span class="circle-divider">{{ article.published_at | time_tag: format: 'date' }}</span>
+            {%- endif -%}
+            {%- if show_author -%}
+              <span>{{ article.author }}</span>
+            {%- endif -%}
+          </div>
+          {%- if show_excerpt -%}
+            {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+              <p class="article-card__excerpt rte-width">
+                {%- if article.excerpt.size > 0 -%}
+                  {{ article.excerpt | strip_html | truncatewords: 30 }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 30 }}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+            <div class="article-card__footer">
+              {%- if article.comments_count > 0 and blog.comments_enabled? -%}
+                <span>{{ 'blogs.article.comments' | t: count: article.comments_count }}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if show_badge -%}
+          <div class="card__badge {{ settings.badge_position }}">
+            <span class="badge color-{{ settings.color_schemes | first }}">{{ 'blogs.article.blog' | t }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
   </div>
-
-  <div class="add-to-quote__message" id="quote-message-{{ product.id }}" aria-live="polite"></div>
-</div>
-
-<script type="application/json" id="AddToQuoteProductJson-{{ product.id }}">
-  {{ product | json }}
-</script>
-
-<style>
-  .add-to-quote {
-    margin-top: 28px;
-    padding: 28px;
-    background: #111111;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 10px;
-  }
-
-  .add-to-quote__heading {
-    margin: 0 0 20px;
-    font-family: var(--sole-heading-font);
-    font-size: 1.8rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #ffffff;
-    letter-spacing: 0.05em;
-  }
-
-  .add-to-quote__top-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.add-to-quote__panel--size-plan {
-  grid-column: 1 / -1;
-}
-
-  .add-to-quote__panel {
-  display: grid;
-  gap: 8px;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  border-radius: 8px;
-  min-height: 100%;
-}
-
-  .add-to-quote__panel-label,
-  .add-to-quote__field label {
-    font-size: 1.15rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: rgba(255,255,255,0.68);
-  }
-
-  .add-to-quote__panel-help {
-    margin: 0;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    color: rgba(255,255,255,0.6);
-  }
-
-  .add-to-quote__mode-switch {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .add-to-quote__mode-pill {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .add-to-quote__mode-pill input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .add-to-quote__mode-pill span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 42px;
-    padding: 0 14px;
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 999px;
-    background: rgba(255,255,255,0.04);
-    color: #ffffff;
-    font-size: 1.3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    transition: all 0.2s ease;
-  }
-
-  .add-to-quote__mode-pill input:checked + span {
-    background: #c41230;
-    border-color: #c41230;
-    color: #ffffff;
-  }
-
-  .add-to-quote__detail-wrap {
-    margin: 0 0 18px;
-  }
-
-  .add-to-quote__detail-card {
-  padding: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.02) 100%);
-  border-radius: 8px;
-}
-
-  .add-to-quote__detail-card--hidden {
-    display: none;
-  }
-
-  .add-to-quote__detail-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-  .add-to-quote__detail-title {
-    margin: 0 0 4px;
-    font-size: 1.45rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #ffffff;
-  }
-
-  .add-to-quote__detail-text {
-    margin: 0;
-    font-size: 1.28rem;
-    line-height: 1.55;
-    color: rgba(255,255,255,0.68);
-  }
-
-  .add-to-quote__detail-total {
-  min-width: 78px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.05);
-  text-align: center;
-}
-
-  .add-to-quote__detail-total span {
-    display: block;
-    font-size: 1.05rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.58);
-  }
-
-  .add-to-quote__detail-total strong {
-  display: block;
-  margin-top: 4px;
-  font-size: 1.7rem;
-  line-height: 1;
-  color: #ffffff;
-}
-
-  .add-to-quote__size-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-  .add-to-quote__size-input-wrap {
-  display: grid;
-  gap: 8px;
-  padding: 12px;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
-  background: rgba(255,255,255,0.025);
-  min-height: 96px;
-}
-  .add-to-quote__size-name {
-  font-size: 1.25rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.78);
-}
-
-  .add-to-quote__size-input {
-  width: 100%;
-  height: 44px;
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 8px;
-  padding: 0 10px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  text-align: center;
-  background: rgba(255,255,255,0.06);
-  color: #ffffff;
-}
-
-  .add-to-quote__size-input:focus {
-    outline: none;
-    border-color: #c41230;
-    background: rgba(196,18,48,0.08);
-  }
-
-  .add-to-quote__size-empty {
-    margin: 14px 0 0;
-    font-size: 1.3rem;
-    color: #fca5a5;
-  }
-
-  .add-to-quote__field {
-    display: grid;
-    gap: 8px;
-  }
-
-  .add-to-quote__field--full {
-    margin-bottom: 20px;
-  }
-
-  .add-to-quote__input {
-    width: 100%;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 6px;
-    padding: 12px 14px;
-    font-size: 1.45rem;
-    background: rgba(255,255,255,0.06);
-    color: #ffffff;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-
-  .add-to-quote__input::placeholder {
-    color: rgba(255,255,255,0.3);
-  }
-
-  .add-to-quote__input option {
-    background: #222222;
-    color: #ffffff;
-  }
-
-  .add-to-quote__input:focus {
-    outline: none;
-    border-color: #c41230;
-    background: rgba(196,18,48,0.08);
-  }
-
-  .add-to-quote__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .add-to-quote__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 24px;
-    background: #c41230;
-    color: #ffffff;
-    border: 2px solid #c41230;
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 1.4rem;
-    letter-spacing: 0.05em;
-    cursor: pointer;
-    transition: all 0.25s ease;
-  }
-
-  .add-to-quote__button:hover {
-    background: #ffffff;
-    color: #111111;
-    border-color: #ffffff;
-  }
-
-  .add-to-quote__view-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 20px;
-    background: transparent;
-    color: rgba(255,255,255,0.75);
-    border: 2px solid rgba(255,255,255,0.25);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 1.3rem;
-    letter-spacing: 0.05em;
-    transition: all 0.25s ease;
-  }
-
-  .add-to-quote__view-link:hover {
-    background: #ffffff;
-    color: #111111;
-    border-color: #ffffff;
-  }
-
-  .add-to-quote__message {
-    margin-top: 14px;
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
-
-  .add-to-quote__message--success {
-    color: #4ade80;
-  }
-
-  .add-to-quote__message--error {
-    color: #f87171;
-  }
-
-  .sp-hidden-size-picker {
-    display: none !important;
-  }
-
-  @media screen and (max-width: 420px) {
-  .add-to-quote__size-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>
-
-<script>
-  if (!window.SoleProviderQuoteCartInitialized) {
-    window.SoleProviderQuoteCartInitialized = true;
-
-    function escapeHtml(value) {
-      return String(value == null ? '' : value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    }
-
-    function getQuoteCartItems() {
-      try {
-        return JSON.parse(localStorage.getItem('soleProviderQuoteCart') || '[]');
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveQuoteCartItems(items) {
-      localStorage.setItem('soleProviderQuoteCart', JSON.stringify(items));
-      document.dispatchEvent(new CustomEvent('quoteCartUpdated'));
-    }
-
-    function getProductScope(element) {
-      return (
-        element.closest('product-info') ||
-        element.closest('.product') ||
-        element.closest('[data-section]') ||
-        document
-      );
-    }
-
-    function getProductJson(productId) {
-      var productJsonEl = document.getElementById('AddToQuoteProductJson-' + productId);
-      if (!productJsonEl) return null;
-
-      try {
-        return JSON.parse(productJsonEl.textContent);
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function getVariants(productData) {
-      if (!productData || !productData.variants || !productData.variants.length) {
-        return [];
-      }
-
-      return productData.variants;
-    }
-
-    function getVariantOptionsArray(variant) {
-      if (!variant) return [];
-
-      if (Array.isArray(variant.options) && variant.options.length) {
-        return variant.options;
-      }
-
-      var values = [];
-      if (variant.option1) values.push(variant.option1);
-      if (variant.option2) values.push(variant.option2);
-      if (variant.option3) values.push(variant.option3);
-      return values;
-    }
-
-    function getSelectedOptionsInOrder(scope, optionCount) {
-      var values = [];
-
-      var radioFieldsets = scope.querySelectorAll('variant-radios fieldset');
-      if (radioFieldsets.length) {
-        radioFieldsets.forEach(function(fieldset) {
-          var checked = fieldset.querySelector('input[type="radio"]:checked');
-          if (checked && checked.value) {
-            values.push(checked.value);
-          }
-        });
-
-        if (values.length) {
-          return values.slice(0, optionCount);
-        }
-      }
-
-      values = [];
-      var selects = scope.querySelectorAll('variant-selects select');
-      if (selects.length) {
-        selects.forEach(function(select) {
-          if (select.value) {
-            values.push(select.value);
-          }
-        });
-
-        if (values.length) {
-          return values.slice(0, optionCount);
-        }
-      }
-
-      return [];
-    }
-
-    function getSelectedVariantIdFromForm(scope, productId) {
-      var foundId = '';
-
-      var forms = scope.querySelectorAll('form[action*="/cart/add"]');
-      forms.forEach(function(form) {
-        var input = form.querySelector('input[name="id"]');
-        if (!input || !input.value) return;
-
-        var formProductId = form.getAttribute('data-product-id') || '';
-        if (formProductId && String(formProductId) !== String(productId)) return;
-
-        if (!foundId) {
-          foundId = input.value;
-        }
-      });
-
-      return foundId;
-    }
-
-    function findVariantById(variants, variantId) {
-      if (!variants.length || !variantId) return null;
-
-      return variants.find(function(variant) {
-        return String(variant.id) === String(variantId);
-      }) || null;
-    }
-
-    function findVariantByOptions(variants, selectedOptions) {
-      if (!variants.length || !selectedOptions.length) return null;
-
-      return variants.find(function(variant) {
-        var variantOptions = getVariantOptionsArray(variant);
-
-        if (variantOptions.length !== selectedOptions.length) return false;
-
-        for (var i = 0; i < selectedOptions.length; i++) {
-          if (String(variantOptions[i]) !== String(selectedOptions[i])) {
-            return false;
-          }
-        }
-
-        return true;
-      }) || null;
-    }
-
-    function normalizeLabelText(value) {
-      return String(value || '')
-        .replace(/\s+/g, ' ')
-        .replace(/[:]/g, '')
-        .trim()
-        .toLowerCase();
-    }
-
-    function hideDuplicateSizePicker(wrapper) {
-      if (wrapper.dataset.hasSizeOption !== 'true') return;
-
-      var scope = getProductScope(wrapper);
-      var sizeName = normalizeLabelText(wrapper.dataset.sizeOptionName || 'size');
-
-      scope.querySelectorAll('variant-radios fieldset').forEach(function(fieldset) {
-        var legend = fieldset.querySelector('legend');
-        if (!legend) return;
-
-        if (normalizeLabelText(legend.textContent) === sizeName) {
-          fieldset.classList.add('sp-hidden-size-picker');
-        }
-      });
-
-      scope.querySelectorAll('variant-selects .product-form__input, variant-selects .select').forEach(function(block) {
-        var label = block.querySelector('label');
-        if (!label) return;
-
-        if (normalizeLabelText(label.textContent) === sizeName) {
-          block.classList.add('sp-hidden-size-picker');
-        }
-      });
-    }
-
-    function getSizeOptionIndex(wrapper, productData) {
-      var position = parseInt(wrapper.dataset.sizeOptionPosition || '0', 10);
-
-      if (position > 0) {
-        return position - 1;
-      }
-
-      if (productData && productData.options && productData.options.length) {
-        for (var i = 0; i < productData.options.length; i++) {
-          if (String(productData.options[i]).toLowerCase().indexOf('size') > -1) {
-            return i;
-          }
-        }
-      }
-
-      return -1;
-    }
-
-    function getNonSizeSelectionData(scope, wrapper, productData) {
-      var selectedOptions = getSelectedOptionsInOrder(scope, (productData.options || []).length);
-      var sizeIndex = getSizeOptionIndex(wrapper, productData);
-      var nonSizeValues = [];
-
-      selectedOptions.forEach(function(value, index) {
-        if (index !== sizeIndex && value) {
-          nonSizeValues.push(value);
-        }
-      });
-
-      return {
-        selectedOptions: selectedOptions,
-        sizeIndex: sizeIndex,
-        selectionLabel: nonSizeValues.join(' / '),
-        selectionKey: nonSizeValues.join('||') || 'base'
-      };
-    }
-
-    function getMatchingVariantsForNonSizeSelection(productData, selectedOptions, sizeIndex) {
-      return getVariants(productData).filter(function(variant) {
-        var variantOptions = getVariantOptionsArray(variant);
-
-        if (!variantOptions.length) return false;
-
-        for (var i = 0; i < variantOptions.length; i++) {
-          if (i === sizeIndex) continue;
-
-          if (selectedOptions[i] && String(variantOptions[i]) !== String(selectedOptions[i])) {
-            return false;
-          }
-        }
-
-        return true;
-      });
-    }
-
-    function getSizeSortRank(size) {
-      var normalized = String(size || '').trim().toUpperCase();
-
-      var order = {
-        'YXS': 1,
-        'YS': 2,
-        'YM': 3,
-        'YL': 4,
-        'YXL': 5,
-        'XS': 10,
-        'S': 20,
-        'M': 30,
-        'L': 40,
-        'XL': 50,
-        '2XL': 60,
-        'XXL': 60,
-        '3XL': 70,
-        'XXXL': 70,
-        '4XL': 80,
-        '5XL': 90,
-        '6XL': 100
-      };
-
-      if (order[normalized] != null) {
-        return order[normalized];
-      }
-
-      return 999;
-    }
-
-    function compareSizes(a, b) {
-      var sizeA = String(a || '');
-      var sizeB = String(b || '');
-
-      var rankA = getSizeSortRank(sizeA);
-      var rankB = getSizeSortRank(sizeB);
-
-      if (rankA !== rankB) {
-        return rankA - rankB;
-      }
-
-      return sizeA.localeCompare(sizeB, undefined, { numeric: true, sensitivity: 'base' });
-    }
-
-    function getAvailableSizes(wrapper) {
-      var productId = wrapper.dataset.productId;
-      var productData = getProductJson(productId);
-      var scope = getProductScope(wrapper);
-
-      if (!productData) return [];
-
-      var selectionData = getNonSizeSelectionData(scope, wrapper, productData);
-      if (selectionData.sizeIndex < 0) return [];
-
-      var matches = getMatchingVariantsForNonSizeSelection(productData, selectionData.selectedOptions, selectionData.sizeIndex);
-      var sizeMap = {};
-
-      matches.forEach(function(variant) {
-        var variantOptions = getVariantOptionsArray(variant);
-        var sizeValue = variantOptions[selectionData.sizeIndex];
-
-        if (sizeValue) {
-          sizeMap[sizeValue] = true;
-        }
-      });
-
-      return Object.keys(sizeMap).sort(compareSizes);
-    }
-
-    function updateSizeTotal(productId) {
-      var grid = document.getElementById('quote-size-grid-' + productId);
-      var totalEl = document.getElementById('quote-size-total-' + productId);
-      if (!grid || !totalEl) return;
-
-      var total = 0;
-
-      grid.querySelectorAll('.add-to-quote__size-input').forEach(function(input) {
-        var qty = parseInt(input.value || '0', 10);
-        if (!isNaN(qty) && qty > 0) {
-          total += qty;
-        }
-      });
-
-      totalEl.textContent = total;
-    }
-
-    function renderSizeGrid(wrapper) {
-      if (wrapper.dataset.hasSizeOption !== 'true') return;
-
-      var productId = wrapper.dataset.productId;
-      var grid = document.getElementById('quote-size-grid-' + productId);
-      var emptyEl = document.getElementById('quote-size-empty-' + productId);
-
-      if (!grid) return;
-
-      var existingValues = {};
-      grid.querySelectorAll('.add-to-quote__size-input').forEach(function(input) {
-        existingValues[input.getAttribute('data-size-value')] = input.value || '0';
-      });
-
-      var sizes = getAvailableSizes(wrapper);
-
-      if (!sizes.length) {
-        grid.innerHTML = '';
-        if (emptyEl) {
-          emptyEl.hidden = false;
-        }
-        updateSizeTotal(productId);
-        return;
-      }
-
-      if (emptyEl) {
-        emptyEl.hidden = true;
-      }
-
-      grid.innerHTML = sizes.map(function(size) {
-        var value = existingValues[size] || '0';
-
-        return `
-  <label class="add-to-quote__size-input-wrap">
-    <span class="add-to-quote__size-name">${escapeHtml(size)}</span>
-    <input
-      type="text"
-      inputmode="numeric"
-      pattern="[0-9]*"
-      value="${escapeHtml(value)}"
-      class="add-to-quote__size-input"
-      data-product-id="${escapeHtml(productId)}"
-      data-size-value="${escapeHtml(size)}"
-    >
-  </label>
-`;
-      }).join('');
-
-      updateSizeTotal(productId);
-    }
-
-    function toggleSizeMode(wrapper) {
-      if (wrapper.dataset.hasSizeOption !== 'true') return;
-
-      var productId = wrapper.dataset.productId;
-      var checked = wrapper.querySelector('input[name="quote-size-mode-' + productId + '"]:checked');
-      var sizeBreakdownWrap = document.getElementById('quote-size-breakdown-wrap-' + productId);
-      var sizeRangeWrap = document.getElementById('quote-size-range-wrap-' + productId);
-
-      if (!checked || !sizeBreakdownWrap || !sizeRangeWrap) return;
-
-      if (checked.value === 'unknown') {
-        sizeBreakdownWrap.classList.add('add-to-quote__detail-card--hidden');
-        sizeRangeWrap.classList.remove('add-to-quote__detail-card--hidden');
-      } else {
-        sizeBreakdownWrap.classList.remove('add-to-quote__detail-card--hidden');
-        sizeRangeWrap.classList.add('add-to-quote__detail-card--hidden');
-      }
-    }
-
-    function getActiveGalleryImage(scope) {
-      var selectors = [
-        '.product__media-item.is-active img',
-        'media-gallery .product__media-item.is-active img',
-        'slider-component .product__media-item.is-active img',
-        '.product__media img'
-      ];
-
-      for (var i = 0; i < selectors.length; i++) {
-        var img = scope.querySelector(selectors[i]);
-        if (img) {
-          return img.currentSrc || img.src || '';
-        }
-      }
-
-      return '';
-    }
-
-    function getVariantMediaImage(scope, variant) {
-      if (!variant) return '';
-
-      if (variant.featured_media && variant.featured_media.id) {
-        var mediaId = String(variant.featured_media.id);
-
-        var mediaImg =
-          scope.querySelector('[data-media-id$="' + mediaId + '"] img') ||
-          scope.querySelector('[data-media-id*="' + mediaId + '"] img');
-
-        if (mediaImg) {
-          return mediaImg.currentSrc || mediaImg.src || '';
-        }
-      }
-
-      if (variant.featured_image && variant.featured_image.src) {
-        return variant.featured_image.src;
-      }
-
-      if (
-        variant.featured_media &&
-        variant.featured_media.preview_image &&
-        variant.featured_media.preview_image.src
-      ) {
-        return variant.featured_media.preview_image.src;
-      }
-
-      if (variant.image && variant.image.src) {
-        return variant.image.src;
-      }
-
-      return '';
-    }
-
-    function getBaseMatchedVariant(scope, productId, productData) {
-      var variants = getVariants(productData);
-      var selectedOptions = getSelectedOptionsInOrder(scope, (productData.options || []).length);
-      var matchedVariant = null;
-
-      if (selectedOptions.length) {
-        matchedVariant = findVariantByOptions(variants, selectedOptions);
-      }
-
-      if (!matchedVariant) {
-        var formVariantId = getSelectedVariantIdFromForm(scope, productId);
-        matchedVariant = findVariantById(variants, formVariantId);
-      }
-
-      return matchedVariant;
-    }
-
-    function getSizeMode(wrapper) {
-      if (wrapper.dataset.hasSizeOption !== 'true') return 'simple';
-
-      var checked = wrapper.querySelector('input[name="quote-size-mode-' + wrapper.dataset.productId + '"]:checked');
-      return checked ? checked.value : 'breakdown';
-    }
-
-    function buildSimpleItem(button, wrapper, scope, productData, decoration, artworkStatus, notes) {
-      var variants = getVariants(productData);
-      var selectedOptions = getSelectedOptionsInOrder(scope, (productData.options || []).length);
-      var selectedVariant = null;
-      var formVariantId = getSelectedVariantIdFromForm(scope, button.dataset.productId);
-
-      if (selectedOptions.length) {
-        selectedVariant = findVariantByOptions(variants, selectedOptions);
-      }
-
-      if (!selectedVariant && formVariantId) {
-        selectedVariant = findVariantById(variants, formVariantId);
-      }
-
-      var quantityInput = document.getElementById('quote-qty-' + button.dataset.productId);
-      var quantity = Math.max(1, parseInt(quantityInput && quantityInput.value ? quantityInput.value : '1', 10));
-      var variantTitle = '';
-      var variantImage = '';
-      var sku = '';
-      var variantId = '';
-      var variantKey = '';
-
-      if (selectedVariant) {
-        var variantOptions = getVariantOptionsArray(selectedVariant);
-
-        variantId = selectedVariant.id ? String(selectedVariant.id) : '';
-        variantTitle = variantOptions.length ? variantOptions.join(' / ') : (selectedVariant.title || '');
-        variantImage = getVariantMediaImage(scope, selectedVariant);
-        sku = selectedVariant.sku || '';
-      }
-
-      if (!variantTitle && selectedOptions.length) {
-        variantTitle = selectedOptions.join(' / ');
-      }
-
-      if (!variantTitle) {
-        variantTitle = 'Default Title';
-      }
-
-      if (!variantImage) {
-        variantImage = getActiveGalleryImage(scope) || button.dataset.defaultImage || '';
-      }
-
-      var cleanVariantTitle = variantTitle !== 'Default Title' ? variantTitle : '';
-      var cleanVariantImage = variantImage ? variantImage.split('?')[0] : '';
-
-      variantKey = variantId || cleanVariantTitle || cleanVariantImage || sku || 'default';
-
-      return {
-        id: button.dataset.productId,
-        productId: button.dataset.productId,
-        variantId: variantId,
-        variantKey: variantKey,
-        title: button.dataset.title,
-        image: variantImage,
-        variant: variantTitle,
-        quantity: quantity,
-        decoration: decoration,
-        artworkStatus: artworkStatus,
-        notes: notes,
-        handle: button.dataset.handle,
-        url: button.dataset.url,
-        sku: sku
-      };
-    }
-
-    function buildSizeBreakdownItem(button, wrapper, scope, productData, decoration, artworkStatus, notes) {
-      var selectionData = getNonSizeSelectionData(scope, wrapper, productData);
-      var sizeIndex = selectionData.sizeIndex;
-      var sizeGrid = document.getElementById('quote-size-grid-' + button.dataset.productId);
-      var sizeBreakdown = {};
-      var sizeVariantMap = {};
-      var totalQuantity = 0;
-      var firstVariantForImage = null;
-
-      if (!sizeGrid || sizeIndex < 0) {
-        return { error: 'Unable to load sizes for this product.' };
-      }
-
-      sizeGrid.querySelectorAll('.add-to-quote__size-input').forEach(function(input) {
-        var qty = parseInt(input.value || '0', 10);
-        var sizeValue = input.getAttribute('data-size-value') || '';
-
-        if (isNaN(qty) || qty <= 0 || !sizeValue) return;
-
-        sizeBreakdown[sizeValue] = qty;
-        totalQuantity += qty;
-
-        var targetOptions = selectionData.selectedOptions.slice();
-        targetOptions[sizeIndex] = sizeValue;
-
-        var matchedVariant = findVariantByOptions(getVariants(productData), targetOptions);
-
-        if (matchedVariant) {
-          sizeVariantMap[sizeValue] = {
-            variantId: matchedVariant.id ? String(matchedVariant.id) : '',
-            sku: matchedVariant.sku || ''
-          };
-
-          if (!firstVariantForImage) {
-            firstVariantForImage = matchedVariant;
-          }
-        }
-      });
-
-      if (totalQuantity <= 0) {
-        return { error: 'Enter at least one size quantity before adding this item.' };
-      }
-
-      var image =
-        getVariantMediaImage(scope, firstVariantForImage) ||
-        getVariantMediaImage(scope, getBaseMatchedVariant(scope, button.dataset.productId, productData)) ||
-        getActiveGalleryImage(scope) ||
-        button.dataset.defaultImage ||
-        '';
-
-      return {
-        id: button.dataset.productId,
-        productId: button.dataset.productId,
-        variantKey: selectionData.selectionKey,
-        title: button.dataset.title,
-        image: image,
-        variant: selectionData.selectionLabel,
-        sizeMode: 'breakdown',
-        sizeBreakdown: sizeBreakdown,
-        sizeVariantMap: sizeVariantMap,
-        totalQuantity: totalQuantity,
-        decoration: decoration,
-        artworkStatus: artworkStatus,
-        notes: notes,
-        handle: button.dataset.handle,
-        url: button.dataset.url
-      };
-    }
-
-    function buildUnknownSizeItem(button, wrapper, scope, productData, decoration, artworkStatus, notes) {
-      var selectionData = getNonSizeSelectionData(scope, wrapper, productData);
-      var estimatedRangeInput = document.getElementById('quote-estimated-range-' + button.dataset.productId);
-      var estimatedQtyRange = estimatedRangeInput ? estimatedRangeInput.value : '';
-
-      if (!estimatedQtyRange) {
-        return { error: 'Select an estimated quantity range before adding this item.' };
-      }
-
-      var baseVariant = getBaseMatchedVariant(scope, button.dataset.productId, productData);
-      var image =
-        getVariantMediaImage(scope, baseVariant) ||
-        getActiveGalleryImage(scope) ||
-        button.dataset.defaultImage ||
-        '';
-
-      return {
-        id: button.dataset.productId,
-        productId: button.dataset.productId,
-        variantKey: selectionData.selectionKey,
-        title: button.dataset.title,
-        image: image,
-        variant: selectionData.selectionLabel,
-        sizeMode: 'unknown',
-        estimatedQtyRange: estimatedQtyRange,
-        decoration: decoration,
-        artworkStatus: artworkStatus,
-        notes: notes,
-        handle: button.dataset.handle,
-        url: button.dataset.url
-      };
-    }
-
-    function mergeSizeBreakdown(existingItem, newItem) {
-      var mergedBreakdown = {};
-      var mergedVariantMap = {};
-      var total = 0;
-
-      [existingItem.sizeBreakdown || {}, newItem.sizeBreakdown || {}].forEach(function(source) {
-        Object.keys(source).forEach(function(size) {
-          var current = parseInt(mergedBreakdown[size] || 0, 10);
-          var addition = parseInt(source[size] || 0, 10);
-          mergedBreakdown[size] = current + addition;
-        });
-      });
-
-      [existingItem.sizeVariantMap || {}, newItem.sizeVariantMap || {}].forEach(function(source) {
-        Object.keys(source).forEach(function(size) {
-          mergedVariantMap[size] = source[size];
-        });
-      });
-
-      Object.keys(mergedBreakdown).forEach(function(size) {
-        total += parseInt(mergedBreakdown[size] || 0, 10);
-      });
-
-      existingItem.sizeBreakdown = mergedBreakdown;
-      existingItem.sizeVariantMap = mergedVariantMap;
-      existingItem.totalQuantity = total;
-      existingItem.image = newItem.image || existingItem.image;
-      existingItem.variant = newItem.variant || existingItem.variant;
-      existingItem.url = newItem.url || existingItem.url;
-
-      if (newItem.notes) {
-        existingItem.notes = newItem.notes;
-      }
-    }
-
-    function addItemToQuoteCart(newItem) {
-      var currentItems = getQuoteCartItems();
-      var existingIndex = currentItems.findIndex(function(item) {
-        if (item.id !== newItem.id) return false;
-        if (String(item.variantKey || '') !== String(newItem.variantKey || '')) return false;
-        if (String(item.decoration || '') !== String(newItem.decoration || '')) return false;
-        if (String(item.artworkStatus || '') !== String(newItem.artworkStatus || '')) return false;
-        if (String(item.sizeMode || '') !== String(newItem.sizeMode || '')) return false;
-
-        if (newItem.sizeMode === 'unknown') {
-          return String(item.estimatedQtyRange || '') === String(newItem.estimatedQtyRange || '');
-        }
-
-        return true;
-      });
-
-      if (existingIndex > -1) {
-        if (newItem.sizeMode === 'breakdown') {
-          mergeSizeBreakdown(currentItems[existingIndex], newItem);
-        } else if (newItem.sizeMode === 'unknown') {
-          currentItems[existingIndex].image = newItem.image || currentItems[existingIndex].image;
-          currentItems[existingIndex].variant = newItem.variant || currentItems[existingIndex].variant;
-          currentItems[existingIndex].url = newItem.url || currentItems[existingIndex].url;
-
-          if (newItem.notes) {
-            currentItems[existingIndex].notes = newItem.notes;
-          }
-        } else {
-          currentItems[existingIndex].quantity =
-            parseInt(currentItems[existingIndex].quantity || 0, 10) +
-            parseInt(newItem.quantity || 0, 10);
-
-          currentItems[existingIndex].variantId = newItem.variantId;
-          currentItems[existingIndex].variantKey = newItem.variantKey;
-          currentItems[existingIndex].variant = newItem.variant;
-          currentItems[existingIndex].image = newItem.image;
-          currentItems[existingIndex].url = newItem.url;
-          currentItems[existingIndex].sku = newItem.sku;
-
-          if (newItem.notes) {
-            currentItems[existingIndex].notes = newItem.notes;
-          }
-        }
-      } else {
-        currentItems.push(newItem);
-      }
-
-      saveQuoteCartItems(currentItems);
-    }
-
-    function setMessage(productId, message, type) {
-      var messageEl = document.getElementById('quote-message-' + productId);
-      if (!messageEl) return;
-
-      messageEl.textContent = message;
-      messageEl.classList.remove('add-to-quote__message--success', 'add-to-quote__message--error');
-
-      if (type === 'success') {
-        messageEl.classList.add('add-to-quote__message--success');
-      }
-
-      if (type === 'error') {
-        messageEl.classList.add('add-to-quote__message--error');
-      }
-    }
-function resetAddToQuoteInputs(wrapper) {
-  if (!wrapper) return;
-
-  var productId = wrapper.dataset.productId;
-
-  wrapper.querySelectorAll('.add-to-quote__size-input').forEach(function(input) {
-    input.value = '0';
-  });
-
-  var totalEl = document.getElementById('quote-size-total-' + productId);
-  if (totalEl) {
-    totalEl.textContent = '0';
-  }
-
-  var estimatedRangeInput = document.getElementById('quote-estimated-range-' + productId);
-  if (estimatedRangeInput) {
-    estimatedRangeInput.value = '';
-  }
-
-  var quantityInput = document.getElementById('quote-qty-' + productId);
-  if (quantityInput) {
-    quantityInput.value = '12';
-  }
-
-  var notesInput = document.getElementById('quote-notes-' + productId);
-  if (notesInput) {
-    notesInput.value = '';
-  }
-}
-    function initSizeBreakdownWrappers() {
-      document.querySelectorAll('.add-to-quote[data-has-size-option="true"]').forEach(function(wrapper) {
-        hideDuplicateSizePicker(wrapper);
-        toggleSizeMode(wrapper);
-        renderSizeGrid(wrapper);
-      });
-    }
-
-    document.addEventListener('change', function(event) {
-      var wrapper = event.target.closest('.add-to-quote');
-
-      if (wrapper && event.target.matches('input[name^="quote-size-mode-"]')) {
-        toggleSizeMode(wrapper);
-        return;
-      }
-
-      if (event.target.matches('variant-selects select, variant-radios input[type="radio"]')) {
-        var scope = getProductScope(event.target);
-
-        scope.querySelectorAll('.add-to-quote[data-has-size-option="true"]').forEach(function(candidate) {
-          hideDuplicateSizePicker(candidate);
-          renderSizeGrid(candidate);
-        });
-      }
-    });
-
-    document.addEventListener('input', function(event) {
-  if (event.target.matches('.add-to-quote__size-input')) {
-    event.target.value = event.target.value.replace(/[^0-9]/g, '');
-
-    var productId = event.target.getAttribute('data-product-id');
-    if (productId) {
-      updateSizeTotal(productId);
-    }
-  }
-});
-
-    document.addEventListener('click', function(event) {
-      var button = event.target.closest('.js-add-to-quote');
-      if (!button) return;
-
-      var productId = button.dataset.productId;
-      var wrapper = button.closest('.add-to-quote');
-      var scope = getProductScope(button);
-      var productData = getProductJson(productId);
-      var decorationInput = document.getElementById('quote-decoration-' + productId);
-      var artworkInput = document.getElementById('quote-artwork-status-' + productId);
-      var notesInput = document.getElementById('quote-notes-' + productId);
-
-      if (!wrapper || !productData) {
-        setMessage(productId, 'Unable to load product data for quoting.', 'error');
-        return;
-      }
-
-      var decoration = decorationInput ? decorationInput.value : '';
-      var artworkStatus = artworkInput ? artworkInput.value : '';
-      var notes = notesInput ? notesInput.value : '';
-      var newItem = null;
-
-      if (wrapper.dataset.hasSizeOption === 'true') {
-        var sizeMode = getSizeMode(wrapper);
-
-        if (sizeMode === 'unknown') {
-          newItem = buildUnknownSizeItem(button, wrapper, scope, productData, decoration, artworkStatus, notes);
-        } else {
-          newItem = buildSizeBreakdownItem(button, wrapper, scope, productData, decoration, artworkStatus, notes);
-        }
-      } else {
-        newItem = buildSimpleItem(button, wrapper, scope, productData, decoration, artworkStatus, notes);
-      }
-
-      if (!newItem || newItem.error) {
-        setMessage(productId, newItem && newItem.error ? newItem.error : 'Unable to add this item to the quote cart.', 'error');
-        return;
-      }
-
-      addItemToQuoteCart(newItem);
-resetAddToQuoteInputs(wrapper);
-setMessage(productId, '✓ Added to Quote Cart.', 'success');
-
-button.textContent = '✓ Added';
-setTimeout(function() {
-  button.textContent = 'Add to Quote';
-}, 2000);
-    });
-
-    initSizeBreakdownWrappers();
-  }
-</script>
+{%- endif -%}

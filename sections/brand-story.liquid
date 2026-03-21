@@ -1,115 +1,49 @@
-<section class="hw-landing">
+<section class="brand-story">
   <div class="page-width">
-    <div class="hw-landing__hero">
-      {% if section.settings.eyebrow != blank %}
-        <p class="hw-landing__eyebrow">{{ section.settings.eyebrow }}</p>
-      {% endif %}
-
-      {% if section.settings.heading != blank %}
-        <h1 class="hw-landing__heading">{{ section.settings.heading }}</h1>
-      {% endif %}
-
-      {% if section.settings.text != blank %}
-        <div class="hw-landing__text rte">
-          {{ section.settings.text }}
-        </div>
-      {% endif %}
-
-      <div class="hw-landing__actions">
-        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
-          <a href="{{ section.settings.primary_link }}" class="hw-landing__button hw-landing__button--primary">
-            {{ section.settings.primary_label }}
-          </a>
+    <div class="brand-story__grid">
+      <div class="brand-story__content">
+        {% if section.settings.eyebrow != blank %}
+          <p class="brand-story__eyebrow">{{ section.settings.eyebrow }}</p>
         {% endif %}
 
-        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
-          <a href="{{ section.settings.secondary_link }}" class="hw-landing__button hw-landing__button--secondary">
-            {{ section.settings.secondary_label }}
+        {% if section.settings.heading != blank %}
+          <h2 class="brand-story__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+
+        {% if section.settings.paragraph_1 != blank %}
+          <p class="brand-story__text">{{ section.settings.paragraph_1 }}</p>
+        {% endif %}
+
+        {% if section.settings.paragraph_2 != blank %}
+          <p class="brand-story__text">{{ section.settings.paragraph_2 }}</p>
+        {% endif %}
+
+        {% if section.settings.paragraph_3 != blank %}
+          <p class="brand-story__text">{{ section.settings.paragraph_3 }}</p>
+        {% endif %}
+
+        {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="brand-story__button">
+            {{ section.settings.button_label }}
           </a>
         {% endif %}
       </div>
-    </div>
 
-    <div class="hw-landing__subtypes-wrap">
-      <div class="hw-landing__section-intro">
-        {% if section.settings.subtypes_eyebrow != blank %}
-          <p class="hw-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
-        {% endif %}
-        {% if section.settings.subtypes_heading != blank %}
-          <h2 class="hw-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
-        {% endif %}
-        {% if section.settings.subtypes_text != blank %}
-          <p class="hw-landing__section-text">{{ section.settings.subtypes_text }}</p>
-        {% endif %}
-      </div>
-
-      <div class="hw-landing__grid">
-        {% for block in section.blocks %}
-          <a href="{{ block.settings.link }}" class="hw-landing__card" {{ block.shopify_attributes }}>
-            <div class="hw-landing__card-media">
-              {% if block.settings.image != blank %}
-                <img
-                  src="{{ block.settings.image | image_url: width: 900 }}"
-                  alt="{{ block.settings.title | escape }}"
-                  loading="lazy"
-                >
-              {% else %}
-                <div class="hw-landing__card-placeholder">
-                  <span>{{ block.settings.icon_text }}</span>
-                </div>
-              {% endif %}
-            </div>
-
-            <div class="hw-landing__card-overlay">
-              <div class="hw-landing__card-body">
-                <h3 class="hw-landing__card-title">{{ block.settings.title }}</h3>
-
-                {% if block.settings.subtitle != blank %}
-                  <p class="hw-landing__card-subtitle">{{ block.settings.subtitle }}</p>
-                {% endif %}
-
-                {% if block.settings.detail_1 != blank or block.settings.detail_2 != blank or block.settings.detail_3 != blank %}
-                  <ul class="hw-landing__card-details">
-                    {% if block.settings.detail_1 != blank %}
-                      <li>{{ block.settings.detail_1 }}</li>
-                    {% endif %}
-                    {% if block.settings.detail_2 != blank %}
-                      <li>{{ block.settings.detail_2 }}</li>
-                    {% endif %}
-                    {% if block.settings.detail_3 != blank %}
-                      <li>{{ block.settings.detail_3 }}</li>
-                    {% endif %}
-                  </ul>
-                {% endif %}
-
-                <span class="hw-landing__card-link">Explore Styles →</span>
-              </div>
-            </div>
-          </a>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="hw-landing__help">
-      {% if section.settings.help_heading != blank %}
-        <h2 class="hw-landing__help-heading">{{ section.settings.help_heading }}</h2>
-      {% endif %}
-
-      {% if section.settings.help_text != blank %}
-        <p class="hw-landing__help-text">{{ section.settings.help_text }}</p>
-      {% endif %}
-
-      <div class="hw-landing__help-actions">
-        {% if section.settings.help_primary_label != blank and section.settings.help_primary_link != blank %}
-          <a href="{{ section.settings.help_primary_link }}" class="hw-landing__button hw-landing__button--primary">
-            {{ section.settings.help_primary_label }}
-          </a>
-        {% endif %}
-
-        {% if section.settings.help_secondary_label != blank and section.settings.help_secondary_link != blank %}
-          <a href="{{ section.settings.help_secondary_link }}" class="hw-landing__button hw-landing__button--secondary">
-            {{ section.settings.help_secondary_label }}
-          </a>
+      <div class="brand-story__media">
+        {% if section.settings.logo_image != blank %}
+          <div class="brand-story__logo-panel">
+            <img
+              src="{{ section.settings.logo_image | image_url: width: 1200 }}"
+              alt="{{ section.settings.logo_image.alt | escape }}"
+              loading="lazy"
+              width="{{ section.settings.logo_image.width }}"
+              height="{{ section.settings.logo_image.height }}"
+            >
+          </div>
+        {% else %}
+          <div class="brand-story__logo-panel brand-story__logo-panel--placeholder">
+            <span>{{ section.settings.placeholder_text }}</span>
+          </div>
         {% endif %}
       </div>
     </div>
@@ -117,19 +51,23 @@
 </section>
 
 <style>
-  .hw-landing {
+  .brand-story {
     padding: 84px 0;
     background: #f5f5f5;
   }
 
-  .hw-landing__hero {
-    max-width: 900px;
-    margin: 0 auto 56px;
-    text-align: center;
+  .brand-story__grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
   }
 
-  .hw-landing__eyebrow,
-  .hw-landing__section-eyebrow {
+  .brand-story__content {
+    max-width: 760px;
+  }
+
+  .brand-story__eyebrow {
     margin: 0 0 10px;
     color: #c41230;
     font-size: 1.2rem;
@@ -138,367 +76,163 @@
     text-transform: uppercase;
   }
 
-  .hw-landing__heading {
-    margin: 0 0 16px;
+  .brand-story__heading {
+    margin: 0 0 20px;
     font-family: var(--sole-heading-font);
-    font-size: clamp(3.2rem, 5vw, 6rem);
+    font-size: clamp(2.8rem, 4vw, 4.8rem);
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
     color: #111111;
   }
 
-  .hw-landing__text {
-    margin: 0 auto;
-    max-width: 760px;
+  .brand-story__text {
+    margin: 0 0 18px;
     font-size: 1.65rem;
-    line-height: 1.7;
-    color: #4a4a4a;
+    line-height: 1.75;
+    color: #3f3f3f;
+    max-width: 64rem;
   }
 
-  .hw-landing__actions,
-  .hw-landing__help-actions {
-    display: flex;
-    gap: 14px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 28px;
-  }
-
-  .hw-landing__button {
+  .brand-story__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 48px;
+    min-height: 52px;
     padding: 0 22px;
+    margin-top: 10px;
     text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
-  }
-
-  .hw-landing__button:hover {
-    transform: translateY(-2px);
-  }
-
-  .hw-landing__button--primary {
     background: #111111;
     color: #ffffff;
     border: 2px solid #111111;
+    transition: all 0.25s ease;
   }
 
-  .hw-landing__button--primary:hover {
+  .brand-story__button:hover {
     background: #c41230;
     border-color: #c41230;
     color: #ffffff;
   }
 
-  .hw-landing__button--secondary {
-    background: transparent;
-    color: #111111;
-    border: 2px solid #111111;
-  }
-
-  .hw-landing__button--secondary:hover {
-    background: #111111;
-    color: #ffffff;
-  }
-
-  .hw-landing__subtypes-wrap {
-    margin-bottom: 56px;
-  }
-
-  .hw-landing__section-intro {
-    text-align: center;
-    max-width: 820px;
-    margin: 0 auto 36px;
-  }
-
-  .hw-landing__section-heading {
-    margin: 0 0 12px;
-    font-family: var(--sole-heading-font);
-    font-size: clamp(2.6rem, 4vw, 4.4rem);
-    line-height: 0.95;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #111111;
-  }
-
-  .hw-landing__section-text {
-    margin: 0;
-    font-size: 1.55rem;
-    line-height: 1.65;
-    color: #4a4a4a;
-  }
-
-  .hw-landing__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 22px;
-  }
-
-  .hw-landing__card {
-    position: relative;
-    display: block;
-    min-height: 320px;
-    overflow: hidden;
-    text-decoration: none;
-    background: #111111;
-    border: 1px solid #d0d0d0;
-    border-bottom: 4px solid #aaaaaa;
-    box-shadow: 0 6px 0 #999999, 0 10px 24px rgba(0,0,0,0.12);
-    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
-  }
-
-  .hw-landing__card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 14px 0 #888888, 0 22px 40px rgba(0,0,0,0.18);
-    border-color: #c41230;
-    border-bottom-color: #9a0e24;
-  }
-
-  .hw-landing__card-media {
-    position: absolute;
-    inset: 0;
-  }
-
-  .hw-landing__card-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-  }
-
-  .hw-landing__card:hover .hw-landing__card-media img {
-    transform: scale(1.05);
-  }
-
-  .hw-landing__card-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
+  .brand-story__media {
     display: flex;
-    align-items: center;
     justify-content: center;
   }
 
-  .hw-landing__card-placeholder span {
-    font-family: var(--sole-heading-font);
-    font-size: 4.2rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.18);
-  }
-
-  .hw-landing__card-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.55) 48%, rgba(17,17,17,0.08) 100%);
-    display: flex;
-    align-items: flex-end;
-    transition: background 0.3s ease;
-  }
-
-  .hw-landing__card:hover .hw-landing__card-overlay {
-    background: linear-gradient(to top, rgba(196,18,48,0.9) 0%, rgba(17,17,17,0.58) 48%, rgba(17,17,17,0.1) 100%);
-  }
-
-  .hw-landing__card-body {
+  .brand-story__logo-panel {
     width: 100%;
-    padding: 24px 22px 20px;
+    max-width: 520px;
+    min-height: 420px;
+    background: linear-gradient(135deg, #111111 0%, #1f1f1f 70%, #c41230 130%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
   }
 
-  .hw-landing__card-title {
-    margin: 0 0 8px;
-    font-family: var(--sole-heading-font);
-    font-size: 2.6rem;
-    line-height: 1;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #ffffff;
-  }
-
-  .hw-landing__card-subtitle {
-    margin: 0 0 12px;
-    font-size: 1.38rem;
-    line-height: 1.45;
-    color: rgba(255,255,255,0.8);
-  }
-
-  .hw-landing__card-details {
-    margin: 0 0 14px;
-    padding: 0;
-    list-style: none;
-  }
-
-  .hw-landing__card-details li {
-    margin: 0 0 6px;
-    font-size: 1.2rem;
-    line-height: 1.4;
-    color: rgba(255,255,255,0.72);
-  }
-
-  .hw-landing__card-link {
-    display: inline-block;
-    font-size: 1.15rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.6);
-    transition: color 0.25s ease, transform 0.25s ease;
-  }
-
-  .hw-landing__card:hover .hw-landing__card-link {
-    color: #ffffff;
-    transform: translateX(4px);
-  }
-
-  .hw-landing__help {
-    max-width: 860px;
-    margin: 0 auto;
-    text-align: center;
+  .brand-story__logo-panel img {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     background: #ffffff;
-    border: 1px solid #d8d8d8;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    padding: 34px 28px;
+    padding: 16px;
+    border-radius: 12px;
   }
 
-  .hw-landing__help-heading {
-    margin: 0 0 12px;
+  .brand-story__logo-panel--placeholder span {
     font-family: var(--sole-heading-font);
-    font-size: clamp(2.2rem, 3vw, 3.6rem);
-    line-height: 1;
+    font-size: clamp(2.2rem, 4vw, 4rem);
     font-weight: 900;
     text-transform: uppercase;
-    color: #111111;
-  }
-
-  .hw-landing__help-text {
-    margin: 0;
-    font-size: 1.5rem;
-    line-height: 1.65;
-    color: #4a4a4a;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1;
   }
 
   @media screen and (max-width: 989px) {
-    .hw-landing {
+    .brand-story {
       padding: 64px 0;
     }
 
-    .hw-landing__grid {
+    .brand-story__grid {
       grid-template-columns: 1fr;
+      gap: 28px;
     }
 
-    .hw-landing__card {
-      min-height: 280px;
-    }
-  }
-
-  @media screen and (max-width: 749px) {
-    .hw-landing__heading {
-      font-size: 3.8rem;
-    }
-
-    .hw-landing__card {
-      min-height: 240px;
-    }
-
-    .hw-landing__card-title {
-      font-size: 2.1rem;
-    }
-
-    .hw-landing__text,
-    .hw-landing__section-text,
-    .hw-landing__help-text {
-      font-size: 1.4rem;
+    .brand-story__logo-panel {
+      min-height: 320px;
     }
   }
 </style>
 
 {% schema %}
 {
-  "name": "Headwear Landing",
+  "name": "Brand Story",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom Apparel" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Headwear" },
-    { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Choose the polo category that fits your project, then narrow by brand, color, material, and size. Whether you need uniforms, corporate apparel, team wear, or durable work polos, we can help guide the best option.</p>" },
-    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Request a Quote" },
-    { "type": "url", "id": "primary_link", "label": "Primary button link" },
-    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "View Design Work" },
-    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
-
-    { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Style" },
-    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Headwear Category" },
-    { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category is designed to help you get to the right polo faster." },
-
-    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Headwear?" },
-    { "type": "textarea", "id": "help_text", "label": "Help text", "default": "If you are deciding between performance, cotton, or work polos, we can recommend the best direction based on budget, decoration method, durability, and end use." },
-    { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
-    { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
-    { "type": "text", "id": "help_secondary_label", "label": "Help secondary button label", "default": "Contact Us" },
-    { "type": "url", "id": "help_secondary_link", "label": "Help secondary button link" }
-  ],
-  "blocks": [
     {
-      "type": "subtype",
-      "name": "Subtype Card",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "icon_text", "label": "Icon fallback", "default": "HW" },
-        { "type": "text", "id": "title", "label": "Title", "default": "Performance Headwear" },
-        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Classic branded headwear for teams, merch, staff, and events" },
-        { "type": "text", "id": "detail_1", "label": "Detail 1", "default": "Strong starting point for most headwear projects" },
-        { "type": "text", "id": "detail_2", "label": "Detail 2", "default": "Available in structured, unstructured, and snapback styles" },
-        { "type": "text", "id": "detail_3", "label": "Detail 3", "default": "Best for embroidery and patch decoration" },
-        { "type": "url", "id": "link", "label": "Link" }
-      ]
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "More Than a Name"
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_1",
+      "label": "Paragraph 1",
+      "default": "The Sole Provider started as a sneaker resale business, but over time it grew into something much bigger. What began with a passion for product, style, and culture evolved into a full-service promotional branding agency built to make things easier for the people we work with."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_2",
+      "label": "Paragraph 2",
+      "default": "Today, the name represents what we aim to be for every client: a one-stop source for custom apparel, branded items, creative design, and promotional support. We focus on quality, detail, and service at every step, while keeping the process approachable and affordable."
+    },
+    {
+      "type": "textarea",
+      "id": "paragraph_3",
+      "label": "Paragraph 3",
+      "default": "At its core, The Sole Provider is about more than products. It is about helping people feel seen, supported, and confident that their vision is being handled with real care."
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Placeholder text",
+      "default": "The Sole Provider"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View on Instagram"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
     }
   ],
-  "max_blocks": 4,
   "presets": [
     {
-      "name": "Headwear Landing",
-      "blocks": [
-        {
-          "type": "subtype",
-          "settings": {
-            "icon_text": "PP",
-            "title": "Performance Headwear",
-            "subtitle": "Classic branded headwear for teams, merch, staff, and events",
-            "detail_1": "Strong starting point for most headwear projects",
-            "detail_2": "Available in structured, unstructured, and snapback styles",
-            "detail_3": "Best for embroidery and patch decoration",
-            "link": "/collections/performance-polos"
-          }
-        },
-        {
-          "type": "subtype",
-          "settings": {
-            "icon_text": "CP",
-            "title": "Cotton Headwear",
-            "subtitle": "Classic softer polos for everyday branded apparel and casual uniforms",
-            "detail_1": "Traditional polo look and feel",
-            "detail_2": "Comfort-focused option",
-            "detail_3": "Good for office and general use",
-            "link": "/collections/cotton-polos"
-          }
-        },
-        {
-          "type": "subtype",
-          "settings": {
-            "icon_text": "WP",
-            "title": "Work Headwear",
-            "subtitle": "Built for durability, uniform programs, and harder-wearing environments",
-            "detail_1": "Ideal for crews and service teams",
-            "detail_2": "Made for repeat wear",
-            "detail_3": "Practical for branded uniforms",
-            "link": "/collections/work-polos"
-          }
-        }
-      ]
+      "name": "Brand Story"
     }
   ]
 }

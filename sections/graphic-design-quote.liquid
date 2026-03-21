@@ -1,195 +1,460 @@
-<section class="gd-hero">
+<section class="gd-quote" id="gd-quote">
   <div class="page-width">
-    <div class="gd-hero__grid">
-      <div class="gd-hero__content">
+    <div class="gd-quote__inner">
+
+      <div class="gd-quote__left">
         {% if section.settings.eyebrow != blank %}
-          <p class="gd-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+          <p class="gd-quote__eyebrow">{{ section.settings.eyebrow }}</p>
         {% endif %}
         {% if section.settings.heading != blank %}
-          <h1 class="gd-hero__heading">{{ section.settings.heading }}</h1>
+          <h2 class="gd-quote__heading">{{ section.settings.heading }}</h2>
         {% endif %}
         {% if section.settings.text != blank %}
-          <p class="gd-hero__text">{{ section.settings.text }}</p>
+          <p class="gd-quote__text">{{ section.settings.text }}</p>
         {% endif %}
-        <div class="gd-hero__badges">
-          <div class="gd-hero__badge">
-            <span class="gd-hero__badge-icon">✦</span>
-            <span>100% In-House</span>
+        <div class="gd-quote__assurances">
+          <div class="gd-quote__assurance">
+            <span class="gd-quote__assurance-icon">✓</span>
+            <span>We respond within 1 business day</span>
           </div>
-          <div class="gd-hero__badge">
-            <span class="gd-hero__badge-icon">✦</span>
-            <span>Print-Ready Files</span>
+          <div class="gd-quote__assurance">
+            <span class="gd-quote__assurance-icon">✓</span>
+            <span>No commitment required to get a quote</span>
           </div>
-          <div class="gd-hero__badge">
-            <span class="gd-hero__badge-icon">✦</span>
-            <span>Fast Turnaround</span>
+          <div class="gd-quote__assurance">
+            <span class="gd-quote__assurance-icon">✓</span>
+            <span>Files delivered print-ready for any method</span>
           </div>
-        </div>
-        <div class="gd-hero__buttons">
-          <a href="#gd-quote" class="gd-btn gd-btn--primary">Request Design Quote</a>
-          <a href="/pages/portfolio#pf-design" class="gd-btn gd-btn--outline">See Our Work</a>
         </div>
       </div>
-      <div class="gd-hero__services">
-        {% for block in section.blocks %}
-          {% if block.type == 'service' %}
-            <div class="gd-hero__service" {{ block.shopify_attributes }}>
-              <span class="gd-hero__service-num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
-              <div>
-                <strong class="gd-hero__service-title">{{ block.settings.title }}</strong>
-                {% if block.settings.text != blank %}
-                  <p class="gd-hero__service-text">{{ block.settings.text }}</p>
-                {% endif %}
+
+      <div class="gd-quote__right">
+        {% form 'contact', id: 'gd-quote-form' %}
+          {% if form.posted_successfully? %}
+            <div class="gd-quote__success gd-quote__success-box">
+              <p class="gd-quote__success-title">✓ Request Received</p>
+              <p class="gd-quote__success-text">
+                We’ll review your project details and be in touch within 1 business day. If you submitted files through the artwork upload form below, we’ll match them using the same Request ID.
+              </p>
+              <div id="gd-success-request-id" class="gd-quote__success-request-id"></div>
+            </div>
+          {% else %}
+
+            {% if form.errors %}
+              <div class="gd-quote__error">Please fill in all required fields.</div>
+            {% endif %}
+
+            <input type="hidden" name="contact[request_type]" value="Graphic Design Quote">
+            <input type="hidden" name="contact[source_page]" id="gd-source-page" value="">
+            <input type="hidden" name="contact[request_id]" id="gd-request-id" value="">
+            <input type="hidden" name="contact[project_type]" id="gd-project-type-hidden" value="">
+            <input type="hidden" id="gd-form-success-flag" value="{% if form.posted_successfully? %}true{% else %}false{% endif %}">
+
+            <div class="gd-quote__fields">
+
+              <div class="gd-quote__row gd-quote__row--2">
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-name">Name <span class="gd-quote__req">*</span></label>
+                  <input class="gd-quote__input" type="text" id="gd-name" name="contact[name]" required placeholder="Your name" value="{% if form.name %}{{ form.name | escape }}{% endif %}">
+                </div>
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-email">Email <span class="gd-quote__req">*</span></label>
+                  <input class="gd-quote__input" type="email" id="gd-email" name="contact[email]" required placeholder="your@email.com" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email | escape }}{% endif %}">
+                </div>
               </div>
+
+              <div class="gd-quote__row gd-quote__row--2">
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-phone">Phone</label>
+                  <input class="gd-quote__input" type="tel" id="gd-phone" name="contact[phone]" placeholder="(000) 000-0000" value="{% if form.phone %}{{ form.phone | escape }}{% endif %}">
+                </div>
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-company">Company / Organization</label>
+                  <input class="gd-quote__input" type="text" id="gd-company" name="contact[company]" placeholder="Your company name" value="{% if form.company %}{{ form.company | escape }}{% endif %}">
+                </div>
+              </div>
+
+              <div class="gd-quote__field">
+                <label class="gd-quote__label">Type of Design Needed <span class="gd-quote__req">*</span></label>
+                <div class="gd-quote__checkgroup">
+                  {% assign design_types = 'New Logo,Brand Identity Package,Print / Apparel Artwork,Artwork Cleanup / Redraw,Signage or Banner Design,Promotional Flyer or Graphic,Other' | split: ',' %}
+                  {% for dtype in design_types %}
+                    <label class="gd-quote__check-label">
+                      <input type="checkbox" name="contact[design_type_{{ forloop.index }}]" value="{{ dtype }}">
+                      <span class="gd-quote__check-box"></span>
+                      {{ dtype }}
+                    </label>
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="gd-quote__field">
+                <label class="gd-quote__label" for="gd-usage">How Will This Be Used? <span class="gd-quote__req">*</span></label>
+                <select class="gd-quote__input gd-quote__select" id="gd-usage" name="contact[usage]" required>
+                  <option value="">Select all that apply...</option>
+                  <option>Screen Printing</option>
+                  <option>Embroidery</option>
+                  <option>DTF / Heat Transfer</option>
+                  <option>Digital / Web Only</option>
+                  <option>Signage / Large Format</option>
+                  <option>Multiple Uses</option>
+                  <option>Not Sure Yet</option>
+                </select>
+              </div>
+
+              <div class="gd-quote__row gd-quote__row--2">
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-assets">Do You Have Existing Brand Assets?</label>
+                  <select class="gd-quote__input gd-quote__select" id="gd-assets" name="contact[existing_assets]">
+                    <option value="">Select one...</option>
+                    <option>Yes — I have print-ready files</option>
+                    <option>Yes — but they need cleanup</option>
+                    <option>I have a rough concept / sketch</option>
+                    <option>Starting from scratch</option>
+                  </select>
+                </div>
+                <div class="gd-quote__field">
+                  <label class="gd-quote__label" for="gd-deadline">Deadline</label>
+                  <select class="gd-quote__input gd-quote__select" id="gd-deadline" name="contact[deadline]">
+                    <option value="">Select one...</option>
+                    <option>ASAP / Rush</option>
+                    <option>Within 1 week</option>
+                    <option>1–2 weeks</option>
+                    <option>2–4 weeks</option>
+                    <option>Flexible</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="gd-quote__field">
+                <label class="gd-quote__label" for="gd-details">Project Details <span class="gd-quote__req">*</span></label>
+                <textarea class="gd-quote__input gd-quote__textarea" id="gd-details" name="contact[body]" required rows="4" placeholder="Describe your project — industry, style preferences, colors, inspiration, or anything that helps us understand your vision.">{% if form.body %}{{ form.body | escape }}{% endif %}</textarea>
+              </div>
+
+              <div class="gd-quote__field">
+                <label class="gd-quote__label" for="gd-artwork-notes">Artwork Notes</label>
+                <textarea class="gd-quote__input gd-quote__textarea" id="gd-artwork-notes" name="contact[artwork_notes]" rows="3" placeholder="Tell us what files you have, whether they need cleanup, and anything important we should know about your artwork."></textarea>
+              </div>
+
+              <button type="submit" class="gd-quote__submit">
+                Send Design Request →
+              </button>
+
             </div>
           {% endif %}
-        {% endfor %}
+        {% endform %}
+
+        <div class="gd-quote-upload">
+          <div class="gd-quote-upload__intro">
+            <p class="gd-quote-upload__eyebrow">Artwork Upload</p>
+            <h3 class="gd-quote-upload__title">Upload Artwork or Project Files</h3>
+            <p class="gd-quote-upload__text">
+              Upload logos, sketches, screenshots, reference images, or existing design files for this request.
+            </p>
+          </div>
+
+          [nerdy-form:18190]
+        </div>
       </div>
+
     </div>
   </div>
 </section>
 
 <style>
-  .gd-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 26px; text-decoration: none; text-transform: uppercase; font-weight: 800; font-size: 1.4rem; letter-spacing: 0.06em; border: 2px solid transparent; transition: all 0.25s ease; }
-  .gd-btn--primary { background: #c41230; color: #ffffff; border-color: #c41230; }
-  .gd-btn--primary:hover { background: #ffffff; color: #111111; border-color: #ffffff; }
-  .gd-btn--outline { background: transparent; color: #ffffff; border-color: rgba(255,255,255,0.5); }
-  .gd-btn--outline:hover { background: #ffffff; color: #111111; border-color: #ffffff; }
-  .gd-btn--dark { background: #111111; color: #ffffff; border-color: #111111; }
-  .gd-btn--dark:hover { background: #c41230; border-color: #c41230; }
-
-  .gd-hero {
-    padding: 84px 0;
-    background: linear-gradient(135deg, #111111 0%, #1a1a1a 60%, #c41230 170%);
-    color: #ffffff;
-  }
-  .gd-hero__grid {
+  .gd-quote { padding: 84px 0; background: #f5f5f5; }
+  .gd-quote__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1.4fr;
     gap: 64px;
     align-items: start;
   }
-  .gd-hero__eyebrow {
-    margin: 0 0 12px;
-    color: #c41230;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+  .gd-quote__left { position: sticky; top: 100px; }
+  .gd-quote__eyebrow { margin: 0 0 10px; color: #c41230; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .gd-quote__heading { margin: 0 0 16px; font-family: var(--sole-heading-font); font-size: clamp(2.6rem, 3.5vw, 4.2rem); line-height: 0.95; font-weight: 900; text-transform: uppercase; color: #111111; }
+  .gd-quote__text { margin: 0 0 28px; font-size: 1.6rem; line-height: 1.7; color: #555555; }
+
+  .gd-quote__assurances { display: flex; flex-direction: column; gap: 12px; }
+  .gd-quote__assurance { display: flex; align-items: flex-start; gap: 12px; font-size: 1.45rem; color: #444444; line-height: 1.5; }
+  .gd-quote__assurance-icon { flex-shrink: 0; width: 22px; height: 22px; background: #c41230; color: #ffffff; font-weight: 900; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+
+  .gd-quote__right {
+    display: grid;
+    gap: 20px;
   }
-  .gd-hero__heading {
-    margin: 0 0 18px;
-    font-family: var(--sole-heading-font);
-    font-size: clamp(3.6rem, 5.5vw, 6.4rem);
-    line-height: 0.93;
-    font-weight: 900;
-    text-transform: uppercase;
+
+  .gd-quote__right form,
+  .gd-quote-upload {
+    background: #111111;
+    padding: 40px;
+    border-radius: 4px;
+  }
+
+  .gd-quote__fields { display: flex; flex-direction: column; gap: 20px; }
+  .gd-quote__row { display: grid; gap: 16px; }
+  .gd-quote__row--2 { grid-template-columns: 1fr 1fr; }
+  .gd-quote__field { display: flex; flex-direction: column; gap: 8px; }
+  .gd-quote__label { font-size: 1.15rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.65); }
+  .gd-quote__req { color: #c41230; }
+
+  .gd-quote__input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.14);
     color: #ffffff;
+    padding: 12px 14px;
+    font-size: 1.45rem;
+    border-radius: 0;
+    transition: border-color 0.2s, background 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
   }
-  .gd-hero__text {
-    margin: 0 0 28px;
-    font-size: 1.7rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.82);
-    max-width: 52rem;
-  }
-  .gd-hero__badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-  .gd-hero__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid rgba(255,255,255,0.2);
-    font-size: 1.2rem;
-    font-weight: 700;
+  .gd-quote__input::placeholder { color: rgba(255,255,255,0.28); }
+  .gd-quote__input:focus { outline: none; border-color: #c41230; background: rgba(196,18,48,0.08); }
+  .gd-quote__select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='rgba(255,255,255,0.5)' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+  .gd-quote__select option { background: #222222; color: #ffffff; }
+  .gd-quote__textarea { resize: vertical; min-height: 110px; }
+
+  .gd-quote__checkgroup { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .gd-quote__check-label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 1.4rem; color: rgba(255,255,255,0.78); transition: color 0.2s; }
+  .gd-quote__check-label:hover { color: #ffffff; }
+  .gd-quote__check-box { flex-shrink: 0; width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.2); background: transparent; transition: all 0.2s; position: relative; }
+  .gd-quote__check-label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .gd-quote__check-label input[type="checkbox"]:checked + .gd-quote__check-box { background: #c41230; border-color: #c41230; }
+  .gd-quote__check-label input[type="checkbox"]:checked + .gd-quote__check-box::after { content: '✓'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #ffffff; font-size: 1.1rem; font-weight: 900; }
+
+  .gd-quote__submit {
+    width: 100%;
+    min-height: 52px;
+    background: #c41230;
+    color: #ffffff;
+    border: 2px solid #c41230;
+    font-family: var(--sole-heading-font);
+    font-size: 1.6rem;
+    font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    margin-top: 4px;
   }
-  .gd-hero__badge-icon { color: #c41230; font-size: 1rem; }
-  .gd-hero__buttons { display: flex; flex-wrap: wrap; gap: 14px; }
+  .gd-quote__submit:hover { background: #ffffff; color: #111111; border-color: #ffffff; }
 
-  .gd-hero__services {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    border: 1px solid rgba(255,255,255,0.1);
+  .gd-quote__success { text-align: center; padding: 40px 20px; }
+  .gd-quote__success-box {
+    background: #111111;
+    border-radius: 4px;
   }
-  .gd-hero__service {
-    display: flex;
-    gap: 20px;
-    align-items: flex-start;
-    padding: 22px 24px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    transition: background 0.22s ease;
+  .gd-quote__success-title { font-family: var(--sole-heading-font); font-size: 3rem; font-weight: 900; text-transform: uppercase; color: #4ade80; margin: 0 0 12px; }
+  .gd-quote__success-text { font-size: 1.6rem; color: rgba(255,255,255,0.75); margin: 0; line-height: 1.6; }
+  .gd-quote__success-request-id {
+    margin-top: 14px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.04em;
   }
-  .gd-hero__service:last-child { border-bottom: none; }
-  .gd-hero__service:hover { background: rgba(196,18,48,0.1); }
-  .gd-hero__service-num {
+  .gd-quote__error { background: rgba(196,18,48,0.15); border: 1px solid rgba(196,18,48,0.4); color: #f87171; padding: 12px 16px; font-size: 1.35rem; font-weight: 600; margin-bottom: 20px; }
+
+  .gd-quote-upload__eyebrow {
+    margin: 0 0 6px;
+    color: #c41230;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .gd-quote-upload__title {
+    margin: 0 0 8px;
     font-family: var(--sole-heading-font);
     font-size: 2rem;
-    font-weight: 900;
-    color: #c41230;
     line-height: 1;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .gd-hero__service-title {
-    display: block;
-    font-family: var(--sole-heading-font);
-    font-size: 1.8rem;
-    font-weight: 900;
     text-transform: uppercase;
+    font-weight: 900;
     color: #ffffff;
-    margin-bottom: 4px;
   }
-  .gd-hero__service-text {
-    margin: 0;
-    font-size: 1.4rem;
+
+  .gd-quote-upload__text {
+    margin: 0 0 12px;
+    font-size: 1.35rem;
     line-height: 1.6;
-    color: rgba(255,255,255,0.65);
+    color: rgba(255,255,255,0.72);
   }
 
   @media screen and (max-width: 989px) {
-    .gd-hero { padding: 64px 0; }
-    .gd-hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    .gd-quote { padding: 64px 0; }
+    .gd-quote__inner { grid-template-columns: 1fr; gap: 40px; }
+    .gd-quote__left { position: static; }
+    .gd-quote__right form,
+    .gd-quote-upload { padding: 28px 20px; }
+    .gd-quote__row--2 { grid-template-columns: 1fr; }
+    .gd-quote__checkgroup { grid-template-columns: 1fr; }
   }
 </style>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var successFlag = document.getElementById('gd-form-success-flag');
+    var successRequestIdBox = document.getElementById('gd-success-request-id');
+    var requestIdField = document.getElementById('gd-request-id');
+    var sourcePageField = document.getElementById('gd-source-page');
+    var projectTypeHiddenField = document.getElementById('gd-project-type-hidden');
+
+    function getOrCreateRequestId() {
+      var storageKey = 'sole_provider_request_id_' + window.location.pathname;
+      var existing = sessionStorage.getItem(storageKey);
+
+      if (existing) return existing;
+
+      var requestId = 'SP-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
+      sessionStorage.setItem(storageKey, requestId);
+      return requestId;
+    }
+
+    function setNerdyField(placeholder, value) {
+      var field = document.querySelector('input[placeholder="' + placeholder + '"]');
+      if (!field) return;
+
+      field.value = value || '';
+      field.readOnly = true;
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+      field.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    function hideNerdyField(placeholder) {
+      var field = document.querySelector('input[placeholder="' + placeholder + '"]');
+      if (!field) return;
+
+      var wrapper = field.closest('.nf-col-12');
+      if (wrapper) {
+        wrapper.style.display = 'none';
+      }
+    }
+
+    function getGraphicDesignProjectType() {
+      var checkedTypes = document.querySelectorAll('#gd-quote-form input[type="checkbox"]:checked');
+      if (!checkedTypes.length) return 'Graphic Design';
+
+      var values = [];
+      checkedTypes.forEach(function (checkbox) {
+        values.push(checkbox.value);
+      });
+
+      return values.join(', ');
+    }
+
+    function syncFormState() {
+      var requestId = getOrCreateRequestId();
+      var sourcePage = window.location.pathname;
+      var projectType = getGraphicDesignProjectType();
+
+      if (requestIdField) {
+        requestIdField.value = requestId;
+      }
+
+      if (sourcePageField) {
+        sourcePageField.value = sourcePage;
+      }
+
+      if (projectTypeHiddenField) {
+        projectTypeHiddenField.value = projectType;
+      }
+    }
+
+    function syncNerdyFields() {
+      var requestId = getOrCreateRequestId();
+      var sourcePage = window.location.pathname;
+      var customerName = document.getElementById('gd-name') ? document.getElementById('gd-name').value : '';
+      var customerEmail = document.getElementById('gd-email') ? document.getElementById('gd-email').value : '';
+      var projectType = getGraphicDesignProjectType();
+
+      setNerdyField('Request ID', requestId);
+      setNerdyField('Source Page', sourcePage);
+      setNerdyField('Customer Name', customerName);
+      setNerdyField('Project Type', projectType);
+      setNerdyField('Your email', customerEmail);
+
+      hideNerdyField('Request ID');
+      hideNerdyField('Source Page');
+      hideNerdyField('Customer Name');
+      hideNerdyField('Project Type');
+      hideNerdyField('Your email');
+
+      var emailWrapper = document.getElementById('nf-container-email');
+      if (emailWrapper) {
+        emailWrapper.style.display = 'none';
+      }
+    }
+
+    function handleSuccessfulSubmission() {
+      if (!successFlag || successFlag.value !== 'true') return;
+
+      var requestId = getOrCreateRequestId();
+
+      if (successRequestIdBox) {
+        successRequestIdBox.textContent = 'Request ID: ' + requestId;
+      }
+    }
+
+    var nameField = document.getElementById('gd-name');
+    var emailField = document.getElementById('gd-email');
+    var phoneField = document.getElementById('gd-phone');
+    var companyField = document.getElementById('gd-company');
+    var usageField = document.getElementById('gd-usage');
+    var assetsField = document.getElementById('gd-assets');
+    var deadlineField = document.getElementById('gd-deadline');
+    var detailsField = document.getElementById('gd-details');
+    var artworkNotesField = document.getElementById('gd-artwork-notes');
+    var checkboxes = document.querySelectorAll('#gd-quote-form input[type="checkbox"]');
+
+    [nameField, emailField, phoneField, companyField, detailsField, artworkNotesField].forEach(function (field) {
+      if (!field) return;
+      field.addEventListener('input', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    });
+
+    [usageField, assetsField, deadlineField].forEach(function (field) {
+      if (!field) return;
+      field.addEventListener('change', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    });
+
+    checkboxes.forEach(function (checkbox) {
+      checkbox.addEventListener('change', function () {
+        syncFormState();
+        syncNerdyFields();
+      });
+    });
+
+    handleSuccessfulSubmission();
+    syncFormState();
+
+    var syncAttempts = 0;
+    var syncInterval = setInterval(function () {
+      syncAttempts += 1;
+      syncFormState();
+      syncNerdyFields();
+
+      if (syncAttempts >= 12) {
+        clearInterval(syncInterval);
+      }
+    }, 500);
+  });
+</script>
+
 {% schema %}
 {
-  "name": "Graphic Design Hero",
+  "name": "Graphic Design Quote Form",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "In-House Graphic Design" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Design That's Built to Print" },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Our in-house design team creates logos, brand identity, and print-ready artwork tailored to your business. Every file is built for production — no back and forth, no extra fees." }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get Started" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Request a Design Quote" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Tell us about your project and we'll put together a quote. No pressure, no commitment — just a conversation about what you need." }
   ],
-  "blocks": [
-    {
-      "type": "service",
-      "name": "Service",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Title", "default": "Logo Design" },
-        { "type": "textarea", "id": "text", "label": "Description", "default": "Original logos built for print, embroidery, and digital use." }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Graphic Design Hero",
-      "blocks": [
-        { "type": "service", "settings": { "title": "Logo Design", "text": "Original logos built for print, embroidery, and digital use." } },
-        { "type": "service", "settings": { "title": "Brand Identity", "text": "Full brand packages — logo, colors, typography, and usage guidelines." } },
-        { "type": "service", "settings": { "title": "Print & Apparel Art", "text": "Screen print separations, embroidery digitizing, and DTF-ready files." } },
-        { "type": "service", "settings": { "title": "Promotional Graphics", "text": "Flyers, signage, banners, and event materials." } },
-        { "type": "service", "settings": { "title": "Artwork Cleanup", "text": "Take your existing logo and make it print-ready for any decoration method." } }
-      ]
-    }
-  ]
+  "presets": [{ "name": "Graphic Design Quote Form" }]
 }
 {% endschema %}

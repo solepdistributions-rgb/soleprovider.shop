@@ -1,42 +1,31 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "team-stores-page",
+      "type": "main-search",
       "settings": {
-        "eyebrow": "Team Stores",
-        "heading": "Custom Online Stores for Teams, Schools, and Organizations",
-        "text": "<p>We build custom online stores that make it easy for your group to order branded apparel and merch without the headache of collecting sizes, payments, or order details manually.</p>",
-        "primary_label": "Start a Team Store",
-        "primary_link": "/pages/request-quote",
-        "secondary_label": "How It Works",
-
-        "process_eyebrow": "Simple Process",
-        "process_heading": "How Team Stores Work",
-        "process_text": "<p>We help organize the store setup, product selection, and artwork so your group can share one clean link and let people order directly.</p>",
-        "step_1_title": "Plan the Store",
-        "step_1_text": "We review your goals, audience, items, and timeline to build the right store setup.",
-        "step_2_title": "Launch and Share",
-        "step_2_text": "Once approved, your team gets a dedicated store link to share with members, parents, fans, or staff.",
-        "step_3_title": "Collect and Produce",
-        "step_3_text": "Orders are collected through the store window, then we organize production and fulfillment.",
-
-        "benefits_eyebrow": "Best For",
-        "benefits_heading": "Why Teams and Organizations Use Them",
-        "benefits_text": "<p>Team stores help keep ordering simple, organized, and easier to manage for everyone involved.</p>",
-        "benefit_1_title": "No Manual Order Collection",
-        "benefit_1_text": "No more chasing down sizes, payments, or handwritten order forms.",
-        "benefit_2_title": "Branded Experience",
-        "benefit_2_text": "Your group gets a polished store page that feels organized and professional.",
-        "benefit_3_title": "Flexible for Different Groups",
-        "benefit_3_text": "Great for schools, sports teams, clubs, staff stores, events, and fundraisers.",
-        "benefit_4_title": "Cleaner Fulfillment Flow",
-        "benefit_4_text": "Orders are organized in one place so production and delivery are easier to manage.",
-
-        "cta_eyebrow": "Ready to Launch?",
-        "cta_heading": "Let’s Build Your Team Store",
-        "cta_text": "<p>If you want to set up a store for your team, school, business, or event, send us the basics and we’ll help map out the best setup.</p>",
-        "cta_button_label": "Request a Team Store",
-        "cta_button_link": "/pages/request-quote"
+        "columns_desktop": 4,
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "article_show_date": true,
+        "article_show_author": false,
+        "columns_mobile": "2",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },

@@ -1,223 +1,122 @@
-{% liquid
-  assign section_bg = section.settings.background_style
-  assign anchor_id = section.settings.anchor_id | strip
-  assign request_link = section.settings.request_link
-  assign initial_count = section.settings.initial_visible_count
-%}
-
-<section
-  class="pf-gallery pf-gallery--{{ section_bg }}"
-  {% if anchor_id != blank %}id="{{ anchor_id }}"{% endif %}
->
+<section class="pf-hero">
   <div class="page-width">
-    <div class="pf-gallery__header">
-      <div class="pf-gallery__header-copy">
-        {% if section.settings.eyebrow != blank %}
-          <p class="pf-gallery__eyebrow">{{ section.settings.eyebrow }}</p>
-        {% endif %}
+    <div class="pf-hero__bg"></div>
 
-        {% if section.settings.heading != blank %}
-          <h2 class="pf-gallery__heading">{{ section.settings.heading }}</h2>
-        {% endif %}
+    <div class="pf-hero__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="pf-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
 
-        {% if section.settings.text != blank %}
-          <p class="pf-gallery__subtext">{{ section.settings.text }}</p>
-        {% endif %}
-      </div>
+      {% if section.settings.heading != blank %}
+        <h1 class="pf-hero__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
 
-      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="pf-gallery__header-btn">
-          {{ section.settings.button_label }}
-        </a>
+      {% if section.settings.text != blank %}
+        <p class="pf-hero__text">{{ section.settings.text }}</p>
       {% endif %}
     </div>
 
-    <div class="pf-gallery__grid" data-pf-grid>
-      {% for block in section.blocks %}
-        <div
-          class="pf-gallery__item-wrap{% if forloop.index > initial_count %} is-hidden-by-default{% endif %}"
-          {% if forloop.index > initial_count %}data-pf-hidden-item hidden{% endif %}
-        >
-          <button
-            type="button"
-            class="pf-gallery__card pf-gallery__card--{{ block.settings.size }}"
-            {{ block.shopify_attributes }}
-            data-pf-project-trigger
-            data-project-id="pf-project-{{ section.id }}-{{ forloop.index0 }}"
-            aria-haspopup="dialog"
-            aria-label="Open project: {{ block.settings.title | escape }}"
-          >
-            <span class="pf-gallery__card-glow"></span>
-
-            <div class="pf-gallery__media">
-              {% if block.settings.image_1 != blank %}
-                <img
-                  src="{{ block.settings.image_1 | image_url: width: 1200 }}"
-                  alt="{{ block.settings.title | escape }}"
-                  loading="lazy"
-                >
-              {% else %}
-                <div class="pf-gallery__placeholder">
-                  <span>{{ block.settings.title }}</span>
-                </div>
-              {% endif %}
-            </div>
-
-            <div class="pf-gallery__overlay">
-              <div class="pf-gallery__overlay-inner">
-                <strong class="pf-gallery__card-title">{{ block.settings.title }}</strong>
-
-                {% if block.settings.tag != blank %}
-                  <span class="pf-gallery__card-tag">{{ block.settings.tag }}</span>
-                {% endif %}
-
-                <span class="pf-gallery__view-btn">
-                  View Project
-                  <span aria-hidden="true">→</span>
-                </span>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <div id="pf-project-{{ section.id }}-{{ forloop.index0 }}" class="pf-gallery__project-data" hidden>
-          <div data-project-title>{{ block.settings.title }}</div>
-          <div data-project-tag>{{ block.settings.tag }}</div>
-          <div data-project-client>{{ block.settings.client }}</div>
-          <div data-project-description>{{ block.settings.description }}</div>
-          <div data-project-request-link>{{ request_link }}</div>
-          <div data-project-request-label>
-            {% if section.settings.request_button_label != blank %}
-              {{ section.settings.request_button_label }}
-            {% else %}
-              Request a Similar Project
-            {% endif %}
-          </div>
-          <div data-project-image-1>
-            {% if block.settings.image_1 != blank %}
-              {{ block.settings.image_1 | image_url: width: 1800 }}
-            {% endif %}
-          </div>
-
-          <div data-project-images>
-            {% if block.settings.image_1 != blank %}
-              <img src="{{ block.settings.image_1 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 1">
-            {% endif %}
-            {% if block.settings.image_2 != blank %}
-              <img src="{{ block.settings.image_2 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 2">
-            {% endif %}
-            {% if block.settings.image_3 != blank %}
-              <img src="{{ block.settings.image_3 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 3">
-            {% endif %}
-            {% if block.settings.image_4 != blank %}
-              <img src="{{ block.settings.image_4 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 4">
-            {% endif %}
-            {% if block.settings.image_5 != blank %}
-              <img src="{{ block.settings.image_5 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 5">
-            {% endif %}
-            {% if block.settings.image_6 != blank %}
-              <img src="{{ block.settings.image_6 | image_url: width: 1800 }}" alt="{{ block.settings.title | escape }} image 6">
-            {% endif %}
+    <div class="pf-hero__jumps">
+      <a href="#pf-apparel" class="pf-hero__jump">
+        <span class="pf-hero__jump-topbar"></span>
+        <div class="pf-hero__jump-content">
+          <span class="pf-hero__jump-num">01</span>
+          <div class="pf-hero__jump-copy">
+            <span class="pf-hero__jump-label">Apparel</span>
+            <span class="pf-hero__jump-desc">Custom clothing, team gear, uniforms, and branded apparel</span>
           </div>
         </div>
-      {% endfor %}
-    </div>
+        <span class="pf-hero__jump-arrow">↓</span>
+      </a>
 
-    {% if section.blocks.size > initial_count %}
-      <div class="pf-gallery__toggle-wrap">
-        <button
-          type="button"
-          class="pf-gallery__toggle-btn"
-          data-pf-toggle
-          data-show-more-label="{{ section.settings.show_more_label | escape }}"
-          data-show-less-label="{{ section.settings.show_less_label | escape }}"
-          aria-expanded="false"
-        >
-          {{ section.settings.show_more_label }}
-        </button>
-      </div>
-    {% endif %}
+      <a href="#pf-design" class="pf-hero__jump">
+        <span class="pf-hero__jump-topbar"></span>
+        <div class="pf-hero__jump-content">
+          <span class="pf-hero__jump-num">02</span>
+          <div class="pf-hero__jump-copy">
+            <span class="pf-hero__jump-label">Graphic Design</span>
+            <span class="pf-hero__jump-desc">Logos, brand identity, apparel artwork, and print-ready design</span>
+          </div>
+        </div>
+        <span class="pf-hero__jump-arrow">↓</span>
+      </a>
 
-    <div class="pf-gallery__footer">
-      <a href="#MainContent" class="pf-gallery__back-link">↑ Back to top</a>
-    </div>
-  </div>
+      <a href="#pf-promo" class="pf-hero__jump">
+        <span class="pf-hero__jump-topbar"></span>
+        <div class="pf-hero__jump-content">
+          <span class="pf-hero__jump-num">03</span>
+          <div class="pf-hero__jump-copy">
+            <span class="pf-hero__jump-label">Promo Products</span>
+            <span class="pf-hero__jump-desc">Branded merchandise, giveaways, event kits, and promotional items</span>
+          </div>
+        </div>
+        <span class="pf-hero__jump-arrow">↓</span>
+      </a>
 
-  <div class="pf-lightbox" id="pf-lightbox-{{ section.id }}" aria-hidden="true" hidden>
-    <div class="pf-lightbox__backdrop" data-pf-close></div>
-
-    <div
-      class="pf-lightbox__modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="pf-lightbox-title-{{ section.id }}"
-    >
-      <button type="button" class="pf-lightbox__close" aria-label="Close project" data-pf-close">✕</button>
-
-      <div class="pf-lightbox__gallery">
-        <div class="pf-lightbox__track" data-pf-track></div>
-
-        <button type="button" class="pf-lightbox__nav pf-lightbox__nav--prev" aria-label="Previous image" data-pf-prev hidden>‹</button>
-        <button type="button" class="pf-lightbox__nav pf-lightbox__nav--next" aria-label="Next image" data-pf-next hidden>›</button>
-
-        <div class="pf-lightbox__dots" data-pf-dots hidden></div>
-      </div>
-
-      <div class="pf-lightbox__info">
-        <p class="pf-lightbox__tag" data-pf-tag></p>
-        <h3 class="pf-lightbox__title" id="pf-lightbox-title-{{ section.id }}" data-pf-title></h3>
-        <p class="pf-lightbox__client" data-pf-client></p>
-        <div class="pf-lightbox__desc rte" data-pf-desc></div>
-        <a href="{{ request_link }}" class="pf-lightbox__cta" data-pf-cta>
-          {% if section.settings.request_button_label != blank %}
-            {{ section.settings.request_button_label }}
-          {% else %}
-            Request a Similar Project
-          {% endif %}
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+      <a href="#pf-large-format" class="pf-hero__jump">
+        <span class="pf-hero__jump-topbar"></span>
+        <div class="pf-hero__jump-content">
+          <span class="pf-hero__jump-num">04</span>
+          <div class="pf-hero__jump-copy">
+            <span class="pf-hero__jump-label">Large Format Branding</span>
+            <span class="pf-hero__jump-desc">Banners, backdrops, signage, wall graphics, decals, and event displays</span>
+          </div>
+        </div>
+        <span class="pf-hero__jump-arrow">↓</span>
+      </a>
     </div>
   </div>
 </section>
 
 <style>
-  .pf-gallery {
+  .pf-hero {
     position: relative;
-    padding: 84px 0;
-    scroll-margin-top: 120px;
-  }
-
-  .pf-gallery--dark {
-    background: #111111;
+    overflow: hidden;
+    padding: 88px 0 72px;
+    background:
+      radial-gradient(circle at top right, rgba(196, 18, 48, 0.22), transparent 28%),
+      linear-gradient(135deg, #0f0f10 0%, #171717 58%, #1f1f1f 100%);
     color: #ffffff;
   }
 
-  .pf-gallery--light {
-    background: #f5f5f5;
-    color: #111111;
+  .pf-hero .page-width {
+    position: relative;
+    z-index: 2;
   }
 
-  .pf-gallery--white {
-    background: #ffffff;
-    color: #111111;
+  .pf-hero__bg::before,
+  .pf-hero__bg::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
   }
 
-  .pf-gallery__header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
-    margin-bottom: 38px;
+  .pf-hero__bg::before {
+    top: -120px;
+    right: -120px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196, 18, 48, 0.22) 0%, rgba(196, 18, 48, 0) 72%);
+    filter: blur(8px);
   }
 
-  .pf-gallery__header-copy {
-    max-width: 680px;
+  .pf-hero__bg::after {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
   }
 
-  .pf-gallery__eyebrow {
-    margin: 0 0 10px;
+  .pf-hero__intro {
+    max-width: 820px;
+    margin: 0 auto 54px;
+    text-align: center;
+  }
+
+  .pf-hero__eyebrow {
+    margin: 0 0 12px;
     color: #c41230;
     font-size: 1.2rem;
     font-weight: 800;
@@ -225,203 +124,97 @@
     text-transform: uppercase;
   }
 
-  .pf-gallery__heading {
-    margin: 0 0 10px;
+  .pf-hero__heading {
+    margin: 0 0 16px;
     font-family: var(--sole-heading-font);
-    font-size: clamp(2.9rem, 4vw, 4.6rem);
-    line-height: 0.95;
+    font-size: clamp(3.8rem, 5.4vw, 6.6rem);
+    line-height: 0.94;
     font-weight: 900;
     text-transform: uppercase;
-    color: currentColor;
-  }
-
-  .pf-gallery__subtext {
-    margin: 0;
-    font-size: 1.55rem;
-    line-height: 1.72;
-  }
-
-  .pf-gallery--dark .pf-gallery__subtext {
-    color: rgba(255,255,255,0.68);
-  }
-
-  .pf-gallery--light .pf-gallery__subtext,
-  .pf-gallery--white .pf-gallery__subtext {
-    color: #555555;
-  }
-
-  .pf-gallery__header-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 46px;
-    padding: 0 22px;
-    background: #c41230;
     color: #ffffff;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    border: 2px solid #c41230;
-    transition: all 0.22s ease;
-    white-space: nowrap;
   }
 
-  .pf-gallery__header-btn:hover {
-    background: transparent;
-    color: currentColor;
+  .pf-hero__text {
+    margin: 0;
+    font-size: 1.7rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.76);
   }
 
-  .pf-gallery__grid {
+  .pf-hero__jumps {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: 280px;
-    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
   }
 
-  .pf-gallery__item-wrap {
-    min-width: 0;
-  }
-
-  .pf-gallery__card {
+  .pf-hero__jump {
     position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    border: 0;
-    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    min-height: 152px;
+    padding: 28px 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 4px solid rgba(255,255,255,0.14);
+    text-decoration: none;
+    color: #ffffff;
     overflow: hidden;
-    cursor: pointer;
-    background: #1a1a1a;
-    border: 1px solid rgba(255,255,255,0.08);
-    box-shadow: 0 5px 0 rgba(0,0,0,0.22), 0 10px 24px rgba(0,0,0,0.14);
-    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
   }
 
-  .pf-gallery--light .pf-gallery__card,
-  .pf-gallery--white .pf-gallery__card {
-    border-color: #e3e3e3;
-    box-shadow: 0 5px 0 #d8d8d8, 0 10px 24px rgba(0,0,0,0.08);
-  }
-
-  .pf-gallery__card--wide {
-    grid-column: span 2;
-  }
-
-  .pf-gallery__card--tall {
-    grid-row: span 2;
-  }
-
-  .pf-gallery__item-wrap:has(.pf-gallery__card--wide) {
-    grid-column: span 2;
-  }
-
-  .pf-gallery__item-wrap:has(.pf-gallery__card--tall) {
-    grid-row: span 2;
-  }
-
-  .pf-gallery__card:hover {
+  .pf-hero__jump:hover {
     transform: translateY(-6px);
-    border-color: rgba(196,18,48,0.8);
-    box-shadow: 0 12px 0 rgba(0,0,0,0.18), 0 20px 38px rgba(0,0,0,0.2);
+    background: rgba(196,18,48,0.12);
+    border-color: rgba(196,18,48,0.9);
+    border-bottom-color: #8f0d22;
+    box-shadow: 0 12px 0 rgba(0,0,0,0.2), 0 18px 34px rgba(0,0,0,0.22);
   }
 
-  .pf-gallery__card:focus-visible {
-    outline: 2px solid #c41230;
+  .pf-hero__jump:focus-visible {
+    outline: 2px solid #ffffff;
     outline-offset: 3px;
   }
 
-  .pf-gallery__card-glow {
+  .pf-hero__jump-topbar {
     position: absolute;
-    inset: auto -20% -60% auto;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(196,18,48,0.22) 0%, rgba(196,18,48,0) 70%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.28s ease;
-    z-index: 2;
-  }
-
-  .pf-gallery__card:hover .pf-gallery__card-glow {
-    opacity: 1;
-  }
-
-  .pf-gallery__media {
-    position: absolute;
-    inset: 0;
-  }
-
-  .pf-gallery__media img {
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
+    height: 3px;
+    background: #c41230;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s ease;
   }
 
-  .pf-gallery__card:hover .pf-gallery__media img {
-    transform: scale(1.05);
+  .pf-hero__jump:hover .pf-hero__jump-topbar {
+    transform: scaleX(1);
   }
 
-  .pf-gallery__placeholder {
-    width: 100%;
-    height: 100%;
+  .pf-hero__jump-content {
     display: flex;
     align-items: center;
-    justify-content: center;
-    background:
-      linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(196,18,48,0.16) 100%),
-      #1a1a1a;
+    gap: 18px;
+    min-width: 0;
   }
 
-  .pf-gallery--light .pf-gallery__placeholder,
-  .pf-gallery--white .pf-gallery__placeholder {
-    background:
-      linear-gradient(135deg, #ececec 0%, #dcdcdc 100%),
-      #f0f0f0;
-  }
-
-  .pf-gallery__placeholder span {
-    padding: 0 22px;
-    text-align: center;
+  .pf-hero__jump-num {
+    flex-shrink: 0;
     font-family: var(--sole-heading-font);
-    font-size: 1.6rem;
+    font-size: 3.2rem;
+    line-height: 1;
     font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.18);
+    color: #c41230;
   }
 
-  .pf-gallery--light .pf-gallery__placeholder span,
-  .pf-gallery--white .pf-gallery__placeholder span {
-    color: rgba(0,0,0,0.12);
+  .pf-hero__jump-copy {
+    min-width: 0;
   }
 
-  .pf-gallery__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    background: linear-gradient(to top, rgba(196,18,48,0.96) 0%, rgba(196,18,48,0.72) 42%, rgba(17,17,17,0.12) 100%);
-    transform: translateY(100%);
-    transition: transform 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 3;
-  }
-
-  .pf-gallery__card:hover .pf-gallery__overlay,
-  .pf-gallery__card:focus-visible .pf-gallery__overlay {
-    transform: translateY(0);
-  }
-
-  .pf-gallery__overlay-inner {
-    width: 100%;
-    padding: 22px 20px;
-  }
-
-  .pf-gallery__card-title {
+  .pf-hero__jump-label {
     display: block;
     margin-bottom: 6px;
     font-family: var(--sole-heading-font);
@@ -432,732 +225,88 @@
     color: #ffffff;
   }
 
-  .pf-gallery__card-tag {
+  .pf-hero__jump-desc {
     display: block;
-    margin-bottom: 12px;
-    font-size: 1.15rem;
-    line-height: 1.4;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.8);
+    font-size: 1.35rem;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.58);
   }
 
-  .pf-gallery__view-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 34px;
-    padding: 0 14px;
-    background: #ffffff;
-    color: #111111;
-    font-size: 1.15rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
-  .pf-gallery__toggle-wrap {
-    padding-top: 28px;
-    text-align: center;
-  }
-
-  .pf-gallery__toggle-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 48px;
-    padding: 0 24px;
-    background: transparent;
-    color: currentColor;
-    border: 2px solid #c41230;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    cursor: pointer;
-    transition: all 0.22s ease;
-  }
-
-  .pf-gallery__toggle-btn:hover {
-    background: #c41230;
-    color: #ffffff;
-  }
-
-  .pf-gallery__footer {
-    padding-top: 22px;
-    text-align: center;
-  }
-
-  .pf-gallery__back-link {
-    color: #c41230;
-    text-decoration: none;
-    font-size: 1.2rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .pf-gallery__project-data {
-    display: none;
-  }
-
-  .pf-lightbox[hidden] {
-    display: none;
-  }
-
-  .pf-lightbox {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-  }
-
-  .pf-lightbox__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-  }
-
-  .pf-lightbox__modal {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    width: min(1100px, 92vw);
-    max-height: 90vh;
-    margin: 5vh auto;
-    overflow: hidden;
-    background: #111111;
-    color: #ffffff;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-  }
-
-  .pf-lightbox__close {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    z-index: 5;
-    width: 38px;
-    height: 38px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(0,0,0,0.6);
-    color: #ffffff;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-
-  .pf-lightbox__close:hover {
-    background: #c41230;
-    border-color: #c41230;
-  }
-
-  .pf-lightbox__gallery {
-    position: relative;
-    min-height: 420px;
-    background: #000000;
-    overflow: hidden;
-  }
-
-  .pf-lightbox__track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.35s ease;
-  }
-
-  .pf-lightbox__track img {
-    flex: 0 0 100%;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    background: #000000;
-  }
-
-  .pf-lightbox__nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 46px;
-    height: 46px;
-    border: 1px solid rgba(255,255,255,0.16);
-    background: rgba(0,0,0,0.55);
-    color: #ffffff;
-    font-size: 2.5rem;
+  .pf-hero__jump-arrow {
+    flex-shrink: 0;
+    font-size: 2rem;
     line-height: 1;
-    cursor: pointer;
+    color: rgba(255,255,255,0.28);
+    transition: transform 0.25s ease, color 0.25s ease;
   }
 
-  .pf-lightbox__nav:hover {
-    background: #c41230;
-    border-color: #c41230;
-  }
-
-  .pf-lightbox__nav--prev {
-    left: 12px;
-  }
-
-  .pf-lightbox__nav--next {
-    right: 12px;
-  }
-
-  .pf-lightbox__dots {
-    position: absolute;
-    left: 50%;
-    bottom: 14px;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: calc(100% - 32px);
-  }
-
-  .pf-lightbox__dot {
-    width: 9px;
-    height: 9px;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.35);
-    cursor: pointer;
-  }
-
-  .pf-lightbox__dot.is-active {
-    background: #c41230;
-  }
-
-  .pf-lightbox__info {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 36px 28px;
-    border-left: 3px solid #c41230;
-    overflow-y: auto;
-  }
-
-  .pf-lightbox__tag {
-    margin: 0;
+  .pf-hero__jump:hover .pf-hero__jump-arrow {
     color: #c41230;
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    transform: translateY(4px);
   }
 
-  .pf-lightbox__title {
-    margin: 0;
-    font-family: var(--sole-heading-font);
-    font-size: 2.8rem;
-    line-height: 0.96;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #ffffff;
-  }
-
-  .pf-lightbox__client {
-    margin: 0;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.55);
-  }
-
-  .pf-lightbox__desc {
-    margin: 0;
-    font-size: 1.48rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.78);
-  }
-
-  .pf-lightbox__desc p:last-child {
-    margin-bottom: 0;
-  }
-
-  .pf-lightbox__cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 48px;
-    margin-top: auto;
-    padding: 0 20px;
-    background: #c41230;
-    border: 2px solid #c41230;
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 1.25rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    transition: all 0.22s ease;
-  }
-
-  .pf-lightbox__cta:hover {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: #111111;
+  @media screen and (max-width: 1200px) {
+    .pf-hero__jumps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media screen and (max-width: 989px) {
-    .pf-gallery {
-      padding: 64px 0;
-      scroll-margin-top: 96px;
+    .pf-hero {
+      padding: 68px 0 56px;
     }
 
-    .pf-gallery__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: 220px;
-    }
-
-    .pf-gallery__item-wrap:has(.pf-gallery__card--wide) {
-      grid-column: span 2;
-    }
-
-    .pf-gallery__item-wrap:has(.pf-gallery__card--tall) {
-      grid-row: span 1;
-    }
-
-    .pf-lightbox__modal {
+    .pf-hero__jumps {
       grid-template-columns: 1fr;
-      grid-template-rows: minmax(300px, 55vw) auto;
-      width: 96vw;
-      max-height: 92vh;
-      margin: 4vh auto;
+      gap: 12px;
     }
 
-    .pf-lightbox__info {
-      border-left: 0;
-      border-top: 3px solid #c41230;
+    .pf-hero__jump {
+      min-height: 0;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .pf-gallery__grid {
-      grid-template-columns: 1fr;
-      grid-auto-rows: 240px;
-      gap: 12px;
+    .pf-hero__heading {
+      font-size: clamp(3.2rem, 11vw, 4.8rem);
     }
 
-    .pf-gallery__item-wrap:has(.pf-gallery__card--wide) {
-      grid-column: span 1;
+    .pf-hero__text {
+      font-size: 1.5rem;
     }
 
-    .pf-gallery__header-btn {
-      width: 100%;
+    .pf-hero__jump {
+      padding: 22px 18px;
     }
 
-    .pf-lightbox__title {
-      font-size: 2.3rem;
+    .pf-hero__jump-content {
+      gap: 14px;
     }
 
-    .pf-lightbox__desc {
-      font-size: 1.4rem;
+    .pf-hero__jump-num {
+      font-size: 2.7rem;
+    }
+
+    .pf-hero__jump-label {
+      font-size: 1.7rem;
+    }
+
+    .pf-hero__jump-desc {
+      font-size: 1.25rem;
     }
   }
 </style>
 
-<script>
-  (function() {
-    var sectionRoot = document.getElementById('shopify-section-{{ section.id }}');
-    if (!sectionRoot) return;
-
-    var lightbox = document.getElementById('pf-lightbox-{{ section.id }}');
-    if (!lightbox) return;
-
-    var modal = lightbox.querySelector('.pf-lightbox__modal');
-    var backdrop = lightbox.querySelector('.pf-lightbox__backdrop');
-    var closeBtn = lightbox.querySelector('.pf-lightbox__close');
-    var track = lightbox.querySelector('[data-pf-track]');
-    var dotsWrap = lightbox.querySelector('[data-pf-dots]');
-    var prevBtn = lightbox.querySelector('[data-pf-prev]');
-    var nextBtn = lightbox.querySelector('[data-pf-next]');
-    var titleEl = lightbox.querySelector('[data-pf-title]');
-    var tagEl = lightbox.querySelector('[data-pf-tag]');
-    var clientEl = lightbox.querySelector('[data-pf-client]');
-    var descEl = lightbox.querySelector('[data-pf-desc]');
-    var ctaEl = lightbox.querySelector('[data-pf-cta]');
-
-    var toggleBtn = sectionRoot.querySelector('[data-pf-toggle]');
-    var hiddenItems = sectionRoot.querySelectorAll('[data-pf-hidden-item]');
-    var triggers = sectionRoot.querySelectorAll('[data-pf-project-trigger]');
-
-    var currentIndex = 0;
-    var totalSlides = 0;
-    var previousFocus = null;
-
-    function updateSlider() {
-      if (!track) return;
-
-      track.style.transform = 'translateX(-' + (currentIndex * 100) + '%)';
-
-      if (dotsWrap) {
-        var dots = dotsWrap.querySelectorAll('.pf-lightbox__dot');
-        dots.forEach(function(dot, index) {
-          dot.classList.toggle('is-active', index === currentIndex);
-        });
-      }
-
-      if (totalSlides <= 1) {
-        if (prevBtn) prevBtn.hidden = true;
-        if (nextBtn) nextBtn.hidden = true;
-        if (dotsWrap) dotsWrap.hidden = true;
-      } else {
-        if (prevBtn) prevBtn.hidden = false;
-        if (nextBtn) nextBtn.hidden = false;
-        if (dotsWrap) dotsWrap.hidden = false;
-      }
-    }
-
-    function goToSlide(index) {
-      if (totalSlides < 1) return;
-      if (index < 0) index = 0;
-      if (index > totalSlides - 1) index = totalSlides - 1;
-      currentIndex = index;
-      updateSlider();
-    }
-
-    function buildRequestUrl(baseUrl, payload) {
-      if (!baseUrl) return '#';
-
-      var url;
-
-      try {
-        url = new URL(baseUrl, window.location.origin);
-      } catch (error) {
-        return baseUrl;
-      }
-
-      if (payload.source) url.searchParams.set('source', payload.source);
-      if (payload.project) url.searchParams.set('project', payload.project);
-      if (payload.category) url.searchParams.set('category', payload.category);
-      if (payload.client) url.searchParams.set('client', payload.client);
-      if (payload.image) url.searchParams.set('image', payload.image);
-
-      return url.toString();
-    }
-
-    function openLightbox(projectId, trigger) {
-      var data = document.getElementById(projectId);
-      if (!data) return;
-
-      previousFocus = trigger || document.activeElement;
-
-      var title = data.querySelector('[data-project-title]') ? data.querySelector('[data-project-title]').textContent.trim() : '';
-      var tag = data.querySelector('[data-project-tag]') ? data.querySelector('[data-project-tag]').textContent.trim() : '';
-      var client = data.querySelector('[data-project-client]') ? data.querySelector('[data-project-client]').textContent.trim() : '';
-      var description = data.querySelector('[data-project-description]') ? data.querySelector('[data-project-description]').innerHTML : '';
-      var requestLinkValue = data.querySelector('[data-project-request-link]') ? data.querySelector('[data-project-request-link]').textContent.trim() : '#';
-      var requestLabel = data.querySelector('[data-project-request-label]') ? data.querySelector('[data-project-request-label]').textContent.trim() : 'Request a Similar Project';
-      var firstImage = data.querySelector('[data-project-image-1]') ? data.querySelector('[data-project-image-1]').textContent.trim() : '';
-      var images = data.querySelectorAll('[data-project-images] img');
-
-      if (titleEl) titleEl.textContent = title;
-
-      if (tagEl) {
-        tagEl.textContent = tag;
-        tagEl.style.display = tag ? '' : 'none';
-      }
-
-      if (clientEl) {
-        clientEl.textContent = client;
-        clientEl.style.display = client ? '' : 'none';
-      }
-
-      if (descEl) descEl.innerHTML = description;
-
-      if (ctaEl) {
-        var finalRequestUrl = buildRequestUrl(requestLinkValue, {
-          source: 'portfolio',
-          project: title,
-          category: tag,
-          client: client,
-          image: firstImage
-        });
-
-        ctaEl.setAttribute('href', finalRequestUrl);
-        ctaEl.innerHTML = requestLabel + ' <span aria-hidden="true">→</span>';
-      }
-
-      if (track) track.innerHTML = '';
-      if (dotsWrap) dotsWrap.innerHTML = '';
-
-      totalSlides = images.length;
-      currentIndex = 0;
-
-      if (images.length && track) {
-        images.forEach(function(image, index) {
-          var clone = image.cloneNode(true);
-          track.appendChild(clone);
-
-          if (dotsWrap) {
-            var dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'pf-lightbox__dot' + (index === 0 ? ' is-active' : '');
-            dot.setAttribute('aria-label', 'Go to image ' + (index + 1));
-            dot.addEventListener('click', function(event) {
-              event.stopPropagation();
-              goToSlide(index);
-            });
-            dotsWrap.appendChild(dot);
-          }
-        });
-      } else if (track) {
-        var placeholder = document.createElement('div');
-        placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;flex:0 0 100%;width:100%;height:100%;background:#111;color:rgba(255,255,255,0.5);font-weight:700;text-transform:uppercase;letter-spacing:.08em;';
-        placeholder.textContent = 'No images added yet';
-        track.appendChild(placeholder);
-        totalSlides = 1;
-      }
-
-      updateSlider();
-      lightbox.hidden = false;
-      lightbox.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-
-      setTimeout(function() {
-        if (closeBtn) closeBtn.focus();
-      }, 20);
-    }
-
-    function closeLightbox(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      lightbox.hidden = true;
-      lightbox.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-
-      setTimeout(function() {
-        if (previousFocus) previousFocus.focus();
-      }, 0);
-    }
-
-    if (toggleBtn && hiddenItems.length) {
-      toggleBtn.addEventListener('click', function() {
-        var expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-
-        hiddenItems.forEach(function(item) {
-          item.hidden = expanded;
-        });
-
-        toggleBtn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-        toggleBtn.textContent = expanded
-          ? toggleBtn.getAttribute('data-show-more-label')
-          : toggleBtn.getAttribute('data-show-less-label');
-      });
-    }
-
-    triggers.forEach(function(trigger) {
-      trigger.addEventListener('click', function() {
-        openLightbox(trigger.getAttribute('data-project-id'), trigger);
-      });
-    });
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function(event) {
-        event.stopPropagation();
-        goToSlide(currentIndex - 1);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function(event) {
-        event.stopPropagation();
-        goToSlide(currentIndex + 1);
-      });
-    }
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', closeLightbox);
-    }
-
-    if (backdrop) {
-      backdrop.addEventListener('click', closeLightbox);
-    }
-
-    if (modal) {
-      modal.addEventListener('click', function(event) {
-        event.stopPropagation();
-      });
-    }
-
-    document.addEventListener('keydown', function(event) {
-      if (lightbox.hidden) return;
-
-      if (event.key === 'Escape') closeLightbox(event);
-      if (event.key === 'ArrowLeft') goToSlide(currentIndex - 1);
-      if (event.key === 'ArrowRight') goToSlide(currentIndex + 1);
-    });
-  })();
-</script>
-
 {% schema %}
 {
-  "name": "Portfolio Gallery",
+  "name": "Portfolio Hero",
   "settings": [
-    {
-      "type": "select",
-      "id": "background_style",
-      "label": "Background style",
-      "options": [
-        { "value": "dark", "label": "Dark" },
-        { "value": "light", "label": "Light gray" },
-        { "value": "white", "label": "White" }
-      ],
-      "default": "dark"
-    },
-    {
-      "type": "text",
-      "id": "anchor_id",
-      "label": "Section anchor ID",
-      "default": "pf-apparel",
-      "info": "Example: pf-apparel"
-    },
-    {
-      "type": "text",
-      "id": "eyebrow",
-      "label": "Eyebrow",
-      "default": "Apparel"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Custom Apparel Work"
-    },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "Description",
-      "default": "Screen printed tees, embroidered polos, uniforms, and custom branded apparel."
-    },
-    {
-      "type": "range",
-      "id": "initial_visible_count",
-      "label": "Projects shown before View More",
-      "min": 3,
-      "max": 12,
-      "step": 1,
-      "default": 6
-    },
-    {
-      "type": "text",
-      "id": "show_more_label",
-      "label": "Show more button label",
-      "default": "View More"
-    },
-    {
-      "type": "text",
-      "id": "show_less_label",
-      "label": "Show less button label",
-      "default": "Show Less"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Top button label",
-      "default": "Browse Collection"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Top button link"
-    },
-    {
-      "type": "text",
-      "id": "request_button_label",
-      "label": "Popup button label",
-      "default": "Request a Similar Project"
-    },
-    {
-      "type": "url",
-      "id": "request_link",
-      "label": "Popup button link"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "project",
-      "name": "Project",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Project title",
-          "default": "Project Name"
-        },
-        {
-          "type": "text",
-          "id": "tag",
-          "label": "Category tag",
-          "default": "Screen Print"
-        },
-        {
-          "type": "text",
-          "id": "client",
-          "label": "Client / Company"
-        },
-        {
-          "type": "richtext",
-          "id": "description",
-          "label": "Project description",
-          "default": "<p>Describe the project, what was made, and what made it special.</p>"
-        },
-        {
-          "type": "select",
-          "id": "size",
-          "label": "Grid size",
-          "options": [
-            { "value": "normal", "label": "Normal (1x1)" },
-            { "value": "wide", "label": "Wide (2x1)" },
-            { "value": "tall", "label": "Tall (1x2)" }
-          ],
-          "default": "normal"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_1",
-          "label": "Image 1 (main / thumbnail)"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_2",
-          "label": "Image 2"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_3",
-          "label": "Image 3"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_4",
-          "label": "Image 4"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_5",
-          "label": "Image 5"
-        },
-        {
-          "type": "image_picker",
-          "id": "image_6",
-          "label": "Image 6"
-        }
-      ]
-    }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our Work" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Built By The Sole Provider" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "From custom apparel to branded merch to logo design — here’s a look at what we’ve built for our clients." }
   ],
   "presets": [
-    {
-      "name": "Portfolio Gallery",
-      "blocks": [
-        { "type": "project", "settings": { "title": "Team Uniform Package", "tag": "Screen Print", "size": "wide" } },
-        { "type": "project", "settings": { "title": "Corporate Polo Program", "tag": "Embroidery", "size": "normal" } },
-        { "type": "project", "settings": { "title": "Event Hoodie Drop", "tag": "DTF Transfer", "size": "tall" } },
-        { "type": "project", "settings": { "title": "School Spirit Tees", "tag": "Screen Print", "size": "normal" } }
-      ]
-    }
+    { "name": "Portfolio Hero" }
   ]
 }
 {% endschema %}

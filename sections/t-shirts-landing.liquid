@@ -1,52 +1,52 @@
-<section class="sw-landing">
+<section class="ts-landing">
   <div class="page-width">
-    <div class="sw-landing__hero">
+    <div class="ts-landing__hero">
       {% if section.settings.eyebrow != blank %}
-        <p class="sw-landing__eyebrow">{{ section.settings.eyebrow }}</p>
+        <p class="ts-landing__eyebrow">{{ section.settings.eyebrow }}</p>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h1 class="sw-landing__heading">{{ section.settings.heading }}</h1>
+        <h1 class="ts-landing__heading">{{ section.settings.heading }}</h1>
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <div class="sw-landing__text rte">
+        <div class="ts-landing__text rte">
           {{ section.settings.text }}
         </div>
       {% endif %}
 
-      <div class="sw-landing__actions">
+      <div class="ts-landing__actions">
         {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
-          <a href="{{ section.settings.primary_link }}" class="sw-landing__button sw-landing__button--primary">
+          <a href="{{ section.settings.primary_link }}" class="ts-landing__button ts-landing__button--primary">
             {{ section.settings.primary_label }}
           </a>
         {% endif %}
 
         {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
-          <a href="{{ section.settings.secondary_link }}" class="sw-landing__button sw-landing__button--secondary">
+          <a href="{{ section.settings.secondary_link }}" class="ts-landing__button ts-landing__button--secondary">
             {{ section.settings.secondary_label }}
           </a>
         {% endif %}
       </div>
     </div>
 
-    <div class="sw-landing__subtypes-wrap">
-      <div class="sw-landing__section-intro">
+    <div class="ts-landing__subtypes-wrap">
+      <div class="ts-landing__section-intro">
         {% if section.settings.subtypes_eyebrow != blank %}
-          <p class="sw-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
+          <p class="ts-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
         {% endif %}
         {% if section.settings.subtypes_heading != blank %}
-          <h2 class="sw-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
+          <h2 class="ts-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
         {% endif %}
         {% if section.settings.subtypes_text != blank %}
-          <p class="sw-landing__section-text">{{ section.settings.subtypes_text }}</p>
+          <p class="ts-landing__section-text">{{ section.settings.subtypes_text }}</p>
         {% endif %}
       </div>
 
-      <div class="sw-landing__grid">
+      <div class="ts-landing__grid">
         {% for block in section.blocks %}
-          <a href="{{ block.settings.link }}" class="sw-landing__card" {{ block.shopify_attributes }}>
-            <div class="sw-landing__card-media">
+          <a href="{{ block.settings.link }}" class="ts-landing__card" {{ block.shopify_attributes }}>
+            <div class="ts-landing__card-media">
               {% if block.settings.image != blank %}
                 <img
                   src="{{ block.settings.image | image_url: width: 900 }}"
@@ -54,22 +54,22 @@
                   loading="lazy"
                 >
               {% else %}
-                <div class="sw-landing__card-placeholder">
+                <div class="ts-landing__card-placeholder">
                   <span>{{ block.settings.icon_text }}</span>
                 </div>
               {% endif %}
             </div>
 
-            <div class="sw-landing__card-overlay">
-              <div class="sw-landing__card-body">
-                <h3 class="sw-landing__card-title">{{ block.settings.title }}</h3>
+            <div class="ts-landing__card-overlay">
+              <div class="ts-landing__card-body">
+                <h3 class="ts-landing__card-title">{{ block.settings.title }}</h3>
 
                 {% if block.settings.subtitle != blank %}
-                  <p class="sw-landing__card-subtitle">{{ block.settings.subtitle }}</p>
+                  <p class="ts-landing__card-subtitle">{{ block.settings.subtitle }}</p>
                 {% endif %}
 
                 {% if block.settings.detail_1 != blank or block.settings.detail_2 != blank or block.settings.detail_3 != blank %}
-                  <ul class="sw-landing__card-details">
+                  <ul class="ts-landing__card-details">
                     {% if block.settings.detail_1 != blank %}
                       <li>{{ block.settings.detail_1 }}</li>
                     {% endif %}
@@ -82,7 +82,7 @@
                   </ul>
                 {% endif %}
 
-                <span class="sw-landing__card-link">Explore Styles →</span>
+                <span class="ts-landing__card-link">Explore Styles →</span>
               </div>
             </div>
           </a>
@@ -90,24 +90,24 @@
       </div>
     </div>
 
-    <div class="sw-landing__help">
+    <div class="ts-landing__help">
       {% if section.settings.help_heading != blank %}
-        <h2 class="sw-landing__help-heading">{{ section.settings.help_heading }}</h2>
+        <h2 class="ts-landing__help-heading">{{ section.settings.help_heading }}</h2>
       {% endif %}
 
       {% if section.settings.help_text != blank %}
-        <p class="sw-landing__help-text">{{ section.settings.help_text }}</p>
+        <p class="ts-landing__help-text">{{ section.settings.help_text }}</p>
       {% endif %}
 
-      <div class="sw-landing__help-actions">
+      <div class="ts-landing__help-actions">
         {% if section.settings.help_primary_label != blank and section.settings.help_primary_link != blank %}
-          <a href="{{ section.settings.help_primary_link }}" class="sw-landing__button sw-landing__button--primary">
+          <a href="{{ section.settings.help_primary_link }}" class="ts-landing__button ts-landing__button--primary">
             {{ section.settings.help_primary_label }}
           </a>
         {% endif %}
 
         {% if section.settings.help_secondary_label != blank and section.settings.help_secondary_link != blank %}
-          <a href="{{ section.settings.help_secondary_link }}" class="sw-landing__button sw-landing__button--secondary">
+          <a href="{{ section.settings.help_secondary_link }}" class="ts-landing__button ts-landing__button--secondary">
             {{ section.settings.help_secondary_label }}
           </a>
         {% endif %}
@@ -117,19 +117,19 @@
 </section>
 
 <style>
-  .sw-landing {
+  .ts-landing {
     padding: 84px 0;
     background: #f5f5f5;
   }
 
-  .sw-landing__hero {
+  .ts-landing__hero {
     max-width: 900px;
     margin: 0 auto 56px;
     text-align: center;
   }
 
-  .sw-landing__eyebrow,
-  .sw-landing__section-eyebrow {
+  .ts-landing__eyebrow,
+  .ts-landing__section-eyebrow {
     margin: 0 0 10px;
     color: #c41230;
     font-size: 1.2rem;
@@ -138,7 +138,7 @@
     text-transform: uppercase;
   }
 
-  .sw-landing__heading {
+  .ts-landing__heading {
     margin: 0 0 16px;
     font-family: var(--sole-heading-font);
     font-size: clamp(3.2rem, 5vw, 6rem);
@@ -148,7 +148,7 @@
     color: #111111;
   }
 
-  .sw-landing__text {
+  .ts-landing__text {
     margin: 0 auto;
     max-width: 760px;
     font-size: 1.65rem;
@@ -156,8 +156,8 @@
     color: #4a4a4a;
   }
 
-  .sw-landing__actions,
-  .sw-landing__help-actions {
+  .ts-landing__actions,
+  .ts-landing__help-actions {
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -165,7 +165,7 @@
     margin-top: 28px;
   }
 
-  .sw-landing__button {
+  .ts-landing__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -179,44 +179,44 @@
     transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
   }
 
-  .sw-landing__button:hover {
+  .ts-landing__button:hover {
     transform: translateY(-2px);
   }
 
-  .sw-landing__button--primary {
+  .ts-landing__button--primary {
     background: #111111;
     color: #ffffff;
     border: 2px solid #111111;
   }
 
-  .sw-landing__button--primary:hover {
+  .ts-landing__button--primary:hover {
     background: #c41230;
     border-color: #c41230;
     color: #ffffff;
   }
 
-  .sw-landing__button--secondary {
+  .ts-landing__button--secondary {
     background: transparent;
     color: #111111;
     border: 2px solid #111111;
   }
 
-  .sw-landing__button--secondary:hover {
+  .ts-landing__button--secondary:hover {
     background: #111111;
     color: #ffffff;
   }
 
-  .sw-landing__subtypes-wrap {
+  .ts-landing__subtypes-wrap {
     margin-bottom: 56px;
   }
 
-  .sw-landing__section-intro {
+  .ts-landing__section-intro {
     text-align: center;
     max-width: 820px;
     margin: 0 auto 36px;
   }
 
-  .sw-landing__section-heading {
+  .ts-landing__section-heading {
     margin: 0 0 12px;
     font-family: var(--sole-heading-font);
     font-size: clamp(2.6rem, 4vw, 4.4rem);
@@ -226,20 +226,20 @@
     color: #111111;
   }
 
-  .sw-landing__section-text {
+  .ts-landing__section-text {
     margin: 0;
     font-size: 1.55rem;
     line-height: 1.65;
     color: #4a4a4a;
   }
 
-  .sw-landing__grid {
+  .ts-landing__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
   }
 
-  .sw-landing__card {
+  .ts-landing__card {
     position: relative;
     display: block;
     min-height: 320px;
@@ -252,19 +252,19 @@
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
   }
 
-  .sw-landing__card:hover {
+  .ts-landing__card:hover {
     transform: translateY(-8px);
     box-shadow: 0 14px 0 #888888, 0 22px 40px rgba(0,0,0,0.18);
     border-color: #c41230;
     border-bottom-color: #9a0e24;
   }
 
-  .sw-landing__card-media {
+  .ts-landing__card-media {
     position: absolute;
     inset: 0;
   }
 
-  .sw-landing__card-media img {
+  .ts-landing__card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -272,11 +272,11 @@
     transition: transform 0.5s ease;
   }
 
-  .sw-landing__card:hover .sw-landing__card-media img {
+  .ts-landing__card:hover .ts-landing__card-media img {
     transform: scale(1.05);
   }
 
-  .sw-landing__card-placeholder {
+  .ts-landing__card-placeholder {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
@@ -285,7 +285,7 @@
     justify-content: center;
   }
 
-  .sw-landing__card-placeholder span {
+  .ts-landing__card-placeholder span {
     font-family: var(--sole-heading-font);
     font-size: 4.2rem;
     font-weight: 900;
@@ -293,7 +293,7 @@
     color: rgba(255,255,255,0.18);
   }
 
-  .sw-landing__card-overlay {
+  .ts-landing__card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.55) 48%, rgba(17,17,17,0.08) 100%);
@@ -302,16 +302,16 @@
     transition: background 0.3s ease;
   }
 
-  .sw-landing__card:hover .sw-landing__card-overlay {
+  .ts-landing__card:hover .ts-landing__card-overlay {
     background: linear-gradient(to top, rgba(196,18,48,0.9) 0%, rgba(17,17,17,0.58) 48%, rgba(17,17,17,0.1) 100%);
   }
 
-  .sw-landing__card-body {
+  .ts-landing__card-body {
     width: 100%;
     padding: 24px 22px 20px;
   }
 
-  .sw-landing__card-title {
+  .ts-landing__card-title {
     margin: 0 0 8px;
     font-family: var(--sole-heading-font);
     font-size: 2.6rem;
@@ -321,27 +321,27 @@
     color: #ffffff;
   }
 
-  .sw-landing__card-subtitle {
+  .ts-landing__card-subtitle {
     margin: 0 0 12px;
     font-size: 1.38rem;
     line-height: 1.45;
     color: rgba(255,255,255,0.8);
   }
 
-  .sw-landing__card-details {
+  .ts-landing__card-details {
     margin: 0 0 14px;
     padding: 0;
     list-style: none;
   }
 
-  .sw-landing__card-details li {
+  .ts-landing__card-details li {
     margin: 0 0 6px;
     font-size: 1.2rem;
     line-height: 1.4;
     color: rgba(255,255,255,0.72);
   }
 
-  .sw-landing__card-link {
+  .ts-landing__card-link {
     display: inline-block;
     font-size: 1.15rem;
     font-weight: 800;
@@ -351,12 +351,12 @@
     transition: color 0.25s ease, transform 0.25s ease;
   }
 
-  .sw-landing__card:hover .sw-landing__card-link {
+  .ts-landing__card:hover .ts-landing__card-link {
     color: #ffffff;
     transform: translateX(4px);
   }
 
-  .sw-landing__help {
+  .ts-landing__help {
     max-width: 860px;
     margin: 0 auto;
     text-align: center;
@@ -366,7 +366,7 @@
     padding: 34px 28px;
   }
 
-  .sw-landing__help-heading {
+  .ts-landing__help-heading {
     margin: 0 0 12px;
     font-family: var(--sole-heading-font);
     font-size: clamp(2.2rem, 3vw, 3.6rem);
@@ -376,7 +376,7 @@
     color: #111111;
   }
 
-  .sw-landing__help-text {
+  .ts-landing__help-text {
     margin: 0;
     font-size: 1.5rem;
     line-height: 1.65;
@@ -384,35 +384,35 @@
   }
 
   @media screen and (max-width: 989px) {
-    .sw-landing {
+    .ts-landing {
       padding: 64px 0;
     }
 
-    .sw-landing__grid {
+    .ts-landing__grid {
       grid-template-columns: 1fr;
     }
 
-    .sw-landing__card {
+    .ts-landing__card {
       min-height: 280px;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .sw-landing__heading {
+    .ts-landing__heading {
       font-size: 3.8rem;
     }
 
-    .sw-landing__card {
+    .ts-landing__card {
       min-height: 240px;
     }
 
-    .sw-landing__card-title {
+    .ts-landing__card-title {
       font-size: 2.1rem;
     }
 
-    .sw-landing__text,
-    .sw-landing__section-text,
-    .sw-landing__help-text {
+    .ts-landing__text,
+    .ts-landing__section-text,
+    .ts-landing__help-text {
       font-size: 1.4rem;
     }
   }
@@ -420,10 +420,10 @@
 
 {% schema %}
 {
-  "name": "Sweatshirts Landing",
+  "name": "T-Shirts Landing",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom Apparel" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Sweatshirts" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "T-Shirts" },
     { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Start with the type of tee that fits your project, then narrow by brand, color, material, and size. Whether you need event shirts, premium merch, uniforms, or team apparel, we can help guide the right garment choice.</p>" },
     { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Request a Quote" },
     { "type": "url", "id": "primary_link", "label": "Primary button link" },
@@ -431,10 +431,10 @@
     { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
 
     { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Style" },
-    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Sweatshirt Category" },
+    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your T-Shirt Category" },
     { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category is built to help you get to the right fit and feel faster." },
 
-    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Sweatshirt?" },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Tee?" },
     { "type": "textarea", "id": "help_text", "label": "Help text", "default": "If you are deciding between performance, heavyweight, basics, or long sleeve options, we can recommend the best direction based on budget, decoration method, and end use." },
     { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
     { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
@@ -447,12 +447,12 @@
       "name": "Subtype Card",
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "icon_text", "label": "Icon fallback", "default": "SW" },
-        { "type": "text", "id": "title", "label": "Title", "default": "Hoodies" },
-        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Go-to fleece styles for teams, merch, schools, and everyday wear" },
-        { "type": "text", "id": "detail_1", "label": "Detail 1", "default": "Popular for broad custom apparel programs" },
-        { "type": "text", "id": "detail_2", "label": "Detail 2", "default": "Great for screen print, embroidery, and heat transfer" },
-        { "type": "text", "id": "detail_3", "label": "Detail 3", "default": "Available in multiple weights and silhouettes" },
+        { "type": "text", "id": "icon_text", "label": "Icon fallback", "default": "TS" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Basic Tees" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Versatile everyday blanks for events, merch, and teams" },
+        { "type": "text", "id": "detail_1", "label": "Detail 1", "default": "Great starting point for most projects" },
+        { "type": "text", "id": "detail_2", "label": "Detail 2", "default": "Works well for screen print and DTF" },
+        { "type": "text", "id": "detail_3", "label": "Detail 3", "default": "Balanced price and wearability" },
         { "type": "url", "id": "link", "label": "Link" }
       ]
     }
@@ -460,17 +460,17 @@
   "max_blocks": 4,
   "presets": [
     {
-      "name": "Sweatshirts Landing",
+      "name": "T-Shirts Landing",
       "blocks": [
         {
           "type": "subtype",
           "settings": {
             "icon_text": "BT",
-            "title": "Hoodies",
-            "subtitle": "Go-to fleece styles for teams, merch, schools, and everyday wear",
-            "detail_1": "Popular for broad custom apparel programs",
-            "detail_2": "Great for screen print, embroidery, and heat transfer",
-            "detail_3": "Available in multiple weights and silhouettes",
+            "title": "Basic Tees",
+            "subtitle": "Versatile everyday blanks for events, merch, and teams",
+            "detail_1": "Great starting point for most projects",
+            "detail_2": "Works well for screen print and DTF",
+            "detail_3": "Balanced price and wearability",
             "link": "/collections/basic-tees"
           }
         },

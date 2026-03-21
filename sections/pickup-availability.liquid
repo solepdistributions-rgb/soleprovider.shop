@@ -1,117 +1,108 @@
-{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+{% comment %}theme-check-disable UndefinedObject{% endcomment %}
+{%- assign pick_up_availabilities = product_variant.store_availabilities | where: 'pick_up_enabled', true -%}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+{%- if pick_up_availabilities.size > 0 -%}
+  <pickup-availability-preview class="pickup-availability-preview">
+    {% assign closest_location = pick_up_availabilities.first %}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
+    {% if closest_location.available %}
+      <span class="svg-wrapper">{{ 'icon-tick.svg' | inline_asset_content }}</span>
+    {% endif %}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width page-width--narrow section-{{ section.id }}-padding">
-    <h2 class="page-title {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      {%- if section.settings.page.title != blank -%}
-        {{ section.settings.page.title | escape }}
+    <div class="pickup-availability-info">
+      {%- if closest_location.available -%}
+        <p class="caption-large">
+          {{
+            'products.product.pickup_availability.pick_up_available_at_html'
+            | t: location_name: closest_location.location.name
+          }}
+        </p>
+        <p class="caption">{{ closest_location.pick_up_time }}</p>
+        <button
+          id="ShowPickupAvailabilityDrawer"
+          class="pickup-availability-button link link--text underlined-link"
+          aria-haspopup="dialog"
+        >
+          {%- if pick_up_availabilities.size == 1 -%}
+            {{ 'products.product.pickup_availability.view_store_info' | t }}
+          {%- else -%}
+            {{ 'products.product.pickup_availability.check_other_stores' | t }}
+          {%- endif -%}
+        </button>
       {%- else -%}
-        {{ 'sections.page.title' | t }}
-      {%- endif -%}
-    </h2>
-    <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-      {%- if section.settings.page.content != blank -%}
-        {{ section.settings.page.content }}
-      {%- else -%}
-        <div class="page-placeholder-wrapper placeholder">
-          {{ 'page' | placeholder_svg_tag: 'page-placeholder' }}
-        </div>
+        <p class="caption-large">
+          {{
+            'products.product.pickup_availability.pick_up_unavailable_at_html'
+            | t: location_name: closest_location.location.name
+          }}
+        </p>
+        {%- if pick_up_availabilities.size > 1 -%}
+          <button
+            id="ShowPickupAvailabilityDrawer"
+            class="pickup-availability-button link link--text underlined-link"
+            aria-haspopup="dialog"
+          >
+            {{ 'products.product.pickup_availability.check_other_stores' | t }}
+          </button>
+        {%- endif -%}
       {%- endif -%}
     </div>
-  </div>
-</div>
+  </pickup-availability-preview>
 
-{% schema %}
-{
-  "name": "t:sections.page.name",
-  "tag": "section",
-  "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
-  "settings": [
-    {
-      "type": "page",
-      "id": "page",
-      "label": "t:sections.page.settings.page.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
-    }
-  ],
-  "presets": [
-    {
-      "name": "t:sections.page.presets.name"
-    }
-  ]
-}
-{% endschema %}
+  <pickup-availability-drawer
+    class="gradient"
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="PickupAvailabilityHeading"
+  >
+    <div class="pickup-availability-header">
+      <h2 class="h3 pickup-availability-drawer-title" id="PickupAvailabilityHeading">
+        {{ product_variant.product.title | escape }}
+      </h2>
+      <button class="pickup-availability-drawer-button" type="button" aria-label="{{ 'accessibility.close' | t }}">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </button>
+    </div>
+
+    {%- unless product_variant.product.has_only_default_variant -%}
+      <p class="pickup-availability-variant">
+        {%- for product_option in product_variant.product.options_with_values -%}
+          {{ product_option.name | escape }}:&nbsp;
+          {%- for value in product_option.values -%}
+            {%- if product_option.selected_value == value -%}
+              <span>{{ value | escape }}</span>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- unless forloop.last -%},&nbsp;{%- endunless -%}
+        {%- endfor -%}
+      </p>
+    {%- endunless -%}
+
+    <ul class="pickup-availability-list list-unstyled" role="list" data-store-availability-drawer-content>
+      {%- for availability in pick_up_availabilities -%}
+        <li class="pickup-availability-list__item">
+          <h3 class="h4">{{ availability.location.name | escape }}</h3>
+          <p class="pickup-availability-preview caption-large">
+            {%- if availability.available -%}
+              <span class="svg-wrapper">
+                {{- 'icon-tick.svg' | inline_asset_content -}}
+              </span>
+              {{ 'products.product.pickup_availability.pick_up_available' | t }},
+              {{ availability.pick_up_time | downcase }}
+            {%- endif -%}
+          </p>
+
+          {%- assign address = availability.location.address -%}
+          <address class="pickup-availability-address">
+            {{ address | format_address }}
+
+            {%- if address.phone.size > 0 -%}
+              <p>{{ address.phone }}</p>
+            {%- endif -%}
+          </address>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </pickup-availability-drawer>
+{%- endif -%}

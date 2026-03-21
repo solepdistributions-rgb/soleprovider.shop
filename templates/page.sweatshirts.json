@@ -9,150 +9,85 @@
  */
 {
   "sections": {
-    "promo_products_hero": {
-      "type": "promo-products-hero",
-      "settings": {
-        "eyebrow": "Branded Solutions",
-        "heading": "Promotional Products",
-        "text": "Branded merchandise, giveaway items, print collateral, signage, and promotional solutions designed to support your business, event, or organization with quality, flexibility, and attention to detail.",
-        "primary_label": "Browse Categories",
-        "primary_link": "#promo-categories",
-        "secondary_label": "Start a Quote",
-        "secondary_link": "/pages/request-quote"
-      }
-    },
-    "promo_categories_grid": {
-      "type": "promo-categories-grid",
+    "main": {
+      "type": "sweatshirts-landing",
       "blocks": {
-        "category_card_1": {
-          "type": "category_card",
+        "subtype_1": {
+          "type": "subtype",
           "settings": {
-            "title": "Drinkware",
-            "link": "/collections/drinkware"
+            "icon_text": "HD",
+            "title": "Hoodies",
+            "subtitle": "The go-to fleece option for merch, schools, teams, and casual branded apparel",
+            "detail_1": "Popular across most projects",
+            "detail_2": "Great for screen print and embroidery",
+            "detail_3": "Strong everyday staple",
+            "link": "/collections/hoodies"
           }
         },
-        "category_card_2": {
-          "type": "category_card",
+        "subtype_2": {
+          "type": "subtype",
           "settings": {
-            "title": "Bags",
-            "link": ""
+            "icon_text": "CR",
+            "title": "Crewnecks",
+            "subtitle": "Clean versatile fleece without the hood for a classic branded look",
+            "detail_1": "Easy everyday wear",
+            "detail_2": "Great for layering",
+            "detail_3": "Popular for staff and merch use",
+            "link": "/collections/crewnecks"
           }
         },
-        "category_card_3": {
-          "type": "category_card",
+        "subtype_3": {
+          "type": "subtype",
           "settings": {
-            "title": "Office",
-            "link": ""
+            "icon_text": "QZ",
+            "title": "Quarter-Zips",
+            "subtitle": "Elevated layering pieces for teams, offices, and premium uniform programs",
+            "detail_1": "Professional layered look",
+            "detail_2": "Great for embroidery",
+            "detail_3": "Works for corporate and team wear",
+            "link": "/collections/quarter-zips"
           }
         },
-        "category_card_4": {
-          "type": "category_card",
+        "subtype_4": {
+          "type": "subtype",
           "settings": {
-            "title": "Accessories",
-            "link": ""
-          }
-        },
-        "category_card_5": {
-          "type": "category_card",
-          "settings": {
-            "title": "Signage & Print",
-            "link": ""
-          }
-        },
-        "category_card_6": {
-          "type": "category_card",
-          "settings": {
-            "title": "Giveaways",
-            "link": ""
+            "icon_text": "FZ",
+            "title": "Full-Zips",
+            "subtitle": "Zip-front fleece options that are flexible, practical, and easy to wear",
+            "detail_1": "Easy on-and-off layer",
+            "detail_2": "Strong for staff and event gear",
+            "detail_3": "Useful across seasons",
+            "link": "/collections/full-zips"
           }
         }
       },
       "block_order": [
-        "category_card_1",
-        "category_card_2",
-        "category_card_3",
-        "category_card_4",
-        "category_card_5",
-        "category_card_6"
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4"
       ],
       "settings": {
-        "eyebrow": "Browse Categories",
-        "heading": "Explore Promotional Categories",
-        "text": "Browse promotional categories including branded merchandise, event giveaways, signage, and printed marketing materials to find the right fit for your business, event, or organization."
-      }
-    },
-    "promo_sourcing_cta": {
-      "type": "promo-sourcing-cta",
-      "settings": {
-        "eyebrow": "",
-        "heading": "Don’t See What You Need?",
-        "text": "If you don’t see the exact product, printed piece, or promotional item you’re looking for, send us a request and we’ll help source the right option for your project.",
-        "button_label": "Request a Product",
-        "button_link": "/pages/request-quote"
-      }
-    },
-    "promo_how_it_works": {
-      "type": "promo-how-it-works",
-      "blocks": {
-        "step_1": {
-          "type": "step",
-          "settings": {
-            "title": "Browse Products",
-            "text": "Explore categories and find the products, print pieces, or promotional items that fit your business, event, or organization."
-          }
-        },
-        "step_2": {
-          "type": "step",
-          "settings": {
-            "title": "Add to Quote",
-            "text": "Select the items you’re interested in and build one organized request instead of submitting multiple forms."
-          }
-        },
-        "step_3": {
-          "type": "step",
-          "settings": {
-            "title": "Add Details",
-            "text": "Include quantities, artwork notes, print specs, and anything else we should know about the project."
-          }
-        },
-        "step_4": {
-          "type": "step",
-          "settings": {
-            "title": "Submit Once",
-            "text": "Send everything in one request and we’ll help finalize the right products, pricing, and next steps."
-          }
-        }
-      },
-      "block_order": [
-        "step_1",
-        "step_2",
-        "step_3",
-        "step_4"
-      ],
-      "settings": {
-        "eyebrow": "How It Works",
-        "heading": "One Organized Quote Process",
-        "text": "Browse products, printed materials, and promotional items, then submit one organized request with quantities, notes, and project details all in one place."
-      }
-    },
-    "promo_quote_cta": {
-      "type": "promo-quote-cta",
-      "settings": {
-        "eyebrow": "Organized Ordering",
-        "heading": "Build One Organized Quote",
-        "text": "Add multiple items, keep your order organized, and submit one quote request for merchandise, print, and promotional needs at once.",
-        "primary_label": "Start a Quote",
+        "eyebrow": "Custom Apparel",
+        "heading": "Sweatshirts",
+        "text": "<p>Choose the sweatshirt category that fits your project, then narrow by brand, color, material, and size. Whether you need school gear, merch, team apparel, staff layers, or premium fleece, we can help guide the right fit.</p>",
+        "primary_label": "Request a Quote",
         "primary_link": "/pages/request-quote",
-        "secondary_label": "Contact Us",
-        "secondary_link": "/pages/contact"
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Sweatshirt Category",
+        "subtypes_text": "Each category is designed to help you get to the right silhouette and weight faster.",
+        "help_heading": "Need Help Picking The Right Sweatshirt?",
+        "help_text": "If you are deciding between hoodies, crewnecks, quarter-zips, or full-zips, we can recommend the best direction based on budget, decoration method, layering needs, and end use.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
       }
     }
   },
   "order": [
-    "promo_products_hero",
-    "promo_categories_grid",
-    "promo_sourcing_cta",
-    "promo_how_it_works",
-    "promo_quote_cta"
+    "main"
   ]
 }
