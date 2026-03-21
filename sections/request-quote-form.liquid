@@ -669,7 +669,7 @@
       }
 
       if (contextImage && image) {
-        contextImage.src = image;
+        try { var imgUrl = new URL(image); if (!['http:', 'https:'].includes(imgUrl.protocol)) throw 0; contextImage.src = imgUrl.href; } catch(e) { contextImage.src = ''; }
         contextImage.alt = project;
         contextImage.hidden = false;
       }
