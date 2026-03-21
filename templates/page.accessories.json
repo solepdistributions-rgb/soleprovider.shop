@@ -60,38 +60,12 @@
             "link": "/collections/socks"
           }
         },
-        "subtype_5": {
-          "type": "subtype",
-          "settings": {
-            "icon_text": "FC",
-            "title": "Face Coverings",
-            "subtitle": "Branded face coverings and neck gaiters for teams and staff",
-            "detail_1": "Available for full-color printing",
-            "detail_2": "Lightweight and breathable",
-            "detail_3": "Great for events and staff programs",
-            "link": "/collections/face-coverings"
-          }
-        },
-        "subtype_6": {
-          "type": "subtype",
-          "settings": {
-            "icon_text": "OT",
-            "title": "Other Accessories",
-            "subtitle": "Belts, scarves, ties, and other brandable accessories",
-            "detail_1": "Wide range of accessory types",
-            "detail_2": "Available for custom decoration",
-            "detail_3": "Quote-based ordering",
-            "link": "/collections/other-accessories"
-          }
-        }
       },
       "block_order": [
         "subtype_1",
         "subtype_2",
         "subtype_3",
-        "subtype_4",
-        "subtype_5",
-        "subtype_6"
+        "subtype_4"
       ],
       "settings": {
         "eyebrow": "Custom Products",

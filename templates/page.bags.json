@@ -63,18 +63,6 @@
         "subtype_5": {
           "type": "subtype",
           "settings": {
-            "icon_text": "CL",
-            "title": "Coolers",
-            "subtitle": "Insulated cooler bags for corporate gifting, events, and outdoor programs",
-            "detail_1": "Best for outdoor and event giveaways",
-            "detail_2": "Multiple sizes and formats",
-            "detail_3": "Great for embroidery and print",
-            "link": "/collections/coolers"
-          }
-        },
-        "subtype_6": {
-          "type": "subtype",
-          "settings": {
             "icon_text": "MS",
             "title": "Messenger Bags",
             "subtitle": "Professional messenger and laptop bags for corporate branding and staff programs",
@@ -90,8 +78,7 @@
         "subtype_2",
         "subtype_3",
         "subtype_4",
-        "subtype_5",
-        "subtype_6"
+        "subtype_5"
       ],
       "settings": {
         "eyebrow": "Custom Products",
