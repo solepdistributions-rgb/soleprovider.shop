@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "main": {
+      "type": "headwear-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CP",
+            "title": "Caps",
+            "subtitle": "The most versatile headwear option for merch, teams, events, and staff programs",
+            "detail_1": "Best everyday headwear category",
+            "detail_2": "Great for embroidery and patches",
+            "detail_3": "Wide range of fits and styles",
+            "link": "/collections/caps"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BN",
+            "title": "Beanies",
+            "subtitle": "Cold-weather knit headwear for merch, staff gear, and seasonal branded apparel",
+            "detail_1": "Best for colder seasons",
+            "detail_2": "Strong embroidery option",
+            "detail_3": "Great add-on for winter programs",
+            "link": "/collections/beanies"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PH",
+            "title": "Performance Headwear",
+            "subtitle": "Lightweight active headwear built for movement, events, and warm-weather use",
+            "detail_1": "Good for active use",
+            "detail_2": "Breathable and lightweight",
+            "detail_3": "Best for sport and event applications",
+            "link": "/collections/performance-headwear"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3"
+      ],
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "Headwear",
+        "text": "<p>Choose the headwear category that fits your project, then narrow by brand, color, material, and size. Whether you need promotional caps, cold-weather pieces, or active headwear, we can help guide the right option.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Headwear Category",
+        "subtypes_text": "Each category is designed to help you get to the right type of headwear faster.",
+        "help_heading": "Need Help Picking The Right Headwear?",
+        "help_text": "If you are deciding between caps, beanies, or performance headwear, we can recommend the best direction based on season, decoration method, and intended use.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

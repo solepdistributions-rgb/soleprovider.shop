@@ -1,0 +1,153 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "apparel_hero": {
+      "type": "apparel-hero",
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "Apparel Built For Your Brand",
+        "text": "From corporate polos to streetwear drops, we handle custom apparel from concept to delivery.",
+        "primary_label": "Request a Quote",
+        "primary_link": "",
+        "secondary_label": "View Portfolio",
+        "secondary_link": ""
+      }
+    },
+    "apparel_categories": {
+      "type": "apparel-categories",
+      "blocks": {
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "icon_text": "TS",
+            "title": "T-Shirts",
+            "subtitle": "Basics, performance, heavyweight, and long sleeve styles",
+            "link": "/pages/t-shirts"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "icon_text": "PL",
+            "title": "Polos",
+            "subtitle": "Performance, cotton, and work-ready options",
+            "link": "shopify://pages/polos"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "icon_text": "DS",
+            "title": "Dress Shirts",
+            "subtitle": "Woven, stretch, and easy-care dress shirt options",
+            "link": "/pages/dress-shirts"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "icon_text": "SW",
+            "title": "Sweatshirts",
+            "subtitle": "Hoodies, crewnecks, quarter-zips, and full-zips",
+            "link": "/pages/sweatshirts"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "icon_text": "OW",
+            "title": "Outerwear",
+            "subtitle": "Lightweight jackets, soft shells, fleece, vests, and rainwear",
+            "link": "/pages/outerwear"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "icon_text": "BT",
+            "title": "Bottoms",
+            "subtitle": "Joggers, shorts, athletic bottoms, and workwear bottoms",
+            "link": "/pages/bottoms"
+          }
+        },
+        "cat_7": {
+          "type": "category",
+          "settings": {
+            "icon_text": "HW",
+            "title": "Headwear",
+            "subtitle": "Caps, beanies, and performance headwear",
+            "link": "/pages/headwear"
+          }
+        }
+      },
+      "block_order": [
+        "cat_1",
+        "cat_2",
+        "cat_3",
+        "cat_4",
+        "cat_5",
+        "cat_6",
+        "cat_7"
+      ],
+      "settings": {
+        "eyebrow": "Shop By Category",
+        "heading": "Browse Apparel",
+        "text": "Start with a category, then narrow your options by style, brand, color, size, and material."
+      }
+    },
+    "apparel_capabilities": {
+      "type": "apparel-capabilities",
+      "settings": {
+        "eyebrow": "What We Do",
+        "heading": "Full-Service Apparel Capabilities",
+        "text": "Whether you need 12 pieces or 1,200, we have the decoration methods and production relationships to make it happen."
+      }
+    },
+    "apparel_process": {
+      "type": "apparel-process",
+      "disabled": true,
+      "settings": {
+        "eyebrow": "How It Works",
+        "heading": "From Idea to Delivery"
+      }
+    },
+    "apparel_why_us": {
+      "type": "apparel-why-us",
+      "settings": {
+        "eyebrow": "Not Sure Where to Start?",
+        "heading": "We Can Help You Figure It Out",
+        "text": "You do not need to have every detail locked in before reaching out. If you are still deciding on garments, decoration methods, quantities, or artwork direction, we can help narrow the options and build the right quote for your project.",
+        "button_label": "",
+        "button_link": ""
+      }
+    },
+    "apparel_cta": {
+      "type": "apparel-cta",
+      "settings": {
+        "eyebrow": "Let's Build",
+        "heading": "Ready to Outfit Your Team?",
+        "text": "Tell us what you need and we'll put together a quote. Fast turnaround, quality guaranteed.",
+        "primary_label": "Request a Quote",
+        "primary_link": "",
+        "secondary_label": "Contact Us",
+        "secondary_link": ""
+      }
+    }
+  },
+  "order": [
+    "apparel_hero",
+    "apparel_categories",
+    "apparel_capabilities",
+    "apparel_process",
+    "apparel_why_us",
+    "apparel_cta"
+  ]
+}

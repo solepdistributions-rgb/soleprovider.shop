@@ -1,0 +1,84 @@
+{
+  "sections": {
+    "main": {
+      "type": "bottoms-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "JG",
+            "title": "Joggers",
+            "subtitle": "Comfort-first branded bottoms for teams, merch, schools, and everyday wear",
+            "detail_1": "Popular casual option",
+            "detail_2": "Great with matching tops",
+            "detail_3": "Strong for team and merch builds",
+            "link": "/collections/joggers"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SH",
+            "title": "Shorts",
+            "subtitle": "Versatile custom shorts for warm-weather wear, events, teams, and staff programs",
+            "detail_1": "Good warm-weather staple",
+            "detail_2": "Easy across many projects",
+            "detail_3": "Works for casual and active use",
+            "link": "/collections/shorts"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "AB",
+            "title": "Athletic Bottoms",
+            "subtitle": "Performance-driven bottoms built for active use, movement, and team programs",
+            "detail_1": "Made for activity and mobility",
+            "detail_2": "Great for team outfitting",
+            "detail_3": "Best for performance-oriented use",
+            "link": "/collections/athletic-bottoms"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WB",
+            "title": "Workwear Bottoms",
+            "subtitle": "Harder-wearing bottoms for crews, trades, service teams, and practical uniform programs",
+            "detail_1": "Built for durability",
+            "detail_2": "Useful for uniform programs",
+            "detail_3": "Best for job-focused use",
+            "link": "/collections/workwear-bottoms"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4"
+      ],
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "Bottoms",
+        "text": "<p>Choose the bottoms category that fits your project, then narrow by brand, color, material, and size. Whether you need team bottoms, casual branded apparel, workwear, or athletic options, we can help guide the right choice.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Bottoms Category",
+        "subtypes_text": "Each category is designed to help you get to the right use case and fit faster.",
+        "help_heading": "Need Help Picking The Right Bottoms?",
+        "help_text": "If you are deciding between joggers, shorts, athletic bottoms, or workwear bottoms, we can recommend the best direction based on comfort, durability, activity level, and budget.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

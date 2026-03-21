@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-page-form",
+      "settings": {
+        "eyebrow": "Get in Touch",
+        "heading": "Contact Us",
+        "text": "<p>Have a question, need help, or want to talk through your next idea? Send us a message and we’ll point you in the right direction.</p>",
+        "button_label": "Send Message",
+        "side_heading": "Best For",
+        "side_text": "<p>Use this page for general questions, order help, or anything that does not need a formal quote.</p>",
+        "help_heading": "Need a Quote Instead?",
+        "help_text": "<p>If you need pricing, custom apparel, promo products, or design help, head to the Request Quote page so we can get the right details from the start.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

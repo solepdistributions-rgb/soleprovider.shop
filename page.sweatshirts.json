@@ -1,0 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "promo_products_hero": {
+      "type": "promo-products-hero",
+      "settings": {
+        "eyebrow": "Branded Solutions",
+        "heading": "Promotional Products",
+        "text": "Branded merchandise, giveaway items, print collateral, signage, and promotional solutions designed to support your business, event, or organization with quality, flexibility, and attention to detail.",
+        "primary_label": "Browse Categories",
+        "primary_link": "#promo-categories",
+        "secondary_label": "Start a Quote",
+        "secondary_link": "/pages/request-quote"
+      }
+    },
+    "promo_categories_grid": {
+      "type": "promo-categories-grid",
+      "blocks": {
+        "category_card_1": {
+          "type": "category_card",
+          "settings": {
+            "title": "Drinkware",
+            "link": "/collections/drinkware"
+          }
+        },
+        "category_card_2": {
+          "type": "category_card",
+          "settings": {
+            "title": "Bags",
+            "link": ""
+          }
+        },
+        "category_card_3": {
+          "type": "category_card",
+          "settings": {
+            "title": "Office",
+            "link": ""
+          }
+        },
+        "category_card_4": {
+          "type": "category_card",
+          "settings": {
+            "title": "Accessories",
+            "link": ""
+          }
+        },
+        "category_card_5": {
+          "type": "category_card",
+          "settings": {
+            "title": "Signage & Print",
+            "link": ""
+          }
+        },
+        "category_card_6": {
+          "type": "category_card",
+          "settings": {
+            "title": "Giveaways",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_card_1",
+        "category_card_2",
+        "category_card_3",
+        "category_card_4",
+        "category_card_5",
+        "category_card_6"
+      ],
+      "settings": {
+        "eyebrow": "Browse Categories",
+        "heading": "Explore Promotional Categories",
+        "text": "Browse promotional categories including branded merchandise, event giveaways, signage, and printed marketing materials to find the right fit for your business, event, or organization."
+      }
+    },
+    "promo_sourcing_cta": {
+      "type": "promo-sourcing-cta",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Don’t See What You Need?",
+        "text": "If you don’t see the exact product, printed piece, or promotional item you’re looking for, send us a request and we’ll help source the right option for your project.",
+        "button_label": "Request a Product",
+        "button_link": "/pages/request-quote"
+      }
+    },
+    "promo_how_it_works": {
+      "type": "promo-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Browse Products",
+            "text": "Explore categories and find the products, print pieces, or promotional items that fit your business, event, or organization."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Add to Quote",
+            "text": "Select the items you’re interested in and build one organized request instead of submitting multiple forms."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Add Details",
+            "text": "Include quantities, artwork notes, print specs, and anything else we should know about the project."
+          }
+        },
+        "step_4": {
+          "type": "step",
+          "settings": {
+            "title": "Submit Once",
+            "text": "Send everything in one request and we’ll help finalize the right products, pricing, and next steps."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3",
+        "step_4"
+      ],
+      "settings": {
+        "eyebrow": "How It Works",
+        "heading": "One Organized Quote Process",
+        "text": "Browse products, printed materials, and promotional items, then submit one organized request with quantities, notes, and project details all in one place."
+      }
+    },
+    "promo_quote_cta": {
+      "type": "promo-quote-cta",
+      "settings": {
+        "eyebrow": "Organized Ordering",
+        "heading": "Build One Organized Quote",
+        "text": "Add multiple items, keep your order organized, and submit one quote request for merchandise, print, and promotional needs at once.",
+        "primary_label": "Start a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "Contact Us",
+        "secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "promo_products_hero",
+    "promo_categories_grid",
+    "promo_sourcing_cta",
+    "promo_how_it_works",
+    "promo_quote_cta"
+  ]
+}

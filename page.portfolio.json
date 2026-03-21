@@ -1,0 +1,97 @@
+{
+  "sections": {
+    "main": {
+      "type": "outerwear-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "LJ",
+            "title": "Lightweight Jackets",
+            "subtitle": "Versatile grab-and-go layers for teams, staff, events, and changing weather",
+            "detail_1": "Easy transitional layer",
+            "detail_2": "Great for broad outfitting programs",
+            "detail_3": "Useful across seasons",
+            "link": "/collections/lightweight-jackets"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SS",
+            "title": "Soft Shells",
+            "subtitle": "Clean weather-resistant jackets with a polished look for staff and corporate wear",
+            "detail_1": "Professional outerwear option",
+            "detail_2": "Great for embroidery",
+            "detail_3": "Strong for office and field teams",
+            "link": "/collections/soft-shells"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "FL",
+            "title": "Fleece",
+            "subtitle": "Warm comfortable layering pieces for casual, team, and staff apparel programs",
+            "detail_1": "Soft comfort-focused option",
+            "detail_2": "Great for cooler weather",
+            "detail_3": "Strong for embroidery",
+            "link": "/collections/fleece"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "VS",
+            "title": "Vests",
+            "subtitle": "Core-warmth layering pieces that keep mobility while adding a polished branded look",
+            "detail_1": "Good for staff and field teams",
+            "detail_2": "Easy over existing uniforms",
+            "detail_3": "Great embroidery surface",
+            "link": "/collections/vests"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "RW",
+            "title": "Rainwear",
+            "subtitle": "Weather-focused outerwear designed for wet conditions and dependable coverage",
+            "detail_1": "Best for weather protection",
+            "detail_2": "Useful for outdoor crews and events",
+            "detail_3": "Practical specialty layer",
+            "link": "/collections/rainwear"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5"
+      ],
+      "settings": {
+        "eyebrow": "Custom Apparel",
+        "heading": "Outerwear",
+        "text": "<p>Choose the outerwear category that fits your project, then narrow by brand, color, material, and size. Whether you need lightweight layers, weather protection, corporate jackets, or team outerwear, we can help guide the right option.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Style",
+        "subtypes_heading": "Choose Your Outerwear Category",
+        "subtypes_text": "Each category helps you get to the right layer based on weather, branding style, and intended use.",
+        "help_heading": "Need Help Picking The Right Outerwear?",
+        "help_text": "If you are deciding between lightweight jackets, soft shells, fleece, vests, or rainwear, we can recommend the best direction based on climate, decoration method, durability, and budget.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

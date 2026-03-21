@@ -1,0 +1,376 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "portfolio_hero": {
+      "type": "portfolio-hero",
+      "settings": {
+        "eyebrow": "",
+        "heading": "Built By The Sole Provider",
+        "text": "From custom apparel to branded merch to logo design — here’s a look at what we’ve built for our clients."
+      }
+    },
+    "portfolio_apparel": {
+      "type": "portfolio-gallery",
+      "blocks": {
+        "apparel_1": {
+          "type": "project",
+          "settings": {
+            "title": "Team Uniform Package",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Full uniform package for a local sports team.</p>",
+            "size": "wide"
+          }
+        },
+        "apparel_2": {
+          "type": "project",
+          "settings": {
+            "title": "Corporate Polo Program",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Embroidered polos for a 50-person corporate team.</p>",
+            "size": "normal"
+          }
+        },
+        "apparel_3": {
+          "type": "project",
+          "settings": {
+            "title": "Event Hoodie Drop",
+            "tag": "DTF Transfer",
+            "client": "",
+            "description": "<p>Limited-run event hoodies with full-color transfers.</p>",
+            "size": "tall"
+          }
+        },
+        "apparel_4": {
+          "type": "project",
+          "settings": {
+            "title": "School Spirit Tees",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Spirit wear for a local school program.</p>",
+            "size": "normal"
+          }
+        },
+        "apparel_5": {
+          "type": "project",
+          "settings": {
+            "title": "Staff Jacket Program",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Softshell jackets finished with clean logo embroidery.</p>",
+            "size": "normal"
+          }
+        },
+        "apparel_6": {
+          "type": "project",
+          "settings": {
+            "title": "Brand Launch Kit",
+            "tag": "Multiple Methods",
+            "client": "",
+            "description": "<p>Complete branded apparel package for a new business launch.</p>",
+            "size": "wide"
+          }
+        }
+      },
+      "block_order": [
+        "apparel_1",
+        "apparel_2",
+        "apparel_3",
+        "apparel_4",
+        "apparel_5",
+        "apparel_6"
+      ],
+      "settings": {
+        "background_style": "dark",
+        "anchor_id": "pf-apparel",
+        "eyebrow": "Apparel",
+        "heading": "Custom Apparel Work",
+        "text": "Screen printed tees, embroidered polos, uniforms, and custom branded apparel.",
+        "initial_visible_count": 6,
+        "show_more_label": "View More",
+        "show_less_label": "Show Less",
+        "button_label": "Browse Apparel",
+        "button_link": "/pages/apparel",
+        "request_button_label": "Request a Similar Project",
+        "request_link": "/pages/request-quote"
+      }
+    },
+    "portfolio_design": {
+      "type": "portfolio-gallery",
+      "blocks": {
+        "design_1": {
+          "type": "project",
+          "settings": {
+            "title": "Brand Identity Package",
+            "tag": "Logo Design",
+            "client": "",
+            "description": "<p>Full brand identity including logo, color direction, and visual style.</p>",
+            "size": "wide"
+          }
+        },
+        "design_2": {
+          "type": "project",
+          "settings": {
+            "title": "Apparel Print Artwork",
+            "tag": "Screen Print Art",
+            "client": "",
+            "description": "<p>Print-ready apparel artwork built for production and merch use.</p>",
+            "size": "normal"
+          }
+        },
+        "design_3": {
+          "type": "project",
+          "settings": {
+            "title": "Event Poster Series",
+            "tag": "Print Design",
+            "client": "",
+            "description": "<p>Poster set designed for a venue and event campaign.</p>",
+            "size": "tall"
+          }
+        },
+        "design_4": {
+          "type": "project",
+          "settings": {
+            "title": "Embroidery Digitizing",
+            "tag": "Embroidery Art",
+            "client": "",
+            "description": "<p>Artwork adapted and prepared for clean embroidery results.</p>",
+            "size": "normal"
+          }
+        },
+        "design_5": {
+          "type": "project",
+          "settings": {
+            "title": "Corporate Rebrand",
+            "tag": "Brand Identity",
+            "client": "",
+            "description": "<p>Updated look and feel for a local company refresh.</p>",
+            "size": "normal"
+          }
+        },
+        "design_6": {
+          "type": "project",
+          "settings": {
+            "title": "Team Logo Redesign",
+            "tag": "Logo Design",
+            "client": "",
+            "description": "<p>Modernized team identity built for apparel, print, and digital use.</p>",
+            "size": "wide"
+          }
+        }
+      },
+      "block_order": [
+        "design_1",
+        "design_2",
+        "design_3",
+        "design_4",
+        "design_5",
+        "design_6"
+      ],
+      "settings": {
+        "background_style": "light",
+        "anchor_id": "pf-design",
+        "eyebrow": "Graphic Design",
+        "heading": "Design Work",
+        "text": "Logos, brand identity, apparel art, and print-ready design built in-house.",
+        "initial_visible_count": 6,
+        "show_more_label": "View More",
+        "show_less_label": "Show Less",
+        "button_label": "Graphic Design",
+        "button_link": "/pages/graphic-design",
+        "request_button_label": "Request Similar Design Work",
+        "request_link": "/pages/request-quote"
+      }
+    },
+    "portfolio_promo": {
+      "type": "portfolio-gallery",
+      "blocks": {
+        "promo_1": {
+          "type": "project",
+          "settings": {
+            "title": "Trade Show Kit",
+            "tag": "Promotional",
+            "client": "",
+            "description": "<p>Complete trade show package with branded giveaways and event materials.</p>",
+            "size": "wide"
+          }
+        },
+        "promo_2": {
+          "type": "project",
+          "settings": {
+            "title": "Employee Welcome Box",
+            "tag": "Branded Merch",
+            "client": "",
+            "description": "<p>Custom welcome kits created for internal onboarding.</p>",
+            "size": "normal"
+          }
+        },
+        "promo_3": {
+          "type": "project",
+          "settings": {
+            "title": "Conference Giveaways",
+            "tag": "Promotional",
+            "client": "",
+            "description": "<p>Branded giveaway pieces built for a larger conference rollout.</p>",
+            "size": "tall"
+          }
+        },
+        "promo_4": {
+          "type": "project",
+          "settings": {
+            "title": "Custom Drinkware",
+            "tag": "Branded Products",
+            "client": "",
+            "description": "<p>Drinkware program for gifting, events, and brand visibility.</p>",
+            "size": "normal"
+          }
+        },
+        "promo_5": {
+          "type": "project",
+          "settings": {
+            "title": "Event Bag Program",
+            "tag": "Branded Merch",
+            "client": "",
+            "description": "<p>Custom bags created for a fundraiser and event package.</p>",
+            "size": "normal"
+          }
+        },
+        "promo_6": {
+          "type": "project",
+          "settings": {
+            "title": "Seasonal Gift Set",
+            "tag": "Promotional",
+            "client": "",
+            "description": "<p>Holiday gift bundle with branded products and apparel.</p>",
+            "size": "wide"
+          }
+        }
+      },
+      "block_order": [
+        "promo_1",
+        "promo_2",
+        "promo_3",
+        "promo_4",
+        "promo_5",
+        "promo_6"
+      ],
+      "settings": {
+        "background_style": "white",
+        "anchor_id": "pf-promo",
+        "eyebrow": "Promo Products",
+        "heading": "Branded Merchandise",
+        "text": "Custom drinkware, event giveaways, merch kits, and promotional product programs.",
+        "initial_visible_count": 6,
+        "show_more_label": "View More",
+        "show_less_label": "Show Less",
+        "button_label": "Browse Promo Products",
+        "button_link": "/pages/promotional-products",
+        "request_button_label": "Request a Similar Project",
+        "request_link": "/pages/request-quote"
+      }
+    },
+    "portfolio_gallery_e9WMPP": {
+      "type": "portfolio-gallery",
+      "blocks": {
+        "project_PL6aQU": {
+          "type": "project",
+          "settings": {
+            "title": "Step and Repeat Backdrop",
+            "tag": "Event Branding",
+            "client": "",
+            "description": "<p>Custom branded backdrop created for photos, events, and sponsor visibility.</p>",
+            "size": "wide"
+          }
+        },
+        "project_QAYdCw": {
+          "type": "project",
+          "settings": {
+            "title": "Vinyl Wall Graphics",
+            "tag": "Interior Branding",
+            "client": "",
+            "description": "<p>Large-format wall graphics installed to bring a brand experience into the space.</p>",
+            "size": "normal"
+          }
+        },
+        "project_MTJWCE": {
+          "type": "project",
+          "settings": {
+            "title": "Retractable Banner Set",
+            "tag": "Trade Show Display",
+            "client": "",
+            "description": "<p>Matching pull-up banners designed for events, expos, and on-site promotion.</p>",
+            "size": "tall"
+          }
+        },
+        "project_WXzpzQ": {
+          "type": "project",
+          "settings": {
+            "title": "Table Cover Package",
+            "tag": "Event Display",
+            "client": "",
+            "description": "<p>Custom printed table covers produced for polished trade show and event setups.</p>",
+            "size": "normal"
+          }
+        },
+        "project_YUQ7KN": {
+          "type": "project",
+          "settings": {
+            "title": "Storefront Window Decals",
+            "tag": "Retail Branding",
+            "client": "",
+            "description": "<p>Window graphics created to boost visibility, branding, and seasonal promotions.</p>",
+            "size": "normal"
+          }
+        },
+        "project_gr3AkP": {
+          "type": "project",
+          "settings": {
+            "title": "Outdoor Banner System",
+            "tag": "Large Format",
+            "client": "",
+            "description": "<p>Weather-ready banner solution for events, schools, and business promotions.</p>",
+            "size": "wide"
+          }
+        }
+      },
+      "block_order": [
+        "project_PL6aQU",
+        "project_QAYdCw",
+        "project_MTJWCE",
+        "project_WXzpzQ",
+        "project_YUQ7KN",
+        "project_gr3AkP"
+      ],
+      "settings": {
+        "background_style": "white",
+        "anchor_id": "pf-large-format",
+        "eyebrow": "Large Format Branding",
+        "heading": "Large Format Branding",
+        "text": "Banners, backdrops, table covers, wall graphics, window decals, and event display branding.",
+        "initial_visible_count": 6,
+        "show_more_label": "View More",
+        "show_less_label": "Show Less",
+        "button_label": "Browse Large Format Branding",
+        "button_link": "/pages/request-quote?source=portfolio&category=Large%20Format%20Branding",
+        "request_button_label": "Request a Similar Project",
+        "request_link": "/pages/request-quote"
+      }
+    }
+  },
+  "order": [
+    "portfolio_hero",
+    "portfolio_apparel",
+    "portfolio_design",
+    "portfolio_promo",
+    "portfolio_gallery_e9WMPP"
+  ]
+}  
