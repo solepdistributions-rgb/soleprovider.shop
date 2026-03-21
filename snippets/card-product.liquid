@@ -210,15 +210,9 @@
               </p>
             {%- endif -%}
 
-            {% if is_quote_only %}
-  <div class="card__quote-only">
-    <a href="{{ card_product.url }}" class="button button--secondary">
-      Request a Quote
-    </a>
-  </div>
-{% else %}
-  {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
-{% endif %}
+            {% unless is_quote_only %}
+              {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+            {% endunless %}
             {%- if card_product.quantity_price_breaks_configured? -%}
               {% if card_product.variants_count == 1 and quick_add == 'bulk' %}
                 {% liquid
