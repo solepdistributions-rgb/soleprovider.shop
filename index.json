@@ -1,5 +1,12 @@
 {
   "sections": {
+    "github_test_hero": {
+      "type": "github-test-hero",
+      "settings": {
+        "heading": "Connected via GitHub",
+        "subheading": "This banner was deployed through the Shopify-GitHub integration"
+      }
+    },
     "main": {
       "type": "main-register",
       "settings": {
@@ -9,6 +16,7 @@
     }
   },
   "order": [
+    "github_test_hero",
     "main"
   ]
 }
