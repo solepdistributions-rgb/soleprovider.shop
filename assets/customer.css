@@ -1,35 +1,118 @@
+/* ==========================================================================
+   The Sole Provider - Customer Account Pages
+   Brand colors: Crimson Red #dc143c, Black #000, White #fff
+   Font: Assistant (inherited from theme)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   LAYOUT - Auth Pages (login, register, reset password, activate)
+   -------------------------------------------------------------------------- */
 .customer:not(.account):not(.order) {
   margin: 0 auto;
-  max-width: 33.4rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  max-width: 48rem;
+  padding: 4rem 1.5rem 6rem;
   text-align: center;
 }
 
 @media screen and (min-width: 750px) {
   .customer:not(.account):not(.order) {
-    max-width: 47.8rem;
+    max-width: 50rem;
+    padding: 6rem 2rem 8rem;
   }
 }
 
+/* --------------------------------------------------------------------------
+   HEADINGS
+   -------------------------------------------------------------------------- */
 .customer > h1,
 .customer__title {
   margin-top: 0;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: rgb(var(--color-foreground));
+  text-transform: uppercase;
 }
 
+@media screen and (min-width: 750px) {
+  .customer > h1,
+  .customer__title {
+    font-size: 3.6rem;
+  }
+}
+
+.customer h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: rgb(var(--color-foreground));
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 750px) {
+  .customer h2 {
+    font-size: 2.4rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   FORMS
+   -------------------------------------------------------------------------- */
 .customer form {
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
+.customer .field {
+  margin: 1.5rem 0 0 0;
+  display: flex;
+}
+
+.customer .field:first-of-type {
+  margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   BUTTONS
+   -------------------------------------------------------------------------- */
 .customer button {
-  margin: 4rem 0 1.5rem;
+  margin: 3rem 0 1.5rem;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
+  font-size: 1.4rem;
+  min-height: 5rem;
+  position: relative;
+  border-radius: 0;
 }
 
+.customer button:hover {
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   LINKS
+   -------------------------------------------------------------------------- */
+.customer a {
+  color: rgb(var(--color-link));
+  text-decoration: none;
+  font-size: 1.4rem;
+  transition: color 0.2s ease;
+}
+
+.customer a:hover {
+  text-decoration: underline;
+  color: rgb(var(--color-foreground));
+}
+
+/* --------------------------------------------------------------------------
+   ERROR / SUCCESS MESSAGES
+   -------------------------------------------------------------------------- */
 .customer ul {
   line-height: calc(1 + 0.6 / var(--font-body-scale));
   padding-left: 4.4rem;
   text-align: left;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .customer ul a {
@@ -37,7 +120,7 @@
 }
 
 .customer strong {
-  font-weight: normal;
+  font-weight: 600;
   color: rgb(var(--color-foreground));
 }
 
@@ -51,36 +134,23 @@
   }
 }
 
-.customer .field {
-  margin: 2rem 0 0 0;
-}
-
-.customer .field:first-of-type {
-  margin-top: 0;
-}
-
-/* Customer Table */
+/* --------------------------------------------------------------------------
+   TABLES (shared by account + order)
+   -------------------------------------------------------------------------- */
 .customer table {
   table-layout: auto;
   border-collapse: collapse;
-  border-bottom: 0.01rem solid rgba(var(--color-foreground), 0.08);
+  border-bottom: none;
   box-shadow: none;
   width: 100%;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   position: relative;
 }
 
 @media screen and (min-width: 750px) {
   .customer table {
     border: none;
-    box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.08);
-  }
-}
-
-@media screen and (forced-colors: active) {
-  .customer table {
-    border-top: 0.1rem solid transparent;
-    border-bottom: 0.1rem solid transparent;
+    font-size: 1.5rem;
   }
 }
 
@@ -91,7 +161,7 @@
 .customer th,
 .customer td {
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.4;
   border: none;
   padding: 0;
 }
@@ -103,8 +173,8 @@
 }
 
 .customer tbody td {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
 }
 
 .customer td:empty {
@@ -112,13 +182,17 @@
 }
 
 .customer thead th {
-  font-size: 1.2rem;
-  letter-spacing: 0.07rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.1rem;
   text-transform: uppercase;
+  font-weight: 700;
+  color: rgba(var(--color-foreground), 0.6);
+  padding-bottom: 1.2rem;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.1);
 }
 
 .customer tbody td:first-of-type {
-  padding-top: 4rem;
+  padding-top: 3rem;
 }
 
 @media screen and (min-width: 750px) {
@@ -131,26 +205,26 @@
 
   .customer thead th,
   .customer tbody td {
-    padding-top: 2.4rem;
-    padding-bottom: 2.4rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .customer th:first-of-type,
   .customer td:first-of-type {
-    padding-left: 2.2rem;
+    padding-left: 2rem;
   }
 
   .customer tbody td {
-    vertical-align: top;
+    vertical-align: middle;
   }
 
   .customer tbody td:first-of-type {
-    padding-top: 2.4rem;
+    padding-top: 2rem;
   }
 }
 
 .customer tbody td:last-of-type {
-  padding-bottom: 4rem;
+  padding-bottom: 3rem;
 }
 
 @media screen and (min-width: 750px) {
@@ -160,7 +234,7 @@
 }
 
 .customer tbody tr {
-  border-top: 0.01rem solid rgba(var(--color-foreground), 0.08);
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
 @media screen and (min-width: 750px) {
@@ -169,10 +243,8 @@
   }
 }
 
-@media screen and (forced-colors: active) {
-  .customer tbody tr {
-    border-top: 0.1rem solid transparent;
-  }
+.customer tbody tr:hover {
+  background-color: rgba(var(--color-foreground), 0.02);
 }
 
 .customer tfoot td:first-of-type,
@@ -186,7 +258,7 @@
 }
 
 .customer tfoot tr:first-of-type td {
-  padding-top: 4rem;
+  padding-top: 3rem;
 }
 
 @media screen and (min-width: 750px) {
@@ -197,7 +269,7 @@
 }
 
 .customer tfoot tr:last-of-type td {
-  padding-bottom: 4rem;
+  padding-bottom: 3rem;
 }
 
 @media screen and (min-width: 750px) {
@@ -226,7 +298,9 @@
   }
 }
 
-/* mobile table overrides */
+/* --------------------------------------------------------------------------
+   MOBILE TABLE OVERRIDES
+   -------------------------------------------------------------------------- */
 @media screen and (max-width: 749px) {
   .customer thead,
   .customer th,
@@ -237,16 +311,19 @@
   .customer td {
     display: flex;
     text-align: right;
+    padding: 0.8rem 0;
   }
 
   .customer td::before {
-    color: rgba(var(--color-foreground), 0.75);
+    color: rgba(var(--color-foreground), 0.55);
     content: attr(data-label);
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     padding-right: 2rem;
     text-transform: uppercase;
     flex-grow: 1;
     text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.05rem;
   }
 
   .customer td:first-of-type {
@@ -259,19 +336,22 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
+    padding: 1.5rem 0;
   }
 }
 
-/* Pagination */
+/* --------------------------------------------------------------------------
+   PAGINATION
+   -------------------------------------------------------------------------- */
 .customer .pagination {
-  margin-top: 5rem;
-  margin-bottom: 7rem;
+  margin-top: 4rem;
+  margin-bottom: 6rem;
 }
 
 @media screen and (min-width: 990px) {
   .customer .pagination {
-    margin-top: 7rem;
-    margin-bottom: 10rem;
+    margin-top: 5rem;
+    margin-bottom: 8rem;
   }
 }
 
@@ -280,15 +360,11 @@
   justify-content: center;
   list-style: none;
   padding: 0;
+  gap: 0.5rem;
 }
 
 .customer .pagination li {
-  flex: 1 1;
-  max-width: 4rem;
-}
-
-.customer .pagination li:not(:last-child) {
-  margin-right: 1rem;
+  flex: 0 0 auto;
 }
 
 .customer .pagination li :first-child {
@@ -297,9 +373,17 @@
   align-items: center;
   position: relative;
   height: 4rem;
-  width: 100%;
+  width: 4rem;
   padding: 0;
   text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  border-radius: 0;
+  transition: background-color 0.2s ease;
+}
+
+.customer .pagination li :first-child:hover {
+  background-color: rgba(var(--color-foreground), 0.05);
 }
 
 .customer .pagination li :first-child .svg-wrapper {
@@ -319,16 +403,17 @@
 .customer .pagination li [aria-current]::after {
   content: '';
   display: block;
-  width: 2rem;
-  height: 0.01rem;
+  width: 100%;
+  height: 2px;
   position: absolute;
-  bottom: 0.08rem;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: currentColor;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(var(--color-button));
 }
 
-/* Login */
+/* --------------------------------------------------------------------------
+   LOGIN PAGE
+   -------------------------------------------------------------------------- */
 .login a {
   display: block;
   margin: 0 auto;
@@ -341,11 +426,13 @@
 }
 
 .login .field + a {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .login p {
   margin: 1.5rem 0;
+  color: rgba(var(--color-foreground), 0.7);
 }
 
 .login h3 {
@@ -356,6 +443,12 @@
 
 #customer_login_guest button {
   margin-top: 0;
+}
+
+.login hr {
+  border: none;
+  border-top: 1px solid rgba(var(--color-foreground), 0.1);
+  margin: 3rem 0;
 }
 
 #recover,
@@ -385,11 +478,21 @@
   margin-bottom: 0;
 }
 
+/* --------------------------------------------------------------------------
+   ACTIVATE / SECONDARY BUTTONS
+   -------------------------------------------------------------------------- */
 .activate button[name='decline'],
 .addresses li > button,
 .addresses form button[type] {
   background-color: rgba(var(--color-background), var(--alpha-button-background));
   color: rgb(var(--color-link));
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+}
+
+.activate button[name='decline']:hover,
+.addresses li > button:hover,
+.addresses form button[type]:hover {
+  border-color: rgba(var(--color-foreground), 0.3);
 }
 
 @media only screen and (min-width: 750px) {
@@ -399,7 +502,9 @@
   }
 }
 
-/* Account/Order */
+/* --------------------------------------------------------------------------
+   ACCOUNT PAGE
+   -------------------------------------------------------------------------- */
 :is(.account, .order) {
   margin: 0 auto;
   max-width: var(--page-width);
@@ -417,14 +522,15 @@
 @media screen and (min-width: 990px) {
   :is(.account, .order) > div:nth-of-type(2) {
     display: flex;
-    margin-top: 5rem;
+    margin-top: 4rem;
+    gap: 4rem;
   }
 }
 
 @media screen and (min-width: 990px) {
   :is(.account, .order) > div:nth-of-type(2) > div:first-of-type {
     flex-grow: 1;
-    padding-right: 3.2rem;
+    padding-right: 0;
   }
 }
 
@@ -439,17 +545,20 @@
 }
 
 :is(.account, .order) p {
-  margin: 0 0 2rem;
-  font-size: 1.6rem;
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  color: rgba(var(--color-foreground), 0.75);
 }
 
 :is(.account, .order) h1 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 :is(.account, .order) h2 {
-  margin-top: 4rem;
-  margin-bottom: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(var(--color-foreground), 0.08);
 }
 
 @media screen and (min-width: 990px) {
@@ -458,17 +567,27 @@
   }
 }
 
+/* Logout link */
 .account h1 + a {
   display: inline-flex;
   align-items: center;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08rem;
+  color: rgba(var(--color-foreground), 0.55);
+}
+
+.account h1 + a:hover {
+  color: rgb(var(--color-foreground));
 }
 
 .account a .svg-wrapper {
   width: 1.5rem;
   margin-bottom: -0.03rem;
-  margin-right: 1rem;
+  margin-right: 0.8rem;
 }
 
+/* Order number links in account table */
 @media screen and (min-width: 750px) {
   .account thead th:last-child,
   .account td:last-child {
@@ -482,17 +601,63 @@
 }
 
 .account table td:first-of-type a {
-  padding: 1.1rem 1.5rem;
+  padding: 0.8rem 1.6rem;
   text-decoration: none;
-  box-shadow: 0 0 0 0.1rem rgba(var(--color-link), 0.2);
-  border: 0.1rem solid transparent;
-  font-size: 1.2rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: rgb(var(--color-button-text));
+  background-color: rgb(var(--color-button));
+  border: none;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  transition: opacity 0.2s ease;
 }
 
 .account table td:first-of-type a:hover {
-  box-shadow: 0 0 0 0.2rem rgba(var(--color-link), 0.2);
+  opacity: 0.85;
+  text-decoration: none;
+  color: rgb(var(--color-button-text));
 }
 
+/* View addresses link */
+.account > div > div:last-of-type a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-weight: 600;
+  color: rgb(var(--color-link));
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.account > div > div:last-of-type a:hover {
+  color: rgb(var(--color-foreground));
+}
+
+/* Account details sidebar */
+@media screen and (min-width: 990px) {
+  :is(.account, .order) > div:nth-of-type(2) > div:last-of-type {
+    min-width: 28rem;
+    flex-shrink: 0;
+    padding: 2.5rem;
+    background-color: rgba(var(--color-foreground), 0.02);
+    border: 1px solid rgba(var(--color-foreground), 0.06);
+  }
+
+  :is(.account, .order) > div:nth-of-type(2) > div:last-of-type h2 {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   ORDER DETAIL PAGE
+   -------------------------------------------------------------------------- */
 .order td:first-of-type {
   align-items: initial;
 }
@@ -506,20 +671,24 @@
 
 .order tfoot tr:last-of-type td,
 .order tfoot tr:last-of-type th {
-  font-size: 2.2rem;
+  font-size: 2rem;
+  font-weight: 700;
   padding-top: 1.5rem;
-  padding-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-top: 2px solid rgba(var(--color-foreground), 0.1);
 }
 
 @media screen and (min-width: 750px) {
   .order tfoot tr:last-of-type td,
   .order tfoot tr:last-of-type th {
     padding-bottom: 2.4rem;
+    font-size: 2.2rem;
   }
 }
 
 .order tfoot tr:last-of-type td:before {
-  font-size: 2.2rem;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .order table p,
@@ -534,7 +703,7 @@
 }
 
 .order > div:nth-of-type(2) > div:first-of-type h2 ~ p:last-of-type {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
 }
 
 .order .item-props {
@@ -551,15 +720,19 @@
 
 .order .fulfillment {
   width: fit-content;
-  border: 0.01rem solid rgba(var(--color-foreground), 0.2);
-  padding: 1rem;
+  border: 1px solid rgba(var(--color-foreground), 0.12);
+  padding: 1.2rem 1.5rem;
   margin-top: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   text-align: left;
+  border-radius: 0;
+  background-color: rgba(var(--color-foreground), 0.02);
 }
 
 .order .fulfillment a {
   margin: 0.7rem 0;
+  font-weight: 600;
+  color: rgb(var(--color-link));
 }
 
 .order .fulfillment span {
@@ -611,8 +784,9 @@
 }
 
 .order .properties {
-  font-size: 1.4rem;
-  margin-top: 1rem;
+  font-size: 1.3rem;
+  margin-top: 0.8rem;
+  color: rgba(var(--color-foreground), 0.65);
 }
 
 .order .properties span {
@@ -636,7 +810,7 @@
 }
 
 .order dd s {
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgba(var(--color-foreground), 0.5);
 }
 
 .order .unit-price {
@@ -644,17 +818,44 @@
   letter-spacing: 0.07rem;
   line-height: calc(1 + 0.2 / var(--font-body-scale));
   margin-top: 0.2rem;
-  color: rgba(var(--color-foreground), 0.7);
+  color: rgba(var(--color-foreground), 0.6);
 }
 
 .order .regular-price {
   font-size: 1.3rem;
 }
 
-/* Addresses */
+/* Order billing/shipping address cards */
+.order > div:nth-of-type(2) > div:last-of-type > div {
+  padding: 2rem;
+  background-color: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.06);
+  margin-bottom: 1.5rem;
+}
+
+.order > div:nth-of-type(2) > div:last-of-type > div h2 {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.order > div:nth-of-type(2) > div:last-of-type > div p {
+  font-size: 1.4rem;
+  margin-bottom: 0.8rem;
+}
+
+/* --------------------------------------------------------------------------
+   ADDRESSES PAGE
+   -------------------------------------------------------------------------- */
 .addresses li > button {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
+  width: auto;
+  min-height: auto;
+  padding: 0.8rem 2rem;
+  font-size: 1.2rem;
 }
 
 .addresses li > button + button,
@@ -664,7 +865,7 @@
 
 @media screen and (min-width: 750px) {
   .addresses li > button:first-of-type {
-    margin-top: 3rem;
+    margin-top: 2.5rem;
   }
 }
 
@@ -677,6 +878,8 @@ label[for='AddressProvinceNew'] {
   display: block;
   font-size: 1.4rem;
   margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: rgba(var(--color-foreground), 0.75);
 }
 
 .addresses form {
@@ -696,7 +899,10 @@ label[for='AddressProvinceNew'] {
 }
 
 li[data-address] {
-  margin-top: 5rem;
+  margin-top: 4rem;
+  padding: 2.5rem;
+  background-color: rgba(var(--color-foreground), 0.02);
+  border: 1px solid rgba(var(--color-foreground), 0.06);
 }
 
 .addresses [aria-expanded='false'] ~ div[id] {
@@ -713,18 +919,20 @@ li[data-address] {
 
 li[data-address] > h2 {
   text-align: center;
-  font-size: calc(var(--font-heading-scale) * 1.8rem);
-  margin-bottom: 0;
+  font-size: calc(var(--font-heading-scale) * 1.6rem);
+  margin-bottom: 0.5rem;
 }
 
 @media only screen and (min-width: 750px) {
   li[data-address] > h2 {
-    font-size: calc(var(--font-heading-scale) * 2.2rem);
+    font-size: calc(var(--font-heading-scale) * 2rem);
   }
 }
 
 .addresses ul p {
   margin-bottom: 0;
+  font-size: 1.4rem;
+  line-height: 1.7;
 }
 
 .addresses input[type='checkbox'] {
@@ -751,4 +959,51 @@ li[data-address] > h2 {
 .addresses form > div:nth-of-type(7),
 .addresses form > div:nth-of-type(7) + div[id] {
   margin-top: 1.5rem;
+}
+
+/* New address button */
+.addresses > [data-address] > button[aria-expanded] {
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.1rem;
+}
+
+/* --------------------------------------------------------------------------
+   REGISTER PAGE ENHANCEMENTS
+   -------------------------------------------------------------------------- */
+.register a {
+  display: inline-block;
+  margin-top: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE IMPROVEMENTS
+   -------------------------------------------------------------------------- */
+
+/* No orders empty state */
+.account .order-history + p,
+.account > div > div:first-of-type > p:only-of-type {
+  padding: 4rem 2rem;
+  text-align: center;
+  font-size: 1.6rem;
+  color: rgba(var(--color-foreground), 0.5);
+  border: 1px dashed rgba(var(--color-foreground), 0.15);
+}
+
+/* Ensure good spacing on "Return to account" link */
+.order a[href*="/account"],
+.addresses a[href*="/account"] {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06rem;
+  color: rgba(var(--color-foreground), 0.55);
+  margin-bottom: 2rem;
+}
+
+.order a[href*="/account"]:hover,
+.addresses a[href*="/account"]:hover {
+  color: rgb(var(--color-foreground));
 }
