@@ -16,9 +16,9 @@
         "heading": "Apparel Built For Your Brand",
         "text": "From corporate polos to streetwear drops, we handle custom apparel from concept to delivery.",
         "primary_label": "Request a Quote",
-        "primary_link": "",
+        "primary_link": "/pages/request-quote",
         "secondary_label": "View Portfolio",
-        "secondary_link": ""
+        "secondary_link": "/pages/portfolio#pf-apparel"
       }
     },
     "apparel_categories": {
@@ -39,7 +39,7 @@
             "icon_text": "PL",
             "title": "Polos",
             "subtitle": "Performance, cotton, and work-ready options",
-            "link": "shopify://pages/polos"
+            "link": "/pages/polos"
           }
         },
         "cat_3": {
@@ -125,8 +125,8 @@
         "eyebrow": "Not Sure Where to Start?",
         "heading": "We Can Help You Figure It Out",
         "text": "You do not need to have every detail locked in before reaching out. If you are still deciding on garments, decoration methods, quantities, or artwork direction, we can help narrow the options and build the right quote for your project.",
-        "button_label": "",
-        "button_link": ""
+        "button_label": "Request a Quote",
+        "button_link": "/pages/request-quote"
       }
     },
     "apparel_cta": {
@@ -136,9 +136,9 @@
         "heading": "Ready to Outfit Your Team?",
         "text": "Tell us what you need and we'll put together a quote. Fast turnaround, quality guaranteed.",
         "primary_label": "Request a Quote",
-        "primary_link": "",
+        "primary_link": "/pages/request-quote",
         "secondary_label": "Contact Us",
-        "secondary_link": ""
+        "secondary_link": "/pages/contact"
       }
     }
   },
