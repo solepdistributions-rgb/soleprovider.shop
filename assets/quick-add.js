@@ -73,6 +73,10 @@ if (!customElements.get('quick-add-modal')) {
 
         const modalDialog = productElement.querySelectorAll('modal-dialog');
         if (modalDialog) modalDialog.forEach((modal) => modal.remove());
+
+        // Remove the Add to Quote form — it should only appear on the full product page
+        const addToQuote = productElement.querySelector('.add-to-quote');
+        if (addToQuote) addToQuote.remove();
       }
 
       preventDuplicatedIDs(productElement) {
