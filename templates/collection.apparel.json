@@ -16,51 +16,68 @@
           "type": "category",
           "settings": {
             "label": "T-Shirts",
-            "collection_link": "/collections/apparel-tshirts",
-            "collection_handle": "apparel-tshirts"
-          }
-        },
-        "pill_hoodies": {
-          "type": "category",
-          "settings": {
-            "label": "Hoodies",
-            "collection_link": "/collections/apparel-hoodies",
-            "collection_handle": "apparel-hoodies"
+            "collection_link": "/collections/t-shirts",
+            "collection_handle": "t-shirts"
           }
         },
         "pill_polos": {
           "type": "category",
           "settings": {
             "label": "Polos",
-            "collection_link": "/collections/apparel-polos",
-            "collection_handle": "apparel-polos"
+            "collection_link": "/collections/polos",
+            "collection_handle": "polos"
           }
         },
-        "pill_hats": {
+        "pill_dress_shirts": {
           "type": "category",
           "settings": {
-            "label": "Hats",
-            "collection_link": "/collections/apparel-hats",
-            "collection_handle": "apparel-hats"
+            "label": "Dress Shirts",
+            "collection_link": "/collections/dress-shirts",
+            "collection_handle": "dress-shirts"
+          }
+        },
+        "pill_sweatshirts": {
+          "type": "category",
+          "settings": {
+            "label": "Sweatshirts",
+            "collection_link": "/collections/sweatshirts",
+            "collection_handle": "sweatshirts"
           }
         },
         "pill_outerwear": {
           "type": "category",
           "settings": {
             "label": "Outerwear",
-            "collection_link": "/collections/apparel-outerwear",
-            "collection_handle": "apparel-outerwear"
+            "collection_link": "/collections/outerwear",
+            "collection_handle": "outerwear"
           }
         },
-        "pill_youth": {
+        "pill_bottoms": {
           "type": "category",
           "settings": {
-            "label": "Youth",
-            "collection_link": "/collections/apparel-youth",
-            "collection_handle": "apparel-youth"
+            "label": "Bottoms",
+            "collection_link": "/collections/bottoms",
+            "collection_handle": "bottoms"
+          }
+        },
+        "pill_headwear": {
+          "type": "category",
+          "settings": {
+            "label": "Headwear",
+            "collection_link": "/collections/headwear",
+            "collection_handle": "headwear"
           }
         }
       },
+      "block_order": [
+        "pill_tshirts",
+        "pill_polos",
+        "pill_dress_shirts",
+        "pill_sweatshirts",
+        "pill_outerwear",
+        "pill_bottoms",
+        "pill_headwear"
+      ],
       "settings": {}
     },
     "collection_products": {

@@ -13,15 +13,41 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "disabled": true,
+      "blocks": {
+        "menu_quick_links": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick Links",
+            "menu": "main-menu"
+          }
+        },
+        "contact_info": {
+          "type": "text",
+          "settings": {
+            "heading": "The Sole Provider",
+            "subtext": "<p>10 Washington Drive<br/>Acton, MA 01720<br/><br/>Phone: (978) 844-6206<br/>Email: solepdistributions@gmail.com</p>"
+          }
+        },
+        "brand_info": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        }
+      },
+      "block_order": [
+        "menu_quick_links",
+        "contact_info",
+        "brand_info"
+      ],
       "settings": {
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-sole-dark",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
+        "enable_follow_on_shop": false,
         "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
         "payment_enable": true,
         "show_policy": true,
         "margin_top": 0,
