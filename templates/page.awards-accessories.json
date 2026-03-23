@@ -1,0 +1,119 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "awards-accessories-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "AW",
+            "title": "Awards",
+            "subtitle": "Custom awards, trophies, and plaques for recognition programs and corporate events",
+            "detail_1": "Best for employee and team recognition",
+            "detail_2": "Crystal, acrylic, and metal options",
+            "detail_3": "Available for laser engraving and print",
+            "link": "/collections/awards"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WT",
+            "title": "Watches",
+            "subtitle": "Branded watches for executive gifts, service awards, and premium promotions",
+            "detail_1": "Premium executive gift category",
+            "detail_2": "Engraving and custom dials available",
+            "detail_3": "Gift box packaging options",
+            "link": "/collections/watches"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "KC",
+            "title": "Key Chains",
+            "subtitle": "Custom branded key chains for giveaways, promotions, and everyday brand visibility",
+            "detail_1": "Most affordable promo accessory",
+            "detail_2": "Metal, leather, and plastic options",
+            "detail_3": "Great for laser engraving and pad print",
+            "link": "/collections/key-chains"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BL",
+            "title": "Badge Holders & Lanyards",
+            "subtitle": "Custom lanyards and badge holders for events, conferences, and workplace branding",
+            "detail_1": "Essential for events and conferences",
+            "detail_2": "Full-color sublimation printing",
+            "detail_3": "Retractable and breakaway options",
+            "link": "/collections/badge-holders-lanyards"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CF",
+            "title": "Clocks & Frames",
+            "subtitle": "Branded clocks and frames for office decor, awards, and corporate gifting",
+            "detail_1": "Great for office and desk display",
+            "detail_2": "Desk clocks, wall clocks, and frames",
+            "detail_3": "Available for laser engraving",
+            "link": "/collections/clocks-frames"
+          }
+        },
+        "subtype_6": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "GS",
+            "title": "Games & Spinners",
+            "subtitle": "Custom branded games and fidget items for trade shows, events, and promotional fun",
+            "detail_1": "Great for trade show engagement",
+            "detail_2": "Stress balls, fidget spinners, and games",
+            "detail_3": "Full-color printing available",
+            "link": "/collections/games-spinners"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5",
+        "subtype_6"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Awards & Accessories",
+        "text": "<p>Browse our full range of branded awards and accessories including trophies, watches, key chains, lanyards, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Awards & Accessories Category",
+        "subtypes_text": "Each category helps you find the right award or accessory for your project faster.",
+        "help_heading": "Need Help Picking The Right Awards & Accessories?",
+        "help_text": "Whether you need custom awards for recognition programs, branded lanyards for events, or promotional key chains for giveaways, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

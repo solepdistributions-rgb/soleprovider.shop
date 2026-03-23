@@ -28,7 +28,7 @@
           "type": "category_card",
           "settings": {
             "title": "Drinkware",
-            "link": "/collections/drinkware"
+            "link": "/pages/drinkware"
           }
         },
         "category_card_2": {
@@ -41,29 +41,43 @@
         "category_card_3": {
           "type": "category_card",
           "settings": {
-            "title": "Office",
-            "link": "/collections/office-tech"
+            "title": "Writing & Office",
+            "link": "/pages/writing-office"
           }
         },
         "category_card_4": {
           "type": "category_card",
           "settings": {
-            "title": "Accessories",
-            "link": "/pages/accessories"
+            "title": "Tech & Electronics",
+            "link": "/pages/tech-electronics"
           }
         },
         "category_card_5": {
           "type": "category_card",
           "settings": {
-            "title": "Signage & Print",
-            "link": "/collections/flags-tents"
+            "title": "Outdoor & Home",
+            "link": "/pages/outdoor-home"
           }
         },
         "category_card_6": {
           "type": "category_card",
           "settings": {
-            "title": "Other",
-            "link": "/collections/eco-natural"
+            "title": "Awards & Accessories",
+            "link": "/pages/awards-accessories"
+          }
+        },
+        "category_card_7": {
+          "type": "category_card",
+          "settings": {
+            "title": "Eco & Wellness",
+            "link": "/pages/eco-wellness"
+          }
+        },
+        "category_card_8": {
+          "type": "category_card",
+          "settings": {
+            "title": "Accessories",
+            "link": "/pages/accessories"
           }
         }
       },
@@ -73,7 +87,9 @@
         "category_card_3",
         "category_card_4",
         "category_card_5",
-        "category_card_6"
+        "category_card_6",
+        "category_card_7",
+        "category_card_8"
       ],
       "settings": {
         "eyebrow": "Browse Categories",

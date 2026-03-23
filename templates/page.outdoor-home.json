@@ -1,0 +1,145 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "outdoor-home-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PC",
+            "title": "Picnic & Camping",
+            "subtitle": "Custom branded picnic and camping gear for outdoor events, retreats, and team activities",
+            "detail_1": "Best for outdoor and team events",
+            "detail_2": "Chairs, blankets, and camp sets",
+            "detail_3": "Available for screen print and embroidery",
+            "link": "/collections/picnic-camping"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BQ",
+            "title": "BBQ",
+            "subtitle": "Branded BBQ tools and grilling sets for corporate gifts and outdoor promotions",
+            "detail_1": "Great for corporate and client gifts",
+            "detail_2": "Grilling tool sets and accessories",
+            "detail_3": "Available for laser engraving",
+            "link": "/collections/bbq"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "KH",
+            "title": "Kitchen & Home",
+            "subtitle": "Custom kitchen and home accessories for everyday brand visibility and gifting",
+            "detail_1": "Daily brand exposure at home",
+            "detail_2": "Cutting boards, utensils, and more",
+            "detail_3": "Great for laser engraving and print",
+            "link": "/collections/kitchen-home"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WC",
+            "title": "Wine & Cheese",
+            "subtitle": "Branded wine and cheese sets for executive gifts, client appreciation, and events",
+            "detail_1": "Premium executive gift category",
+            "detail_2": "Wine tools, cheese boards, and sets",
+            "detail_3": "Available for laser engraving",
+            "link": "/collections/wine-cheese"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BA",
+            "title": "Bar Accessories",
+            "subtitle": "Custom bar tools and accessories for hospitality, events, and promotional gifting",
+            "detail_1": "Best for hospitality and events",
+            "detail_2": "Bottle openers, shakers, and sets",
+            "detail_3": "Available for laser engraving and print",
+            "link": "/collections/bar-accessories"
+          }
+        },
+        "subtype_6": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "TG",
+            "title": "Travel & Golf",
+            "subtitle": "Branded travel and golf accessories for corporate outings and executive programs",
+            "detail_1": "Best for corporate outings and gifts",
+            "detail_2": "Umbrellas, golf tools, and travel kits",
+            "detail_3": "Available for embroidery and print",
+            "link": "/collections/travel-golf"
+          }
+        },
+        "subtype_7": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "FT",
+            "title": "Flags & Tents",
+            "subtitle": "Custom branded flags, tents, and canopies for events, trade shows, and outdoor signage",
+            "detail_1": "Best for events and trade shows",
+            "detail_2": "Feather flags, pop-up tents, and banners",
+            "detail_3": "Full-color dye sublimation printing",
+            "link": "/collections/flags-tents"
+          }
+        },
+        "subtype_8": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "TC",
+            "title": "Table Covers",
+            "subtitle": "Custom branded table covers for events, trade shows, and professional displays",
+            "detail_1": "Essential for event branding",
+            "detail_2": "Fitted, stretch, and throw styles",
+            "detail_3": "Full-color dye sublimation printing",
+            "link": "/collections/table-covers"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5",
+        "subtype_6",
+        "subtype_7",
+        "subtype_8"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Outdoor & Home",
+        "text": "<p>Browse our full range of branded outdoor and home products including camping gear, BBQ accessories, kitchen items, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Outdoor & Home Category",
+        "subtypes_text": "Each category helps you find the right outdoor or home product for your project faster.",
+        "help_heading": "Need Help Picking The Right Outdoor & Home Products?",
+        "help_text": "Whether you need branded camping gear for outdoor events, custom BBQ sets for corporate gifts, or promotional kitchen items for client appreciation, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
