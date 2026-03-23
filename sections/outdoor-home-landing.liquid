@@ -1,0 +1,368 @@
+<section class="oh-landing">
+  <div class="page-width">
+    <div class="oh-landing__hero">
+      {% if section.settings.eyebrow != blank %}
+        <p class="oh-landing__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="oh-landing__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="oh-landing__text rte">
+          {{ section.settings.text }}
+        </div>
+      {% endif %}
+
+      <div class="oh-landing__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
+          <a href="{{ section.settings.primary_link }}" class="oh-landing__button oh-landing__button--primary">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+          <a href="{{ section.settings.secondary_link }}" class="oh-landing__button oh-landing__button--secondary">
+            {{ section.settings.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="oh-landing__subtypes-wrap">
+      <div class="oh-landing__section-intro">
+        {% if section.settings.subtypes_eyebrow != blank %}
+          <p class="oh-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.subtypes_heading != blank %}
+          <h2 class="oh-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
+        {% endif %}
+        {% if section.settings.subtypes_text != blank %}
+          <p class="oh-landing__section-text">{{ section.settings.subtypes_text }}</p>
+        {% endif %}
+      </div>
+
+      <div class="oh-landing__grid">
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.link }}" class="oh-landing__card" {{ block.shopify_attributes }}>
+            <div class="oh-landing__card-media">
+              {% if block.settings.image != blank %}
+                <img
+                  src="{{ block.settings.image | image_url: width: 900 }}"
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                >
+              {% else %}
+                <div class="oh-landing__card-placeholder">
+                  <span>{{ block.settings.icon_text }}</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="oh-landing__card-overlay">
+              <div class="oh-landing__card-body">
+                <h3 class="oh-landing__card-title">{{ block.settings.title }}</h3>
+
+                {% if block.settings.subtitle != blank %}
+                  <p class="oh-landing__card-subtitle">{{ block.settings.subtitle }}</p>
+                {% endif %}
+
+                {% if block.settings.detail_1 != blank or block.settings.detail_2 != blank or block.settings.detail_3 != blank %}
+                  <ul class="oh-landing__card-details">
+                    {% if block.settings.detail_1 != blank %}
+                      <li>{{ block.settings.detail_1 }}</li>
+                    {% endif %}
+                    {% if block.settings.detail_2 != blank %}
+                      <li>{{ block.settings.detail_2 }}</li>
+                    {% endif %}
+                    {% if block.settings.detail_3 != blank %}
+                      <li>{{ block.settings.detail_3 }}</li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+
+                <span class="oh-landing__card-link">Explore Styles →</span>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="oh-landing__help">
+      {% if section.settings.help_heading != blank %}
+        <h2 class="oh-landing__help-heading">{{ section.settings.help_heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.help_text != blank %}
+        <p class="oh-landing__help-text">{{ section.settings.help_text }}</p>
+      {% endif %}
+
+      <div class="oh-landing__help-actions">
+        {% if section.settings.help_primary_label != blank and section.settings.help_primary_link != blank %}
+          <a href="{{ section.settings.help_primary_link }}" class="oh-landing__button oh-landing__button--primary">
+            {{ section.settings.help_primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.help_secondary_label != blank and section.settings.help_secondary_link != blank %}
+          <a href="{{ section.settings.help_secondary_link }}" class="oh-landing__button oh-landing__button--secondary">
+            {{ section.settings.help_secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .oh-landing {
+    padding: 84px 0;
+    background: #f5f5f5;
+  }
+
+  .oh-landing__hero {
+    max-width: 900px;
+    margin: 0 auto 56px;
+    text-align: center;
+  }
+
+  .oh-landing__eyebrow,
+  .oh-landing__section-eyebrow {
+    margin: 0 0 10px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .oh-landing__heading {
+    margin: 0 0 16px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(3.2rem, 5vw, 6rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .oh-landing__text {
+    margin: 0 auto;
+    max-width: 760px;
+    font-size: 1.65rem;
+    line-height: 1.7;
+    color: #4a4a4a;
+  }
+
+  .oh-landing__actions,
+  .oh-landing__help-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .oh-landing__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 22px;
+    text-decoration: none;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+
+  .oh-landing__button:hover { transform: translateY(-2px); }
+  .oh-landing__button--primary { background: #111111; color: #ffffff; border: 2px solid #111111; }
+  .oh-landing__button--primary:hover { background: #c41230; border-color: #c41230; color: #ffffff; }
+  .oh-landing__button--secondary { background: transparent; color: #111111; border: 2px solid #111111; }
+  .oh-landing__button--secondary:hover { background: #111111; color: #ffffff; }
+
+  .oh-landing__subtypes-wrap { margin-bottom: 56px; }
+
+  .oh-landing__section-intro {
+    text-align: center;
+    max-width: 820px;
+    margin: 0 auto 36px;
+  }
+
+  .oh-landing__section-heading {
+    margin: 0 0 12px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.6rem, 4vw, 4.4rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .oh-landing__section-text {
+    margin: 0;
+    font-size: 1.55rem;
+    line-height: 1.65;
+    color: #4a4a4a;
+  }
+
+  .oh-landing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .oh-landing__card {
+    position: relative;
+    display: block;
+    min-height: 320px;
+    overflow: hidden;
+    text-decoration: none;
+    background: #111111;
+    border: 1px solid #d0d0d0;
+    border-bottom: 4px solid #aaaaaa;
+    box-shadow: 0 6px 0 #999999, 0 10px 24px rgba(0,0,0,0.12);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+  }
+
+  .oh-landing__card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 0 #888888, 0 22px 40px rgba(0,0,0,0.18);
+    border-color: #c41230;
+    border-bottom-color: #9a0e24;
+  }
+
+  .oh-landing__card-media { position: absolute; inset: 0; }
+
+  .oh-landing__card-media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .oh-landing__card:hover .oh-landing__card-media img { transform: scale(1.05); }
+
+  .oh-landing__card-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .oh-landing__card-placeholder span {
+    font-family: var(--sole-heading-font);
+    font-size: 4.2rem; font-weight: 900; text-transform: uppercase;
+    color: rgba(255,255,255,0.18);
+  }
+
+  .oh-landing__card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.55) 48%, rgba(17,17,17,0.08) 100%);
+    display: flex; align-items: flex-end;
+    transition: background 0.3s ease;
+  }
+
+  .oh-landing__card:hover .oh-landing__card-overlay {
+    background: linear-gradient(to top, rgba(196,18,48,0.9) 0%, rgba(17,17,17,0.58) 48%, rgba(17,17,17,0.1) 100%);
+  }
+
+  .oh-landing__card-body { width: 100%; padding: 24px 22px 20px; }
+
+  .oh-landing__card-title {
+    margin: 0 0 8px;
+    font-family: var(--sole-heading-font);
+    font-size: 2.6rem; line-height: 1; font-weight: 900;
+    text-transform: uppercase; color: #ffffff;
+  }
+
+  .oh-landing__card-subtitle { margin: 0 0 12px; font-size: 1.38rem; line-height: 1.45; color: rgba(255,255,255,0.8); }
+
+  .oh-landing__card-details { margin: 0 0 14px; padding: 0; list-style: none; }
+  .oh-landing__card-details li { margin: 0 0 6px; font-size: 1.2rem; line-height: 1.4; color: rgba(255,255,255,0.72); }
+
+  .oh-landing__card-link {
+    display: inline-block; font-size: 1.15rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.6); transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .oh-landing__card:hover .oh-landing__card-link { color: #ffffff; transform: translateX(4px); }
+
+  .oh-landing__help {
+    max-width: 860px; margin: 0 auto; text-align: center;
+    background: #ffffff; border: 1px solid #d8d8d8;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 34px 28px;
+  }
+
+  .oh-landing__help-heading {
+    margin: 0 0 12px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.2rem, 3vw, 3.6rem);
+    line-height: 1; font-weight: 900; text-transform: uppercase; color: #111111;
+  }
+
+  .oh-landing__help-text { margin: 0; font-size: 1.5rem; line-height: 1.65; color: #4a4a4a; }
+
+  @media screen and (max-width: 989px) {
+    .oh-landing { padding: 64px 0; }
+    .oh-landing__grid { grid-template-columns: 1fr; }
+    .oh-landing__card { min-height: 280px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .oh-landing__heading { font-size: 3.8rem; }
+    .oh-landing__card { min-height: 240px; }
+    .oh-landing__card-title { font-size: 2.1rem; }
+    .oh-landing__text, .oh-landing__section-text, .oh-landing__help-text { font-size: 1.4rem; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Outdoor & Home Landing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom Products" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Outdoor & Home" },
+    { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Browse our full range of branded outdoor and home products including camping gear, BBQ accessories, kitchen items, and more. Everything is available for custom decoration and quote-based ordering.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Request a Quote" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "View Design Work" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+
+    { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Type" },
+    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Outdoor & Home Category" },
+    { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category helps you find the right outdoor or home product for your project faster." },
+
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Outdoor & Home Products?" },
+    { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Whether you need branded camping gear for outdoor events, custom BBQ sets for corporate gifts, or promotional kitchen items for client appreciation, we can help you find the best option for your project." },
+    { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
+    { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
+    { "type": "text", "id": "help_secondary_label", "label": "Help secondary button label", "default": "Contact Us" },
+    { "type": "url", "id": "help_secondary_link", "label": "Help secondary button link" }
+  ],
+  "blocks": [
+    {
+      "type": "subtype",
+      "name": "Subtype Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "icon_text", "label": "Icon fallback", "default": "OH" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Outdoor & Home" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Custom branded outdoor and home products for events, teams, and gifting" },
+        { "type": "text", "id": "detail_1", "label": "Detail 1", "default": "Wide range of brandable items" },
+        { "type": "text", "id": "detail_2", "label": "Detail 2", "default": "Available for custom decoration" },
+        { "type": "text", "id": "detail_3", "label": "Detail 3", "default": "Quote-based ordering" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Outdoor & Home Landing"
+    }
+  ]
+}
+{% endschema %}

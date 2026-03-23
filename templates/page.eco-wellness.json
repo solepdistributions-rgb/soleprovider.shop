@@ -1,0 +1,93 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "eco-wellness-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "EN",
+            "title": "Eco & Natural",
+            "subtitle": "Sustainable and eco-friendly promotional products for green initiatives and responsible branding",
+            "detail_1": "Bamboo, recycled, and plant-based items",
+            "detail_2": "Great for sustainability-focused brands",
+            "detail_3": "Available for laser engraving and print",
+            "link": "/collections/eco-natural"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WL",
+            "title": "Wellness",
+            "subtitle": "Branded wellness products for employee programs, health campaigns, and corporate gifting",
+            "detail_1": "Best for employee and wellness programs",
+            "detail_2": "Stress relievers, lip balm, and sanitizers",
+            "detail_3": "Full-color printing available",
+            "link": "/collections/wellness"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SL",
+            "title": "Safety & Lights",
+            "subtitle": "Custom branded safety gear and flashlights for work sites, events, and outdoor promotions",
+            "detail_1": "Best for construction and outdoor teams",
+            "detail_2": "Flashlights, reflective gear, and vests",
+            "detail_3": "Available for pad print and screen print",
+            "link": "/collections/safety-lights"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "HT",
+            "title": "Hand Tools/Knives",
+            "subtitle": "Branded multi-tools, pocket knives, and hand tools for practical promotional gifting",
+            "detail_1": "High perceived value gift item",
+            "detail_2": "Multi-tools, pocket knives, and tape measures",
+            "detail_3": "Available for laser engraving",
+            "link": "/collections/hand-tools-knives"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Eco & Wellness",
+        "text": "<p>Browse our full range of eco-friendly and wellness products including sustainable items, safety gear, hand tools, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Eco & Wellness Category",
+        "subtypes_text": "Each category helps you find the right eco or wellness product for your project faster.",
+        "help_heading": "Need Help Picking The Right Eco & Wellness Products?",
+        "help_text": "Whether you need eco-friendly giveaways for green initiatives, branded wellness items for employee programs, or custom safety gear for your team, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

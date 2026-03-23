@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "tech-electronics-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PA",
+            "title": "Phone/Computer Accessories",
+            "subtitle": "Branded phone cases, stands, webcam covers, and computer accessories for tech promotions",
+            "detail_1": "Great for tech-forward branding",
+            "detail_2": "Phone stands, cases, and webcam covers",
+            "detail_3": "Full-color print available",
+            "link": "/collections/phone-computer-accessories"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PB",
+            "title": "Power Banks & Chargers",
+            "subtitle": "Custom branded power banks and chargers for conferences, travel, and corporate gifts",
+            "detail_1": "High perceived value gift item",
+            "detail_2": "Multiple capacities available",
+            "detail_3": "Great for pad print and laser engraving",
+            "link": "/collections/power-banks-chargers"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CB",
+            "title": "Cables",
+            "subtitle": "Branded charging cables and adapters for practical, everyday promotional use",
+            "detail_1": "Practical everyday promo item",
+            "detail_2": "USB-C, Lightning, and multi-tip options",
+            "detail_3": "Custom packaging available",
+            "link": "/collections/cables"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SD",
+            "title": "Sound",
+            "subtitle": "Custom branded speakers, earbuds, and headphones for premium promotional gifts",
+            "detail_1": "Premium gift category",
+            "detail_2": "Bluetooth speakers and earbuds",
+            "detail_3": "Available for pad print and laser engraving",
+            "link": "/collections/sound"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "OT",
+            "title": "Office/Tech",
+            "subtitle": "Branded USB drives, mouse pads, and desk tech accessories for office promotions",
+            "detail_1": "Great for office and desk branding",
+            "detail_2": "USB drives, mouse pads, and more",
+            "detail_3": "Full-color printing available",
+            "link": "/collections/office-tech"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Tech & Electronics",
+        "text": "<p>Browse our full range of branded tech and electronics including phone accessories, power banks, chargers, speakers, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Tech Category",
+        "subtypes_text": "Each category helps you find the right tech product for your project faster.",
+        "help_heading": "Need Help Picking The Right Tech Products?",
+        "help_text": "Whether you need branded power banks for conferences, custom phone accessories for trade shows, or promotional speakers for client gifts, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

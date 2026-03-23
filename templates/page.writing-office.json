@@ -1,0 +1,145 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "writing-office-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "BP",
+            "title": "Ballpoint Pens",
+            "subtitle": "Classic branded ballpoint pens for trade shows, offices, and everyday promotions",
+            "detail_1": "Most popular promotional pen type",
+            "detail_2": "Great for pad print and laser engraving",
+            "detail_3": "Affordable bulk pricing",
+            "link": "/collections/ballpoint-pens"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "RB",
+            "title": "Rollerball Pens",
+            "subtitle": "Premium branded rollerball pens for executive gifts and client appreciation",
+            "detail_1": "Best for executive and premium gifting",
+            "detail_2": "Smooth ink flow and refined design",
+            "detail_3": "Available for laser engraving",
+            "link": "/collections/rollerball-pens"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SP",
+            "title": "Stylus Pens",
+            "subtitle": "Dual-purpose stylus pens for tech-savvy promotions and modern branding",
+            "detail_1": "Pen and touchscreen stylus combo",
+            "detail_2": "Great for tech and modern brands",
+            "detail_3": "Multiple color options",
+            "link": "/collections/stylus-pens"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PH",
+            "title": "Pencils & Highlighters",
+            "subtitle": "Custom pencils and highlighters for schools, offices, and promotional events",
+            "detail_1": "Best for schools and education",
+            "detail_2": "Full-color imprint available",
+            "detail_3": "Eco-friendly options",
+            "link": "/collections/pencils-highlighters"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "JB",
+            "title": "Journal Books",
+            "subtitle": "Premium branded journals for corporate gifts, conferences, and professional use",
+            "detail_1": "Best for corporate and executive gifts",
+            "detail_2": "Debossing and foil stamp options",
+            "detail_3": "Hardcover and softcover styles",
+            "link": "/collections/journal-books"
+          }
+        },
+        "subtype_6": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SN",
+            "title": "Spiral Notebooks",
+            "subtitle": "Custom spiral notebooks for schools, meetings, and promotional giveaways",
+            "detail_1": "Most affordable notebook option",
+            "detail_2": "Full-color cover printing",
+            "detail_3": "Multiple sizes available",
+            "link": "/collections/spiral-notebooks"
+          }
+        },
+        "subtype_7": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "PF",
+            "title": "Padfolios",
+            "subtitle": "Professional branded padfolios for meetings, conferences, and client presentations",
+            "detail_1": "Best for professional settings",
+            "detail_2": "Available for debossing and screen print",
+            "detail_3": "Zippered and open styles",
+            "link": "/collections/padfolios"
+          }
+        },
+        "subtype_8": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "DA",
+            "title": "Desktop Accessories",
+            "subtitle": "Branded desk organizers, sticky notes, and office accessories for everyday visibility",
+            "detail_1": "Great for daily brand exposure",
+            "detail_2": "Desk organizers, sticky notes, and more",
+            "detail_3": "Full-color printing available",
+            "link": "/collections/desktop-accessories"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5",
+        "subtype_6",
+        "subtype_7",
+        "subtype_8"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Writing & Office",
+        "text": "<p>Browse our full range of branded writing instruments and office supplies including pens, notebooks, padfolios, and desktop accessories. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Writing & Office Category",
+        "subtypes_text": "Each category helps you find the right writing or office product for your project faster.",
+        "help_heading": "Need Help Picking The Right Writing & Office Products?",
+        "help_text": "Whether you need branded pens for trade shows, custom notebooks for corporate events, or promotional padfolios for client gifts, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,106 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "drinkware-landing",
+      "blocks": {
+        "subtype_1": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "MT",
+            "title": "Mugs & Tumblers",
+            "subtitle": "Custom branded mugs and tumblers for corporate gifts, events, and everyday branding",
+            "detail_1": "Best for corporate and everyday use",
+            "detail_2": "Great for laser engraving and full-color print",
+            "detail_3": "Insulated and ceramic options",
+            "link": "/collections/mugs-tumblers"
+          }
+        },
+        "subtype_2": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WB",
+            "title": "Water Bottles",
+            "subtitle": "Branded water bottles for sports teams, gyms, schools, and promotional events",
+            "detail_1": "Best for active and outdoor use",
+            "detail_2": "Stainless steel and BPA-free options",
+            "detail_3": "Multiple sizes and cap styles",
+            "link": "/collections/water-bottles"
+          }
+        },
+        "subtype_3": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "HC",
+            "title": "Hard Coolers",
+            "subtitle": "Custom branded hard coolers for outdoor events, tailgating, and corporate outings",
+            "detail_1": "Best for outdoor and tailgate events",
+            "detail_2": "Premium insulation and durability",
+            "detail_3": "Available for pad print and laser engraving",
+            "link": "/collections/hard-coolers"
+          }
+        },
+        "subtype_4": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "CD",
+            "title": "Coolers & Dry Bags",
+            "subtitle": "Branded soft coolers and dry bags for beach events, boating, and outdoor promotions",
+            "detail_1": "Best for beach and outdoor events",
+            "detail_2": "Waterproof and insulated options",
+            "detail_3": "Great for screen print and heat transfer",
+            "link": "/collections/coolers-dry-bags"
+          }
+        },
+        "subtype_5": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "LC",
+            "title": "Lunch & Can Coolers",
+            "subtitle": "Custom lunch bags and can coolers for everyday branding and promotional giveaways",
+            "detail_1": "Most affordable drinkware option",
+            "detail_2": "Great for large-quantity giveaways",
+            "detail_3": "Full-color print available",
+            "link": "/collections/lunch-can-coolers"
+          }
+        }
+      },
+      "block_order": [
+        "subtype_1",
+        "subtype_2",
+        "subtype_3",
+        "subtype_4",
+        "subtype_5"
+      ],
+      "settings": {
+        "eyebrow": "Custom Products",
+        "heading": "Drinkware",
+        "text": "<p>Browse our full range of brandable drinkware including mugs, tumblers, water bottles, coolers, and more. Everything is available for custom decoration and quote-based ordering.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Design Work",
+        "secondary_link": "/pages/portfolio#pf-design",
+        "subtypes_eyebrow": "Shop By Type",
+        "subtypes_heading": "Choose Your Drinkware Category",
+        "subtypes_text": "Each category helps you find the right drinkware for your project faster.",
+        "help_heading": "Need Help Picking The Right Drinkware?",
+        "help_text": "Whether you need branded tumblers for corporate gifts, custom water bottles for events, or promotional coolers for outdoor programs, we can help you find the best option for your project.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
