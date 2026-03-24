@@ -495,10 +495,7 @@
         var data = {};
         fd.forEach(function(v, k) { data[k.replace('contact[','').replace(']','')] = v; });
         data.project_type = data.project_type || 'Graphic Design';
-        fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        }).catch(function() {});
+        navigator.sendBeacon('https://sp-tools-production.up.railway.app/api/inbox/webhook', new Blob([JSON.stringify(data)], {type:'application/json'}));
       } catch(e) {}
     });
   }
