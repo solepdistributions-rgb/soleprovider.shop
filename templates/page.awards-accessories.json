@@ -113,7 +113,77 @@
       }
     }
   },
+    "plaque_maker": {
+      "type": "vendor-showcase",
+      "blocks": {
+        "pm_1": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "FP",
+            "title": "Full Color Plaques",
+            "description": "Vibrant full-color printed plaques for awards, recognition, and memorial displays",
+            "quote_type": "Custom+Awards"
+          }
+        },
+        "pm_2": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "LP",
+            "title": "Laser Engraved Plaques",
+            "description": "Precision laser engraved wood, metal, and acrylic plaques for a classic professional look",
+            "quote_type": "Custom+Awards"
+          }
+        },
+        "pm_3": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "CR",
+            "title": "Crystal Awards",
+            "description": "Premium crystal awards and trophies for executive recognition and milestone celebrations",
+            "quote_type": "Custom+Awards"
+          }
+        },
+        "pm_4": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "GA",
+            "title": "Glass Awards",
+            "description": "Elegant glass awards in a variety of shapes and sizes for corporate and academic honors",
+            "quote_type": "Custom+Awards"
+          }
+        },
+        "pm_5": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "AA",
+            "title": "Acrylic Awards",
+            "description": "Modern acrylic awards with vibrant color options and custom shapes for any occasion",
+            "quote_type": "Custom+Awards"
+          }
+        },
+        "pm_6": {
+          "type": "product_service",
+          "settings": {
+            "icon_text": "NT",
+            "title": "Name Tags",
+            "description": "Custom engraved and printed name tags and badges for staff, events, and conferences",
+            "quote_type": "Custom+Awards"
+          }
+        }
+      },
+      "block_order": ["pm_1", "pm_2", "pm_3", "pm_4", "pm_5", "pm_6"],
+      "settings": {
+        "eyebrow": "Plaque Maker Plus",
+        "heading": "Custom Awards & Plaques",
+        "subtitle": "Handcrafted custom plaques, crystal awards, and engraved recognition pieces. Every item is made to order with your branding and personalization.",
+        "footer_text": "All Plaque Maker Plus products are custom-priced based on size, material, and engraving specifications. Request a quote and our team will get back to you within 24 hours.",
+        "footer_cta_label": "Request a Quote",
+        "footer_cta_link": "/pages/request-quote?type=Custom+Awards"
+      }
+    }
+  },
   "order": [
-    "main"
+    "main",
+    "plaque_maker"
   ]
 }
