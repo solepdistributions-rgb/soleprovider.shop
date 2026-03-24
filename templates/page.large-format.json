@@ -9,6 +9,48 @@
  */
 {
   "sections": {
+    "portfolio": {
+      "type": "large-format-portfolio",
+      "blocks": {
+        "project_r7rcym": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/IMG_4757.jpg",
+            "caption": "Food Truck Design & Wrap",
+            "client": "Bryant University",
+            "service_type": "Car Wrap"
+          }
+        },
+        "project_1": {
+          "type": "project",
+          "settings": {
+            "caption": "Food Truck Full Wrap",
+            "client": "Street Eats",
+            "service_type": "Vehicle Wrap"
+          }
+        },
+        "project_2": {
+          "type": "project",
+          "settings": {
+            "caption": "Commercial Van Wrap",
+            "client": "The Shine Mechanic",
+            "service_type": "Vehicle Wrap"
+          }
+        }
+      },
+      "block_order": [
+        "project_r7rcym",
+        "project_1",
+        "project_2"
+      ],
+      "settings": {
+        "eyebrow": "Our Work",
+        "heading": "Built to Stand Out",
+        "text": "From food trucks to fleet vehicles, we bring brands to life at every scale.",
+        "cta_label": "Start Your Project",
+        "cta_link": "/pages/request-quote?type=Large+Format+-+Car+Wraps"
+      }
+    },
     "main": {
       "type": "large-format-landing",
       "blocks": {
@@ -68,28 +110,12 @@
           }
         }
       },
-      "gallery_1": {
-        "type": "gallery_item",
-        "settings": {
-          "caption": "Food Truck Full Wrap",
-          "client": "Street Eats"
-        }
-      },
-      "gallery_2": {
-        "type": "gallery_item",
-        "settings": {
-          "caption": "Commercial Vehicle Wrap",
-          "client": "The Shine Mechanic"
-        }
-      },
       "block_order": [
         "service_1",
         "service_2",
         "service_3",
         "service_4",
-        "service_5",
-        "gallery_1",
-        "gallery_2"
+        "service_5"
       ],
       "settings": {
         "eyebrow": "Custom Signage",
@@ -108,44 +134,15 @@
         "products_text": "Browse our large format product catalog",
         "products_limit": 8,
         "products_view_all_label": "View All Products",
-        "gallery_eyebrow": "Our Work",
-        "gallery_heading": "Recent Projects",
-        "gallery_text": "See what we've built for our clients.",
         "help_heading": "Need Help With Your Signage Project?",
         "help_text": "Whether you need vehicle wraps for your fleet, custom banners for an event, or LED neon signs for your business, we can help you find the right solution and get a quote.",
         "help_primary_label": "Request a Quote",
         "help_primary_link": "/pages/request-quote",
         "help_secondary_label": "Contact Us",
-        "help_secondary_link": "/pages/contact"
-      }
-    },
-    "portfolio": {
-      "type": "large-format-portfolio",
-      "blocks": {
-        "project_1": {
-          "type": "project",
-          "settings": {
-            "caption": "Food Truck Full Wrap",
-            "client": "Street Eats",
-            "service_type": "Vehicle Wrap"
-          }
-        },
-        "project_2": {
-          "type": "project",
-          "settings": {
-            "caption": "Commercial Van Wrap",
-            "client": "The Shine Mechanic",
-            "service_type": "Vehicle Wrap"
-          }
-        }
-      },
-      "block_order": ["project_1", "project_2"],
-      "settings": {
-        "eyebrow": "Our Work",
-        "heading": "Built to Stand Out",
-        "text": "From food trucks to fleet vehicles, we bring brands to life at every scale.",
-        "cta_label": "Start Your Project",
-        "cta_link": "/pages/request-quote?type=Large+Format+-+Car+Wraps"
+        "help_secondary_link": "/pages/contact",
+        "gallery_eyebrow": "Our Work",
+        "gallery_heading": "Recent Projects",
+        "gallery_text": "See what we've built for our clients."
       }
     }
   },
