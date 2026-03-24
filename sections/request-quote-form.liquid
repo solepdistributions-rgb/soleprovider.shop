@@ -853,6 +853,27 @@
 
     handleSuccessfulSubmission();
     syncFormState();
+
+    // Mirror form submissions to SP Tools inbox
+    var quoteForm = document.getElementById('RequestQuoteForm');
+    if (quoteForm) {
+      quoteForm.addEventListener('submit', function() {
+        try {
+          var formData = new FormData(quoteForm);
+          var data = {};
+          formData.forEach(function(value, key) {
+            var cleanKey = key.replace('contact[', '').replace(']', '');
+            data[cleanKey] = value;
+          });
+          // Send to SP Tools webhook (fire and forget)
+          fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          }).catch(function() {}); // Silently fail - Shopify form still works
+        } catch(e) {}
+      });
+    }
   });
 </script>
 
