@@ -141,6 +141,9 @@
           {% if deco_tags contains 'deco:engraving' %}
             <option value="Engraving">Engraving</option>
           {% endif %}
+          {% if deco_tags contains 'deco:pad-print' %}
+            <option value="Pad Print">Pad Print</option>
+          {% endif %}
           {% if deco_tags contains 'deco:full-color' %}
             <option value="Full Color Print">Full Color Print</option>
           {% endif %}
@@ -152,6 +155,7 @@
           <option value="Heat Transfer">Heat Transfer</option>
           <option value="Dye Sublimation">Dye Sublimation</option>
           <option value="Engraving">Engraving</option>
+          <option value="Pad Print">Pad Print</option>
           <option value="Full Color Print">Full Color Print</option>
           <option value="Not Sure Yet">Not Sure Yet</option>
         {% endif %}
