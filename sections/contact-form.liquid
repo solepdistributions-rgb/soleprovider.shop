@@ -132,6 +132,23 @@
         </button>
       </div>
     {%- endform -%}
+    <script>
+      var cForm = document.getElementById('ContactForm');
+      if (cForm) {
+        cForm.addEventListener('submit', function() {
+          try {
+            var fd = new FormData(cForm);
+            var data = {};
+            fd.forEach(function(v, k) { data[k.replace('contact[','').replace(']','')] = v; });
+            data.project_type = data.project_type || 'General Contact';
+            fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            }).catch(function() {});
+          } catch(e) {}
+        });
+      }
+    </script>
   </div>
 </div>
 
