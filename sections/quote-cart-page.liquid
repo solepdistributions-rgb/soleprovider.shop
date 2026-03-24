@@ -158,7 +158,47 @@
             </p>
           </div>
 
-          [nerdy-form:18188]
+          <div class="rq-upload-form" id="qcArtworkUpload">
+            <div style="border:2px dashed #ccc;border-radius:8px;padding:2rem;text-align:center"
+              ondragover="event.preventDefault(); this.style.borderColor='#c41230'; this.style.background='#fef2f2'"
+              ondragleave="this.style.borderColor='#ccc'; this.style.background=''"
+              ondrop="event.preventDefault(); this.style.borderColor='#ccc'; this.style.background=''; qcHandleFiles(event.dataTransfer.files)">
+              <p style="color:#888;margin:0 0 0.5rem">Drag & drop files here, or</p>
+              <label style="display:inline-block;background:#111;color:#fff;padding:0.5rem 1.5rem;border-radius:6px;font-weight:700;font-size:0.9rem;cursor:pointer;text-transform:uppercase">
+                Browse Files
+                <input type="file" multiple accept=".png,.jpg,.jpeg,.gif,.svg,.ai,.eps,.pdf,.psd,.zip" style="display:none" onchange="qcHandleFiles(this.files)">
+              </label>
+              <p style="font-size:0.75rem;color:#aaa;margin-top:0.5rem">PNG, JPG, SVG, AI, EPS, PDF, PSD, ZIP — Max 25MB per file</p>
+            </div>
+            <div id="qcFileList" style="margin-top:0.75rem"></div>
+            <div id="qcUploadStatus" style="margin-top:0.75rem;font-size:0.85rem"></div>
+          </div>
+          <script>
+            var qcUploadedFiles = [];
+            function qcHandleFiles(files) {
+              var list = document.getElementById('qcFileList');
+              for (var i = 0; i < files.length; i++) {
+                qcUploadedFiles.push(files[i]);
+                var div = document.createElement('div');
+                div.style.cssText = 'display:flex;justify-content:space-between;padding:0.5rem 0.75rem;background:#f9f9f9;border-radius:4px;margin-bottom:0.25rem;font-size:0.85rem';
+                div.innerHTML = '<span>' + files[i].name + '</span><span style="color:#888;font-size:0.75rem">' + Math.round(files[i].size/1024) + 'KB</span>';
+                list.appendChild(div);
+              }
+              var reqField = document.getElementById('quote-request-id');
+              var requestId = reqField ? reqField.value : 'QC-' + Date.now();
+              var formData = new FormData();
+              formData.append('request_id', requestId);
+              qcUploadedFiles.forEach(function(f) { formData.append('files', f); });
+              var status = document.getElementById('qcUploadStatus');
+              status.innerHTML = '<span style="color:#666">Uploading...</span>';
+              fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook/upload', { method: 'POST', body: formData })
+                .then(function(r) { return r.json(); })
+                .then(function(d) {
+                  status.innerHTML = d.success ? '<span style="color:#16a34a;font-weight:700">✓ ' + d.files.length + ' file(s) uploaded</span>' : '<span style="color:#dc2626">Upload failed</span>';
+                  qcUploadedFiles = [];
+                }).catch(function() { status.innerHTML = '<span style="color:#dc2626">Upload failed</span>'; });
+            }
+          </script>
         </div>
       </div>
     </div>
