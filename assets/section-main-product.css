@@ -2,6 +2,89 @@ product-info {
   display: block;
 }
 
+/* Quote Modal */
+.quote-modal-trigger {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #fff;
+  background: #c41230;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s;
+}
+.quote-modal-trigger:hover { background: #9a0e24; }
+
+dialog.quote-modal {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  max-width: 680px;
+  width: 92vw;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.3);
+}
+dialog.quote-modal::backdrop {
+  background: rgba(0,0,0,0.5);
+}
+.quote-modal__inner {
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+}
+.quote-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  background: #111;
+  color: #fff;
+}
+.quote-modal__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+.quote-modal__close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 0.3rem;
+}
+.quote-modal__close:hover { color: #c41230; }
+.quote-modal__body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(90vh - 60px);
+}
+
+/* Hide the old heading inside modal since modal has its own header */
+.quote-modal .add-to-quote__heading { display: none; }
+
+@media (max-width: 749px) {
+  dialog.quote-modal {
+    max-width: 100vw;
+    width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+    margin: 0;
+  }
+  .quote-modal__inner { max-height: 100vh; }
+  .quote-modal__body { max-height: calc(100vh - 60px); }
+}
+
 .product {
   margin: 0;
 }
@@ -243,6 +326,22 @@ a.product__text {
 
 .product__text.caption-with-letter-spacing {
   text-transform: uppercase;
+}
+
+.product__sku {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.02em;
+}
+
+.product__vendor-name {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #888;
+  text-decoration: underline;
+  margin-bottom: 0.3rem;
 }
 
 .product__title {

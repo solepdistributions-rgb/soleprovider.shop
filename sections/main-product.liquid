@@ -102,6 +102,13 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
+                  {%- assign product_sku = product.selected_or_first_available_variant.sku -%}
+                  {%- if product_sku != blank -%}
+                    <p class="product__sku">{{ product_sku }}</p>
+                  {%- endif -%}
+                  {%- if product.vendor != blank -%}
+                    <p class="product__vendor-name">{{ product.vendor }}</p>
+                  {%- endif -%}
                   <h1>{{ product.title | escape }}</h1>
                   <a href="{{ product.url }}" class="product__title">
                     <h2 class="h1">
@@ -501,7 +508,20 @@
     -%}
   {% endunless %}
 
-  {% render 'add-to-quote-form', product: product %}
+  <button type="button" class="quote-modal-trigger" onclick="document.getElementById('quoteModal').showModal()">
+    Request Quote
+  </button>
+  <dialog id="quoteModal" class="quote-modal">
+    <div class="quote-modal__inner">
+      <div class="quote-modal__header">
+        <h2 class="quote-modal__title">Request Quote</h2>
+        <button type="button" class="quote-modal__close" onclick="document.getElementById('quoteModal').close()">&times;</button>
+      </div>
+      <div class="quote-modal__body">
+        {% render 'add-to-quote-form', product: product %}
+      </div>
+    </div>
+  </dialog>
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
