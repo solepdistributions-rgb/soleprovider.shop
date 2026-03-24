@@ -1,0 +1,263 @@
+<section class="vendor-showcase">
+  <div class="page-width">
+    <div class="vendor-showcase__header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="vendor-showcase__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h2 class="vendor-showcase__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.subtitle != blank %}
+        <p class="vendor-showcase__subtitle">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="vendor-showcase__grid">
+      {% for block in section.blocks %}
+        {%- assign quote_type = block.settings.quote_type | default: block.settings.title | url_encode -%}
+        <a href="/pages/request-quote?type={{ quote_type }}" class="vendor-showcase__card" {{ block.shopify_attributes }}>
+          <div class="vendor-showcase__card-media">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 900 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+              >
+            {% else %}
+              <div class="vendor-showcase__card-placeholder">
+                <span>{{ block.settings.icon_text }}</span>
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="vendor-showcase__card-overlay">
+            <div class="vendor-showcase__card-body">
+              <h3 class="vendor-showcase__card-title">{{ block.settings.title }}</h3>
+
+              {% if block.settings.description != blank %}
+                <p class="vendor-showcase__card-desc">{{ block.settings.description }}</p>
+              {% endif %}
+
+              <span class="vendor-showcase__card-cta">Get Quote &rarr;</span>
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.footer_text != blank %}
+      <div class="vendor-showcase__footer">
+        <p class="vendor-showcase__footer-text">{{ section.settings.footer_text }}</p>
+        {% if section.settings.footer_cta_label != blank and section.settings.footer_cta_link != blank %}
+          <a href="{{ section.settings.footer_cta_link }}" class="vendor-showcase__button">
+            {{ section.settings.footer_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .vendor-showcase {
+    padding: 84px 0;
+    background: #111111;
+  }
+
+  .vendor-showcase__header {
+    max-width: 900px;
+    margin: 0 auto 48px;
+    text-align: center;
+  }
+
+  .vendor-showcase__eyebrow {
+    margin: 0 0 10px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .vendor-showcase__heading {
+    margin: 0 0 16px;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.6rem, 4vw, 4.4rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .vendor-showcase__subtitle {
+    margin: 0;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.55rem;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .vendor-showcase__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .vendor-showcase__card {
+    position: relative;
+    display: block;
+    min-height: 300px;
+    overflow: hidden;
+    text-decoration: none;
+    background: #1a1a1a;
+    border: 1px solid #333333;
+    border-bottom: 4px solid #555555;
+    box-shadow: 0 6px 0 #222222, 0 10px 24px rgba(0,0,0,0.3);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    cursor: pointer;
+  }
+
+  .vendor-showcase__card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 0 #333333, 0 22px 40px rgba(0,0,0,0.4);
+    border-color: #c41230;
+    border-bottom-color: #9a0e24;
+  }
+
+  .vendor-showcase__card-media { position: absolute; inset: 0; }
+
+  .vendor-showcase__card-media img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .vendor-showcase__card:hover .vendor-showcase__card-media img { transform: scale(1.05); }
+
+  .vendor-showcase__card-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .vendor-showcase__card-placeholder span {
+    font-family: var(--sole-heading-font);
+    font-size: 4.2rem; font-weight: 900; text-transform: uppercase;
+    color: rgba(255,255,255,0.12);
+  }
+
+  .vendor-showcase__card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(17,17,17,0.96) 0%, rgba(17,17,17,0.5) 50%, rgba(17,17,17,0.05) 100%);
+    display: flex; align-items: flex-end;
+    transition: background 0.3s ease;
+  }
+
+  .vendor-showcase__card:hover .vendor-showcase__card-overlay {
+    background: linear-gradient(to top, rgba(196,18,48,0.92) 0%, rgba(17,17,17,0.55) 50%, rgba(17,17,17,0.08) 100%);
+  }
+
+  .vendor-showcase__card-body { width: 100%; padding: 24px 22px 20px; }
+
+  .vendor-showcase__card-title {
+    margin: 0 0 8px;
+    font-family: var(--sole-heading-font);
+    font-size: 2.2rem; line-height: 1; font-weight: 900;
+    text-transform: uppercase; color: #ffffff;
+  }
+
+  .vendor-showcase__card-desc {
+    margin: 0 0 14px;
+    font-size: 1.3rem; line-height: 1.45;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .vendor-showcase__card-cta {
+    display: inline-block; font-size: 1.15rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .vendor-showcase__card:hover .vendor-showcase__card-cta {
+    color: #ffffff; transform: translateX(4px);
+  }
+
+  .vendor-showcase__footer {
+    max-width: 860px; margin: 48px auto 0; text-align: center;
+    background: #1a1a1a; border: 1px solid #333333;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2); padding: 34px 28px;
+  }
+
+  .vendor-showcase__footer-text {
+    margin: 0 0 20px;
+    font-size: 1.5rem; line-height: 1.65; color: rgba(255,255,255,0.7);
+  }
+
+  .vendor-showcase__button {
+    display: inline-flex;
+    align-items: center; justify-content: center;
+    min-height: 48px; padding: 0 22px;
+    text-decoration: none;
+    font-size: 1.25rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    background: #c41230; color: #ffffff; border: 2px solid #c41230;
+    transition: transform 0.2s ease, background 0.2s ease;
+  }
+
+  .vendor-showcase__button:hover {
+    transform: translateY(-2px);
+    background: #ffffff; color: #111111; border-color: #ffffff;
+  }
+
+  @media screen and (max-width: 989px) {
+    .vendor-showcase { padding: 64px 0; }
+    .vendor-showcase__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .vendor-showcase__card { min-height: 260px; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .vendor-showcase__grid { grid-template-columns: 1fr; }
+    .vendor-showcase__card { min-height: 220px; }
+    .vendor-showcase__card-title { font-size: 1.9rem; }
+    .vendor-showcase__subtitle, .vendor-showcase__footer-text { font-size: 1.35rem; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Vendor Showcase",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Vendor Partner" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Products & Services" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle text" },
+
+    { "type": "header", "content": "Footer CTA" },
+    { "type": "textarea", "id": "footer_text", "label": "Footer text" },
+    { "type": "text", "id": "footer_cta_label", "label": "Footer button label" },
+    { "type": "url", "id": "footer_cta_link", "label": "Footer button link" }
+  ],
+  "blocks": [
+    {
+      "type": "product_service",
+      "name": "Product / Service",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "icon_text", "label": "Icon fallback", "default": "VS" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Product Name" },
+        { "type": "textarea", "id": "description", "label": "Description" },
+        { "type": "text", "id": "quote_type", "label": "Quote type parameter", "info": "Value for ?type= in the quote URL. Leave blank to use the title." }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Vendor Showcase"
+    }
+  ]
+}
+{% endschema %}
