@@ -110,6 +110,11 @@
                 <option value="Apparel">Apparel</option>
                 <option value="Graphic Design">Graphic Design</option>
                 <option value="Promo Products">Promo Products</option>
+                <option value="Large Format - Large Signs">Large Format - Large Signs</option>
+                <option value="Large Format - Car Wraps">Large Format - Car Wraps</option>
+                <option value="Large Format - Wall Wraps">Large Format - Wall Wraps</option>
+                <option value="Large Format - Neon Signs">Large Format - Neon Signs</option>
+                <option value="Large Format - Other">Large Format - Other</option>
                 <option value="Team Store">Team Store</option>
                 <option value="Multi-Service Project">Multi-Service Project</option>
                 <option value="Not Sure Yet">Not Sure Yet</option>
@@ -699,6 +704,18 @@
         normalized.indexOf('transfer') !== -1
       ) {
         projectTypeField.value = 'Apparel';
+      }
+    }
+
+    // Check for ?type= URL parameter (from Large Format landing page)
+    var urlType = new URLSearchParams(window.location.search).get('type');
+    if (projectTypeField && urlType) {
+      // Try exact match first
+      for (var i = 0; i < projectTypeField.options.length; i++) {
+        if (projectTypeField.options[i].value === urlType) {
+          projectTypeField.value = urlType;
+          break;
+        }
       }
     }
 
