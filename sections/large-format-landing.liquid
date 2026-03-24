@@ -45,7 +45,8 @@
 
       <div class="lf-landing__grid">
         {% for block in section.blocks %}
-          <div class="lf-landing__card" {{ block.shopify_attributes }}>
+          {%- assign type_param = block.settings.title | url_encode -%}
+          <a href="/pages/request-quote?type=Large+Format+-+{{ type_param }}" class="lf-landing__card" {{ block.shopify_attributes }}>
             <div class="lf-landing__card-media">
               {% if block.settings.image != blank %}
                 <img
@@ -82,10 +83,10 @@
                   </ul>
                 {% endif %}
 
-                <a href="/pages/request-quote" class="lf-landing__card-link">Request Quote →</a>
+                <span class="lf-landing__card-link">Request Quote →</span>
               </div>
             </div>
-          </div>
+          </a>
         {% endfor %}
       </div>
     </div>
@@ -226,6 +227,9 @@
     border-bottom: 4px solid #aaaaaa;
     box-shadow: 0 6px 0 #999999, 0 10px 24px rgba(0,0,0,0.12);
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
   }
 
   .lf-landing__card:hover {
