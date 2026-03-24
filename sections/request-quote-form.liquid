@@ -972,7 +972,7 @@
           // sendBeacon survives page redirect, fetch does not
           navigator.sendBeacon(
             'https://sp-tools-production.up.railway.app/api/inbox/webhook',
-            new Blob([JSON.stringify(data)], { type: 'application/json' })
+            new Blob([JSON.stringify(data)], { type: 'text/plain' })
           );
         } catch(e) {}
       });

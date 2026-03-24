@@ -1169,7 +1169,7 @@
           }
           navigator.sendBeacon(
             'https://sp-tools-production.up.railway.app/api/inbox/webhook',
-            new Blob([JSON.stringify(webhookData)], { type: 'application/json' })
+            new Blob([JSON.stringify(webhookData)], { type: 'text/plain' })
           );
         } catch(e) {}
       });
