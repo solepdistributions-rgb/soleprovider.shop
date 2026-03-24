@@ -1,0 +1,101 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "large-format-landing",
+      "blocks": {
+        "service_1": {
+          "type": "service",
+          "settings": {
+            "icon_text": "LS",
+            "title": "Large Signs",
+            "subtitle": "Custom banners, yard signs, A-frames, and trade show displays built to get your brand noticed",
+            "detail_1": "Banners, yard signs, and A-frames",
+            "detail_2": "Trade show displays and backdrops",
+            "detail_3": "Indoor and outdoor options available"
+          }
+        },
+        "service_2": {
+          "type": "service",
+          "settings": {
+            "icon_text": "CW",
+            "title": "Car Wraps",
+            "subtitle": "Full wraps, partial wraps, and fleet graphics that turn vehicles into mobile advertising",
+            "detail_1": "Full and partial vehicle wraps",
+            "detail_2": "Fleet branding and graphics",
+            "detail_3": "Professional installation available"
+          }
+        },
+        "service_3": {
+          "type": "service",
+          "settings": {
+            "icon_text": "WW",
+            "title": "Wall Wraps",
+            "subtitle": "Custom office murals, retail graphics, and window treatments that transform any space",
+            "detail_1": "Office murals and branded interiors",
+            "detail_2": "Retail and storefront graphics",
+            "detail_3": "Window graphics and frosted vinyl"
+          }
+        },
+        "service_4": {
+          "type": "service",
+          "settings": {
+            "icon_text": "NS",
+            "title": "Neon Signs",
+            "subtitle": "Custom LED neon signs for businesses, events, and personal spaces with vibrant color options",
+            "detail_1": "Custom LED neon designs",
+            "detail_2": "Business and storefront signage",
+            "detail_3": "Event and display installations"
+          }
+        },
+        "service_5": {
+          "type": "service",
+          "settings": {
+            "icon_text": "SP",
+            "title": "Other",
+            "subtitle": "Decals, stickers, floor graphics, and specialty printing for unique branding applications",
+            "detail_1": "Custom decals and stickers",
+            "detail_2": "Floor graphics and wayfinding",
+            "detail_3": "Specialty and wide-format printing"
+          }
+        }
+      },
+      "block_order": [
+        "service_1",
+        "service_2",
+        "service_3",
+        "service_4",
+        "service_5"
+      ],
+      "settings": {
+        "eyebrow": "Custom Signage",
+        "heading": "Large Format Printing & Signage",
+        "text": "<p>From banners and vehicle wraps to wall murals and LED neon signs, we deliver custom large format printing and signage solutions built to make your brand stand out anywhere.</p>",
+        "primary_label": "Request a Quote",
+        "primary_link": "/pages/request-quote",
+        "secondary_label": "View Our Work",
+        "secondary_link": "/pages/portfolio",
+        "services_eyebrow": "Our Services",
+        "services_heading": "Choose Your Service",
+        "services_text": "Browse our large format services to find the right solution for your project.",
+        "help_heading": "Need Help With Your Signage Project?",
+        "help_text": "Whether you need vehicle wraps for your fleet, custom banners for an event, or LED neon signs for your business, we can help you find the right solution and get a quote.",
+        "help_primary_label": "Request a Quote",
+        "help_primary_link": "/pages/request-quote",
+        "help_secondary_label": "Contact Us",
+        "help_secondary_link": "/pages/contact"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
