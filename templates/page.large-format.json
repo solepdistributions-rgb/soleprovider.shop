@@ -68,12 +68,28 @@
           }
         }
       },
+      "gallery_1": {
+        "type": "gallery_item",
+        "settings": {
+          "caption": "Food Truck Full Wrap",
+          "client": "Street Eats"
+        }
+      },
+      "gallery_2": {
+        "type": "gallery_item",
+        "settings": {
+          "caption": "Commercial Vehicle Wrap",
+          "client": "The Shine Mechanic"
+        }
+      },
       "block_order": [
         "service_1",
         "service_2",
         "service_3",
         "service_4",
-        "service_5"
+        "service_5",
+        "gallery_1",
+        "gallery_2"
       ],
       "settings": {
         "eyebrow": "Custom Signage",
@@ -92,6 +108,9 @@
         "products_text": "Browse our large format product catalog",
         "products_limit": 8,
         "products_view_all_label": "View All Products",
+        "gallery_eyebrow": "Our Work",
+        "gallery_heading": "Recent Projects",
+        "gallery_text": "See what we've built for our clients.",
         "help_heading": "Need Help With Your Signage Project?",
         "help_text": "Whether you need vehicle wraps for your fleet, custom banners for an event, or LED neon signs for your business, we can help you find the right solution and get a quote.",
         "help_primary_label": "Request a Quote",

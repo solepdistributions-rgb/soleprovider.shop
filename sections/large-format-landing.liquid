@@ -152,6 +152,44 @@
       </div>
     {% endif %}
 
+    <!-- Our Work Gallery -->
+    {% if section.settings.gallery_heading != blank %}
+      <div class="lf-landing__gallery-wrap">
+        <div class="lf-landing__section-intro">
+          {% if section.settings.gallery_eyebrow != blank %}
+            <p class="lf-landing__section-eyebrow">{{ section.settings.gallery_eyebrow }}</p>
+          {% endif %}
+          <h2 class="lf-landing__section-heading">{{ section.settings.gallery_heading }}</h2>
+          {% if section.settings.gallery_text != blank %}
+            <p class="lf-landing__section-text">{{ section.settings.gallery_text }}</p>
+          {% endif %}
+        </div>
+
+        <div class="lf-landing__gallery">
+          {% for block in section.blocks %}
+            {% if block.type == 'gallery_item' and block.settings.image != blank %}
+              <div class="lf-landing__gallery-item" {{ block.shopify_attributes }}>
+                <img
+                  src="{{ block.settings.image | image_url: width: 1200 }}"
+                  alt="{{ block.settings.caption | default: 'Project showcase' | escape }}"
+                  loading="lazy"
+                  class="lf-landing__gallery-img"
+                >
+                {% if block.settings.caption != blank %}
+                  <div class="lf-landing__gallery-caption">
+                    <p>{{ block.settings.caption }}</p>
+                    {% if block.settings.client != blank %}
+                      <span class="lf-landing__gallery-client">{{ block.settings.client }}</span>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
     <div class="lf-landing__help">
       {% if section.settings.help_heading != blank %}
         <h2 class="lf-landing__help-heading">{{ section.settings.help_heading }}</h2>
@@ -471,6 +509,26 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 34px 28px;
   }
 
+  /* Gallery */
+  .lf-landing__gallery-wrap { margin-top: 48px; }
+  .lf-landing__gallery {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+  .lf-landing__gallery-item {
+    position: relative; overflow: hidden; border-radius: 8px;
+    border: 1px solid #ddd; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .lf-landing__gallery-img { width: 100%; height: auto; display: block; }
+  .lf-landing__gallery-caption {
+    padding: 12px 16px; background: #111; color: #fff;
+  }
+  .lf-landing__gallery-caption p { margin: 0; font-size: 0.95rem; font-weight: 700; }
+  .lf-landing__gallery-client { font-size: 0.8rem; color: #c41230; }
+  @media (max-width: 600px) {
+    .lf-landing__gallery { grid-template-columns: 1fr; }
+  }
+
   .lf-landing__help-heading {
     margin: 0 0 12px;
     font-family: var(--sole-heading-font);
@@ -528,7 +586,11 @@
     { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
     { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
     { "type": "text", "id": "help_secondary_label", "label": "Help secondary button label", "default": "Contact Us" },
-    { "type": "url", "id": "help_secondary_link", "label": "Help secondary button link" }
+    { "type": "url", "id": "help_secondary_link", "label": "Help secondary button link" },
+    { "type": "header", "content": "Portfolio Gallery" },
+    { "type": "text", "id": "gallery_eyebrow", "label": "Gallery eyebrow", "default": "Our Work" },
+    { "type": "text", "id": "gallery_heading", "label": "Gallery heading", "default": "Recent Projects" },
+    { "type": "textarea", "id": "gallery_text", "label": "Gallery description", "default": "See what we've built for our clients." }
   ],
   "blocks": [
     {
@@ -543,9 +605,18 @@
         { "type": "text", "id": "detail_2", "label": "Detail 2", "default": "Indoor and outdoor options" },
         { "type": "text", "id": "detail_3", "label": "Detail 3", "default": "Quote-based ordering" }
       ]
+    },
+    {
+      "type": "gallery_item",
+      "name": "Portfolio Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "Vehicle Wrap" },
+        { "type": "text", "id": "client", "label": "Client name" }
+      ]
     }
   ],
-  "max_blocks": 10,
+  "max_blocks": 20,
   "presets": [
     {
       "name": "Large Format Landing"
