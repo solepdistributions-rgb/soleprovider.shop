@@ -1100,6 +1100,39 @@
         syncFormState();
         syncNerdyFields();
         setFormMessage('', '');
+
+        // Mirror to SP Tools inbox
+        try {
+          var formData = new FormData(quoteForm);
+          var webhookData = {};
+          formData.forEach(function(value, key) {
+            webhookData[key.replace('contact[', '').replace(']', '')] = value;
+          });
+          // Add individual item details with SKUs
+          var items = getQuoteItems();
+          var itemSummary = items.map(function(item, idx) {
+            var parts = ['Item ' + (idx + 1) + ': ' + (item.title || 'Unknown')];
+            if (item.sku) parts.push('SKU: ' + item.sku);
+            if (item.color) parts.push('Color: ' + item.color);
+            if (item.quantity) parts.push('Qty: ' + item.quantity);
+            if (item.decoration) parts.push('Deco: ' + item.decoration);
+            if (item.url) parts.push('URL: ' + item.url);
+            return parts.join(' | ');
+          }).join('\n');
+          webhookData.details = (webhookData.body || webhookData.details || '') + '\n\n--- ITEMS ---\n' + itemSummary;
+          webhookData.quantity = items.length + ' items';
+          if (items[0]) {
+            webhookData.product_title = items.map(function(i) { return i.title; }).join(', ');
+            webhookData.product_sku = items.map(function(i) { return i.sku || ''; }).filter(Boolean).join(', ');
+            webhookData.product_url = items[0].url || '';
+            webhookData.product_image = items[0].imageUrl || '';
+          }
+          fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(webhookData)
+          }).catch(function() {});
+        } catch(e) {}
       });
     }
 
