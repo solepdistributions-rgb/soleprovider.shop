@@ -118,9 +118,39 @@
         "help_secondary_label": "Contact Us",
         "help_secondary_link": "/pages/contact"
       }
+    },
+    "portfolio": {
+      "type": "large-format-portfolio",
+      "blocks": {
+        "project_1": {
+          "type": "project",
+          "settings": {
+            "caption": "Food Truck Full Wrap",
+            "client": "Street Eats",
+            "service_type": "Vehicle Wrap"
+          }
+        },
+        "project_2": {
+          "type": "project",
+          "settings": {
+            "caption": "Commercial Van Wrap",
+            "client": "The Shine Mechanic",
+            "service_type": "Vehicle Wrap"
+          }
+        }
+      },
+      "block_order": ["project_1", "project_2"],
+      "settings": {
+        "eyebrow": "Our Work",
+        "heading": "Recent Projects",
+        "text": "Real projects we've completed for our clients.",
+        "cta_label": "Start Your Project",
+        "cta_link": "/pages/request-quote?type=Large+Format+-+Car+Wraps"
+      }
     }
   },
   "order": [
+    "portfolio",
     "main"
   ]
 }
