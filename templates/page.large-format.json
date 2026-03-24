@@ -12,6 +12,15 @@
     "portfolio": {
       "type": "large-format-portfolio",
       "blocks": {
+        "project_aJXrFy": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/IMG_6766.jpg",
+            "caption": "Design & Wrap",
+            "client": "The Shine Mechanic",
+            "service_type": "Car Wrap"
+          }
+        },
         "project_r7rcym": {
           "type": "project",
           "settings": {
@@ -39,12 +48,13 @@
         }
       },
       "block_order": [
+        "project_aJXrFy",
         "project_r7rcym",
         "project_1",
         "project_2"
       ],
       "settings": {
-        "eyebrow": "Our Work",
+        "eyebrow": "",
         "heading": "Built to Stand Out",
         "text": "From food trucks to fleet vehicles, we bring brands to life at every scale.",
         "cta_label": "Start Your Project",
