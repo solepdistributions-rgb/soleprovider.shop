@@ -29,12 +29,14 @@
   {% endif %}
 {% endfor %}
 
+{%- assign product_moq = product.metafields.custom.moq | default: 1 -%}
 <div
   class="add-to-quote"
   data-product-id="{{ product.id }}"
   data-has-size-option="{% if has_size_option %}true{% else %}false{% endif %}"
   data-size-option-position="{{ size_option_position }}"
   data-size-option-name="{{ size_option_name | escape }}"
+  data-moq="{{ product_moq }}"
 >
   <p class="add-to-quote__heading">Add to Quote</p>
 
@@ -101,14 +103,17 @@
       </div>
     {% else %}
       <div class="add-to-quote__panel">
-        <label class="add-to-quote__panel-label" for="quote-qty-{{ product.id }}">Quantity</label>
+        <label class="add-to-quote__panel-label" for="quote-qty-{{ product.id }}">
+          Quantity
+          {%- if product_moq > 1 %} <span style="color:#c41230;font-size:0.75rem">(min {{ product_moq }})</span>{% endif -%}
+        </label>
         <input
           id="quote-qty-{{ product.id }}"
           class="add-to-quote__input"
           type="number"
-          min="1"
-          value="12"
-          placeholder="Quantity"
+          min="{{ product_moq }}"
+          value="{{ product_moq }}"
+          placeholder="Quantity (min {{ product_moq }})"
         >
       </div>
     {% endif %}
