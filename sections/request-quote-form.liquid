@@ -248,7 +248,71 @@
             </p>
           </div>
 
-          [nerdy-form:18187]
+          <div class="rq-upload-form" id="artworkUploadForm">
+            <div class="rq-upload-form__dropzone" id="dropzone"
+              ondragover="event.preventDefault(); this.classList.add('rq-upload-form__dropzone--active')"
+              ondragleave="this.classList.remove('rq-upload-form__dropzone--active')"
+              ondrop="event.preventDefault(); this.classList.remove('rq-upload-form__dropzone--active'); handleFiles(event.dataTransfer.files)">
+              <p class="rq-upload-form__dropzone-text">Drag & drop files here, or</p>
+              <label class="rq-upload-form__browse-btn">
+                Browse Files
+                <input type="file" multiple accept=".png,.jpg,.jpeg,.gif,.svg,.ai,.eps,.pdf,.psd,.zip" class="rq-upload-form__file-input" onchange="handleFiles(this.files)">
+              </label>
+              <p class="rq-upload-form__hint">PNG, JPG, SVG, AI, EPS, PDF, PSD, ZIP — Max 25MB per file</p>
+            </div>
+            <div id="uploadFileList" class="rq-upload-form__file-list"></div>
+            <div id="uploadStatus" class="rq-upload-form__status"></div>
+          </div>
+
+          <script>
+            var uploadedFiles = [];
+
+            function handleFiles(files) {
+              var list = document.getElementById('uploadFileList');
+              for (var i = 0; i < files.length; i++) {
+                uploadedFiles.push(files[i]);
+                var div = document.createElement('div');
+                div.className = 'rq-upload-form__file-item';
+                div.innerHTML = '<span>' + files[i].name + '</span><span class="rq-upload-form__file-size">' + Math.round(files[i].size / 1024) + 'KB</span>';
+                list.appendChild(div);
+              }
+              // Auto-upload when files are added
+              uploadToInbox();
+            }
+
+            function uploadToInbox() {
+              if (!uploadedFiles.length) return;
+              var requestId = document.getElementById('RequestQuote-request-id').value;
+              if (!requestId) {
+                requestId = 'SP-' + Date.now() + '-' + Math.floor(Math.random() * 100000);
+                document.getElementById('RequestQuote-request-id').value = requestId;
+              }
+
+              var formData = new FormData();
+              formData.append('request_id', requestId);
+              uploadedFiles.forEach(function(f) { formData.append('files', f); });
+
+              var status = document.getElementById('uploadStatus');
+              status.innerHTML = '<span class="rq-upload-form__uploading">Uploading...</span>';
+
+              fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook/upload', {
+                method: 'POST',
+                body: formData
+              })
+              .then(function(res) { return res.json(); })
+              .then(function(data) {
+                if (data.success) {
+                  status.innerHTML = '<span class="rq-upload-form__success">✓ ' + data.files.length + ' file(s) uploaded successfully. Reference: ' + requestId + '</span>';
+                  uploadedFiles = []; // Clear so they don't re-upload on form submit
+                } else {
+                  status.innerHTML = '<span class="rq-upload-form__error">Upload failed: ' + (data.error || 'Unknown error') + '</span>';
+                }
+              })
+              .catch(function() {
+                status.innerHTML = '<span class="rq-upload-form__error">Upload failed. Please try again.</span>';
+              });
+            }
+          </script>
         </div>
       </div>
 
@@ -539,6 +603,45 @@
     line-height: 1.6;
     color: #555555;
   }
+
+  .rq-upload-form__dropzone {
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .rq-upload-form__dropzone--active {
+    border-color: #c41230;
+    background: #fef2f2;
+  }
+  .rq-upload-form__dropzone-text { color: #888; margin: 0 0 0.5rem; }
+  .rq-upload-form__browse-btn {
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rq-upload-form__browse-btn:hover { background: #c41230; }
+  .rq-upload-form__file-input { display: none; }
+  .rq-upload-form__hint { font-size: 0.75rem; color: #aaa; margin-top: 0.5rem; }
+  .rq-upload-form__file-list { margin-top: 0.75rem; }
+  .rq-upload-form__file-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0.75rem; background: #f9f9f9; border-radius: 4px;
+    margin-bottom: 0.25rem; font-size: 0.85rem;
+  }
+  .rq-upload-form__file-size { color: #888; font-size: 0.75rem; }
+  .rq-upload-form__status { margin-top: 0.75rem; font-size: 0.85rem; }
+  .rq-upload-form__uploading { color: #666; }
+  .rq-upload-form__success { color: #16a34a; font-weight: 700; }
+  .rq-upload-form__error { color: #dc2626; font-weight: 700; }
 
   .rq-side-card {
     padding: 24px;
