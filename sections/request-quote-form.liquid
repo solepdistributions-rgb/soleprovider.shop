@@ -958,6 +958,7 @@
     syncFormState();
 
     // Mirror form submissions to SP Tools inbox
+    // Uses sendBeacon to survive page navigation (Shopify redirects on submit)
     var quoteForm = document.getElementById('RequestQuoteForm');
     if (quoteForm) {
       quoteForm.addEventListener('submit', function() {
@@ -968,12 +969,11 @@
             var cleanKey = key.replace('contact[', '').replace(']', '');
             data[cleanKey] = value;
           });
-          // Send to SP Tools webhook (fire and forget)
-          fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          }).catch(function() {}); // Silently fail - Shopify form still works
+          // sendBeacon survives page redirect, fetch does not
+          navigator.sendBeacon(
+            'https://sp-tools-production.up.railway.app/api/inbox/webhook',
+            new Blob([JSON.stringify(data)], { type: 'application/json' })
+          );
         } catch(e) {}
       });
     }

@@ -1167,11 +1167,10 @@
             webhookData.product_url = items[0].url || '';
             webhookData.product_image = items[0].imageUrl || '';
           }
-          fetch('https://sp-tools-production.up.railway.app/api/inbox/webhook', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(webhookData)
-          }).catch(function() {});
+          navigator.sendBeacon(
+            'https://sp-tools-production.up.railway.app/api/inbox/webhook',
+            new Blob([JSON.stringify(webhookData)], { type: 'application/json' })
+          );
         } catch(e) {}
       });
     }
