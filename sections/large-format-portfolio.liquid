@@ -52,38 +52,41 @@
 
 <style>
   .lf-portfolio {
-    padding: 48px 0;
-    background: #111;
-    color: #fff;
+    padding: 84px 0;
+    background: #111111;
+    color: #ffffff;
   }
 
   .lf-portfolio__eyebrow {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     color: #c41230;
-    margin: 0 0 12px;
+    margin: 0 0 16px;
     text-align: center;
   }
 
   .lf-portfolio__heading {
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-family: var(--sole-heading-font, inherit);
+    font-size: clamp(3.2rem, 5vw, 6rem);
     font-weight: 900;
     text-transform: uppercase;
     text-align: center;
-    margin: 0 0 16px;
+    margin: 0 0 20px;
     line-height: 1;
     letter-spacing: -1px;
+    color: #ffffff;
   }
 
   .lf-portfolio__text {
     text-align: center;
-    color: #aaa;
-    font-size: 1.15rem;
-    max-width: 650px;
-    margin: 0 auto 40px;
-    line-height: 1.6;
+    color: #bbbbbb;
+    font-size: 1.65rem;
+    max-width: 700px;
+    margin: 0 auto 48px;
+    line-height: 1.5;
+    font-weight: 300;
   }
 
   .lf-portfolio__grid {
@@ -128,33 +131,33 @@
   }
 
   .lf-portfolio__info {
-    padding: 20px 24px;
+    padding: 24px 28px;
   }
 
   .lf-portfolio__caption {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 900;
     text-transform: uppercase;
-    margin: 0 0 6px;
-    letter-spacing: 0.5px;
+    margin: 0 0 8px;
+    letter-spacing: 1px;
+    color: #ffffff;
   }
 
   .lf-portfolio__client {
-    font-size: 0.95rem;
-    color: #888;
-    margin: 0 0 10px;
+    font-size: 1.1rem;
+    color: #999;
+    margin: 0 0 14px;
   }
 
   .lf-portfolio__tag {
     display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: 0.85rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     background: #c41230;
     color: #fff;
-    padding: 5px 14px;
-    border-radius: 3px;
+    padding: 8px 18px;
   }
 
   .lf-portfolio__cta {
@@ -165,20 +168,24 @@
   .lf-portfolio__button {
     display: inline-block;
     background: #c41230;
-    color: #fff;
-    padding: 14px 40px;
-    font-weight: 700;
-    font-size: 0.95rem;
+    color: #ffffff;
+    padding: 0 28px;
+    height: 56px;
+    line-height: 56px;
+    font-weight: 800;
+    font-size: 1.25rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.2s;
+    border: 2px solid #c41230;
+    transition: all 0.25s ease;
   }
 
   .lf-portfolio__button:hover {
-    background: #9a0e24;
-    color: #fff;
+    background: #ffffff;
+    color: #111111;
+    border-color: #ffffff;
+    transform: translateY(-2px);
   }
 
   @media (max-width: 600px) {
