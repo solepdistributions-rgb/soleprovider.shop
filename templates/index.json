@@ -79,11 +79,11 @@
         "card_MjaiBd": {
           "type": "card",
           "settings": {
-            "title": "Request Quote",
-            "text": "Tell us what you need and we’ll help bring your project to life.",
-            "cta_text": "Start Here",
-            "link": "shopify://pages/request-quote",
-            "icon_text": "RQ"
+            "title": "Large Format",
+            "text": "Custom signage, car wraps, wall murals, neon signs, and large-scale printing.",
+            "cta_text": "Explore",
+            "link": "/pages/large-format",
+            "icon_text": "LF"
           }
         }
       },
