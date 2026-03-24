@@ -105,7 +105,7 @@
       <div class="add-to-quote__panel">
         <label class="add-to-quote__panel-label" for="quote-qty-{{ product.id }}">
           Quantity
-          {%- if product_moq > 1 %} <span style="color:#c41230;font-size:0.75rem">(min {{ product_moq }})</span>{% endif -%}
+          {%- if product_moq > 1 %} <span style="color:#c41230;font-size:0.95rem;font-weight:700">(min {{ product_moq }} units)</span>{% endif -%}
         </label>
         <input
           id="quote-qty-{{ product.id }}"
