@@ -48,7 +48,30 @@
       </div>
     {% endif %}
   </div>
+
+  <!-- Lightbox -->
+  <div class="lf-portfolio__lightbox" id="lf-lightbox" onclick="this.classList.remove('is-active')">
+    <button class="lf-portfolio__lightbox-close" onclick="document.getElementById('lf-lightbox').classList.remove('is-active')">&times;</button>
+    <img class="lf-portfolio__lightbox-img" id="lf-lightbox-img" src="" alt="">
+  </div>
 </section>
+
+<script>
+  document.querySelectorAll('.lf-portfolio__img-wrap').forEach(function(wrap) {
+    wrap.style.cursor = 'pointer';
+    wrap.addEventListener('click', function() {
+      var img = wrap.querySelector('img');
+      var lb = document.getElementById('lf-lightbox');
+      var lbImg = document.getElementById('lf-lightbox-img');
+      lbImg.src = img.src.replace(/width=\d+/, 'width=2000');
+      lbImg.alt = img.alt;
+      lb.classList.add('is-active');
+    });
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') document.getElementById('lf-lightbox').classList.remove('is-active');
+  });
+</script>
 
 <style>
   .lf-portfolio {
@@ -91,16 +114,16 @@
 
   .lf-portfolio__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
     max-width: 1200px;
     margin: 0 auto;
   }
 
-  /* Single item takes full width */
+  /* Single item centers itself */
   .lf-portfolio__grid:has(:only-child) {
     grid-template-columns: 1fr;
-    max-width: 900px;
+    max-width: 700px;
   }
 
   .lf-portfolio__item {
@@ -188,9 +211,53 @@
     transform: translateY(-2px);
   }
 
-  @media (max-width: 600px) {
+  .lf-portfolio__lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    cursor: pointer;
+  }
+
+  .lf-portfolio__lightbox.is-active {
+    display: flex;
+  }
+
+  .lf-portfolio__lightbox-img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .lf-portfolio__lightbox-close {
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 3rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: 300;
+  }
+
+  .lf-portfolio__lightbox-close:hover {
+    color: #c41230;
+  }
+
+  .lf-portfolio__img-wrap:hover .lf-portfolio__img {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 700px) {
     .lf-portfolio__grid { grid-template-columns: 1fr; }
-    .lf-portfolio { padding: 32px 0; }
+    .lf-portfolio { padding: 48px 0; }
   }
 </style>
 
