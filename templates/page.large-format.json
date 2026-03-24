@@ -142,8 +142,8 @@
       "block_order": ["project_1", "project_2"],
       "settings": {
         "eyebrow": "Our Work",
-        "heading": "Recent Projects",
-        "text": "Real projects we've completed for our clients.",
+        "heading": "Built to Stand Out",
+        "text": "From food trucks to fleet vehicles, we bring brands to life at every scale.",
         "cta_label": "Start Your Project",
         "cta_link": "/pages/request-quote?type=Large+Format+-+Car+Wraps"
       }
