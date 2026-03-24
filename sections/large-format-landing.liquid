@@ -91,6 +91,67 @@
       </div>
     </div>
 
+    {%- assign lf_collection = section.settings.featured_collection -%}
+    {% if lf_collection != blank and lf_collection.products.size > 0 %}
+      <div class="lf-landing__products-wrap">
+        <div class="lf-landing__section-intro">
+          {% if section.settings.products_eyebrow != blank %}
+            <p class="lf-landing__section-eyebrow">{{ section.settings.products_eyebrow }}</p>
+          {% endif %}
+          {% if section.settings.products_heading != blank %}
+            <h2 class="lf-landing__section-heading">{{ section.settings.products_heading }}</h2>
+          {% endif %}
+          {% if section.settings.products_text != blank %}
+            <p class="lf-landing__section-text">{{ section.settings.products_text }}</p>
+          {% endif %}
+        </div>
+
+        <div class="lf-landing__products-grid">
+          {%- assign product_limit = section.settings.products_limit | default: 8 -%}
+          {% for product in lf_collection.products limit: product_limit %}
+            <div class="lf-landing__product-card">
+              <a href="{{ product.url }}" class="lf-landing__product-link">
+                <div class="lf-landing__product-media">
+                  {% if product.featured_image != blank %}
+                    <img
+                      src="{{ product.featured_image | image_url: width: 600 }}"
+                      alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                      loading="lazy"
+                      width="600"
+                      height="{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}"
+                    >
+                  {% else %}
+                    <div class="lf-landing__product-placeholder">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+                    </div>
+                  {% endif %}
+                </div>
+
+                <div class="lf-landing__product-info">
+                  <h3 class="lf-landing__product-title">{{ product.title }}</h3>
+                  {% if product.price > 0 %}
+                    <p class="lf-landing__product-price">{{ product.price | money }}</p>
+                  {% endif %}
+                </div>
+              </a>
+
+              <a href="/pages/request-quote?product={{ product.title | url_encode }}" class="lf-landing__product-quote">
+                Request Quote →
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+
+        {% if section.settings.products_view_all_label != blank %}
+          <div class="lf-landing__products-footer">
+            <a href="{{ lf_collection.url }}" class="lf-landing__button lf-landing__button--primary">
+              {{ section.settings.products_view_all_label }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
     <div class="lf-landing__help">
       {% if section.settings.help_heading != blank %}
         <h2 class="lf-landing__help-heading">{{ section.settings.help_heading }}</h2>
@@ -294,6 +355,116 @@
 
   .lf-landing__card:hover .lf-landing__card-link { color: #ffffff; transform: translateX(4px); }
 
+  .lf-landing__products-wrap { margin-bottom: 56px; }
+
+  .lf-landing__products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .lf-landing__product-card {
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    border-bottom: 4px solid #aaaaaa;
+    box-shadow: 0 6px 0 #999999, 0 10px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lf-landing__product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 0 #888888, 0 22px 40px rgba(0,0,0,0.14);
+    border-color: #c41230;
+    border-bottom-color: #9a0e24;
+  }
+
+  .lf-landing__product-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex: 1;
+  }
+
+  .lf-landing__product-media {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background: #f0f0f0;
+  }
+
+  .lf-landing__product-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .lf-landing__product-card:hover .lf-landing__product-media img {
+    transform: scale(1.05);
+  }
+
+  .lf-landing__product-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
+    color: rgba(255,255,255,0.3);
+  }
+
+  .lf-landing__product-info {
+    padding: 16px 18px 12px;
+  }
+
+  .lf-landing__product-title {
+    margin: 0 0 4px;
+    font-family: var(--sole-heading-font);
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: #111111;
+  }
+
+  .lf-landing__product-price {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #c41230;
+  }
+
+  .lf-landing__product-quote {
+    display: block;
+    padding: 12px 18px;
+    background: #111111;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s ease;
+  }
+
+  .lf-landing__product-quote:hover {
+    background: #c41230;
+    color: #ffffff;
+  }
+
+  .lf-landing__products-footer {
+    text-align: center;
+    margin-top: 32px;
+  }
+
   .lf-landing__help {
     max-width: 860px; margin: 0 auto; text-align: center;
     background: #ffffff; border: 1px solid #d8d8d8;
@@ -313,6 +484,7 @@
     .lf-landing { padding: 64px 0; }
     .lf-landing__grid { grid-template-columns: 1fr; }
     .lf-landing__card { min-height: 280px; }
+    .lf-landing__products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media screen and (max-width: 749px) {
@@ -320,6 +492,9 @@
     .lf-landing__card { min-height: 240px; }
     .lf-landing__card-title { font-size: 2.1rem; }
     .lf-landing__text, .lf-landing__section-text, .lf-landing__help-text { font-size: 1.4rem; }
+    .lf-landing__products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .lf-landing__product-title { font-size: 1.25rem; }
+    .lf-landing__product-quote { font-size: 1rem; padding: 10px 14px; }
   }
 </style>
 
@@ -339,6 +514,15 @@
     { "type": "text", "id": "services_heading", "label": "Services heading", "default": "Choose Your Service" },
     { "type": "textarea", "id": "services_text", "label": "Services text", "default": "Browse our large format services to find the right solution for your project." },
 
+    { "type": "header", "content": "Featured Products" },
+    { "type": "collection", "id": "featured_collection", "label": "Product collection" },
+    { "type": "text", "id": "products_eyebrow", "label": "Products eyebrow", "default": "Shop Products" },
+    { "type": "text", "id": "products_heading", "label": "Products heading", "default": "Featured Products" },
+    { "type": "textarea", "id": "products_text", "label": "Products text", "default": "Browse our large format product catalog" },
+    { "type": "range", "id": "products_limit", "label": "Products to show", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "text", "id": "products_view_all_label", "label": "View all button label", "default": "View All Products" },
+
+    { "type": "header", "content": "Help / CTA" },
     { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help With Your Signage Project?" },
     { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Whether you need vehicle wraps for your fleet, custom banners for an event, or LED neon signs for your business, we can help you find the right solution and get a quote." },
     { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
