@@ -328,21 +328,7 @@ a.product__text {
   text-transform: uppercase;
 }
 
-.product__sku {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 0.2rem;
-  letter-spacing: 0.02em;
-}
-
-.product__vendor-name {
-  font-size: 0.8rem;
-  font-weight: 400;
-  color: #888;
-  text-decoration: underline;
-  margin-bottom: 0.3rem;
-}
+/* SKU on product page removed — now shown on collection cards only */
 
 .product__title {
   word-break: break-word;

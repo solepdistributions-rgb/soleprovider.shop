@@ -300,6 +300,14 @@
   height: 100%;
 }
 
+.card__sku {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 0.15rem;
+  line-height: 1.2;
+}
+
 .card__heading {
   margin-top: 0;
   margin-bottom: 0;
