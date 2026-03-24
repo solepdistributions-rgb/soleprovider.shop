@@ -38,6 +38,37 @@
 >
   <p class="add-to-quote__heading">Add to Quote</p>
 
+  {%- assign color_option = nil -%}
+  {%- for option in product.options_with_values -%}
+    {%- assign opt_down = option.name | downcase -%}
+    {%- if opt_down == 'color' or opt_down == 'shade' or opt_down == 'colour' -%}
+      {%- assign color_option = option -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- if color_option -%}
+    <div class="add-to-quote__panel" style="margin-bottom: 1rem;">
+      <label class="add-to-quote__panel-label" for="quote-color-{{ product.id }}">Color</label>
+      <select id="quote-color-{{ product.id }}" class="add-to-quote__input" onchange="
+        var sel = this.value;
+        var picker = document.querySelector('variant-selects, variant-radios');
+        if (picker) {
+          var inputs = picker.querySelectorAll('input[type=radio], select option');
+          inputs.forEach(function(inp) {
+            if (inp.value === sel) {
+              if (inp.tagName === 'OPTION') { inp.parentElement.value = sel; inp.parentElement.dispatchEvent(new Event('change', {bubbles:true})); }
+              else { inp.checked = true; inp.dispatchEvent(new Event('change', {bubbles:true})); }
+            }
+          });
+        }
+      ">
+        {%- for value in color_option.values -%}
+          <option value="{{ value | escape }}" {% if value == color_option.selected_value %}selected{% endif %}>{{ value | escape }}</option>
+        {%- endfor -%}
+      </select>
+    </div>
+  {%- endif -%}
+
   <div class="add-to-quote__top-grid">
     {% if has_size_option %}
       <div class="add-to-quote__panel add-to-quote__panel--size-plan">
