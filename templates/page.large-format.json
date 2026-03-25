@@ -18,7 +18,16 @@
             "image": "shopify://shop_images/IMG_4757.jpg",
             "caption": "Food Truck Design & Wrap",
             "client": "",
-            "service_type": "Large Size Wraps"
+            "service_type": "Car Wrap"
+          }
+        },
+        "project_hfHUT7": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/IMG_6766.jpg",
+            "caption": "Vehicle Wrap",
+            "client": "",
+            "service_type": "Car Wrap"
           }
         },
         "project_1": {
@@ -40,6 +49,7 @@
       },
       "block_order": [
         "project_cN83rG",
+        "project_hfHUT7",
         "project_1",
         "project_2"
       ],
