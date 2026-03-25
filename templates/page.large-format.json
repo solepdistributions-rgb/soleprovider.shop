@@ -29,11 +29,14 @@
           }
         }
       },
-      "block_order": ["project_1", "project_2"],
+      "block_order": [
+        "project_1",
+        "project_2"
+      ],
       "settings": {
-        "eyebrow": "Our Work",
+        "eyebrow": "",
         "heading": "Built to Stand Out",
-        "text": "From food trucks to fleet vehicles, we bring brands to life at every scale.",
+        "text": "From fleet vehicles to large scale projects, we bring brands to life at every scale.",
         "cta_label": "Start Your Project",
         "cta_link": "/pages/request-quote?type=Large+Format"
       }
@@ -139,12 +142,21 @@
         "services_eyebrow": "What We Do",
         "services_heading": "Our Services",
         "services_text": "Everything you need to make a big impression.",
+        "featured_collection": "",
+        "products_eyebrow": "Shop Products",
+        "products_heading": "Featured Products",
+        "products_text": "Browse our large format product catalog",
+        "products_limit": 8,
+        "products_view_all_label": "View All Products",
         "help_heading": "Need Help With Your Project?",
         "help_text": "Whether you need vehicle wraps, custom banners, or LED signs, we'll help you find the right solution and get a quote.",
         "help_primary_label": "Request a Quote",
         "help_primary_link": "/pages/request-quote?type=Large+Format",
         "help_secondary_label": "Contact Us",
-        "help_secondary_link": "/pages/contact"
+        "help_secondary_link": "/pages/contact",
+        "gallery_eyebrow": "Our Work",
+        "gallery_heading": "Recent Projects",
+        "gallery_text": "See what we've built for our clients."
       }
     }
   },
