@@ -12,6 +12,15 @@
     "portfolio": {
       "type": "large-format-portfolio",
       "blocks": {
+        "project_cN83rG": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/IMG_4757.jpg",
+            "caption": "Food Truck Design & Wrap",
+            "client": "",
+            "service_type": "Large Size Wraps"
+          }
+        },
         "project_1": {
           "type": "project",
           "settings": {
@@ -30,6 +39,7 @@
         }
       },
       "block_order": [
+        "project_cN83rG",
         "project_1",
         "project_2"
       ],
