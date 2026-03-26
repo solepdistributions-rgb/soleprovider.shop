@@ -1,20 +1,126 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "workwear-landing",
       "blocks": {
-        "work_shirts": { "type": "subtype", "settings": { "icon_text": "WS", "title": "Work Shirts", "subtitle": "Industrial and uniform shirts", "detail_1": "Short and long sleeve options", "detail_2": "Stain and wrinkle resistant", "detail_3": "Multiple fabric weights", "link": "/collections/work-shirts" } },
-        "work_jackets": { "type": "subtype", "settings": { "icon_text": "WJ", "title": "Work Jackets", "subtitle": "Industrial outerwear and coats", "detail_1": "Insulated and unlined options", "detail_2": "Water and wind resistant", "detail_3": "Hi-vis options available", "link": "/collections/work-jackets" } },
-        "work_pants": { "type": "subtype", "settings": { "icon_text": "WP", "title": "Work Pants", "subtitle": "Durable pants for the job site", "detail_1": "Cargo, flat front, and pleated", "detail_2": "Stain resistant finishes", "detail_3": "Industrial grade fabrics", "link": "/collections/work-pants" } },
-        "work_shorts": { "type": "subtype", "settings": { "icon_text": "WH", "title": "Work Shorts", "subtitle": "Built tough for warm weather", "detail_1": "Cargo and flat front styles", "detail_2": "Durable twill and ripstop", "detail_3": "Multiple inseam lengths", "link": "/collections/work-shorts" } },
-        "safety_vests": { "type": "subtype", "settings": { "icon_text": "SV", "title": "Safety Vests", "subtitle": "ANSI-rated hi-vis vests", "detail_1": "Class 2 and Class 3 rated", "detail_2": "Mesh and solid options", "detail_3": "Reflective striping", "link": "/collections/safety-vests" } },
-        "hi_vis": { "type": "subtype", "settings": { "icon_text": "HV", "title": "Hi-Visibility", "subtitle": "High visibility apparel and gear", "detail_1": "ANSI compliant", "detail_2": "Shirts, jackets, and pants", "detail_3": "Fluorescent and reflective", "link": "/collections/hi-visibility" } },
-        "fr": { "type": "subtype", "settings": { "icon_text": "FR", "title": "Flame Resistant", "subtitle": "FR-rated protective clothing", "detail_1": "NFPA 2112 compliant", "detail_2": "Shirts, pants, and coveralls", "detail_3": "Nomex and FR cotton", "link": "/collections/flame-resistant" } },
-        "work_accessories": { "type": "subtype", "settings": { "icon_text": "WA", "title": "Work Accessories", "subtitle": "Hard hats, gloves, and more", "detail_1": "Head and hand protection", "detail_2": "Tool belts and pouches", "detail_3": "Safety eyewear", "link": "/collections/work-accessories" } }
+        "work_shirts": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WS",
+            "title": "Work Shirts",
+            "subtitle": "Industrial and uniform shirts",
+            "detail_1": "Short and long sleeve options",
+            "detail_2": "Stain and wrinkle resistant",
+            "detail_3": "Multiple fabric weights",
+            "link": "/collections/work-shirts"
+          }
+        },
+        "work_jackets": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WJ",
+            "title": "Work Jackets",
+            "subtitle": "Industrial outerwear and coats",
+            "detail_1": "Insulated and unlined options",
+            "detail_2": "Water and wind resistant",
+            "detail_3": "Hi-vis options available",
+            "link": "/collections/work-jackets"
+          }
+        },
+        "work_pants": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WP",
+            "title": "Work Pants",
+            "subtitle": "Durable pants for the job site",
+            "detail_1": "Cargo, flat front, and pleated",
+            "detail_2": "Stain resistant finishes",
+            "detail_3": "Industrial grade fabrics",
+            "link": "/collections/work-pants"
+          }
+        },
+        "work_shorts": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WH",
+            "title": "Work Shorts",
+            "subtitle": "Built tough for warm weather",
+            "detail_1": "Cargo and flat front styles",
+            "detail_2": "Durable twill and ripstop",
+            "detail_3": "Multiple inseam lengths",
+            "link": "/collections/work-shorts"
+          }
+        },
+        "safety_vests": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "SV",
+            "title": "Safety Vests",
+            "subtitle": "ANSI-rated hi-vis vests",
+            "detail_1": "Class 2 and Class 3 rated",
+            "detail_2": "Mesh and solid options",
+            "detail_3": "Reflective striping",
+            "link": "/collections/safety-vests"
+          }
+        },
+        "hi_vis": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "HV",
+            "title": "Hi-Visibility",
+            "subtitle": "High visibility apparel and gear",
+            "detail_1": "ANSI compliant",
+            "detail_2": "Shirts, jackets, and pants",
+            "detail_3": "Fluorescent and reflective",
+            "link": "/collections/hi-visibility"
+          }
+        },
+        "fr": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "FR",
+            "title": "Flame Resistant",
+            "subtitle": "FR-rated protective clothing",
+            "detail_1": "NFPA 2112 compliant",
+            "detail_2": "Shirts, pants, and coveralls",
+            "detail_3": "Nomex and FR cotton",
+            "link": "/collections/flame-resistant"
+          }
+        },
+        "work_accessories": {
+          "type": "subtype",
+          "settings": {
+            "icon_text": "WA",
+            "title": "Work Accessories",
+            "subtitle": "Hard hats, gloves, and more",
+            "detail_1": "Head and hand protection",
+            "detail_2": "Tool belts and pouches",
+            "detail_3": "Safety eyewear",
+            "link": "/collections/work-accessories"
+          }
+        }
       },
-      "block_order": ["work_shirts", "work_jackets", "work_pants", "work_shorts", "safety_vests", "hi_vis", "fr", "work_accessories"],
+      "block_order": [
+        "work_shirts",
+        "work_jackets",
+        "work_pants",
+        "work_shorts",
+        "safety_vests",
+        "hi_vis",
+        "fr",
+        "work_accessories"
+      ],
       "settings": {
-        "eyebrow": "Industrial & Safety",
+        "eyebrow": "",
         "heading": "Workwear",
         "text": "<p>Durable, safety-rated apparel built for the job. From work shirts and pants to hi-vis vests and flame-resistant gear, we outfit your team with the right workwear.</p>",
         "primary_label": "Request a Quote",
@@ -23,7 +129,7 @@
         "secondary_link": "/collections/workwear",
         "view_all_label": "View All Workwear",
         "view_all_link": "/collections/workwear",
-        "subtypes_eyebrow": "Shop by Category",
+        "subtypes_eyebrow": "",
         "subtypes_heading": "Find What You Need",
         "subtypes_text": "Browse by garment type to find the right workwear for your team.",
         "help_heading": "Need Help Outfitting Your Team?",
@@ -35,5 +141,7 @@
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
