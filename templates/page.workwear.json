@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "main": {
+      "type": "workwear-landing",
+      "settings": {
+        "eyebrow": "Industrial & Safety",
+        "heading": "Workwear",
+        "text": "Durable, safety-rated apparel built for the job. From work shirts and pants to hi-vis vests and flame-resistant gear.",
+        "grid_eyebrow": "Shop by Category",
+        "grid_heading": "Find What You Need",
+        "grid_text": "Browse by garment type to find the right workwear for your team."
+      },
+      "blocks": {
+        "work_shirts": { "type": "category", "settings": { "title": "Work Shirts", "description": "Industrial and uniform shirts", "url": "/collections/work-shirts" } },
+        "work_pants": { "type": "category", "settings": { "title": "Work Pants", "description": "Durable pants for the job site", "url": "/collections/work-pants" } },
+        "work_shorts": { "type": "category", "settings": { "title": "Work Shorts", "description": "Built tough for warm weather", "url": "/collections/work-shorts" } },
+        "safety_vests": { "type": "category", "settings": { "title": "Safety Vests", "description": "ANSI-rated hi-vis vests", "url": "/collections/safety-vests" } },
+        "hi_vis": { "type": "category", "settings": { "title": "Hi-Visibility", "description": "High visibility apparel and gear", "url": "/collections/hi-visibility" } },
+        "fr": { "type": "category", "settings": { "title": "Flame Resistant", "description": "FR-rated protective clothing", "url": "/collections/flame-resistant" } }
+      },
+      "block_order": ["work_shirts", "work_pants", "work_shorts", "safety_vests", "hi_vis", "fr"]
+    }
+  },
+  "order": ["main"]
+}

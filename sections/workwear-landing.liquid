@@ -1,0 +1,98 @@
+{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+
+<style>
+  .workwear-landing { background: #111; color: #fff; }
+  .workwear-landing__hero { padding: 60px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
+  .workwear-landing__eyebrow { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; color: #c41230; margin-bottom: 12px; }
+  .workwear-landing__heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; line-height: 1.05; margin-bottom: 16px; }
+  .workwear-landing__text { color: #999; font-size: 1.05rem; line-height: 1.6; margin-bottom: 28px; }
+  .workwear-landing__cta { display: inline-block; background: #c41230; color: #fff; padding: 14px 36px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; text-decoration: none; border-radius: 4px; transition: background 0.2s; }
+  .workwear-landing__cta:hover { background: #a00e28; }
+  .workwear-landing__cta--outline { background: transparent; border: 2px solid #fff; margin-left: 12px; }
+  .workwear-landing__cta--outline:hover { background: #fff; color: #111; }
+
+  .workwear-landing__grid-section { padding: 48px 20px 60px; max-width: 1200px; margin: 0 auto; }
+  .workwear-landing__grid-eyebrow { text-align: center; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: #c41230; margin-bottom: 8px; }
+  .workwear-landing__grid-heading { text-align: center; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
+  .workwear-landing__grid-text { text-align: center; color: #999; margin-bottom: 36px; font-size: 1rem; }
+
+  .workwear-landing__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .workwear-landing__card { background: #1a1a1a; border-radius: 8px; overflow: hidden; text-decoration: none; color: #fff; transition: transform 0.2s, box-shadow 0.2s; border-bottom: 3px solid transparent; }
+  .workwear-landing__card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-bottom-color: #c41230; }
+  .workwear-landing__card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #222; }
+  .workwear-landing__card-body { padding: 16px 20px; }
+  .workwear-landing__card-title { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .workwear-landing__card-desc { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
+  .workwear-landing__card-link { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #c41230; }
+
+  .workwear-landing__view-all { text-align: center; margin-top: 36px; }
+
+  @media (max-width: 600px) {
+    .workwear-landing__grid { grid-template-columns: 1fr; }
+    .workwear-landing__hero { padding: 40px 16px; }
+  }
+</style>
+
+<div class="workwear-landing">
+  <div class="workwear-landing__hero">
+    <p class="workwear-landing__eyebrow">{{ section.settings.eyebrow | default: 'Industrial & Safety' }}</p>
+    <h1 class="workwear-landing__heading">{{ section.settings.heading | default: 'Workwear' }}</h1>
+    <p class="workwear-landing__text">{{ section.settings.text | default: 'Durable, safety-rated apparel built for the job. From work shirts and pants to hi-vis vests and flame-resistant gear.' }}</p>
+    <a href="/pages/request-quote?type=Workwear" class="workwear-landing__cta">Request a Quote</a>
+    <a href="/collections/workwear" class="workwear-landing__cta workwear-landing__cta--outline">View All Workwear</a>
+  </div>
+
+  <div class="workwear-landing__grid-section">
+    <p class="workwear-landing__grid-eyebrow">{{ section.settings.grid_eyebrow | default: 'Shop by Category' }}</p>
+    <h2 class="workwear-landing__grid-heading">{{ section.settings.grid_heading | default: 'Find What You Need' }}</h2>
+    <p class="workwear-landing__grid-text">{{ section.settings.grid_text | default: 'Browse by garment type to find the right workwear for your team.' }}</p>
+
+    <div class="workwear-landing__grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.url }}" class="workwear-landing__card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" class="workwear-landing__card-img" loading="lazy">
+          {% else %}
+            <div class="workwear-landing__card-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem;color:#333;">{{ block.settings.title | slice: 0 }}</div>
+          {% endif %}
+          <div class="workwear-landing__card-body">
+            <h3 class="workwear-landing__card-title">{{ block.settings.title }}</h3>
+            <p class="workwear-landing__card-desc">{{ block.settings.description }}</p>
+            <span class="workwear-landing__card-link">Browse →</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    <div class="workwear-landing__view-all">
+      <a href="/collections/workwear" class="workwear-landing__cta">View All Workwear</a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Workwear Landing",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Industrial & Safety" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Workwear" },
+    { "type": "textarea", "id": "text", "label": "Description" },
+    { "type": "text", "id": "grid_eyebrow", "label": "Grid Eyebrow", "default": "Shop by Category" },
+    { "type": "text", "id": "grid_heading", "label": "Grid Heading", "default": "Find What You Need" },
+    { "type": "text", "id": "grid_text", "label": "Grid Description" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "description", "label": "Description" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "image_picker", "id": "image", "label": "Image" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Workwear Landing", "blocks": [] }]
+}
+{% endschema %}
