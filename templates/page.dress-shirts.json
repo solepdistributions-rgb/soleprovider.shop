@@ -75,6 +75,8 @@
         "primary_link": "/pages/request-quote",
         "secondary_label": "View Design Work",
         "secondary_link": "/pages/portfolio#pf-design",
+        "view_all_label": "View All Dress Shirts",
+        "view_all_link": "/collections/all-dress-shirts",
         "subtypes_eyebrow": "Shop By Style",
         "subtypes_heading": "Choose Your Dress Shirt Category",
         "subtypes_text": "Each category is built to help you get to the right level of polish, comfort, and care faster.",

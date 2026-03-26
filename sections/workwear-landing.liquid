@@ -1,74 +1,155 @@
-{{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
+<section class="ww-landing">
+  <div class="page-width">
+    <div class="ww-landing__hero">
+      {% if section.settings.eyebrow != blank %}
+        <p class="ww-landing__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="ww-landing__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="ww-landing__text rte">
+          {{ section.settings.text }}
+        </div>
+      {% endif %}
+
+      <div class="ww-landing__actions">
+        {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
+          <a href="{{ section.settings.primary_link }}" class="ww-landing__button ww-landing__button--primary">
+            {{ section.settings.primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
+          <a href="{{ section.settings.secondary_link }}" class="ww-landing__button ww-landing__button--secondary">
+            {{ section.settings.secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="ww-landing__subtypes-wrap">
+      <div class="ww-landing__section-intro">
+        {% if section.settings.subtypes_eyebrow != blank %}
+          <p class="ww-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
+        {% endif %}
+        {% if section.settings.subtypes_heading != blank %}
+          <h2 class="ww-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
+        {% endif %}
+        {% if section.settings.subtypes_text != blank %}
+          <p class="ww-landing__section-text">{{ section.settings.subtypes_text }}</p>
+        {% endif %}
+      </div>
+
+      <div class="ww-landing__grid">
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.link }}" class="ww-landing__card" {{ block.shopify_attributes }}>
+            <div class="ww-landing__card-media">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}" loading="lazy">
+              {% else %}
+                <div class="ww-landing__card-placeholder">
+                  <span>{{ block.settings.icon_text | default: block.settings.title | slice: 0, 2 | upcase }}</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="ww-landing__card-overlay">
+              <div class="ww-landing__card-content">
+                <h3 class="ww-landing__card-title">{{ block.settings.title }}</h3>
+                {% if block.settings.subtitle != blank %}
+                  <p class="ww-landing__card-subtitle">{{ block.settings.subtitle }}</p>
+                {% endif %}
+                <ul class="ww-landing__card-details">
+                  {% if block.settings.detail_1 != blank %}<li>{{ block.settings.detail_1 }}</li>{% endif %}
+                  {% if block.settings.detail_2 != blank %}<li>{{ block.settings.detail_2 }}</li>{% endif %}
+                  {% if block.settings.detail_3 != blank %}<li>{{ block.settings.detail_3 }}</li>{% endif %}
+                </ul>
+                <span class="ww-landing__card-link">Browse →</span>
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+      {% if section.settings.view_all_link != blank %}
+        <div style="text-align:center;margin-top:32px;">
+          <a href="{{ section.settings.view_all_link }}" class="ww-landing__button ww-landing__button--primary" style="display:inline-block;">
+            {{ section.settings.view_all_label | default: 'View All Workwear' }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="ww-landing__help">
+      {% if section.settings.help_heading != blank %}
+        <h2 class="ww-landing__help-heading">{{ section.settings.help_heading }}</h2>
+      {% endif %}
+
+      {% if section.settings.help_text != blank %}
+        <p class="ww-landing__help-text">{{ section.settings.help_text }}</p>
+      {% endif %}
+
+      <div class="ww-landing__help-actions">
+        {% if section.settings.help_primary_label != blank and section.settings.help_primary_link != blank %}
+          <a href="{{ section.settings.help_primary_link }}" class="ww-landing__button ww-landing__button--primary">
+            {{ section.settings.help_primary_label }}
+          </a>
+        {% endif %}
+
+        {% if section.settings.help_secondary_label != blank and section.settings.help_secondary_link != blank %}
+          <a href="{{ section.settings.help_secondary_link }}" class="ww-landing__button ww-landing__button--secondary">
+            {{ section.settings.help_secondary_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
 
 <style>
-  .workwear-landing { background: #111; color: #fff; }
-  .workwear-landing__hero { padding: 60px 20px; text-align: center; max-width: 800px; margin: 0 auto; }
-  .workwear-landing__eyebrow { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 4px; color: #c41230; margin-bottom: 12px; }
-  .workwear-landing__heading { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; line-height: 1.05; margin-bottom: 16px; }
-  .workwear-landing__text { color: #999; font-size: 1.05rem; line-height: 1.6; margin-bottom: 28px; }
-  .workwear-landing__cta { display: inline-block; background: #c41230; color: #fff; padding: 14px 36px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; text-decoration: none; border-radius: 4px; transition: background 0.2s; }
-  .workwear-landing__cta:hover { background: #a00e28; }
-  .workwear-landing__cta--outline { background: transparent; border: 2px solid #fff; margin-left: 12px; }
-  .workwear-landing__cta--outline:hover { background: #fff; color: #111; }
-
-  .workwear-landing__grid-section { padding: 48px 20px 60px; max-width: 1200px; margin: 0 auto; }
-  .workwear-landing__grid-eyebrow { text-align: center; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: #c41230; margin-bottom: 8px; }
-  .workwear-landing__grid-heading { text-align: center; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; text-transform: uppercase; margin-bottom: 12px; }
-  .workwear-landing__grid-text { text-align: center; color: #999; margin-bottom: 36px; font-size: 1rem; }
-
-  .workwear-landing__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-  .workwear-landing__card { background: #1a1a1a; border-radius: 8px; overflow: hidden; text-decoration: none; color: #fff; transition: transform 0.2s, box-shadow 0.2s; border-bottom: 3px solid transparent; }
-  .workwear-landing__card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-bottom-color: #c41230; }
-  .workwear-landing__card-img { width: 100%; aspect-ratio: 16/10; object-fit: cover; background: #222; }
-  .workwear-landing__card-body { padding: 16px 20px; }
-  .workwear-landing__card-title { font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .workwear-landing__card-desc { font-size: 0.85rem; color: #888; margin-bottom: 10px; }
-  .workwear-landing__card-link { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #c41230; }
-
-  .workwear-landing__view-all { text-align: center; margin-top: 36px; }
-
-  @media (max-width: 600px) {
-    .workwear-landing__grid { grid-template-columns: 1fr; }
-    .workwear-landing__hero { padding: 40px 16px; }
-  }
+  .ww-landing { padding: 84px 0; background: #f5f5f5; }
+  .ww-landing__hero { max-width: 900px; margin: 0 auto 56px; text-align: center; }
+  .ww-landing__eyebrow, .ww-landing__section-eyebrow { margin: 0 0 10px; color: #c41230; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .ww-landing__heading { margin: 0 0 16px; font-size: clamp(3.2rem, 5vw, 6rem); line-height: 0.95; font-weight: 900; text-transform: uppercase; color: #111; }
+  .ww-landing__text { margin: 0 auto; max-width: 760px; font-size: 1.65rem; line-height: 1.7; color: #4a4a4a; }
+  .ww-landing__actions, .ww-landing__help-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+  .ww-landing__button { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; text-decoration: none; font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+  .ww-landing__button:hover { transform: translateY(-2px); }
+  .ww-landing__button--primary { background: #111; color: #fff; border: 2px solid #111; }
+  .ww-landing__button--primary:hover { background: #c41230; border-color: #c41230; color: #fff; }
+  .ww-landing__button--secondary { background: transparent; color: #111; border: 2px solid #111; }
+  .ww-landing__button--secondary:hover { background: #111; color: #fff; }
+  .ww-landing__subtypes-wrap { margin-bottom: 56px; }
+  .ww-landing__section-intro { text-align: center; max-width: 820px; margin: 0 auto 36px; }
+  .ww-landing__section-heading { margin: 0 0 12px; font-size: clamp(2.6rem, 4vw, 4.4rem); line-height: 0.95; font-weight: 900; text-transform: uppercase; color: #111; }
+  .ww-landing__section-text { margin: 0; font-size: 1.55rem; line-height: 1.65; color: #4a4a4a; }
+  .ww-landing__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+  .ww-landing__card { position: relative; display: block; min-height: 320px; overflow: hidden; text-decoration: none; background: #111; border: 1px solid #d0d0d0; border-bottom: 4px solid #aaa; box-shadow: 0 6px 0 #999, 0 10px 24px rgba(0,0,0,0.12); transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease; }
+  .ww-landing__card:hover { transform: translateY(-8px); box-shadow: 0 14px 0 #888, 0 22px 40px rgba(0,0,0,0.18); border-color: #c41230; border-bottom-color: #9a0e24; }
+  .ww-landing__card-media { position: absolute; inset: 0; }
+  .ww-landing__card-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+  .ww-landing__card:hover .ww-landing__card-media img { transform: scale(1.05); }
+  .ww-landing__card-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%); display: flex; align-items: center; justify-content: center; }
+  .ww-landing__card-placeholder span { font-size: 4.2rem; font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.18); }
+  .ww-landing__card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.55) 48%, rgba(17,17,17,0.08) 100%); display: flex; align-items: flex-end; transition: background 0.3s ease; }
+  .ww-landing__card:hover .ww-landing__card-overlay { background: linear-gradient(to top, rgba(17,17,17,0.97) 0%, rgba(17,17,17,0.65) 55%, rgba(17,17,17,0.15) 100%); }
+  .ww-landing__card-content { padding: 28px 24px; color: #fff; }
+  .ww-landing__card-title { margin: 0 0 6px; font-size: 2.4rem; font-weight: 900; text-transform: uppercase; line-height: 1; letter-spacing: -0.01em; }
+  .ww-landing__card-subtitle { margin: 0 0 14px; font-size: 1.35rem; color: rgba(255,255,255,0.72); line-height: 1.35; }
+  .ww-landing__card-details { margin: 0 0 16px; padding: 0; list-style: none; }
+  .ww-landing__card-details li { font-size: 1.1rem; color: rgba(255,255,255,0.55); line-height: 1.55; padding-left: 18px; position: relative; }
+  .ww-landing__card-details li::before { content: '✓'; position: absolute; left: 0; color: #c41230; font-weight: 700; }
+  .ww-landing__card-link { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #c41230; }
+  .ww-landing__help { max-width: 820px; margin: 0 auto; text-align: center; padding: 56px 20px; background: #111; color: #fff; border-radius: 8px; }
+  .ww-landing__help-heading { margin: 0 0 14px; font-size: clamp(2rem, 3vw, 3rem); font-weight: 900; text-transform: uppercase; }
+  .ww-landing__help-text { margin: 0 auto; max-width: 640px; font-size: 1.35rem; line-height: 1.6; color: rgba(255,255,255,0.7); }
+  .ww-landing__help .ww-landing__button--primary { background: #c41230; border-color: #c41230; }
+  .ww-landing__help .ww-landing__button--primary:hover { background: #fff; color: #111; border-color: #fff; }
+  .ww-landing__help .ww-landing__button--secondary { color: #fff; border-color: #fff; }
+  .ww-landing__help .ww-landing__button--secondary:hover { background: #fff; color: #111; }
+  @media (max-width: 749px) { .ww-landing__grid { grid-template-columns: 1fr; } .ww-landing { padding: 48px 0; } .ww-landing__card { min-height: 260px; } }
 </style>
-
-<div class="workwear-landing">
-  <div class="workwear-landing__hero">
-    <p class="workwear-landing__eyebrow">{{ section.settings.eyebrow | default: 'Industrial & Safety' }}</p>
-    <h1 class="workwear-landing__heading">{{ section.settings.heading | default: 'Workwear' }}</h1>
-    <p class="workwear-landing__text">{{ section.settings.text | default: 'Durable, safety-rated apparel built for the job. From work shirts and pants to hi-vis vests and flame-resistant gear.' }}</p>
-    <a href="/pages/request-quote?type=Workwear" class="workwear-landing__cta">Request a Quote</a>
-    <a href="/collections/workwear" class="workwear-landing__cta workwear-landing__cta--outline">View All Workwear</a>
-  </div>
-
-  <div class="workwear-landing__grid-section">
-    <p class="workwear-landing__grid-eyebrow">{{ section.settings.grid_eyebrow | default: 'Shop by Category' }}</p>
-    <h2 class="workwear-landing__grid-heading">{{ section.settings.grid_heading | default: 'Find What You Need' }}</h2>
-    <p class="workwear-landing__grid-text">{{ section.settings.grid_text | default: 'Browse by garment type to find the right workwear for your team.' }}</p>
-
-    <div class="workwear-landing__grid">
-      {% for block in section.blocks %}
-        <a href="{{ block.settings.url }}" class="workwear-landing__card" {{ block.shopify_attributes }}>
-          {% if block.settings.image != blank %}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" class="workwear-landing__card-img" loading="lazy">
-          {% else %}
-            <div class="workwear-landing__card-img" style="display:flex;align-items:center;justify-content:center;font-size:2rem;color:#333;">{{ block.settings.title | slice: 0 }}</div>
-          {% endif %}
-          <div class="workwear-landing__card-body">
-            <h3 class="workwear-landing__card-title">{{ block.settings.title }}</h3>
-            <p class="workwear-landing__card-desc">{{ block.settings.description }}</p>
-            <span class="workwear-landing__card-link">Browse →</span>
-          </div>
-        </a>
-      {% endfor %}
-    </div>
-
-    <div class="workwear-landing__view-all">
-      <a href="/collections/workwear" class="workwear-landing__cta">View All Workwear</a>
-    </div>
-  </div>
-</div>
 
 {% schema %}
 {
@@ -76,19 +157,35 @@
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Industrial & Safety" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Workwear" },
-    { "type": "textarea", "id": "text", "label": "Description" },
-    { "type": "text", "id": "grid_eyebrow", "label": "Grid Eyebrow", "default": "Shop by Category" },
-    { "type": "text", "id": "grid_heading", "label": "Grid Heading", "default": "Find What You Need" },
-    { "type": "text", "id": "grid_text", "label": "Grid Description" }
+    { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Durable, safety-rated apparel built for the job. From work shirts and pants to hi-vis vests and flame-resistant gear, we outfit your team with the right workwear.</p>" },
+    { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Request a Quote" },
+    { "type": "url", "id": "primary_link", "label": "Primary button link" },
+    { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "View All Workwear" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
+    { "type": "text", "id": "view_all_label", "label": "View All button label", "default": "View All Workwear" },
+    { "type": "url", "id": "view_all_link", "label": "View All button link" },
+    { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop by Category" },
+    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Find What You Need" },
+    { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Browse by garment type to find the right workwear for your team." },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Outfitting Your Team?" },
+    { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Whether you need safety-compliant uniforms, branded work shirts, or flame-resistant gear, we can help guide the right choice for your industry and budget." },
+    { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
+    { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
+    { "type": "text", "id": "help_secondary_label", "label": "Help secondary button label", "default": "Contact Us" },
+    { "type": "url", "id": "help_secondary_link", "label": "Help secondary button link" }
   ],
   "blocks": [
     {
-      "type": "category",
+      "type": "subtype",
       "name": "Category",
       "settings": [
+        { "type": "text", "id": "icon_text", "label": "Icon text (2 letters)", "default": "WS" },
         { "type": "text", "id": "title", "label": "Title" },
-        { "type": "text", "id": "description", "label": "Description" },
-        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" },
+        { "type": "text", "id": "detail_1", "label": "Detail 1" },
+        { "type": "text", "id": "detail_2", "label": "Detail 2" },
+        { "type": "text", "id": "detail_3", "label": "Detail 3" },
+        { "type": "url", "id": "link", "label": "Link" },
         { "type": "image_picker", "id": "image", "label": "Image" }
       ]
     }
