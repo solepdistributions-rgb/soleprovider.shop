@@ -127,7 +127,7 @@
         "primary_link": "/pages/request-quote",
         "secondary_label": "View All Workwear",
         "secondary_link": "/collections/workwear",
-        "view_all_label": "View All Workwear",
+        "view_all_label": "",
         "view_all_link": "/collections/workwear",
         "subtypes_eyebrow": "",
         "subtypes_heading": "Find What You Need",
