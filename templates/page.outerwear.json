@@ -88,6 +88,8 @@
         "primary_link": "/pages/request-quote",
         "secondary_label": "View Design Work",
         "secondary_link": "/pages/portfolio#pf-design",
+        "view_all_label": "View All Outerwear",
+        "view_all_link": "/collections/all-outerwear",
         "subtypes_eyebrow": "Shop By Style",
         "subtypes_heading": "Choose Your Outerwear Category",
         "subtypes_text": "Each category helps you get to the right layer based on weather, branding style, and intended use.",

@@ -62,6 +62,8 @@
         "primary_link": "/pages/request-quote",
         "secondary_label": "View Design Work",
         "secondary_link": "/pages/portfolio#pf-design",
+        "view_all_label": "View All Headwear",
+        "view_all_link": "/collections/all-headwear",
         "subtypes_eyebrow": "Shop By Style",
         "subtypes_heading": "Choose Your Headwear Category",
         "subtypes_text": "Each category is designed to help you get to the right type of headwear faster.",

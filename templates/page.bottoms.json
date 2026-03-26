@@ -75,6 +75,8 @@
         "primary_link": "/pages/request-quote",
         "secondary_label": "View Design Work",
         "secondary_link": "/pages/portfolio#pf-design",
+        "view_all_label": "View All Bottoms",
+        "view_all_link": "/collections/all-bottoms",
         "subtypes_eyebrow": "Shop By Style",
         "subtypes_heading": "Choose Your Bottoms Category",
         "subtypes_text": "Each category is designed to help you get to the right use case and fit faster.",
