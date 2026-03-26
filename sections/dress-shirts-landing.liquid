@@ -88,6 +88,13 @@
           </a>
         {% endfor %}
       </div>
+      {% if section.settings.view_all_link != blank %}
+        <div style="text-align:center;margin-top:32px;">
+          <a href="{{ section.settings.view_all_link }}" class="ds-landing__button ds-landing__button--primary" style="display:inline-block;">
+            {{ section.settings.view_all_label | default: 'View All Dress Shirts' }}
+          </a>
+        </div>
+      {% endif %}
     </div>
 
     <div class="ds-landing__help">
@@ -430,6 +437,8 @@
     { "type": "text", "id": "secondary_label", "label": "Secondary button label", "default": "View Design Work" },
     { "type": "url", "id": "secondary_link", "label": "Secondary button link" },
 
+    { "type": "text", "id": "view_all_label", "label": "View All button label", "default": "View All Dress Shirts" },
+    { "type": "url", "id": "view_all_link", "label": "View All button link" },
     { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Style" },
     { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Dress Shirt Category" },
     { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category is designed to help you find the right dress shirt faster." },
