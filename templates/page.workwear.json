@@ -16,9 +16,11 @@
         "work_shorts": { "type": "category", "settings": { "title": "Work Shorts", "description": "Built tough for warm weather", "url": "/collections/work-shorts" } },
         "safety_vests": { "type": "category", "settings": { "title": "Safety Vests", "description": "ANSI-rated hi-vis vests", "url": "/collections/safety-vests" } },
         "hi_vis": { "type": "category", "settings": { "title": "Hi-Visibility", "description": "High visibility apparel and gear", "url": "/collections/hi-visibility" } },
-        "fr": { "type": "category", "settings": { "title": "Flame Resistant", "description": "FR-rated protective clothing", "url": "/collections/flame-resistant" } }
+        "fr": { "type": "category", "settings": { "title": "Flame Resistant", "description": "FR-rated protective clothing", "url": "/collections/flame-resistant" } },
+        "work_jackets": { "type": "category", "settings": { "title": "Work Jackets", "description": "Industrial jackets and outerwear", "url": "/collections/work-jackets" } },
+        "work_accessories": { "type": "category", "settings": { "title": "Work Accessories", "description": "Hard hats, gloves, and more", "url": "/collections/work-accessories" } }
       },
-      "block_order": ["work_shirts", "work_pants", "work_shorts", "safety_vests", "hi_vis", "fr"]
+      "block_order": ["work_shirts", "work_jackets", "work_pants", "work_shorts", "safety_vests", "hi_vis", "fr", "work_accessories"]
     }
   },
   "order": ["main"]
