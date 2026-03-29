@@ -1,41 +1,28 @@
 {% comment %}
   Direct variant image swap - matches selected color to image filenames.
   Handles products where variants aren't linked to featured images in Shopify.
+  Reads the selected color from the DOM (not Liquid variant data, which can be truncated).
   Falls back to filename matching: e.g. "Fan Dark Green" → finds img containing "fandarkgreen".
-  Hooks into theme's pub/sub system to run AFTER the theme's own updateMedia.
 {% endcomment %}
 
 <script>
 (function() {
-  var productData = {{ product.variants | json }};
-  var productImages = {{ product.images | json }};
-
-  if (!productData || !productImages || productImages.length <= 1) return;
-
-  // Build variant ID -> color name mapping
-  var variantColorMap = {};
-  productData.forEach(function(v) {
-    if (v.option1) {
-      variantColorMap[v.id] = v.option1;
-    }
-  });
-
-  // Build variant ID -> featured image src mapping
-  var variantImageMap = {};
-  productData.forEach(function(v) {
-    if (v.featured_image) {
-      variantImageMap[v.id] = v.featured_image.src;
-    }
-  });
-
   // Normalize color name for matching: lowercase, remove spaces/special chars
   function normalizeColor(name) {
     return name.toLowerCase().replace(/[^a-z0-9]/g, '');
   }
 
+  // Get the currently selected color name from the checked radio button
+  function getSelectedColor() {
+    var checked = document.querySelector('variant-selects input[type="radio"]:checked');
+    return checked ? checked.value : null;
+  }
+
   // Find the media <li> whose image filename contains the normalized color
   function findMediaByColor(colorName) {
+    if (!colorName) return null;
     var normalized = normalizeColor(colorName);
+    if (!normalized) return null;
     var items = document.querySelectorAll('.product__media-item');
     var match = null;
     items.forEach(function(item) {
@@ -45,20 +32,6 @@
         if (filename.indexOf(normalized) > -1) {
           match = item;
         }
-      }
-    });
-    return match;
-  }
-
-  // Find media item by image src filename
-  function findMediaBySrc(imageSrc) {
-    var cleanSrc = imageSrc.replace(/\?.*/, '').split('/').pop().toLowerCase();
-    var items = document.querySelectorAll('.product__media-item');
-    var match = null;
-    items.forEach(function(item) {
-      var img = item.querySelector('img');
-      if (img && img.src.split('/').pop().split('?')[0].toLowerCase() === cleanSrc) {
-        match = item;
       }
     });
     return match;
@@ -88,93 +61,65 @@
     return true;
   }
 
+  // Check if the active image matches the selected color; if not, fix it
   function fixActiveImage() {
-    var url = new URL(window.location);
-    var variantId = url.searchParams.get('variant');
-    if (!variantId) return;
-
-    // Check if the current active image already matches the selected color
-    var colorName = variantColorMap[variantId];
+    var colorName = getSelectedColor();
     if (!colorName) return;
 
+    var normalizedColor = normalizeColor(colorName);
+    if (!normalizedColor) return;
+
+    // Check if the current active image already matches
     var activeItem = document.querySelector('.product__media-item.is-active');
     if (activeItem) {
       var activeImg = activeItem.querySelector('img');
       if (activeImg) {
         var activeFilename = activeImg.src.split('/').pop().split('?')[0].toLowerCase();
-        var normalizedColor = normalizeColor(colorName);
-        // Already showing the right image — nothing to do
-        if (activeFilename.indexOf(normalizedColor) > -1) return;
+        if (activeFilename.indexOf(normalizedColor) > -1) return; // Already correct
       }
     }
 
-    // Try 1: match by variant's featured image src
-    var imageSrc = variantImageMap[variantId];
-    if (imageSrc) {
-      var mediaItem = findMediaBySrc(imageSrc);
-      if (mediaItem) {
-        setActiveMediaItem(mediaItem);
-        return;
-      }
-    }
-
-    // Try 2: match by color name in filename
+    // Find and activate the matching media item
     var mediaItem = findMediaByColor(colorName);
     if (mediaItem) {
       setActiveMediaItem(mediaItem);
-      return;
-    }
-
-    // Try 3: swap src on active image as last resort
-    if (imageSrc) {
-      var activeImg = document.querySelector('.product__media-item.is-active img');
-      if (activeImg) {
-        var cleanUrl = imageSrc.replace(/\?.*/, '');
-        activeImg.src = cleanUrl + '?width=' + (activeImg.width || 800);
-        activeImg.srcset = cleanUrl + '?width=400 400w, ' + cleanUrl + '?width=600 600w, ' + cleanUrl + '?width=800 800w, ' + cleanUrl + '?width=1000 1000w, ' + cleanUrl + '?width=1200 1200w';
-      }
     }
   }
 
-  // Hook into theme's pub/sub - subscribe to variantChange which fires AFTER updateMedia
+  // Hook into theme's pub/sub system (fires after theme's own updateMedia)
   if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
     subscribe(PUB_SUB_EVENTS.variantChange, function() {
-      // Run after a short delay to ensure theme's DOM updates are complete
       setTimeout(fixActiveImage, 100);
     });
   }
 
-  // Also listen directly on variant-selects change as backup
+  // Listen directly on variant-selects change
   function attachChangeListener() {
     var variantSelects = document.querySelector('variant-selects');
     if (variantSelects) {
       variantSelects.addEventListener('change', function() {
-        // Run after theme's fetch + updateMedia completes (~500ms)
-        setTimeout(fixActiveImage, 600);
-        setTimeout(fixActiveImage, 1200);
+        // Run after theme's fetch + updateMedia completes
+        setTimeout(fixActiveImage, 500);
+        setTimeout(fixActiveImage, 1000);
+        setTimeout(fixActiveImage, 1500);
       });
     }
   }
 
-  // Attach listeners now or when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', attachChangeListener);
   } else {
     attachChangeListener();
   }
 
-  // Periodic check as ultimate safety net
-  var lastCheckedVariant = null;
-  var checkInterval = setInterval(function() {
-    var url = new URL(window.location);
-    var variantId = url.searchParams.get('variant');
-    if (variantId && variantId !== lastCheckedVariant) {
-      lastCheckedVariant = variantId;
+  // Periodic check as safety net (catches replaceState URL changes)
+  var lastColor = null;
+  setInterval(function() {
+    var color = getSelectedColor();
+    if (color && color !== lastColor) {
+      lastColor = color;
       fixActiveImage();
     }
-  }, 500);
-
-  // Stop polling after 10 minutes
-  setTimeout(function() { clearInterval(checkInterval); }, 600000);
+  }, 400);
 })();
 </script>
