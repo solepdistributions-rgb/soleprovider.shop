@@ -1,0 +1,69 @@
+{% comment %}
+  Direct variant image swap - bypasses theme section re-rendering.
+  Reads product image URLs and variant-image mappings, swaps main image on color change.
+{% endcomment %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const productData = {{ product.variants | json }};
+  const productImages = {{ product.images | json }};
+
+  if (!productData || !productImages || productImages.length <= 1) return;
+
+  // Build variant ID -> image src mapping
+  const variantImageMap = {};
+  productData.forEach(v => {
+    if (v.featured_image) {
+      variantImageMap[v.id] = v.featured_image.src;
+    }
+  });
+
+  // Listen for variant changes
+  const variantSelects = document.querySelector('variant-selects');
+  if (!variantSelects) return;
+
+  // Monitor URL changes (variant selection updates the URL)
+  let lastVariantId = null;
+  const observer = new MutationObserver(() => {
+    const url = new URL(window.location);
+    const variantId = url.searchParams.get('variant');
+    if (variantId && variantId !== lastVariantId) {
+      lastVariantId = variantId;
+      const imageSrc = variantImageMap[variantId];
+      if (imageSrc) {
+        swapMainImage(imageSrc);
+      }
+    }
+  });
+
+  // Also listen for input changes directly
+  variantSelects.addEventListener('change', function() {
+    setTimeout(function() {
+      const url = new URL(window.location);
+      const variantId = url.searchParams.get('variant');
+      if (variantId) {
+        const imageSrc = variantImageMap[variantId];
+        if (imageSrc) {
+          swapMainImage(imageSrc);
+        }
+      }
+    }, 100);
+  });
+
+  function swapMainImage(newSrc) {
+    // Find the main product image
+    const activeMedia = document.querySelector('.product__media-item.is-active img, .product__media-item.is-active img.motion-reduce');
+    if (activeMedia) {
+      // Update src and srcset
+      const cleanSrc = newSrc.replace(/\?.*/, '');
+      activeMedia.src = cleanSrc + '?width=' + (activeMedia.width || 800);
+      activeMedia.srcset = cleanSrc + '?width=400 400w, ' + cleanSrc + '?width=600 600w, ' + cleanSrc + '?width=800 800w, ' + cleanSrc + '?width=1000 1000w, ' + cleanSrc + '?width=1200 1200w';
+      // Also update any zoom wrapper
+      const zoomImg = activeMedia.closest('.product__media-item')?.querySelector('.product__media-zoom img, .zoomImg');
+      if (zoomImg) {
+        zoomImg.src = cleanSrc;
+      }
+    }
+  }
+});
+</script>

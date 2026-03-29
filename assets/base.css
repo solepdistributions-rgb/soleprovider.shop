@@ -4354,3 +4354,11 @@ button,
     display: block !important;
   }
 }
+
+/* Override: ensure only active media shows */
+.product__media-item {
+  display: none !important;
+}
+.product__media-item.is-active {
+  display: block !important;
+}
