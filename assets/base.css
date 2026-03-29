@@ -4334,3 +4334,23 @@ button,
     color: #ffffff !important;
   }
 }
+/* === HIDE NON-ACTIVE VARIANT IMAGES ON PRODUCT PAGE === */
+/* Only show the selected color's image, hide all others */
+@media screen and (min-width: 750px) {
+  .product__media-list .product__media-item:not(.is-active) {
+    display: none !important;
+  }
+  .product__media-list .product__media-item.is-active {
+    display: block !important;
+  }
+}
+
+/* Mobile: also hide, show only active in slider */
+@media screen and (max-width: 749px) {
+  .product__media-list .product__media-item:not(.is-active) {
+    display: none !important;
+  }
+  .product__media-list .product__media-item.is-active {
+    display: block !important;
+  }
+}
