@@ -1,6 +1,7 @@
 {% comment %}
-  Direct variant image swap - bypasses theme section re-rendering.
-  Reads product image URLs and variant-image mappings, swaps main image on color change.
+  Direct variant image swap - matches selected color to image filenames.
+  Handles products where variants aren't linked to featured images in Shopify.
+  Falls back to filename matching: e.g. "Fan Dark Green" → finds img containing "fandarkgreen".
 {% endcomment %}
 
 <script>
@@ -10,60 +11,149 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (!productData || !productImages || productImages.length <= 1) return;
 
-  // Build variant ID -> image src mapping
+  // Build variant ID -> featured image src mapping (for variants that have one)
   const variantImageMap = {};
-  productData.forEach(v => {
+  productData.forEach(function(v) {
     if (v.featured_image) {
       variantImageMap[v.id] = v.featured_image.src;
     }
   });
 
-  // Listen for variant changes
+  // Build variant ID -> color name mapping
+  const variantColorMap = {};
+  productData.forEach(function(v) {
+    if (v.option1) {
+      variantColorMap[v.id] = v.option1;
+    }
+  });
+
   const variantSelects = document.querySelector('variant-selects');
   if (!variantSelects) return;
 
-  // Monitor URL changes (variant selection updates the URL)
-  let lastVariantId = null;
-  const observer = new MutationObserver(() => {
-    const url = new URL(window.location);
-    const variantId = url.searchParams.get('variant');
-    if (variantId && variantId !== lastVariantId) {
-      lastVariantId = variantId;
-      const imageSrc = variantImageMap[variantId];
-      if (imageSrc) {
-        swapMainImage(imageSrc);
-      }
-    }
-  });
+  // Normalize color name for matching: lowercase, remove spaces/special chars
+  function normalizeColor(name) {
+    return name.toLowerCase().replace(/[^a-z0-9]/g, '');
+  }
 
-  // Also listen for input changes directly
-  variantSelects.addEventListener('change', function() {
-    setTimeout(function() {
-      const url = new URL(window.location);
-      const variantId = url.searchParams.get('variant');
-      if (variantId) {
-        const imageSrc = variantImageMap[variantId];
-        if (imageSrc) {
-          swapMainImage(imageSrc);
+  // Find the media <li> whose image filename contains the normalized color
+  function findMediaByColor(colorName) {
+    var normalized = normalizeColor(colorName);
+    var items = document.querySelectorAll('.product__media-item');
+    var match = null;
+    items.forEach(function(item) {
+      var img = item.querySelector('img');
+      if (img && img.src) {
+        var filename = img.src.split('/').pop().split('?')[0].toLowerCase();
+        // Match color in filename: e.g. "5000_fandarkgreen_model_front.jpg" contains "fandarkgreen"
+        if (filename.indexOf(normalized) > -1) {
+          match = item;
         }
       }
-    }, 100);
-  });
+    });
+    return match;
+  }
 
-  function swapMainImage(newSrc) {
-    // Find the main product image
-    const activeMedia = document.querySelector('.product__media-item.is-active img, .product__media-item.is-active img.motion-reduce');
-    if (activeMedia) {
-      // Update src and srcset
-      const cleanSrc = newSrc.replace(/\?.*/, '');
-      activeMedia.src = cleanSrc + '?width=' + (activeMedia.width || 800);
-      activeMedia.srcset = cleanSrc + '?width=400 400w, ' + cleanSrc + '?width=600 600w, ' + cleanSrc + '?width=800 800w, ' + cleanSrc + '?width=1000 1000w, ' + cleanSrc + '?width=1200 1200w';
-      // Also update any zoom wrapper
-      const zoomImg = activeMedia.closest('.product__media-item')?.querySelector('.product__media-zoom img, .zoomImg');
-      if (zoomImg) {
-        zoomImg.src = cleanSrc;
+  // Set a media item as active (show it, hide others)
+  function setActiveMediaItem(targetItem) {
+    if (!targetItem) return false;
+
+    var items = document.querySelectorAll('.product__media-item');
+    items.forEach(function(item) {
+      item.classList.remove('is-active');
+    });
+    targetItem.classList.add('is-active');
+
+    // Also update thumbnails if they exist
+    var mediaId = targetItem.dataset.mediaId;
+    if (mediaId) {
+      var thumbs = document.querySelectorAll('[data-target]');
+      thumbs.forEach(function(thumb) {
+        var btn = thumb.querySelector('button');
+        if (btn) btn.removeAttribute('aria-current');
+        if (thumb.dataset.target === mediaId) {
+          if (btn) btn.setAttribute('aria-current', 'true');
+        }
+      });
+    }
+
+    return true;
+  }
+
+  function handleVariantChange() {
+    var url = new URL(window.location);
+    var variantId = url.searchParams.get('variant');
+    if (!variantId) return;
+
+    // First try: use the variant's featured image src to swap on active item
+    var imageSrc = variantImageMap[variantId];
+    if (imageSrc) {
+      // Variant has a linked featured image — find matching media item by src
+      var items = document.querySelectorAll('.product__media-item');
+      var cleanSrc = imageSrc.replace(/\?.*/, '').split('/').pop().toLowerCase();
+      var found = false;
+      items.forEach(function(item) {
+        var img = item.querySelector('img');
+        if (img && img.src.split('/').pop().split('?')[0].toLowerCase() === cleanSrc) {
+          found = setActiveMediaItem(item);
+        }
+      });
+      if (found) return;
+    }
+
+    // Second try: match by color name in filename
+    var colorName = variantColorMap[variantId];
+    if (colorName) {
+      var mediaItem = findMediaByColor(colorName);
+      if (mediaItem) {
+        setActiveMediaItem(mediaItem);
+        return;
+      }
+    }
+
+    // Third try: if nothing matched, swap src on the current active image as last resort
+    if (imageSrc) {
+      var activeImg = document.querySelector('.product__media-item.is-active img');
+      if (activeImg) {
+        var cleanUrl = imageSrc.replace(/\?.*/, '');
+        activeImg.src = cleanUrl + '?width=' + (activeImg.width || 800);
+        activeImg.srcset = cleanUrl + '?width=400 400w, ' + cleanUrl + '?width=600 600w, ' + cleanUrl + '?width=800 800w, ' + cleanUrl + '?width=1000 1000w, ' + cleanUrl + '?width=1200 1200w';
       }
     }
   }
+
+  // Listen for variant changes via URL updates
+  var lastVariantId = null;
+  function checkVariant() {
+    var url = new URL(window.location);
+    var variantId = url.searchParams.get('variant');
+    if (variantId && variantId !== lastVariantId) {
+      lastVariantId = variantId;
+      // Small delay to let theme's updateMedia run first
+      setTimeout(handleVariantChange, 200);
+    }
+  }
+
+  // Listen for input changes on variant selects
+  variantSelects.addEventListener('change', function() {
+    setTimeout(checkVariant, 150);
+  });
+
+  // Also monitor URL changes via popstate
+  window.addEventListener('popstate', function() {
+    setTimeout(checkVariant, 150);
+  });
+
+  // MutationObserver for URL changes (theme uses replaceState)
+  var observer = new MutationObserver(function() {
+    checkVariant();
+  });
+  observer.observe(document.querySelector('head title') || document.head, {
+    childList: true, subtree: true, characterData: true
+  });
+
+  // Also use a periodic check as ultimate fallback for replaceState
+  var checkInterval = setInterval(checkVariant, 300);
+  // Stop polling after 5 minutes to save resources
+  setTimeout(function() { clearInterval(checkInterval); }, 300000);
 });
 </script>
