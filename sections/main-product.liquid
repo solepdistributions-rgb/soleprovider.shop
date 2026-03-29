@@ -490,7 +490,6 @@
 
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
-                {% render 'variant-image-swap', product: product %}
               {%- when 'buy_buttons' -%}
   {% unless is_quote_only %}
     {%- render 'buy-buttons',
@@ -768,6 +767,8 @@
     </script>
   </div>
 </product-info>
+
+{% render 'variant-image-swap', product: product %}
 
 {% schema %}
 {
