@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "review-form",
+      "settings": {
+        "eyebrow": "We Value Your Feedback",
+        "heading": "Leave a Review",
+        "subheading": "Your feedback helps us improve and helps others find us.",
+        "api_url": "https://sp-tools-production.up.railway.app"
+      }
+    }
+  },
+  "order": ["main"]
+}

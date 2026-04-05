@@ -261,6 +261,14 @@
         "bottom_button_link": ""
       }
     },
+    "review_carousel_sp01": {
+      "type": "review-carousel",
+      "settings": {
+        "eyebrow": "Client Reviews",
+        "heading": "What Our Clients Say",
+        "api_url": "https://sp-tools-production.up.railway.app"
+      }
+    },
     "trusted_by_logos_gqDpXQ": {
       "type": "trusted-by-logos",
       "blocks": {
@@ -393,6 +401,7 @@
     "featured_work_grid_wLQL3F",
     "drops_banner_jLiRXf",
     "team_stores_grid_i883rN",
+    "review_carousel_sp01",
     "trusted_by_logos_gqDpXQ",
     "meet_the_owner_VMejFr",
     "final_cta_8GJBya"

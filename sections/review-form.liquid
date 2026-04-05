@@ -1,0 +1,260 @@
+<section class="review-form-section">
+  <div class="page-width">
+    <div class="review-form-section__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="review-form-section__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="review-form-section__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="review-form-section__sub">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="review-form-card" id="reviewFormCard">
+      <form id="reviewForm" onsubmit="submitReview(event)">
+        <div class="review-form__field">
+          <label>Your Name *</label>
+          <input type="text" id="revName" required placeholder="Full name">
+        </div>
+        <div class="review-form__field">
+          <label>Organization</label>
+          <input type="text" id="revOrg" placeholder="Company or org (optional)">
+        </div>
+        <div class="review-form__field">
+          <label>Rating *</label>
+          <div class="review-form__stars" id="starPicker">
+            <span data-star="1" class="star active">★</span>
+            <span data-star="2" class="star active">★</span>
+            <span data-star="3" class="star active">★</span>
+            <span data-star="4" class="star active">★</span>
+            <span data-star="5" class="star active">★</span>
+          </div>
+        </div>
+        <div class="review-form__field">
+          <label>Your Review *</label>
+          <textarea id="revText" required rows="5" placeholder="Tell us about your experience working with The Sole Provider..."></textarea>
+        </div>
+        <button type="submit" id="revSubmitBtn" class="review-form__submit">Submit Review</button>
+      </form>
+    </div>
+
+    <div class="review-form-card review-form-thanks" id="reviewThanks" style="display:none">
+      <h3>Thank You!</h3>
+      <p>Your review has been submitted and is pending approval. We appreciate your feedback!</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .review-form-section {
+    padding: 72px 0;
+    background: #f9f9f9;
+  }
+  .review-form-section__intro {
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 600px;
+  }
+  .review-form-section__eyebrow {
+    margin: 0 0 10px;
+    color: #c41230;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .review-form-section__heading {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+  }
+  .review-form-section__sub {
+    margin: 12px 0 0;
+    color: #666;
+    font-size: 1rem;
+  }
+  .review-form-card {
+    max-width: 540px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    padding: 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+  .review-form__field {
+    margin-bottom: 20px;
+  }
+  .review-form__field label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin-bottom: 6px;
+  }
+  .review-form__field input,
+  .review-form__field textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .review-form__field input:focus,
+  .review-form__field textarea:focus {
+    outline: none;
+    border-color: #c41230;
+  }
+  .review-form__stars {
+    display: flex;
+    gap: 4px;
+  }
+  .review-form__stars .star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #d1d5db;
+    transition: color 0.15s;
+    user-select: none;
+  }
+  .review-form__stars .star.active {
+    color: #f59e0b;
+  }
+  .review-form__submit {
+    width: 100%;
+    padding: 14px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .review-form__submit:hover { background: #c41230; }
+  .review-form__submit:disabled { background: #ccc; cursor: not-allowed; }
+  .review-form-thanks {
+    text-align: center;
+  }
+  .review-form-thanks h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 12px;
+  }
+  .review-form-thanks p {
+    color: #666;
+    font-size: 1rem;
+  }
+</style>
+
+<script>
+  // Star picker
+  var selectedStars = 5;
+  document.querySelectorAll('#starPicker .star').forEach(function(star) {
+    star.addEventListener('click', function() {
+      selectedStars = parseInt(this.dataset.star);
+      document.querySelectorAll('#starPicker .star').forEach(function(s, i) {
+        s.classList.toggle('active', i < selectedStars);
+      });
+    });
+    star.addEventListener('mouseenter', function() {
+      var hoverVal = parseInt(this.dataset.star);
+      document.querySelectorAll('#starPicker .star').forEach(function(s, i) {
+        s.classList.toggle('active', i < hoverVal);
+      });
+    });
+  });
+  document.getElementById('starPicker').addEventListener('mouseleave', function() {
+    document.querySelectorAll('#starPicker .star').forEach(function(s, i) {
+      s.classList.toggle('active', i < selectedStars);
+    });
+  });
+
+  // Pre-fill from URL params
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('name')) document.getElementById('revName').value = params.get('name');
+  if (params.get('org')) document.getElementById('revOrg').value = params.get('org');
+
+  function submitReview(e) {
+    e.preventDefault();
+    var btn = document.getElementById('revSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+
+    var data = {
+      client_name: document.getElementById('revName').value.trim(),
+      client_org: document.getElementById('revOrg').value.trim(),
+      stars: selectedStars,
+      review_text: document.getElementById('revText').value.trim(),
+    };
+
+    fetch('{{ section.settings.api_url | default: "https://sp-tools-production.up.railway.app" }}/api/reviews/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.success) {
+        document.getElementById('reviewFormCard').style.display = 'none';
+        document.getElementById('reviewThanks').style.display = 'block';
+      } else {
+        alert('Error: ' + (d.error || 'Something went wrong'));
+        btn.disabled = false; btn.textContent = 'Submit Review';
+      }
+    })
+    .catch(function(err) {
+      alert('Error submitting review. Please try again.');
+      btn.disabled = false; btn.textContent = 'Submit Review';
+    });
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Review Form",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "We Value Your Feedback"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Leave a Review"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Your feedback helps us improve and helps others find us."
+    },
+    {
+      "type": "text",
+      "id": "api_url",
+      "label": "SP Tools API URL",
+      "default": "https://sp-tools-production.up.railway.app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review Form"
+    }
+  ]
+}
+{% endschema %}

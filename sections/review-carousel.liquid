@@ -1,0 +1,197 @@
+<section class="review-carousel" id="review-carousel-{{ section.id }}">
+  <div class="page-width">
+    <div class="review-carousel__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="review-carousel__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="review-carousel__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+    </div>
+
+    <div class="review-carousel__marquee">
+      <div class="review-carousel__track" id="review-track-{{ section.id }}">
+        <!-- Reviews loaded via JS from SP Tools API -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .review-carousel {
+    padding: 72px 0;
+    background: #f9f9f9;
+    overflow: hidden;
+  }
+
+  .review-carousel__intro {
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 760px;
+  }
+
+  .review-carousel__eyebrow {
+    margin: 0 0 10px;
+    color: #c41230;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .review-carousel__heading {
+    margin: 0;
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.6rem, 4vw, 4.4rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111111;
+  }
+
+  .review-carousel__marquee {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .review-carousel__marquee::before,
+  .review-carousel__marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .review-carousel__marquee::before { left: 0; background: linear-gradient(to right, #f9f9f9, transparent); }
+  .review-carousel__marquee::after { right: 0; background: linear-gradient(to left, #f9f9f9, transparent); }
+
+  .review-carousel__track {
+    display: flex;
+    gap: 24px;
+    animation: reviewScroll 40s linear infinite;
+    width: max-content;
+  }
+
+  .review-carousel__track:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes reviewScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .review-card {
+    flex-shrink: 0;
+    width: 340px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+
+  .review-card__stars {
+    color: #f59e0b;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .review-card__text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .review-card__author {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 749px) {
+    .review-card {
+      width: 280px;
+      padding: 20px;
+    }
+    .review-carousel__track {
+      animation-duration: 30s;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var track = document.getElementById('review-track-{{ section.id }}');
+    if (!track) return;
+
+    fetch('{{ section.settings.api_url | default: "https://sp-tools-production.up.railway.app" }}/api/reviews/approved')
+      .then(function(r) { return r.json(); })
+      .then(function(reviews) {
+        if (!reviews || !reviews.length) {
+          track.parentElement.parentElement.style.display = 'none';
+          return;
+        }
+
+        var html = '';
+        // Render twice for seamless loop
+        for (var loop = 0; loop < 2; loop++) {
+          reviews.forEach(function(r) {
+            var stars = '';
+            for (var i = 0; i < 5; i++) { stars += i < r.stars ? '★' : '☆'; }
+            html += '<div class="review-card">' +
+              '<div class="review-card__stars">' + stars + '</div>' +
+              '<div class="review-card__text">' + r.review_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+              '<div class="review-card__author">' + (r.display_name || 'Client') + '</div>' +
+              '</div>';
+          });
+        }
+        track.innerHTML = html;
+      })
+      .catch(function() {});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Review Carousel",
+  "tag": "section",
+  "class": "section-review-carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Client Reviews"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What Our Clients Say"
+    },
+    {
+      "type": "text",
+      "id": "api_url",
+      "label": "SP Tools API URL",
+      "default": "https://sp-tools-production.up.railway.app",
+      "info": "URL of your SP Tools instance"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review Carousel"
+    }
+  ]
+}
+{% endschema %}
