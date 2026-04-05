@@ -101,22 +101,18 @@
   }
 
   .review-card__text {
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 1.1rem;
+    line-height: 1.7;
     color: #333;
-    margin-bottom: 16px;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    margin-bottom: 20px;
   }
 
   .review-card__author {
-    font-size: 0.85rem;
-    font-weight: 700;
+    font-size: 0.9rem;
+    font-weight: 800;
     color: #111;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
   }
 
   .review-card__service {
@@ -150,19 +146,27 @@
           return;
         }
 
+        var shouldScroll = reviews.length >= 4;
+
+        function buildCard(r) {
+          var stars = '';
+          for (var i = 0; i < 5; i++) { stars += i < r.stars ? '★' : '☆'; }
+          return '<div class="review-card">' +
+            '<div class="review-card__stars">' + stars + '</div>' +
+            '<div class="review-card__text">' + r.review_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+            '<div class="review-card__author">' + (r.display_name || 'Client') +
+            (r.service_type ? '<span class="review-card__service"> — ' + r.service_type + '</span>' : '') +
+            '</div></div>';
+        }
+
         var html = '';
-        // Render twice for seamless loop
-        for (var loop = 0; loop < 2; loop++) {
-          reviews.forEach(function(r) {
-            var stars = '';
-            for (var i = 0; i < 5; i++) { stars += i < r.stars ? '★' : '☆'; }
-            html += '<div class="review-card">' +
-              '<div class="review-card__stars">' + stars + '</div>' +
-              '<div class="review-card__text">' + r.review_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
-              '<div class="review-card__author">' + (r.display_name || 'Client') +
-              (r.service_type ? '<span class="review-card__service"> — ' + r.service_type + '</span>' : '') +
-              '</div></div>';
-          });
+        reviews.forEach(function(r) { html += buildCard(r); });
+        // Only duplicate for scroll effect if enough reviews
+        if (shouldScroll) {
+          reviews.forEach(function(r) { html += buildCard(r); });
+        } else {
+          track.style.animation = 'none';
+          track.style.justifyContent = 'center';
         }
         track.innerHTML = html;
       })
