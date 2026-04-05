@@ -119,6 +119,13 @@
     letter-spacing: 0.05em;
   }
 
+  .review-card__service {
+    font-weight: 400;
+    color: #999;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
   @media (max-width: 749px) {
     .review-card {
       width: 280px;
@@ -152,8 +159,9 @@
             html += '<div class="review-card">' +
               '<div class="review-card__stars">' + stars + '</div>' +
               '<div class="review-card__text">' + r.review_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
-              '<div class="review-card__author">' + (r.display_name || 'Client') + '</div>' +
-              '</div>';
+              '<div class="review-card__author">' + (r.display_name || 'Client') +
+              (r.service_type ? '<span class="review-card__service"> — ' + r.service_type + '</span>' : '') +
+              '</div></div>';
           });
         }
         track.innerHTML = html;

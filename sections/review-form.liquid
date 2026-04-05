@@ -23,6 +23,19 @@
           <input type="text" id="revOrg" placeholder="Company or org (optional)">
         </div>
         <div class="review-form__field">
+          <label>Service</label>
+          <select id="revService" class="review-form__select">
+            <option value="">What did we do for you?</option>
+            <option value="Embroidered Apparel">Embroidered Apparel</option>
+            <option value="Screen Printed Apparel">Screen Printed Apparel</option>
+            <option value="Promotional Products">Promotional Products</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Large Format Products">Large Format Products</option>
+            <option value="Team Store">Team Store</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="review-form__field">
           <label>Rating *</label>
           <div class="review-form__stars" id="starPicker">
             <span data-star="1" class="star active">★</span>
@@ -108,6 +121,21 @@
     font-family: inherit;
     transition: border-color 0.2s;
   }
+  .review-form__select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+    transition: border-color 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+  }
+  .review-form__select:focus { outline: none; border-color: #c41230; }
   .review-form__field input:focus,
   .review-form__field textarea:focus {
     outline: none;
@@ -197,6 +225,7 @@
       client_org: document.getElementById('revOrg').value.trim(),
       stars: selectedStars,
       review_text: document.getElementById('revText').value.trim(),
+      service_type: document.getElementById('revService').value,
     };
 
     fetch('{{ section.settings.api_url | default: "https://sp-tools-production.up.railway.app" }}/api/reviews/submit', {
