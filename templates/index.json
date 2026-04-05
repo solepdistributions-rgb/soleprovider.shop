@@ -264,7 +264,7 @@
     "review_carousel_sp01": {
       "type": "review-carousel",
       "settings": {
-        "eyebrow": "Client Reviews",
+        "eyebrow": "",
         "heading": "What Our Clients Say",
         "api_url": "https://sp-tools-production.up.railway.app"
       }
