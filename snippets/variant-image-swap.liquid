@@ -7,38 +7,79 @@
 
 <script>
 (function() {
+  var DEBUG = false; // Set to true to see console logs
+
+  function log() {
+    if (DEBUG) console.log('[ImageSwap]', ...arguments);
+  }
+
   // Normalize for matching: lowercase, strip all non-alphanumeric
   function normalize(str) {
     return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
   }
 
-  // Get selected color from any picker type
-  function getSelectedColor() {
-    // Try radio inputs (swatch/button picker)
-    var checked = document.querySelector('variant-selects input[type="radio"]:checked');
-    if (checked) return checked.value;
+  // Color-related option names
+  var COLOR_NAMES = ['color', 'colour', 'colors', 'colours'];
 
-    // Try dropdown selects
-    var selects = document.querySelectorAll('variant-selects select');
-    for (var i = 0; i < selects.length; i++) {
-      var opt = selects[i].selectedOptions[0];
-      if (opt && opt.value) return opt.value;
+  // Find the color fieldset specifically (not size or other options)
+  function findColorFieldset() {
+    var fieldsets = document.querySelectorAll('variant-selects fieldset');
+    for (var i = 0; i < fieldsets.length; i++) {
+      var legend = fieldsets[i].querySelector('legend');
+      if (legend) {
+        var optName = (legend.textContent || '').split(':')[0].trim().toLowerCase();
+        if (COLOR_NAMES.indexOf(optName) > -1) return fieldsets[i];
+      }
+    }
+    // Fallback: look for swatch-type fieldset
+    for (var i = 0; i < fieldsets.length; i++) {
+      if (fieldsets[i].classList.contains('product-form__input--swatch')) return fieldsets[i];
+    }
+    return null;
+  }
+
+  // Get selected color from the COLOR option specifically
+  function getSelectedColor() {
+    var colorFieldset = findColorFieldset();
+    if (colorFieldset) {
+      // Radio/swatch input
+      var checked = colorFieldset.querySelector('input[type="radio"]:checked');
+      if (checked) { log('Color from radio:', checked.value); return checked.value; }
+      // Dropdown
+      var select = colorFieldset.querySelector('select');
+      if (select && select.value) { log('Color from select:', select.value); return select.value; }
+      // data-selected-value span
+      var span = colorFieldset.querySelector('[data-selected-value]');
+      if (span && span.textContent.trim()) { log('Color from span:', span.textContent.trim()); return span.textContent.trim(); }
     }
 
-    // Try reading from URL variant param and matching to variant JSON
+    // Fallback: try URL variant param
     var params = new URLSearchParams(window.location.search);
     var variantId = params.get('variant');
     if (variantId) {
-      var variantJson = document.querySelector('[type="application/json"][data-variant-id]');
-      if (variantJson) {
-        try {
-          var variants = JSON.parse(variantJson.textContent);
+      try {
+        var jsonEl = document.querySelector('variant-selects script[type="application/json"]');
+        if (jsonEl) {
+          var variants = JSON.parse(jsonEl.textContent);
           var v = variants.find(function(x) { return String(x.id) === variantId; });
-          if (v && v.option1) return v.option1;
-        } catch(e) {}
-      }
+          if (v) {
+            // Find which option is the color
+            var product_options = document.querySelectorAll('variant-selects fieldset legend');
+            for (var i = 0; i < product_options.length; i++) {
+              var optName = (product_options[i].textContent || '').split(':')[0].trim().toLowerCase();
+              if (COLOR_NAMES.indexOf(optName) > -1) {
+                var val = v['option' + (i + 1)];
+                if (val) { log('Color from URL variant:', val); return val; }
+              }
+            }
+            // Last resort: return option1
+            if (v.option1) { log('Color from option1:', v.option1); return v.option1; }
+          }
+        }
+      } catch(e) {}
     }
 
+    log('No color found');
     return null;
   }
 
@@ -48,13 +89,12 @@
     var norm = normalize(colorName);
     if (!norm) return null;
 
-    // Get all media gallery items
     var gallery = document.querySelector('media-gallery');
-    if (!gallery) return null;
+    if (!gallery) { log('No media-gallery found'); return null; }
     var viewer = gallery.querySelector('[id^="GalleryViewer"]');
-    if (!viewer) return null;
+    if (!viewer) { log('No GalleryViewer found'); return null; }
     var items = viewer.querySelectorAll('li[data-media-id]');
-    if (!items.length) return null;
+    if (!items.length) { log('No media items found'); return null; }
 
     var bestMatch = null;
     var bestScore = 0;
@@ -63,54 +103,64 @@
       var img = item.querySelector('img');
       if (!img) return;
 
-      // Check src and alt text
-      var src = (img.src || img.dataset.src || '').split('/').pop().split('?')[0].toLowerCase();
-      var alt = normalize(img.alt || '');
-      var srcNorm = normalize(src);
+      // Get all text sources for matching
+      var src = (img.src || img.dataset.src || img.getAttribute('srcset') || '').toLowerCase();
+      var alt = (img.alt || '').toLowerCase();
+      var srcFile = src.split('/').pop().split('?')[0];
+      var srcNorm = normalize(srcFile);
+      var altNorm = normalize(alt);
 
-      // Strategy 1: Exact match in filename (best)
+      // Strategy 1: Exact color name in filename (strongest)
       if (srcNorm.indexOf(norm) > -1) {
-        var score = 100 - (srcNorm.length - norm.length); // Prefer shorter filenames (more specific)
+        var score = 100;
+        log('Strategy 1 match:', srcFile, 'score:', score);
         if (score > bestScore) { bestScore = score; bestMatch = item; }
       }
 
-      // Strategy 2: Match in alt text
-      if (alt.indexOf(norm) > -1) {
-        var score = 80;
+      // Strategy 2: Color name in alt text (strong)
+      if (altNorm.indexOf(norm) > -1) {
+        var score = 90;
+        log('Strategy 2 match (alt):', alt, 'score:', score);
         if (score > bestScore) { bestScore = score; bestMatch = item; }
       }
 
-      // Strategy 3: Split color into words and check if ALL words appear in filename
-      var words = colorName.toLowerCase().split(/[\s\/\-]+/).filter(function(w) { return w.length > 2; });
+      // Strategy 3: Multi-word - all words in filename or alt
+      var words = colorName.toLowerCase().split(/[\s\/\-_]+/).filter(function(w) { return w.length > 1; });
       if (words.length > 1) {
-        var allFound = words.every(function(w) { return srcNorm.indexOf(w) > -1; });
-        if (allFound) {
-          var score = 70;
+        var allInSrc = words.every(function(w) { return srcNorm.indexOf(normalize(w)) > -1; });
+        var allInAlt = words.every(function(w) { return altNorm.indexOf(normalize(w)) > -1; });
+        if (allInSrc || allInAlt) {
+          var score = 80;
+          log('Strategy 3 match (multi-word):', words, 'score:', score);
           if (score > bestScore) { bestScore = score; bestMatch = item; }
         }
       }
 
-      // Strategy 4: Check with common color word variations
-      var colorMappings = {
+      // Strategy 4: Common abbreviation expansion
+      var abbrevs = {
         'dk': 'dark', 'lt': 'light', 'htr': 'heather', 'hthr': 'heather',
-        'nvy': 'navy', 'blk': 'black', 'wht': 'white', 'gry': 'gray',
-        'grn': 'green', 'blu': 'blue', 'red': 'red', 'org': 'orange',
-        'pnk': 'pink', 'prp': 'purple', 'ylw': 'yellow', 'brn': 'brown'
+        'nvy': 'navy', 'blk': 'black', 'wht': 'white', 'gry': 'gray', 'grey': 'gray',
+        'grn': 'green', 'blu': 'blue', 'org': 'orange', 'pnk': 'pink',
+        'prp': 'purple', 'ylw': 'yellow', 'brn': 'brown', 'crm': 'cream',
+        'tl': 'teal', 'cy': 'cyan', 'mg': 'magenta', 'ind': 'indigo'
       };
-      var expandedNorm = norm;
-      for (var abbr in colorMappings) {
-        expandedNorm = expandedNorm.replace(abbr, colorMappings[abbr]);
+      var expanded = norm;
+      for (var a in abbrevs) {
+        if (expanded.indexOf(a) > -1) expanded = expanded.replace(new RegExp(a, 'g'), abbrevs[a]);
       }
-      if (expandedNorm !== norm && srcNorm.indexOf(expandedNorm) > -1) {
-        var score = 60;
-        if (score > bestScore) { bestScore = score; bestMatch = item; }
+      if (expanded !== norm) {
+        if (srcNorm.indexOf(expanded) > -1 || altNorm.indexOf(expanded) > -1) {
+          var score = 70;
+          log('Strategy 4 match (expanded):', expanded, 'score:', score);
+          if (score > bestScore) { bestScore = score; bestMatch = item; }
+        }
       }
     });
 
+    log('Best match score:', bestScore, bestMatch ? 'found' : 'none');
     return bestMatch;
   }
 
-  // Use the theme's gallery API for proper image switching
   function setActiveMedia(item) {
     if (!item) return false;
     var mediaId = item.dataset.mediaId;
@@ -119,17 +169,23 @@
     var gallery = document.querySelector('media-gallery');
     if (gallery && typeof gallery.setActiveMedia === 'function') {
       gallery.setActiveMedia(mediaId, false);
+      log('setActiveMedia called:', mediaId);
       return true;
     }
 
-    // Fallback: manual class toggle
-    var items = document.querySelectorAll('li[data-media-id]');
-    items.forEach(function(el) { el.classList.remove('is-active'); });
-    item.classList.add('is-active');
-    return true;
+    // Fallback: scroll into view and toggle classes
+    var viewer = item.closest('[id^="GalleryViewer"]');
+    if (viewer) {
+      var allItems = viewer.querySelectorAll('li[data-media-id]');
+      allItems.forEach(function(el) { el.classList.remove('is-active'); });
+      item.classList.add('is-active');
+      item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      log('Fallback class toggle for:', mediaId);
+      return true;
+    }
+    return false;
   }
 
-  // Main logic: check if active image matches selected color
   function fixActiveImage() {
     var colorName = getSelectedColor();
     if (!colorName) return;
@@ -137,46 +193,58 @@
     var norm = normalize(colorName);
     if (!norm) return;
 
-    // Check if the current active image already matches
+    // Check if current active image already matches
     var activeItem = document.querySelector('li[data-media-id].is-active');
     if (activeItem) {
       var activeImg = activeItem.querySelector('img');
       if (activeImg) {
         var activeSrc = normalize((activeImg.src || '').split('/').pop().split('?')[0]);
-        if (activeSrc.indexOf(norm) > -1) return; // Already correct
+        var activeAlt = normalize(activeImg.alt || '');
+        if (activeSrc.indexOf(norm) > -1 || activeAlt.indexOf(norm) > -1) {
+          log('Already showing correct image for:', colorName);
+          return;
+        }
       }
     }
 
-    // Find and activate matching image
     var match = findMediaByColor(colorName);
     if (match) {
       setActiveMedia(match);
+    } else {
+      log('No match found for color:', colorName);
     }
   }
 
-  // Hook into theme's pub/sub (fires after theme's updateMedia)
+  // Hook into theme's pub/sub
   if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
     subscribe(PUB_SUB_EVENTS.variantChange, function() {
-      setTimeout(fixActiveImage, 150);
+      setTimeout(fixActiveImage, 200);
     });
   }
 
-  // Listen on variant-selects change with MutationObserver for timing
   function attachListeners() {
+    var colorFieldset = findColorFieldset();
+    if (colorFieldset) {
+      colorFieldset.addEventListener('change', function() {
+        setTimeout(fixActiveImage, 300);
+        setTimeout(fixActiveImage, 800);
+      });
+      log('Attached change listener to color fieldset');
+    }
+
+    // Also listen on the full variant-selects
     var variantSelects = document.querySelector('variant-selects');
-    if (!variantSelects) return;
+    if (variantSelects) {
+      variantSelects.addEventListener('change', function() {
+        setTimeout(fixActiveImage, 400);
+      });
+    }
 
-    variantSelects.addEventListener('change', function() {
-      // Give the theme time to fetch and update, then fix if needed
-      setTimeout(fixActiveImage, 300);
-      setTimeout(fixActiveImage, 800);
-    });
-
-    // Watch for gallery DOM changes (more reliable than fixed timeouts)
+    // Watch for gallery DOM changes
     var gallery = document.querySelector('media-gallery');
     if (gallery) {
       var observer = new MutationObserver(function() {
-        setTimeout(fixActiveImage, 100);
+        setTimeout(fixActiveImage, 150);
       });
       observer.observe(gallery, { childList: true, subtree: true, attributes: true, attributeFilter: ['class'] });
     }
@@ -188,13 +256,16 @@
     attachListeners();
   }
 
-  // Safety net: watch for URL changes (variant query param)
+  // Safety net: URL change detection
   var lastUrl = location.href;
   setInterval(function() {
     if (location.href !== lastUrl) {
       lastUrl = location.href;
-      setTimeout(fixActiveImage, 200);
+      setTimeout(fixActiveImage, 250);
     }
   }, 500);
+
+  // Run once on load for direct variant URLs
+  setTimeout(fixActiveImage, 500);
 })();
 </script>
