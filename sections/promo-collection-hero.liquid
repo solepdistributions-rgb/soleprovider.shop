@@ -1,0 +1,126 @@
+{% comment %}
+  Promo Collection Hero — sections/promo-collection-hero.liquid
+  Reusable black header + category pill bar for non-apparel collections.
+  Same visual style as apparel-collection-hero.
+{% endcomment %}
+
+{% liquid
+  assign current_handle = collection.handle
+  assign parent_label = section.settings.breadcrumb_parent_label | default: 'Promotional Products'
+  assign parent_link = section.settings.breadcrumb_parent_link | default: '/pages/promotional-products'
+%}
+
+<div class="ac-wrap">
+
+  <!-- ── HEADER ── -->
+  <div class="ac-header">
+    <div class="page-width">
+      <div class="ac-header__inner">
+        <div class="ac-header__left">
+          <nav class="ac-breadcrumb" aria-label="Breadcrumb">
+            <a href="/" class="ac-breadcrumb__link">Home</a>
+            <span class="ac-breadcrumb__sep">→</span>
+            <a href="{{ parent_link }}" class="ac-breadcrumb__link">{{ parent_label }}</a>
+            <span class="ac-breadcrumb__sep">→</span>
+            <span class="ac-breadcrumb__current">{{ collection.title }}</span>
+          </nav>
+          <h1 class="ac-header__title">{{ collection.title }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CATEGORY SWITCHER ── -->
+  {% if section.blocks.size > 0 %}
+    <div class="ac-cats">
+      <div class="page-width">
+        <div class="ac-cats__inner">
+          <span class="ac-cats__label">Category</span>
+          <div class="ac-cats__pills">
+            {% for block in section.blocks %}
+              {% if block.type == 'category' %}
+                <a href="{{ block.settings.collection_link }}"
+                  class="ac-cats__pill{% if current_handle == block.settings.collection_handle %} ac-cats__pill--active{% endif %}">
+                  {{ block.settings.label }}
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+</div>
+
+<style>
+  .ac-wrap { border-bottom: 1px solid #e0e0e0; }
+  .ac-header {
+    background: #111111;
+    padding: 32px 0 24px;
+    border-bottom: 3px solid #c41230;
+  }
+  .ac-header__inner {
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .ac-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .ac-breadcrumb__link {
+    color: rgba(255,255,255,0.5); text-decoration: none; font-size: 1.2rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; transition: color 0.2s;
+  }
+  .ac-breadcrumb__link:hover { color: #c41230; }
+  .ac-breadcrumb__sep { color: rgba(255,255,255,0.2); font-size: 1rem; }
+  .ac-breadcrumb__current {
+    color: rgba(255,255,255,0.75); font-size: 1.2rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .ac-header__title {
+    margin: 0; font-family: var(--sole-heading-font);
+    font-size: clamp(2.8rem, 4vw, 4.8rem); line-height: 0.95; font-weight: 900;
+    text-transform: uppercase; color: #ffffff;
+  }
+  .ac-cats {
+    background: #1a1a1a; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .ac-cats__inner {
+    display: flex; align-items: center; gap: 16px; overflow-x: auto; scrollbar-width: none;
+  }
+  .ac-cats__inner::-webkit-scrollbar { display: none; }
+  .ac-cats__label {
+    font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.35); white-space: nowrap; flex-shrink: 0;
+  }
+  .ac-cats__pills { display: flex; gap: 8px; flex-wrap: nowrap; }
+  .ac-cats__pill {
+    display: inline-flex; align-items: center; height: 32px; padding: 0 14px;
+    border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.7);
+    text-decoration: none; font-size: 1.2rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; white-space: nowrap; transition: all 0.2s ease;
+  }
+  .ac-cats__pill:hover { border-color: #c41230; color: #fff; background: rgba(196,18,48,0.15); }
+  .ac-cats__pill--active { background: #c41230 !important; border-color: #c41230 !important; color: #fff !important; }
+  @media screen and (max-width: 989px) {
+    .ac-header__right { display: none; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Hero + Tabs",
+  "settings": [
+    { "type": "text", "id": "breadcrumb_parent_label", "label": "Breadcrumb parent label", "default": "Promotional Products" },
+    { "type": "url", "id": "breadcrumb_parent_link", "label": "Breadcrumb parent link", "default": "/pages/promotional-products" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Tab",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "All" },
+        { "type": "url", "id": "collection_link", "label": "Collection link" },
+        { "type": "text", "id": "collection_handle", "label": "Collection handle", "info": "Exact handle to highlight active tab" }
+      ]
+    }
+  ]
+}
+{% endschema %}

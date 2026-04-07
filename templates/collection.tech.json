@@ -1,27 +1,31 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "hero": {
+      "type": "promo-collection-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false
-      }
+        "breadcrumb_parent_label": "Tech & Electronics",
+        "breadcrumb_parent_link": "/collections/office-tech"
+      },
+      "blocks": {
+        "all":     { "type": "category", "settings": { "label": "All Tech",            "collection_link": "/collections/office-tech",                "collection_handle": "office-tech" } },
+        "power":   { "type": "category", "settings": { "label": "Power Banks",         "collection_link": "/collections/power-banks-chargers",       "collection_handle": "power-banks-chargers" } },
+        "sound":   { "type": "category", "settings": { "label": "Speakers & Sound",    "collection_link": "/collections/sound",                      "collection_handle": "sound" } },
+        "phone":   { "type": "category", "settings": { "label": "Phone & Computer",    "collection_link": "/collections/phone-computer-accessories",  "collection_handle": "phone-computer-accessories" } },
+        "cables":  { "type": "category", "settings": { "label": "Cables",              "collection_link": "/collections/cables",                     "collection_handle": "cables" } },
+        "earbuds": { "type": "category", "settings": { "label": "Earbuds",             "collection_link": "/collections/earbuds-headphones",          "collection_handle": "earbuds-headphones" } },
+        "usb":     { "type": "category", "settings": { "label": "USB Drives",          "collection_link": "/collections/usb-flash-drives",           "collection_handle": "usb-flash-drives" } }
+      },
+      "block_order": ["all", "power", "sound", "phone", "cables", "earbuds", "usb"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "filter_set": "tech",
-        "products_per_page": 24,
-        "columns_desktop": 3,
-        "columns_mobile": "2",
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "enable_filtering": true,
-        "filter_type": "vertical",
-        "enable_sorting": true
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
       }
     }
   },
-  "order": ["banner", "product-grid"]
+  "order": ["hero", "product-grid"]
 }

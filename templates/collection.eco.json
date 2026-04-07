@@ -1,27 +1,28 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "hero": {
+      "type": "promo-collection-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false
-      }
+        "breadcrumb_parent_label": "Eco & Wellness",
+        "breadcrumb_parent_link": "/collections/eco-natural"
+      },
+      "blocks": {
+        "eco":  { "type": "category", "settings": { "label": "Eco & Natural",  "collection_link": "/collections/eco-natural",          "collection_handle": "eco-natural" } },
+        "well": { "type": "category", "settings": { "label": "Wellness",       "collection_link": "/collections/wellness",             "collection_handle": "wellness" } },
+        "aid":  { "type": "category", "settings": { "label": "First Aid",      "collection_link": "/collections/first-aid-safety",     "collection_handle": "first-aid-safety" } },
+        "lip":  { "type": "category", "settings": { "label": "Personal Care",  "collection_link": "/collections/lip-balm-personal-care","collection_handle": "lip-balm-personal-care" } }
+      },
+      "block_order": ["eco", "well", "aid", "lip"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "filter_set": "eco",
-        "products_per_page": 24,
-        "columns_desktop": 3,
-        "columns_mobile": "2",
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "enable_filtering": true,
-        "filter_type": "vertical",
-        "enable_sorting": true
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
       }
     }
   },
-  "order": ["banner", "product-grid"]
+  "order": ["hero", "product-grid"]
 }

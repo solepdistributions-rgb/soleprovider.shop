@@ -1,27 +1,32 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "hero": {
+      "type": "promo-collection-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false
-      }
+        "breadcrumb_parent_label": "Outdoor & Home",
+        "breadcrumb_parent_link": "/collections/picnic-camping"
+      },
+      "blocks": {
+        "bbq":     { "type": "category", "settings": { "label": "BBQ",               "collection_link": "/collections/bbq",                "collection_handle": "bbq" } },
+        "picnic":  { "type": "category", "settings": { "label": "Picnic & Camping",  "collection_link": "/collections/picnic-camping",     "collection_handle": "picnic-camping" } },
+        "blanket": { "type": "category", "settings": { "label": "Blankets & Chairs", "collection_link": "/collections/chairs",             "collection_handle": "chairs" } },
+        "kitchen": { "type": "category", "settings": { "label": "Kitchen & Home",    "collection_link": "/collections/kitchen-home",       "collection_handle": "kitchen-home" } },
+        "games":   { "type": "category", "settings": { "label": "Games",             "collection_link": "/collections/games-spinners",     "collection_handle": "games-spinners" } },
+        "auto":    { "type": "category", "settings": { "label": "Automotive",        "collection_link": "/collections/automotive-home",    "collection_handle": "automotive-home" } },
+        "towels":  { "type": "category", "settings": { "label": "Towels",            "collection_link": "/collections/towels",             "collection_handle": "towels" } },
+        "flags":   { "type": "category", "settings": { "label": "Flags & Tents",     "collection_link": "/collections/flags-tents",        "collection_handle": "flags-tents" } }
+      },
+      "block_order": ["bbq", "picnic", "blanket", "kitchen", "games", "auto", "towels", "flags"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "filter_set": "outdoor",
-        "products_per_page": 24,
-        "columns_desktop": 3,
-        "columns_mobile": "2",
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "enable_filtering": true,
-        "filter_type": "vertical",
-        "enable_sorting": true
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
       }
     }
   },
-  "order": ["banner", "product-grid"]
+  "order": ["hero", "product-grid"]
 }

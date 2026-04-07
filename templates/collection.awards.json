@@ -1,27 +1,32 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "hero": {
+      "type": "promo-collection-hero",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false
-      }
+        "breadcrumb_parent_label": "Awards & Accessories",
+        "breadcrumb_parent_link": "/collections/accessories"
+      },
+      "blocks": {
+        "all":     { "type": "category", "settings": { "label": "All",              "collection_link": "/collections/accessories",           "collection_handle": "accessories" } },
+        "awards":  { "type": "category", "settings": { "label": "Awards",           "collection_link": "/collections/awards",                "collection_handle": "awards" } },
+        "keys":    { "type": "category", "settings": { "label": "Key Chains",       "collection_link": "/collections/carabiners-key-chains", "collection_handle": "carabiners-key-chains" } },
+        "lanyard": { "type": "category", "settings": { "label": "Lanyards & Badges","collection_link": "/collections/badge-holders-lanyards","collection_handle": "badge-holders-lanyards" } },
+        "clocks":  { "type": "category", "settings": { "label": "Clocks & Frames",  "collection_link": "/collections/clocks-frames",        "collection_handle": "clocks-frames" } },
+        "watch":   { "type": "category", "settings": { "label": "Watches",          "collection_link": "/collections/watches",               "collection_handle": "watches" } },
+        "sun":     { "type": "category", "settings": { "label": "Sunglasses",       "collection_link": "/collections/sunglasses",            "collection_handle": "sunglasses" } },
+        "umb":     { "type": "category", "settings": { "label": "Umbrellas",        "collection_link": "/collections/umbrellas",             "collection_handle": "umbrellas" } }
+      },
+      "block_order": ["all", "awards", "keys", "lanyard", "clocks", "watch", "sun", "umb"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
         "filter_set": "awards",
-        "products_per_page": 24,
-        "columns_desktop": 3,
-        "columns_mobile": "2",
-        "image_ratio": "portrait",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "enable_filtering": true,
-        "filter_type": "vertical",
-        "enable_sorting": true
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
       }
     }
   },
-  "order": ["banner", "product-grid"]
+  "order": ["hero", "product-grid"]
 }
