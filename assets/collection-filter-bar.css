@@ -2,8 +2,7 @@
 .ac-filters {
   background: #ffffff;
   border-bottom: 2px solid #eeeeee;
-  position: sticky;
-  top: 56px;
+  position: relative;
   z-index: 30;
 }
 .ac-filters__inner {
@@ -135,7 +134,7 @@
 
 /* ── RESPONSIVE ── */
 @media screen and (max-width: 989px) {
-  .ac-filters { top: 0; position: relative; }
+  .ac-filters { position: relative; }
   .ac-filters__label { display: none; }
   .ac-filter__trigger { padding: 0 12px; font-size: 1.15rem; }
 }
