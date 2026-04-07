@@ -67,6 +67,14 @@
             "collection_link": "/collections/headwear",
             "collection_handle": "headwear"
           }
+        },
+        "pill_workwear": {
+          "type": "category",
+          "settings": {
+            "label": "Workwear",
+            "collection_link": "/collections/workwear",
+            "collection_handle": "workwear"
+          }
         }
       },
       "block_order": [
@@ -76,7 +84,8 @@
         "pill_sweatshirts",
         "pill_outerwear",
         "pill_bottoms",
-        "pill_headwear"
+        "pill_headwear",
+        "pill_workwear"
       ],
       "settings": {}
     },
