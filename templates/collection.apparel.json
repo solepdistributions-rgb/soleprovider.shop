@@ -83,7 +83,7 @@
     "collection_products": {
       "type": "main-collection-product-grid",
       "settings": {
-        "filter_set": "apparel",
+        "filter_set": "none",
         "products_per_page": 24,
         "columns_desktop": 3,
         "columns_mobile": "2",

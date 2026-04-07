@@ -42,10 +42,8 @@
         <div class="ac-cats__pills">
           {% for block in section.blocks %}
             {% if block.type == 'category' %}
-              
-                href="{{ block.settings.collection_link }}"
-                class="ac-cats__pill{% if current_handle == block.settings.collection_handle %} ac-cats__pill--active{% endif %}"
-              >
+              <a href="{{ block.settings.collection_link }}"
+                class="ac-cats__pill{% if current_handle == block.settings.collection_handle %} ac-cats__pill--active{% endif %}">
                 {{ block.settings.label }}
               </a>
             {% endif %}
