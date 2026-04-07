@@ -18,9 +18,9 @@
       "type": "main-collection-product-grid",
       "settings": {
         "filter_set": "headwear",
-        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "products_per_page": 24, "columns_desktop": 4, "columns_mobile": "2",
         "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
-        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+        "enable_filtering": false, "filter_type": "vertical", "enable_sorting": true
       }
     }
   },
