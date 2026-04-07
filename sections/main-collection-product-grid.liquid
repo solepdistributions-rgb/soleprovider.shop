@@ -36,6 +36,10 @@
   }
 {%- endstyle -%}
 
+{%- if section.settings.filter_set != blank and section.settings.filter_set != 'none' -%}
+  {% render 'collection-filter-bar', filter_set: section.settings.filter_set, collection: collection %}
+{%- endif -%}
+
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
@@ -347,6 +351,25 @@
     {
       "type": "header",
       "content": "t:sections.main-collection-product-grid.settings.header__1.content"
+    },
+    {
+      "type": "select",
+      "id": "filter_set",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "apparel", "label": "Apparel" },
+        { "value": "bags", "label": "Bags" },
+        { "value": "drinkware", "label": "Drinkware" },
+        { "value": "headwear", "label": "Headwear" },
+        { "value": "tech", "label": "Tech & Electronics" },
+        { "value": "writing", "label": "Writing & Office" },
+        { "value": "outdoor", "label": "Outdoor & Home" },
+        { "value": "eco", "label": "Eco & Wellness" },
+        { "value": "awards", "label": "Awards & Accessories" }
+      ],
+      "default": "none",
+      "label": "Product Filter Bar",
+      "info": "Show category-specific tag filters above the grid"
     },
     {
       "type": "checkbox",

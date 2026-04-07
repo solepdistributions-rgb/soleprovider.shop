@@ -1,0 +1,383 @@
+{% comment %}
+  Collection Filter Bar — snippets/collection-filter-bar.liquid
+  Renders category-specific filter dropdowns above the product grid.
+
+  Usage:
+    {% render 'collection-filter-bar', filter_set: 'apparel', collection: collection %}
+
+  Params:
+    - filter_set: String — which filter config to use
+    - collection: Collection object
+{% endcomment %}
+
+{% if filter_set == blank or filter_set == 'none' %}
+  {% break %}
+{% endif %}
+
+{{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign current_url = collection.url
+  assign current_tags_str = ''
+  if request.url contains 'filter.p.tag='
+    assign current_tags_str = request.url | split: 'filter.p.tag=' | last | split: '&' | first | url_decode
+  endif
+%}
+
+<div class="ac-filters" id="ac-filter-bar">
+  <div class="page-width">
+    <div class="ac-filters__inner">
+      <span class="ac-filters__label">Filter By</span>
+
+      <div class="ac-filters__dropdowns">
+
+        {%- comment -%}═══ APPAREL FILTERS ═══{%- endcomment -%}
+        {% if filter_set == 'apparel' %}
+
+          {%- comment -%}── Brand ──{%- endcomment -%}
+          {% assign brand_labels = '' %}
+          {% assign brand_tags = '' %}
+          {% for product in collection.products %}
+            {% for tag in product.tags %}
+              {% if tag contains 'brand:' %}
+                {% assign bval = tag | remove: 'brand:' %}
+                {% unless brand_tags contains tag %}
+                  {% if brand_tags != '' %}{% assign brand_tags = brand_tags | append: ',' | append: tag %}{% assign brand_labels = brand_labels | append: ',' | append: bval %}{% else %}{% assign brand_tags = tag %}{% assign brand_labels = bval %}{% endif %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% if brand_labels != '' %}
+            {% assign bl_arr = brand_labels | split: ',' | sort %}
+            {% assign bt_arr = brand_tags | split: ',' %}
+            <div class="ac-filter" data-filter="brand">
+              <button class="ac-filter__trigger" aria-expanded="false">
+                Brand
+                <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="ac-filter__panel" hidden>
+                {% for label in bl_arr %}
+                  {% assign btag = 'brand:' | append: label %}
+                  <a href="{{ current_url }}?filter.p.tag={{ btag | url_encode }}" class="ac-filter__option{% if current_tags_str == btag %} ac-filter__option--active{% endif %}">
+                    <span class="ac-filter__check">{% if current_tags_str == btag %}✓{% endif %}</span>
+                    {{ label | capitalize }}
+                  </a>
+                {% endfor %}
+                <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+              </div>
+            </div>
+          {% endif %}
+
+          {%- comment -%}── Gender ──{%- endcomment -%}
+          {% assign gender_labels = 'Unisex,Womens,Youth' | split: ',' %}
+          {% assign gender_tags = 'fit:unisex,fit:womens,fit:youth' | split: ',' %}
+          <div class="ac-filter" data-filter="gender">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Gender
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in gender_labels %}
+                {% assign tag = gender_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          {%- comment -%}── Weight ──{%- endcomment -%}
+          {% assign weight_labels = 'Lightweight,Midweight,Heavyweight,Performance' | split: ',' %}
+          {% assign weight_tags = 'weight:lightweight,weight:midweight,weight:heavyweight,weight:performance' | split: ',' %}
+          <div class="ac-filter" data-filter="weight">
+            <button class="ac-filter__trigger" aria-expanded="false">
+              Weight
+              <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in weight_labels %}
+                {% assign tag = weight_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>
+                  {{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          {%- comment -%}── Hood/Style (only for sweatshirts/outerwear) ──{%- endcomment -%}
+          {% if collection.handle contains 'sweatshirt' or collection.handle contains 'outerwear' or collection.handle contains 'fleece' %}
+            {% assign hood_labels = 'Has Hood,No Hood,Full Zip,Quarter Zip' | split: ',' %}
+            {% assign hood_tags = 'hood:yes,hood:no,hood:fullzip,hood:quarterzip' | split: ',' %}
+            <div class="ac-filter" data-filter="style">
+              <button class="ac-filter__trigger" aria-expanded="false">
+                Style
+                <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <div class="ac-filter__panel" hidden>
+                {% for label in hood_labels %}
+                  {% assign tag = hood_tags[forloop.index0] %}
+                  <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                    <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>
+                    {{ label }}
+                  </a>
+                {% endfor %}
+                <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+              </div>
+            </div>
+          {% endif %}
+
+        {%- comment -%}═══ BAGS FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'bags' %}
+
+          {%- comment -%}── Brand (dynamic) ──{%- endcomment -%}
+          {% assign brand_labels = '' %}
+          {% for product in collection.products %}
+            {% for tag in product.tags %}
+              {% if tag contains 'brand:' %}
+                {% assign bval = tag | remove: 'brand:' %}
+                {% unless brand_labels contains bval %}
+                  {% if brand_labels != '' %}{% assign brand_labels = brand_labels | append: ',' | append: bval %}{% else %}{% assign brand_labels = bval %}{% endif %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% if brand_labels != '' %}
+            {% assign bl_arr = brand_labels | split: ',' | sort %}
+            <div class="ac-filter" data-filter="brand">
+              <button class="ac-filter__trigger" aria-expanded="false">Brand <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+              <div class="ac-filter__panel" hidden>
+                {% for label in bl_arr %}
+                  {% assign btag = 'brand:' | append: label %}
+                  <a href="{{ current_url }}?filter.p.tag={{ btag | url_encode }}" class="ac-filter__option{% if current_tags_str == btag %} ac-filter__option--active{% endif %}">
+                    <span class="ac-filter__check">{% if current_tags_str == btag %}✓{% endif %}</span>{{ label | capitalize }}
+                  </a>
+                {% endfor %}
+                <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+              </div>
+            </div>
+          {% endif %}
+
+          {%- comment -%}── Type ──{%- endcomment -%}
+          {% assign type_labels = 'Backpacks,Duffels,Totes,Coolers & Lunch,Cinch Packs,Drawstring,Laptop Bags,Travel,Rolling' | split: ',' %}
+          {% assign type_tags = 'cat:backpacks,cat:duffels,cat:totes,cat:coolers-dry-bags,cat:cinch-packs,cat:drawstring,cat:laptop-bags,cat:travel,cat:rolling' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ DRINKWARE FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'drinkware' %}
+
+          {% assign type_labels = 'Tumblers & Mugs,Water Bottles,Can Coolers,Sport Bottles,Flasks' | split: ',' %}
+          {% assign type_tags = 'cat:mugs-tumblers,cat:water-bottles,cat:can-coolers,cat:sport-bottles,cat:water-bottles-and-flasks' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+          {% assign mat_labels = 'Stainless Steel,Ceramic,Acrylic,Plastic,Glass' | split: ',' %}
+          {% assign mat_tags = 'mat:stainless-steel,mat:ceramic,mat:acrylic,mat:plastic,mat:glass' | split: ',' %}
+          <div class="ac-filter" data-filter="material">
+            <button class="ac-filter__trigger" aria-expanded="false">Material <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in mat_labels %}
+                {% assign tag = mat_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ HEADWEAR FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'headwear' %}
+
+          {%- comment -%}── Brand (dynamic) ──{%- endcomment -%}
+          {% assign brand_labels = '' %}
+          {% for product in collection.products %}
+            {% for tag in product.tags %}
+              {% if tag contains 'brand:' %}
+                {% assign bval = tag | remove: 'brand:' %}
+                {% unless brand_labels contains bval %}
+                  {% if brand_labels != '' %}{% assign brand_labels = brand_labels | append: ',' | append: bval %}{% else %}{% assign brand_labels = bval %}{% endif %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          {% endfor %}
+          {% if brand_labels != '' %}
+            {% assign bl_arr = brand_labels | split: ',' | sort %}
+            <div class="ac-filter" data-filter="brand">
+              <button class="ac-filter__trigger" aria-expanded="false">Brand <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+              <div class="ac-filter__panel" hidden>
+                {% for label in bl_arr %}
+                  {% assign btag = 'brand:' | append: label %}
+                  <a href="{{ current_url }}?filter.p.tag={{ btag | url_encode }}" class="ac-filter__option{% if current_tags_str == btag %} ac-filter__option--active{% endif %}">
+                    <span class="ac-filter__check">{% if current_tags_str == btag %}✓{% endif %}</span>{{ label | capitalize }}
+                  </a>
+                {% endfor %}
+                <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+              </div>
+            </div>
+          {% endif %}
+
+          {% assign style_labels = 'Structured,Unstructured,Mesh Back,Performance,Flexfit,Beanies,Bucket,Visors' | split: ',' %}
+          {% assign style_tags = 'style:structured,style:unstructured,style:mesh-back,style:performance,style:flexfit,style:beanies,style:bucket,style:visors' | split: ',' %}
+          <div class="ac-filter" data-filter="style">
+            <button class="ac-filter__trigger" aria-expanded="false">Style <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in style_labels %}
+                {% assign tag = style_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ TECH FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'tech' %}
+          {% assign type_labels = 'Power Banks & Chargers,Speakers & Sound,Phone & Computer,Cables,Earbuds' | split: ',' %}
+          {% assign type_tags = 'cat:power-banks-chargers,cat:sound,cat:phone-computer-accessories,cat:cables,cat:earbuds' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ WRITING FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'writing' %}
+          {% assign type_labels = 'Ballpoint Pens,Stylus & Multi-Function,Rollerball Pens,Highlighters & Pencils,Journal Books,Padfolios,Spiral Notebooks' | split: ',' %}
+          {% assign type_tags = 'cat:ballpoint-pens,cat:stylus-multi-function-pens,cat:rollerball-pens,cat:pencils-highlighters,cat:journal-books,cat:padfolios,cat:spiral-notebooks' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ OUTDOOR FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'outdoor' %}
+          {% assign type_labels = 'BBQ,Picnic & Camping,Blankets & Chairs,Kitchen & Home,Games & Spinners' | split: ',' %}
+          {% assign type_tags = 'cat:bbq,cat:picnic-camping,cat:chairs,cat:kitchen-home,cat:games-spinners' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ ECO/WELLNESS FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'eco' %}
+          {% assign type_labels = 'Eco & Natural,Wellness' | split: ',' %}
+          {% assign type_tags = 'cat:eco-natural,cat:wellness' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {%- comment -%}═══ AWARDS/ACCESSORIES FILTERS ═══{%- endcomment -%}
+        {% elsif filter_set == 'awards' %}
+          {% assign type_labels = 'Awards,Key Chains & Carabiners,Lanyards & Badge Holders,Clocks & Frames,Business Card Cases' | split: ',' %}
+          {% assign type_tags = 'cat:awards,cat:carabiners-key-chains,cat:badge-holders-lanyards,cat:clocks-frames,cat:business-card-cases' | split: ',' %}
+          <div class="ac-filter" data-filter="type">
+            <button class="ac-filter__trigger" aria-expanded="false">Type <svg class="ac-filter__chevron" width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <div class="ac-filter__panel" hidden>
+              {% for label in type_labels %}
+                {% assign tag = type_tags[forloop.index0] %}
+                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
+                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>{{ label }}
+                </a>
+              {% endfor %}
+              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
+            </div>
+          </div>
+
+        {% endif %}
+
+      </div>
+
+      {%- comment -%}── Active filter + Clear All ──{%- endcomment -%}
+      <div class="ac-filters__active" id="ac-active-tags">
+        {% if current_tags_str != '' %}
+          <a href="{{ current_url }}" class="ac-filters__clear-all">✕ Clear all filters</a>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var filters = document.querySelectorAll('#ac-filter-bar .ac-filter');
+    filters.forEach(function(filter) {
+      var trigger = filter.querySelector('.ac-filter__trigger');
+      var panel = filter.querySelector('.ac-filter__panel');
+      trigger.addEventListener('click', function(e) {
+        var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        filters.forEach(function(f) {
+          f.querySelector('.ac-filter__trigger').setAttribute('aria-expanded', 'false');
+          f.querySelector('.ac-filter__panel').hidden = true;
+        });
+        if (!isOpen) { trigger.setAttribute('aria-expanded', 'true'); panel.hidden = false; }
+      });
+    });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('#ac-filter-bar .ac-filter')) {
+        filters.forEach(function(f) {
+          f.querySelector('.ac-filter__trigger').setAttribute('aria-expanded', 'false');
+          f.querySelector('.ac-filter__panel').hidden = true;
+        });
+      }
+    });
+  });
+</script>
