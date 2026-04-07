@@ -7,7 +7,6 @@
         "breadcrumb_parent_link": "/collections/accessories"
       },
       "blocks": {
-        "all":     { "type": "category", "settings": { "label": "All",              "collection_link": "/collections/accessories",           "collection_handle": "accessories" } },
         "awards":  { "type": "category", "settings": { "label": "Awards",           "collection_link": "/collections/awards",                "collection_handle": "awards" } },
         "keys":    { "type": "category", "settings": { "label": "Key Chains",       "collection_link": "/collections/carabiners-key-chains", "collection_handle": "carabiners-key-chains" } },
         "lanyard": { "type": "category", "settings": { "label": "Lanyards & Badges","collection_link": "/collections/badge-holders-lanyards","collection_handle": "badge-holders-lanyards" } },
@@ -16,7 +15,7 @@
         "sun":     { "type": "category", "settings": { "label": "Sunglasses",       "collection_link": "/collections/sunglasses",            "collection_handle": "sunglasses" } },
         "umb":     { "type": "category", "settings": { "label": "Umbrellas",        "collection_link": "/collections/umbrellas",             "collection_handle": "umbrellas" } }
       },
-      "block_order": ["all", "awards", "keys", "lanyard", "clocks", "watch", "sun", "umb"]
+      "block_order": ["awards", "keys", "lanyard", "clocks", "watch", "sun", "umb"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

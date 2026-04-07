@@ -7,7 +7,6 @@
         "breadcrumb_parent_link": "/collections/office-tech"
       },
       "blocks": {
-        "all":     { "type": "category", "settings": { "label": "All Tech",            "collection_link": "/collections/office-tech",                "collection_handle": "office-tech" } },
         "power":   { "type": "category", "settings": { "label": "Power Banks",         "collection_link": "/collections/power-banks-chargers",       "collection_handle": "power-banks-chargers" } },
         "sound":   { "type": "category", "settings": { "label": "Speakers & Sound",    "collection_link": "/collections/sound",                      "collection_handle": "sound" } },
         "phone":   { "type": "category", "settings": { "label": "Phone & Computer",    "collection_link": "/collections/phone-computer-accessories",  "collection_handle": "phone-computer-accessories" } },
@@ -15,7 +14,7 @@
         "earbuds": { "type": "category", "settings": { "label": "Earbuds",             "collection_link": "/collections/earbuds-headphones",          "collection_handle": "earbuds-headphones" } },
         "usb":     { "type": "category", "settings": { "label": "USB Drives",          "collection_link": "/collections/usb-flash-drives",           "collection_handle": "usb-flash-drives" } }
       },
-      "block_order": ["all", "power", "sound", "phone", "cables", "earbuds", "usb"]
+      "block_order": ["power", "sound", "phone", "cables", "earbuds", "usb"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

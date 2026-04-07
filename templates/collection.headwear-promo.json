@@ -7,12 +7,11 @@
         "breadcrumb_parent_link": "/collections/headwear"
       },
       "blocks": {
-        "all":    { "type": "category", "settings": { "label": "All Headwear",        "collection_link": "/collections/headwear",             "collection_handle": "headwear" } },
         "caps":   { "type": "category", "settings": { "label": "Caps",                "collection_link": "/collections/caps",                 "collection_handle": "caps" } },
         "beanie": { "type": "category", "settings": { "label": "Beanies",             "collection_link": "/collections/beanies",              "collection_handle": "beanies" } },
         "perf":   { "type": "category", "settings": { "label": "Performance",         "collection_link": "/collections/performance-headwear", "collection_handle": "performance-headwear" } }
       },
-      "block_order": ["all", "caps", "beanie", "perf"]
+      "block_order": ["caps", "beanie", "perf"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

@@ -7,7 +7,6 @@
         "breadcrumb_parent_link": "/collections/bags"
       },
       "blocks": {
-        "all":        { "type": "category", "settings": { "label": "All Bags",     "collection_link": "/collections/bags",            "collection_handle": "bags" } },
         "backpacks":  { "type": "category", "settings": { "label": "Backpacks",    "collection_link": "/collections/backpacks",       "collection_handle": "backpacks" } },
         "duffels":    { "type": "category", "settings": { "label": "Duffels",      "collection_link": "/collections/duffels",         "collection_handle": "duffels" } },
         "totes":      { "type": "category", "settings": { "label": "Totes",        "collection_link": "/collections/totes",           "collection_handle": "totes" } },
@@ -15,7 +14,7 @@
         "drawstring": { "type": "category", "settings": { "label": "Drawstring",   "collection_link": "/collections/drawstring-bags", "collection_handle": "drawstring-bags" } },
         "messenger":  { "type": "category", "settings": { "label": "Messenger",    "collection_link": "/collections/messenger-bags",  "collection_handle": "messenger-bags" } }
       },
-      "block_order": ["all", "backpacks", "duffels", "totes", "coolers", "drawstring", "messenger"]
+      "block_order": ["backpacks", "duffels", "totes", "coolers", "drawstring", "messenger"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

@@ -7,7 +7,6 @@
         "breadcrumb_parent_link": "/collections/drinkware"
       },
       "blocks": {
-        "all":      { "type": "category", "settings": { "label": "All Drinkware",     "collection_link": "/collections/drinkware-all",            "collection_handle": "drinkware-all" } },
         "tumblers": { "type": "category", "settings": { "label": "Tumblers & Mugs",   "collection_link": "/collections/mugs-tumblers",             "collection_handle": "mugs-tumblers" } },
         "bottles":  { "type": "category", "settings": { "label": "Water Bottles",     "collection_link": "/collections/water-bottles",             "collection_handle": "water-bottles" } },
         "flasks":   { "type": "category", "settings": { "label": "Bottles & Flasks",  "collection_link": "/collections/water-bottles-and-flasks",  "collection_handle": "water-bottles-and-flasks" } },
@@ -15,7 +14,7 @@
         "bar":      { "type": "category", "settings": { "label": "Bar & Coasters",    "collection_link": "/collections/bar-accessories-coasters",  "collection_handle": "bar-accessories-coasters" } },
         "wine":     { "type": "category", "settings": { "label": "Wine & Cheese",     "collection_link": "/collections/wine-cheese",               "collection_handle": "wine-cheese" } }
       },
-      "block_order": ["all", "tumblers", "bottles", "flasks", "coolers", "bar", "wine"]
+      "block_order": ["tumblers", "bottles", "flasks", "coolers", "bar", "wine"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

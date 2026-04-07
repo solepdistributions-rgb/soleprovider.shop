@@ -121,73 +121,7 @@
           {% endif %}
         {% endif %}
 
-        {%- comment -%}═══ TYPE FILTER (category-specific) ═══{%- endcomment -%}
-        {% if filter_set == 'bags' %}
-          {%- assign t_labels = 'Backpacks,Duffels,Totes,Coolers & Lunch,Cinch Packs,Drawstring,Laptop Bags,Travel,Rolling' | split: ',' -%}
-          {%- assign t_tags = 'cat:backpacks,cat:duffels,cat:totes,cat:coolers-dry-bags,cat:cinch-packs,cat:drawstring,cat:laptop-bags,cat:travel,cat:rolling' | split: ',' -%}
-        {% elsif filter_set == 'drinkware' %}
-          {%- assign t_labels = 'Tumblers & Mugs,Water Bottles,Can Coolers,Sport Bottles,Flasks' | split: ',' -%}
-          {%- assign t_tags = 'cat:mugs-tumblers,cat:water-bottles,cat:can-coolers,cat:sport-bottles,cat:water-bottles-and-flasks' | split: ',' -%}
-        {% elsif filter_set == 'headwear' %}
-          {%- assign t_labels = 'Structured,Unstructured,Mesh Back,Performance,Flexfit,Beanies,Bucket,Visors' | split: ',' -%}
-          {%- assign t_tags = 'style:structured,style:unstructured,style:mesh-back,style:performance,style:flexfit,style:beanies,style:bucket,style:visors' | split: ',' -%}
-        {% elsif filter_set == 'tech' %}
-          {%- assign t_labels = 'Power Banks & Chargers,Speakers & Sound,Phone & Computer,Cables,Earbuds,USB Drives' | split: ',' -%}
-          {%- assign t_tags = 'cat:power-banks-chargers,cat:sound,cat:phone-computer-accessories,cat:cables,cat:earbuds,cat:usb-flash-drives' | split: ',' -%}
-        {% elsif filter_set == 'writing' %}
-          {%- assign t_labels = 'Ballpoint Pens,Stylus & Multi-Function,Rollerball,Pencils & Markers,Journals,Padfolios,Notebooks,Sticky Notes' | split: ',' -%}
-          {%- assign t_tags = 'cat:ballpoint-pens,cat:stylus-multi-function-pens,cat:rollerball-pens,cat:pencils-highlighters,cat:journal-books,cat:padfolios,cat:spiral-notebooks,cat:sticky-notes-notepads' | split: ',' -%}
-        {% elsif filter_set == 'outdoor' %}
-          {%- assign t_labels = 'BBQ,Picnic & Camping,Blankets & Chairs,Kitchen & Home,Games' | split: ',' -%}
-          {%- assign t_tags = 'cat:bbq,cat:picnic-camping,cat:chairs,cat:kitchen-home,cat:games-spinners' | split: ',' -%}
-        {% elsif filter_set == 'eco' %}
-          {%- assign t_labels = 'Eco & Natural,Wellness,First Aid,Personal Care' | split: ',' -%}
-          {%- assign t_tags = 'cat:eco-natural,cat:wellness,cat:first-aid-safety,cat:lip-balm-personal-care' | split: ',' -%}
-        {% elsif filter_set == 'awards' %}
-          {%- assign t_labels = 'Awards,Key Chains,Lanyards & Badges,Clocks & Frames,Business Cards,Watches,Sunglasses,Umbrellas' | split: ',' -%}
-          {%- assign t_tags = 'cat:awards,cat:carabiners-key-chains,cat:badge-holders-lanyards,cat:clocks-frames,cat:business-card-cases,cat:watches,cat:sunglasses,cat:umbrellas' | split: ',' -%}
-        {% endif %}
-
-        {% if t_labels and filter_set != 'apparel' %}
-          <div class="ac-filter" data-filter="type">
-            <button class="ac-filter__trigger" aria-expanded="false">Type {{ chevron_svg }}</button>
-            <div class="ac-filter__panel" hidden>
-              {%- for label in t_labels -%}{%- assign tag = t_tags[forloop.index0] -%}
-                {%- if all_tags contains tag -%}
-                <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
-                  <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>
-                  <span class="ac-filter__label">{{ label }}</span>
-                </a>
-                {%- endif -%}
-              {%- endfor -%}
-              <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
-            </div>
-          </div>
-        {% endif %}
-
-        {%- comment -%}═══ DRINKWARE MATERIAL ═══{%- endcomment -%}
-        {% if filter_set == 'drinkware' %}
-          {%- assign m_labels = 'Stainless Steel,Ceramic,Acrylic,Plastic,Glass' | split: ',' -%}
-          {%- assign m_tags = 'mat:stainless-steel,mat:ceramic,mat:acrylic,mat:plastic,mat:glass' | split: ',' -%}
-          {%- assign has_mat = false -%}
-          {%- for tag in m_tags -%}{%- if all_tags contains tag -%}{%- assign has_mat = true -%}{%- break -%}{%- endif -%}{%- endfor -%}
-          {%- if has_mat -%}
-            <div class="ac-filter" data-filter="material">
-              <button class="ac-filter__trigger" aria-expanded="false">Material {{ chevron_svg }}</button>
-              <div class="ac-filter__panel" hidden>
-                {%- for label in m_labels -%}{%- assign tag = m_tags[forloop.index0] -%}
-                  {%- if all_tags contains tag -%}
-                  <a href="{{ current_url }}?filter.p.tag={{ tag | url_encode }}" class="ac-filter__option{% if current_tags_str == tag %} ac-filter__option--active{% endif %}">
-                    <span class="ac-filter__check">{% if current_tags_str == tag %}✓{% endif %}</span>
-                    <span class="ac-filter__label">{{ label }}</span>
-                  </a>
-                  {%- endif -%}
-                {%- endfor -%}
-                <a href="{{ current_url }}" class="ac-filter__clear">Clear</a>
-              </div>
-            </div>
-          {%- endif -%}
-        {% endif %}
+        {%- comment -%} Type filter removed — category tabs handle subcollection navigation {%- endcomment -%}
 
         {%- comment -%}═══ COLOR FILTER (all categories) ═══{%- endcomment -%}
         {%- assign has_color = false -%}
