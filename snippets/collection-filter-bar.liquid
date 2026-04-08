@@ -12,10 +12,11 @@
 {{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
 
 <style>
-  /* Hide only the native sidebar filter column, keep everything else */
-  .facets-vertical.facets-vertical { display: none !important; }
-  .facets__form-vertical { display: none !important; }
+  /* Hide only the native sidebar filter panel, keep product grid visible */
+  .facets-wrapper { display: none !important; }
+  .facets-vertical-sort { display: none !important; }
   .product-count-vertical { display: none !important; }
+  .active-facets-desktop { display: none !important; }
 </style>
 
 {% liquid
