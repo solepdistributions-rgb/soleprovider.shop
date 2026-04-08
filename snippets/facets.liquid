@@ -21,6 +21,19 @@
   if collection.handle == 'exclusive-drops'
     assign hide_price_availability = false
   endif
+
+  comment
+    Detect apparel collections to show/hide category-specific filters.
+    Non-apparel collections hide: Size, Gender/Fit, Fabric, Fabric Weight.
+  endcomment
+  assign is_apparel_collection = false
+  assign apparel_handles = 't-shirts,all-t-shirts,basic-tees,heavyweight-tees,performance-tees,long-sleeve-tees,polos,all-polos,cotton-polos,performance-polos,work-polos,dress-shirts,all-dress-shirts,easy-care-dress-shirts,short-sleeve-dress-shirts,stretch-dress-shirts,woven-shirts,sweatshirts,all-sweatshirts,hoodies,crewnecks,fleece,full-zips,quarter-zips,outerwear,all-outerwear,lightweight-jackets,soft-shells,rainwear,vests,work-jackets,bottoms,all-bottoms,joggers,shorts,athletic-bottoms,workwear-bottoms,work-pants,work-shorts,headwear,all-headwear,caps,beanies,performance-headwear,workwear,work-shirts,work-accessories,flame-resistant,hi-visibility,safety-vests' | split: ','
+  for handle in apparel_handles
+    if collection.handle == handle
+      assign is_apparel_collection = true
+      break
+    endif
+  endfor
 -%}
 
 {{ 'component-show-more.css' | asset_url | stylesheet_tag }}
@@ -107,6 +120,11 @@
                         continue
                       endif
                     endif
+                    unless is_apparel_collection
+                      if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+                        continue
+                      endif
+                    endunless
                   -%}
                   {%- for value in filter.active_values -%}
                     <facet-remove>
@@ -151,6 +169,11 @@
                     continue
                   endif
                 endif
+                unless is_apparel_collection
+                  if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+                    continue
+                  endif
+                endunless
               -%}
               {% liquid
                 assign total_active_values = total_active_values | plus: filter.active_values.size
@@ -387,6 +410,11 @@
                       continue
                     endif
                   endif
+                  unless is_apparel_collection
+                    if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+                      continue
+                    endif
+                  endunless
                 -%}
                 {%- for value in filter.active_values -%}
                   <facet-remove>
@@ -564,6 +592,11 @@
                         continue
                       endif
                     endif
+                    unless is_apparel_collection
+                      if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+                        continue
+                      endif
+                    endunless
                   -%}
                   {% liquid
                     assign presentation = filter.presentation | default: default_presentation
@@ -846,6 +879,11 @@
             continue
           endif
         endif
+        unless is_apparel_collection
+          if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+            continue
+          endif
+        endunless
       -%}
       {%- for value in filter.active_values -%}
         <facet-remove>
@@ -962,6 +1000,11 @@
                   continue
                 endif
               endif
+              unless is_apparel_collection
+                if filter.param_name == 'filter.v.option.size' or filter.param_name == 'filter.p.m.custom.gender_fit' or filter.param_name == 'filter.p.m.custom.fabric' or filter.param_name == 'filter.p.m.custom.fabric_weight'
+                  continue
+                endif
+              endunless
             -%}
             {%- for value in filter.active_values -%}
               <facet-remove>
