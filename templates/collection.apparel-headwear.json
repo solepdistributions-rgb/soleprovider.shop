@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "caps":        { "type": "category", "settings": { "label": "Caps",         "collection_link": "/collections/caps",                 "collection_handle": "caps" } },
+        "beanies":     { "type": "category", "settings": { "label": "Beanies",      "collection_link": "/collections/beanies",              "collection_handle": "beanies" } },
+        "performance": { "type": "category", "settings": { "label": "Performance",  "collection_link": "/collections/performance-headwear", "collection_handle": "performance-headwear" } }
+      },
+      "block_order": ["caps", "beanies", "performance"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

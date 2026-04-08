@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "joggers":   { "type": "category", "settings": { "label": "Joggers",      "collection_link": "/collections/joggers",          "collection_handle": "joggers" } },
+        "shorts":    { "type": "category", "settings": { "label": "Shorts",       "collection_link": "/collections/shorts",           "collection_handle": "shorts" } },
+        "athletic":  { "type": "category", "settings": { "label": "Athletic",     "collection_link": "/collections/athletic-bottoms", "collection_handle": "athletic-bottoms" } },
+        "workpants": { "type": "category", "settings": { "label": "Work Pants",   "collection_link": "/collections/work-pants",       "collection_handle": "work-pants" } },
+        "workshorts":{ "type": "category", "settings": { "label": "Work Shorts",  "collection_link": "/collections/work-shorts",      "collection_handle": "work-shorts" } }
+      },
+      "block_order": ["joggers", "shorts", "athletic", "workpants", "workshorts"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

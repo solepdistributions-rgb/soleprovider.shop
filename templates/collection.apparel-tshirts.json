@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "basic":       { "type": "category", "settings": { "label": "Basic Tees",    "collection_link": "/collections/basic-tees",       "collection_handle": "basic-tees" } },
+        "heavyweight": { "type": "category", "settings": { "label": "Heavyweight",   "collection_link": "/collections/heavyweight-tees",  "collection_handle": "heavyweight-tees" } },
+        "performance": { "type": "category", "settings": { "label": "Performance",   "collection_link": "/collections/performance-tees",  "collection_handle": "performance-tees" } },
+        "longsleeve":  { "type": "category", "settings": { "label": "Long Sleeve",   "collection_link": "/collections/long-sleeve-tees",  "collection_handle": "long-sleeve-tees" } }
+      },
+      "block_order": ["basic", "heavyweight", "performance", "longsleeve"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

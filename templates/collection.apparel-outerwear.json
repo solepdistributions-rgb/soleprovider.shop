@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "lightweight": { "type": "category", "settings": { "label": "Lightweight",    "collection_link": "/collections/lightweight-jackets", "collection_handle": "lightweight-jackets" } },
+        "softshells":  { "type": "category", "settings": { "label": "Soft Shells",    "collection_link": "/collections/soft-shells",         "collection_handle": "soft-shells" } },
+        "rainwear":    { "type": "category", "settings": { "label": "Rainwear",       "collection_link": "/collections/rainwear",            "collection_handle": "rainwear" } },
+        "vests":       { "type": "category", "settings": { "label": "Vests",          "collection_link": "/collections/vests",               "collection_handle": "vests" } },
+        "workjackets": { "type": "category", "settings": { "label": "Work Jackets",   "collection_link": "/collections/work-jackets",        "collection_handle": "work-jackets" } }
+      },
+      "block_order": ["lightweight", "softshells", "rainwear", "vests", "workjackets"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

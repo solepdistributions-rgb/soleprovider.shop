@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "shirts":    { "type": "category", "settings": { "label": "Work Shirts",      "collection_link": "/collections/work-shirts",      "collection_handle": "work-shirts" } },
+        "fr":        { "type": "category", "settings": { "label": "Flame Resistant",  "collection_link": "/collections/flame-resistant",  "collection_handle": "flame-resistant" } },
+        "hivis":     { "type": "category", "settings": { "label": "Hi-Vis",           "collection_link": "/collections/hi-visibility",    "collection_handle": "hi-visibility" } },
+        "safetyvest":{ "type": "category", "settings": { "label": "Safety Vests",     "collection_link": "/collections/safety-vests",     "collection_handle": "safety-vests" } },
+        "accessories":{ "type": "category", "settings": { "label": "Accessories",      "collection_link": "/collections/work-accessories", "collection_handle": "work-accessories" } }
+      },
+      "block_order": ["shirts", "fr", "hivis", "safetyvest", "accessories"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

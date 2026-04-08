@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "easycare":   { "type": "category", "settings": { "label": "Easy Care",    "collection_link": "/collections/easy-care-dress-shirts",       "collection_handle": "easy-care-dress-shirts" } },
+        "shortsleeve":{ "type": "category", "settings": { "label": "Short Sleeve", "collection_link": "/collections/short-sleeve-dress-shirts",    "collection_handle": "short-sleeve-dress-shirts" } },
+        "stretch":    { "type": "category", "settings": { "label": "Stretch",      "collection_link": "/collections/stretch-dress-shirts",         "collection_handle": "stretch-dress-shirts" } },
+        "wovens":     { "type": "category", "settings": { "label": "Wovens",       "collection_link": "/collections/woven-shirts",                 "collection_handle": "woven-shirts" } }
+      },
+      "block_order": ["easycare", "shortsleeve", "stretch", "wovens"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

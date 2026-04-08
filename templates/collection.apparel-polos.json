@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "cotton":      { "type": "category", "settings": { "label": "Cotton",       "collection_link": "/collections/cotton-polos",      "collection_handle": "cotton-polos" } },
+        "performance": { "type": "category", "settings": { "label": "Performance",  "collection_link": "/collections/performance-polos", "collection_handle": "performance-polos" } },
+        "work":        { "type": "category", "settings": { "label": "Work",         "collection_link": "/collections/work-polos",        "collection_handle": "work-polos" } }
+      },
+      "block_order": ["cotton", "performance", "work"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}

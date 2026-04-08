@@ -1,0 +1,25 @@
+{
+  "sections": {
+    "collection_header": {
+      "type": "apparel-collection-hero",
+      "blocks": {
+        "hoodies":    { "type": "category", "settings": { "label": "Hoodies",      "collection_link": "/collections/hoodies",      "collection_handle": "hoodies" } },
+        "crewnecks":  { "type": "category", "settings": { "label": "Crewnecks",    "collection_link": "/collections/crewnecks",    "collection_handle": "crewnecks" } },
+        "fleece":     { "type": "category", "settings": { "label": "Fleece",        "collection_link": "/collections/fleece",       "collection_handle": "fleece" } },
+        "fullzips":   { "type": "category", "settings": { "label": "Full Zips",    "collection_link": "/collections/full-zips",    "collection_handle": "full-zips" } },
+        "quarterzips":{ "type": "category", "settings": { "label": "Quarter Zips",  "collection_link": "/collections/quarter-zips", "collection_handle": "quarter-zips" } }
+      },
+      "block_order": ["hoodies", "crewnecks", "fleece", "fullzips", "quarterzips"],
+      "settings": {}
+    },
+    "collection_products": {
+      "type": "main-collection-product-grid",
+      "settings": {
+        "products_per_page": 24, "columns_desktop": 3, "columns_mobile": "2",
+        "image_ratio": "portrait", "show_secondary_image": true, "show_vendor": true,
+        "enable_filtering": true, "filter_type": "vertical", "enable_sorting": true
+      }
+    }
+  },
+  "order": ["collection_header", "collection_products"]
+}
