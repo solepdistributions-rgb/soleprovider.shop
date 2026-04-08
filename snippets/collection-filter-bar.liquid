@@ -11,6 +11,19 @@
 
 {{ 'collection-filter-bar.css' | asset_url | stylesheet_tag }}
 
+<style>
+  /* Hide native Shopify sidebar filters when custom filter bar is present */
+  .facets-vertical { display: none !important; }
+  .facets__form-vertical { display: none !important; }
+  .facets__wrapper { display: none !important; }
+  .active-facets { display: none !important; }
+  .facets-container { display: none !important; }
+  .product-count-vertical { display: none !important; }
+  /* Make product grid full width without sidebar */
+  .collection .grid--2-col-tablet { grid-template-columns: 1fr !important; }
+  .collection product-grid { width: 100% !important; }
+</style>
+
 {% liquid
   assign current_url = collection.url
   assign current_tags_str = ''
