@@ -1,0 +1,167 @@
+{% comment %}
+  Lead Capture Popup — sections/lead-capture-popup.liquid
+  Shows after a delay on first visit. Collects name, email, phone.
+  Sends data to SP Tools API. Stores dismissal in localStorage.
+{% endcomment %}
+
+<div id="lead-popup-overlay" class="lp-overlay" style="display:none;">
+  <div class="lp-popup">
+    <button class="lp-close" id="lp-close" aria-label="Close">&times;</button>
+
+    <div class="lp-content" id="lp-form-view">
+      <div class="lp-logo">
+        {%- if settings.logo != blank -%}
+          {{ settings.logo | image_url: width: 100 | image_tag: class: 'lp-logo-img', alt: shop.name }}
+        {%- else -%}
+          <span class="lp-brand">{{ shop.name }}</span>
+        {%- endif -%}
+      </div>
+      <h2 class="lp-heading">{{ section.settings.heading }}</h2>
+      <p class="lp-subtext">{{ section.settings.subtext }}</p>
+
+      <form id="lp-form" class="lp-form">
+        <input type="text" name="name" placeholder="Your Name" class="lp-input" required>
+        <input type="email" name="email" placeholder="Email Address" class="lp-input" required>
+        <input type="tel" name="phone" placeholder="Phone (optional)" class="lp-input">
+        <input type="text" name="company" placeholder="Company / Organization" class="lp-input">
+        <button type="submit" class="lp-submit">{{ section.settings.button_text }}</button>
+      </form>
+      <p class="lp-privacy">We respect your privacy. No spam, ever.</p>
+    </div>
+
+    <div class="lp-content lp-success" id="lp-success-view" style="display:none;">
+      <div class="lp-success-icon">✓</div>
+      <h2 class="lp-heading">You're In!</h2>
+      <p class="lp-subtext">{{ section.settings.success_message }}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .lp-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+    backdrop-filter: blur(3px);
+  }
+  .lp-popup {
+    background: #fff; border-radius: 16px; max-width: 420px; width: 100%;
+    padding: 40px 32px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: lpSlideUp 0.3s ease;
+  }
+  @keyframes lpSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .lp-close {
+    position: absolute; top: 12px; right: 16px; background: none; border: none;
+    font-size: 28px; color: #999; cursor: pointer; line-height: 1;
+  }
+  .lp-close:hover { color: #111; }
+  .lp-logo { text-align: center; margin-bottom: 16px; }
+  .lp-logo-img { max-width: 80px; height: auto; }
+  .lp-brand { font-size: 18px; font-weight: 900; text-transform: uppercase; }
+  .lp-heading {
+    font-family: var(--sole-heading-font, Arial, sans-serif);
+    font-size: 22px; font-weight: 900; text-transform: uppercase;
+    text-align: center; margin: 0 0 8px; color: #111;
+  }
+  .lp-subtext {
+    font-size: 14px; color: #555; text-align: center; margin: 0 0 20px; line-height: 1.5;
+  }
+  .lp-form { display: flex; flex-direction: column; gap: 10px; }
+  .lp-input {
+    width: 100%; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 8px;
+    font-size: 14px; font-family: inherit; box-sizing: border-box; transition: border-color 0.2s;
+  }
+  .lp-input:focus { outline: none; border-color: #c41230; }
+  .lp-submit {
+    width: 100%; padding: 14px; background: #c41230; color: #fff; border: none;
+    border-radius: 8px; font-size: 15px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; cursor: pointer; transition: background 0.2s;
+  }
+  .lp-submit:hover { background: #a00e28; }
+  .lp-submit:disabled { background: #ccc; cursor: not-allowed; }
+  .lp-privacy { font-size: 11px; color: #aaa; text-align: center; margin: 12px 0 0; }
+  .lp-success { text-align: center; }
+  .lp-success-icon {
+    width: 60px; height: 60px; background: #c41230; color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-size: 28px;
+    font-weight: 900; margin: 0 auto 16px;
+  }
+</style>
+
+<script>
+(function() {
+  var DELAY = {{ section.settings.delay_seconds | default: 5 }} * 1000;
+  var STORAGE_KEY = 'sp_lead_popup_dismissed';
+  var API_URL = 'https://sp-tools-production.up.railway.app/api/leads/capture';
+
+  // Don't show if already dismissed
+  if (localStorage.getItem(STORAGE_KEY)) return;
+
+  var overlay = document.getElementById('lead-popup-overlay');
+  var closeBtn = document.getElementById('lp-close');
+  var form = document.getElementById('lp-form');
+  var formView = document.getElementById('lp-form-view');
+  var successView = document.getElementById('lp-success-view');
+
+  // Show after delay
+  setTimeout(function() {
+    overlay.style.display = 'flex';
+  }, DELAY);
+
+  // Close
+  function dismiss() {
+    overlay.style.display = 'none';
+    localStorage.setItem(STORAGE_KEY, Date.now());
+  }
+  closeBtn.addEventListener('click', dismiss);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
+
+  // Submit
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = form.querySelector('.lp-submit');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    var data = {
+      name: form.name.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      company: form.company.value,
+      source: 'website_popup'
+    };
+
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+    .then(function() {
+      formView.style.display = 'none';
+      successView.style.display = 'block';
+      localStorage.setItem(STORAGE_KEY, Date.now());
+      setTimeout(dismiss, 3000);
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = '{{ section.settings.button_text }}';
+      alert('Something went wrong. Please try again.');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Lead Capture Popup",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get VIP Access" },
+    { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Join our VIP list for priority quoting, exclusive deals, and a free branding guide for your business." },
+    { "type": "text", "id": "button_text", "label": "Button text", "default": "Join the VIP List" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Welcome to the VIP list! Check your email for your free branding guide." },
+    { "type": "range", "id": "delay_seconds", "label": "Delay (seconds)", "min": 3, "max": 30, "step": 1, "default": 8 }
+  ],
+  "presets": [
+    { "name": "Lead Capture Popup" }
+  ]
+}
+{% endschema %}
