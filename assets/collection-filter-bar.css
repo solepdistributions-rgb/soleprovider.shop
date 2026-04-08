@@ -1,14 +1,3 @@
-/* ── Hide native Shopify sidebar when custom filter bar is active ── */
-#ac-filter-bar ~ .collection .facets-vertical,
-#ac-filter-bar ~ .collection .facets__form-vertical,
-#ac-filter-bar ~ * .facets-vertical,
-#ac-filter-bar ~ * .facets__form-vertical,
-.has-custom-filters .facets-vertical,
-.has-custom-filters .facets__form-vertical,
-.has-custom-filters .facets__wrapper,
-.has-custom-filters .active-facets,
-.has-custom-filters .facets-container .facets__form-vertical { display: none !important; }
-
 /* ── COLLECTION FILTER BAR ── */
 .ac-filters {
   background: #ffffff;
