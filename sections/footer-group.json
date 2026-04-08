@@ -62,7 +62,7 @@
         "subtext": "Join our VIP list for priority quoting, exclusive deals, and a free branding guide for your business.",
         "button_text": "Join the VIP List",
         "success_message": "Welcome to the VIP list! Check your email for your free branding guide.",
-        "delay_seconds": 8
+        "delay_seconds": 15
       }
     }
   },

@@ -89,7 +89,7 @@
 
 <script>
 (function() {
-  var DELAY = {{ section.settings.delay_seconds | default: 5 }} * 1000;
+  var DELAY = {{ section.settings.delay_seconds | default: 15 }} * 1000;
   var STORAGE_KEY = 'sp_lead_popup_dismissed';
   var API_URL = 'https://sp-tools-production.up.railway.app/api/leads/capture';
 
@@ -158,7 +158,7 @@
     { "type": "textarea", "id": "subtext", "label": "Subtext", "default": "Join our VIP list for priority quoting, exclusive deals, and a free branding guide for your business." },
     { "type": "text", "id": "button_text", "label": "Button text", "default": "Join the VIP List" },
     { "type": "text", "id": "success_message", "label": "Success message", "default": "Welcome to the VIP list! Check your email for your free branding guide." },
-    { "type": "range", "id": "delay_seconds", "label": "Delay (seconds)", "min": 3, "max": 30, "step": 1, "default": 8 }
+    { "type": "range", "id": "delay_seconds", "label": "Delay (seconds)", "min": 5, "max": 60, "step": 1, "default": 15 }
   ],
   "presets": [
     { "name": "Lead Capture Popup" }
