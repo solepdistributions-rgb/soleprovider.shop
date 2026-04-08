@@ -16,7 +16,7 @@
         "towels":  { "type": "category", "settings": { "label": "Towels",            "collection_link": "/collections/towels",             "collection_handle": "towels" } },
         "flags":   { "type": "category", "settings": { "label": "Flags & Tents",     "collection_link": "/collections/flags-tents",        "collection_handle": "flags-tents" } }
       },
-      "block_order": ["bbq", "picnic", "blanket", "kitchen", "games", "auto", "towels", "flags"]
+      "block_order": ["bbq", "picnic", "blanket", "kitchen", "games"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

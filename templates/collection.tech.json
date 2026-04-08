@@ -14,7 +14,7 @@
         "earbuds": { "type": "category", "settings": { "label": "Earbuds",             "collection_link": "/collections/earbuds-headphones",          "collection_handle": "earbuds-headphones" } },
         "usb":     { "type": "category", "settings": { "label": "USB Drives",          "collection_link": "/collections/usb-flash-drives",           "collection_handle": "usb-flash-drives" } }
       },
-      "block_order": ["power", "sound", "phone", "cables", "earbuds", "usb"]
+      "block_order": ["power", "sound", "phone", "earbuds", "usb"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

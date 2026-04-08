@@ -15,7 +15,7 @@
         "sun":     { "type": "category", "settings": { "label": "Sunglasses",       "collection_link": "/collections/sunglasses",            "collection_handle": "sunglasses" } },
         "umb":     { "type": "category", "settings": { "label": "Umbrellas",        "collection_link": "/collections/umbrellas",             "collection_handle": "umbrellas" } }
       },
-      "block_order": ["awards", "keys", "lanyard", "clocks", "watch", "sun", "umb"]
+      "block_order": ["awards", "keys", "lanyard", "watches", "sun"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

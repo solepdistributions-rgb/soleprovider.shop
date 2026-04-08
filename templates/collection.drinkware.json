@@ -14,7 +14,7 @@
         "bar":      { "type": "category", "settings": { "label": "Bar & Coasters",    "collection_link": "/collections/bar-accessories-coasters",  "collection_handle": "bar-accessories-coasters" } },
         "wine":     { "type": "category", "settings": { "label": "Wine & Cheese",     "collection_link": "/collections/wine-cheese",               "collection_handle": "wine-cheese" } }
       },
-      "block_order": ["tumblers", "bottles", "flasks", "coolers", "bar", "wine"]
+      "block_order": ["tumblers", "bottles", "flasks", "coolers", "bar"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

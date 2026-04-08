@@ -14,7 +14,7 @@
         "drawstring": { "type": "category", "settings": { "label": "Drawstring",   "collection_link": "/collections/drawstring-bags", "collection_handle": "drawstring-bags" } },
         "messenger":  { "type": "category", "settings": { "label": "Messenger",    "collection_link": "/collections/messenger-bags",  "collection_handle": "messenger-bags" } }
       },
-      "block_order": ["backpacks", "duffels", "totes", "coolers", "drawstring", "messenger"]
+      "block_order": ["backpacks", "duffels", "totes", "coolers", "drawstring"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",

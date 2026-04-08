@@ -16,7 +16,7 @@
         "spiral": { "type": "category", "settings": { "label": "Notebooks",        "collection_link": "/collections/spiral-notebooks",          "collection_handle": "spiral-notebooks" } },
         "sticky": { "type": "category", "settings": { "label": "Sticky Notes",     "collection_link": "/collections/sticky-notes-notepads",     "collection_handle": "sticky-notes-notepads" } }
       },
-      "block_order": ["ball", "stylus", "roller", "pencil", "journal", "pad", "spiral", "sticky"]
+      "block_order": ["ball", "stylus", "journal", "pad", "spiral"]
     },
     "product-grid": {
       "type": "main-collection-product-grid",
