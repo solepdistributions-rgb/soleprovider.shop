@@ -3673,6 +3673,53 @@ button,
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+
+/* ===== FOOTER — Industry Inc + bright white text ===== */
+.footer-block__heading {
+  font-family: var(--sole-heading-font) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #ffffff !important;
+}
+
+.footer-block__details-content,
+.footer-block__details-content p,
+.footer-block__details-content .rte,
+.footer-block__brand-info .rte {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.footer-block__details-content .list-menu__item--link {
+  font-family: var(--sole-heading-font) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.footer-block__details-content .list-menu__item--link:hover {
+  color: #ffffff !important;
+}
+
+.footer-block--newsletter .footer-block__heading,
+.newsletter-form .field__label,
+.newsletter-form .field__input {
+  color: #ffffff !important;
+  font-family: var(--sole-heading-font);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.newsletter-form .field__input {
+  font-family: var(--sole-body-font);
+  text-transform: none;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  color: #ffffff !important;
+}
+
+.copyright__content,
+.copyright__content a {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
 .header-wrapper {
   position: sticky;
   top: 0;
