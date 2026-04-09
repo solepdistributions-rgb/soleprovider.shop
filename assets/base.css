@@ -3656,7 +3656,19 @@ button,
 /* Navigation links get the brand font */
 .header__menu-item,
 .header__active-menu-item,
-.menu-drawer__menu-item {
+.menu-drawer__menu-item,
+.list-menu__item--link,
+.mega-menu__link,
+.header__menu-item span {
+  font-family: var(--sole-heading-font);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Announcement bar / top bar links */
+.announcement-bar__link,
+.utility-bar a,
+.announcement-bar__message {
   font-family: var(--sole-heading-font);
   text-transform: uppercase;
   letter-spacing: 0.04em;
