@@ -3595,6 +3595,16 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+/* ===== Industry Inc Base — The Sole Provider brand font ===== */
+@font-face {
+  font-family: 'Industry Inc';
+  src: url('IndustryInc-Base.woff2') format('woff2'),
+       url('IndustryInc-Base.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --sole-black: #111111;
   --sole-white: #ffffff;
@@ -3602,7 +3612,7 @@ details-disclosure > details {
   --sole-light: #f5f5f5;
   --sole-text: #4a4a4a;
 
-  --sole-heading-font: "Barlow Condensed", Arial, sans-serif;
+  --sole-heading-font: 'Industry Inc', 'Barlow Condensed', Impact, Arial, sans-serif;
   --sole-body-font: Arial, Helvetica, sans-serif;
 
   --sole-radius: 18px;
@@ -3614,18 +3624,40 @@ body {
   background: var(--sole-white);
 }
 
-h1, h2, h3, h4, h5, h6,
+/* Industry Inc is an all-caps display font — use for headings, nav, buttons only.
+   Body/paragraph text stays as clean readable sans-serif. */
+h1, h2, h3,
 .sole-heading {
   font-family: var(--sole-heading-font);
   color: var(--sole-black);
-  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+}
+
+/* Smaller headings stay readable with body font */
+h4, h5, h6 {
+  font-family: var(--sole-body-font);
+  color: var(--sole-black);
+  font-weight: 700;
+  letter-spacing: 0;
 }
 
 .button,
 button,
 .shopify-payment-button__button {
   border-radius: 0;
-  font-weight: 700;
+  font-family: var(--sole-heading-font);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Navigation links get the brand font */
+.header__menu-item,
+.header__active-menu-item,
+.menu-drawer__menu-item {
+  font-family: var(--sole-heading-font);
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
