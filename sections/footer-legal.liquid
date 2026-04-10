@@ -24,12 +24,9 @@
 <div
   class="footer-legal footer-legal--{{ section.id }}"
   role="navigation"
-  aria-labelledby="FooterLegal-{{ section.id }}-heading"
+  aria-label="{{ section.settings.heading | default: 'Legal and help' | escape }}"
 >
   <div class="footer-legal__inner page-width">
-    <h2 id="FooterLegal-{{ section.id }}-heading" class="footer-legal__heading">
-      {{ section.settings.heading | escape }}
-    </h2>
     <ul class="footer-legal__links list-unstyled" role="list">
       {%- for block in section.blocks -%}
         <li class="footer-legal__item" {{ block.shopify_attributes }}>

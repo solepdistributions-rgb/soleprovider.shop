@@ -16,20 +16,8 @@
 
 .footer-legal__inner {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.4rem;
+  justify-content: center;
   text-align: center;
-}
-
-.footer-legal__heading {
-  margin: 0;
-  font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #ffffff;
-  opacity: 0.7;
 }
 
 .footer-legal__links {
@@ -72,21 +60,8 @@
 }
 
 @media screen and (min-width: 750px) {
-  .footer-legal__inner {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-    gap: 2.4rem;
-  }
-
-  .footer-legal__heading {
-    flex-shrink: 0;
-    font-size: 1.4rem;
-  }
-
   .footer-legal__links {
-    justify-content: flex-end;
-    gap: 0.8rem 2.8rem;
+    gap: 0.8rem 3.2rem;
   }
 
   .footer-legal__link {
