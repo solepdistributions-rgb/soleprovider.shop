@@ -1,24 +1,35 @@
-/* Phase A — Dedicated footer row for legal & help links */
+/* Phase A — Dedicated footer row for legal & help links.
+ *
+ * NOTE: This file deliberately uses HARDCODED colors instead of Dawn's
+ * --color-foreground / --color-background CSS variables. The variables
+ * weren't resolving reliably inside the <aside> element on the live theme,
+ * which made the row render with invalid colors and effectively invisible.
+ * Hardcoded white-on-near-black is bulletproof and matches the existing
+ * dark footer's appearance.
+ */
 
 .footer-legal {
-  border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
+  background-color: #0f0f0f;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .footer-legal__inner {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.2rem;
+  gap: 1.4rem;
   text-align: center;
 }
 
 .footer-legal__heading {
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(var(--color-foreground), 0.85);
+  color: #ffffff;
+  opacity: 0.7;
 }
 
 .footer-legal__links {
@@ -28,25 +39,35 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.8rem 2.4rem;
+  list-style: none;
 }
 
 .footer-legal__item {
   list-style: none;
+  margin: 0;
 }
 
 .footer-legal__link {
-  color: rgb(var(--color-foreground));
+  display: inline-block;
+  color: #ffffff;
   text-decoration: none;
   font-size: 1.5rem;
   line-height: 1.4;
   padding: 0.4rem 0.2rem;
-  border-bottom: 0.1rem solid transparent;
-  transition: border-color 0.15s ease, color 0.15s ease;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  opacity: 0.92;
+}
+
+.footer-legal__link:visited {
+  color: #ffffff;
 }
 
 .footer-legal__link:hover,
 .footer-legal__link:focus-visible {
-  border-bottom-color: rgb(var(--color-foreground));
+  color: #ffffff;
+  opacity: 1;
+  border-bottom-color: #c41230;
   outline: none;
 }
 
@@ -60,6 +81,7 @@
 
   .footer-legal__heading {
     flex-shrink: 0;
+    font-size: 1.4rem;
   }
 
   .footer-legal__links {
@@ -68,6 +90,6 @@
   }
 
   .footer-legal__link {
-    font-size: 1.5rem;
+    font-size: 1.55rem;
   }
 }
