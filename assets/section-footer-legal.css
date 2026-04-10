@@ -1,0 +1,73 @@
+/* Phase A — Dedicated footer row for legal & help links */
+
+.footer-legal {
+  border-top: 0.1rem solid rgba(var(--color-foreground), 0.12);
+}
+
+.footer-legal__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  text-align: center;
+}
+
+.footer-legal__heading {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(var(--color-foreground), 0.85);
+}
+
+.footer-legal__links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem 2.4rem;
+}
+
+.footer-legal__item {
+  list-style: none;
+}
+
+.footer-legal__link {
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  padding: 0.4rem 0.2rem;
+  border-bottom: 0.1rem solid transparent;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.footer-legal__link:hover,
+.footer-legal__link:focus-visible {
+  border-bottom-color: rgb(var(--color-foreground));
+  outline: none;
+}
+
+@media screen and (min-width: 750px) {
+  .footer-legal__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    gap: 2.4rem;
+  }
+
+  .footer-legal__heading {
+    flex-shrink: 0;
+  }
+
+  .footer-legal__links {
+    justify-content: flex-end;
+    gap: 0.8rem 2.8rem;
+  }
+
+  .footer-legal__link {
+    font-size: 1.5rem;
+  }
+}
