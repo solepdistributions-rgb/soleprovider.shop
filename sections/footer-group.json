@@ -55,6 +55,59 @@
         "padding_bottom": 36
       }
     },
+    "footer_legal": {
+      "type": "footer-legal",
+      "blocks": {
+        "link_terms": {
+          "type": "link",
+          "settings": {
+            "label": "Terms of Service",
+            "link": "/pages/terms-of-service"
+          }
+        },
+        "link_refund": {
+          "type": "link",
+          "settings": {
+            "label": "Refund Policy",
+            "link": "/pages/refund-policy"
+          }
+        },
+        "link_shipping": {
+          "type": "link",
+          "settings": {
+            "label": "Shipping Policy",
+            "link": "/pages/shipping-policy"
+          }
+        },
+        "link_privacy": {
+          "type": "link",
+          "settings": {
+            "label": "Privacy Policy",
+            "link": "/pages/privacy-policy"
+          }
+        },
+        "link_faq": {
+          "type": "link",
+          "settings": {
+            "label": "FAQ",
+            "link": "/pages/faq"
+          }
+        }
+      },
+      "block_order": [
+        "link_terms",
+        "link_refund",
+        "link_shipping",
+        "link_privacy",
+        "link_faq"
+      ],
+      "settings": {
+        "heading": "Legal & Help",
+        "color_scheme": "scheme-sole-dark",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
     "lead_popup": {
       "type": "lead-capture-popup",
       "settings": {
@@ -68,6 +121,7 @@
   },
   "order": [
     "footer",
+    "footer_legal",
     "lead_popup"
   ]
 }
