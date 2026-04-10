@@ -88,6 +88,13 @@
           </a>
         {% endfor %}
       </div>
+      {% if section.settings.view_all_link != blank %}
+        <div style="text-align:center;margin-top:32px;">
+          <a href="{{ section.settings.view_all_link }}" class="wo-landing__button wo-landing__button--primary" style="display:inline-block;">
+            {{ section.settings.view_all_label | default: 'View All' }}
+          </a>
+        </div>
+      {% endif %}
     </div>
 
     <div class="wo-landing__help">
@@ -334,6 +341,9 @@
     { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Type" },
     { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Writing & Office Category" },
     { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category helps you find the right writing or office product for your project faster." },
+
+    { "type": "text", "id": "view_all_label", "label": "View All button label", "default": "View All Writing & Office" },
+    { "type": "text", "id": "view_all_link", "label": "View All button link", "default": "/collections/writing" },
 
     { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Writing & Office Products?" },
     { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Whether you need branded pens for trade shows, custom notebooks for corporate events, or promotional padfolios for client gifts, we can help you find the best option for your project." },
