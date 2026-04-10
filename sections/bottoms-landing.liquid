@@ -1,52 +1,52 @@
-<section class="hw-landing">
+<section class="bot-landing">
   <div class="page-width">
-    <div class="hw-landing__hero">
+    <div class="bot-landing__hero">
       {% if section.settings.eyebrow != blank %}
-        <p class="hw-landing__eyebrow">{{ section.settings.eyebrow }}</p>
+        <p class="bot-landing__eyebrow">{{ section.settings.eyebrow }}</p>
       {% endif %}
 
       {% if section.settings.heading != blank %}
-        <h1 class="hw-landing__heading">{{ section.settings.heading }}</h1>
+        <h1 class="bot-landing__heading">{{ section.settings.heading }}</h1>
       {% endif %}
 
       {% if section.settings.text != blank %}
-        <div class="hw-landing__text rte">
+        <div class="bot-landing__text rte">
           {{ section.settings.text }}
         </div>
       {% endif %}
 
-      <div class="hw-landing__actions">
+      <div class="bot-landing__actions">
         {% if section.settings.primary_label != blank and section.settings.primary_link != blank %}
-          <a href="{{ section.settings.primary_link }}" class="hw-landing__button hw-landing__button--primary">
+          <a href="{{ section.settings.primary_link }}" class="bot-landing__button bot-landing__button--primary">
             {{ section.settings.primary_label }}
           </a>
         {% endif %}
 
         {% if section.settings.secondary_label != blank and section.settings.secondary_link != blank %}
-          <a href="{{ section.settings.secondary_link }}" class="hw-landing__button hw-landing__button--secondary">
+          <a href="{{ section.settings.secondary_link }}" class="bot-landing__button bot-landing__button--secondary">
             {{ section.settings.secondary_label }}
           </a>
         {% endif %}
       </div>
     </div>
 
-    <div class="hw-landing__subtypes-wrap">
-      <div class="hw-landing__section-intro">
+    <div class="bot-landing__subtypes-wrap">
+      <div class="bot-landing__section-intro">
         {% if section.settings.subtypes_eyebrow != blank %}
-          <p class="hw-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
+          <p class="bot-landing__section-eyebrow">{{ section.settings.subtypes_eyebrow }}</p>
         {% endif %}
         {% if section.settings.subtypes_heading != blank %}
-          <h2 class="hw-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
+          <h2 class="bot-landing__section-heading">{{ section.settings.subtypes_heading }}</h2>
         {% endif %}
         {% if section.settings.subtypes_text != blank %}
-          <p class="hw-landing__section-text">{{ section.settings.subtypes_text }}</p>
+          <p class="bot-landing__section-text">{{ section.settings.subtypes_text }}</p>
         {% endif %}
       </div>
 
-      <div class="hw-landing__grid">
+      <div class="bot-landing__grid">
         {% for block in section.blocks %}
-          <a href="{{ block.settings.link }}" class="hw-landing__card" {{ block.shopify_attributes }}>
-            <div class="hw-landing__card-media">
+          <a href="{{ block.settings.link }}" class="bot-landing__card" {{ block.shopify_attributes }}>
+            <div class="bot-landing__card-media">
               {% if block.settings.image != blank %}
                 <img
                   src="{{ block.settings.image | image_url: width: 900 }}"
@@ -54,22 +54,22 @@
                   loading="lazy"
                 >
               {% else %}
-                <div class="hw-landing__card-placeholder">
+                <div class="bot-landing__card-placeholder">
                   <span>{{ block.settings.icon_text }}</span>
                 </div>
               {% endif %}
             </div>
 
-            <div class="hw-landing__card-overlay">
-              <div class="hw-landing__card-body">
-                <h3 class="hw-landing__card-title">{{ block.settings.title }}</h3>
+            <div class="bot-landing__card-overlay">
+              <div class="bot-landing__card-body">
+                <h3 class="bot-landing__card-title">{{ block.settings.title }}</h3>
 
                 {% if block.settings.subtitle != blank %}
-                  <p class="hw-landing__card-subtitle">{{ block.settings.subtitle }}</p>
+                  <p class="bot-landing__card-subtitle">{{ block.settings.subtitle }}</p>
                 {% endif %}
 
                 {% if block.settings.detail_1 != blank or block.settings.detail_2 != blank or block.settings.detail_3 != blank %}
-                  <ul class="hw-landing__card-details">
+                  <ul class="bot-landing__card-details">
                     {% if block.settings.detail_1 != blank %}
                       <li>{{ block.settings.detail_1 }}</li>
                     {% endif %}
@@ -82,7 +82,7 @@
                   </ul>
                 {% endif %}
 
-                <span class="hw-landing__card-link">Explore Styles →</span>
+                <span class="bot-landing__card-link">Explore Styles →</span>
               </div>
             </div>
           </a>
@@ -90,31 +90,31 @@
       </div>
       {% if section.settings.view_all_link != blank %}
         <div style="text-align:center;margin-top:32px;">
-          <a href="{{ section.settings.view_all_link }}" class="hw-landing__button hw-landing__button--primary" style="display:inline-block;">
+          <a href="{{ section.settings.view_all_link }}" class="bot-landing__button bot-landing__button--primary" style="display:inline-block;">
             {{ section.settings.view_all_label | default: 'View All Bottoms' }}
           </a>
         </div>
       {% endif %}
     </div>
 
-    <div class="hw-landing__help">
+    <div class="bot-landing__help">
       {% if section.settings.help_heading != blank %}
-        <h2 class="hw-landing__help-heading">{{ section.settings.help_heading }}</h2>
+        <h2 class="bot-landing__help-heading">{{ section.settings.help_heading }}</h2>
       {% endif %}
 
       {% if section.settings.help_text != blank %}
-        <p class="hw-landing__help-text">{{ section.settings.help_text }}</p>
+        <p class="bot-landing__help-text">{{ section.settings.help_text }}</p>
       {% endif %}
 
-      <div class="hw-landing__help-actions">
+      <div class="bot-landing__help-actions">
         {% if section.settings.help_primary_label != blank and section.settings.help_primary_link != blank %}
-          <a href="{{ section.settings.help_primary_link }}" class="hw-landing__button hw-landing__button--primary">
+          <a href="{{ section.settings.help_primary_link }}" class="bot-landing__button bot-landing__button--primary">
             {{ section.settings.help_primary_label }}
           </a>
         {% endif %}
 
         {% if section.settings.help_secondary_label != blank and section.settings.help_secondary_link != blank %}
-          <a href="{{ section.settings.help_secondary_link }}" class="hw-landing__button hw-landing__button--secondary">
+          <a href="{{ section.settings.help_secondary_link }}" class="bot-landing__button bot-landing__button--secondary">
             {{ section.settings.help_secondary_label }}
           </a>
         {% endif %}
@@ -124,19 +124,19 @@
 </section>
 
 <style>
-  .hw-landing {
+  .bot-landing {
     padding: 84px 0;
     background: #f5f5f5;
   }
 
-  .hw-landing__hero {
+  .bot-landing__hero {
     max-width: 900px;
     margin: 0 auto 56px;
     text-align: center;
   }
 
-  .hw-landing__eyebrow,
-  .hw-landing__section-eyebrow {
+  .bot-landing__eyebrow,
+  .bot-landing__section-eyebrow {
     margin: 0 0 10px;
     color: #c41230;
     font-size: 1.2rem;
@@ -145,7 +145,7 @@
     text-transform: uppercase;
   }
 
-  .hw-landing__heading {
+  .bot-landing__heading {
     margin: 0 0 16px;
     font-family: var(--sole-heading-font);
     font-size: clamp(3.2rem, 5vw, 6rem);
@@ -155,7 +155,7 @@
     color: #111111;
   }
 
-  .hw-landing__text {
+  .bot-landing__text {
     margin: 0 auto;
     max-width: 760px;
     font-size: 1.65rem;
@@ -163,8 +163,8 @@
     color: #4a4a4a;
   }
 
-  .hw-landing__actions,
-  .hw-landing__help-actions {
+  .bot-landing__actions,
+  .bot-landing__help-actions {
     display: flex;
     gap: 14px;
     justify-content: center;
@@ -172,7 +172,7 @@
     margin-top: 28px;
   }
 
-  .hw-landing__button {
+  .bot-landing__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -186,44 +186,44 @@
     transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease, color 0.2s ease;
   }
 
-  .hw-landing__button:hover {
+  .bot-landing__button:hover {
     transform: translateY(-2px);
   }
 
-  .hw-landing__button--primary {
+  .bot-landing__button--primary {
     background: #111111;
     color: #ffffff;
     border: 2px solid #111111;
   }
 
-  .hw-landing__button--primary:hover {
+  .bot-landing__button--primary:hover {
     background: #c41230;
     border-color: #c41230;
     color: #ffffff;
   }
 
-  .hw-landing__button--secondary {
+  .bot-landing__button--secondary {
     background: transparent;
     color: #111111;
     border: 2px solid #111111;
   }
 
-  .hw-landing__button--secondary:hover {
+  .bot-landing__button--secondary:hover {
     background: #111111;
     color: #ffffff;
   }
 
-  .hw-landing__subtypes-wrap {
+  .bot-landing__subtypes-wrap {
     margin-bottom: 56px;
   }
 
-  .hw-landing__section-intro {
+  .bot-landing__section-intro {
     text-align: center;
     max-width: 820px;
     margin: 0 auto 36px;
   }
 
-  .hw-landing__section-heading {
+  .bot-landing__section-heading {
     margin: 0 0 12px;
     font-family: var(--sole-heading-font);
     font-size: clamp(2.6rem, 4vw, 4.4rem);
@@ -233,20 +233,20 @@
     color: #111111;
   }
 
-  .hw-landing__section-text {
+  .bot-landing__section-text {
     margin: 0;
     font-size: 1.55rem;
     line-height: 1.65;
     color: #4a4a4a;
   }
 
-  .hw-landing__grid {
+  .bot-landing__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 22px;
   }
 
-  .hw-landing__card {
+  .bot-landing__card {
     position: relative;
     display: block;
     min-height: 320px;
@@ -259,19 +259,19 @@
     transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
   }
 
-  .hw-landing__card:hover {
+  .bot-landing__card:hover {
     transform: translateY(-8px);
     box-shadow: 0 14px 0 #888888, 0 22px 40px rgba(0,0,0,0.18);
     border-color: #c41230;
     border-bottom-color: #9a0e24;
   }
 
-  .hw-landing__card-media {
+  .bot-landing__card-media {
     position: absolute;
     inset: 0;
   }
 
-  .hw-landing__card-media img {
+  .bot-landing__card-media img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -279,11 +279,11 @@
     transition: transform 0.5s ease;
   }
 
-  .hw-landing__card:hover .hw-landing__card-media img {
+  .bot-landing__card:hover .bot-landing__card-media img {
     transform: scale(1.05);
   }
 
-  .hw-landing__card-placeholder {
+  .bot-landing__card-placeholder {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #c41230 130%);
@@ -292,7 +292,7 @@
     justify-content: center;
   }
 
-  .hw-landing__card-placeholder span {
+  .bot-landing__card-placeholder span {
     font-family: var(--sole-heading-font);
     font-size: 4.2rem;
     font-weight: 900;
@@ -300,7 +300,7 @@
     color: rgba(255,255,255,0.18);
   }
 
-  .hw-landing__card-overlay {
+  .bot-landing__card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(17,17,17,0.94) 0%, rgba(17,17,17,0.55) 48%, rgba(17,17,17,0.08) 100%);
@@ -309,16 +309,16 @@
     transition: background 0.3s ease;
   }
 
-  .hw-landing__card:hover .hw-landing__card-overlay {
+  .bot-landing__card:hover .bot-landing__card-overlay {
     background: linear-gradient(to top, rgba(196,18,48,0.9) 0%, rgba(17,17,17,0.58) 48%, rgba(17,17,17,0.1) 100%);
   }
 
-  .hw-landing__card-body {
+  .bot-landing__card-body {
     width: 100%;
     padding: 24px 22px 20px;
   }
 
-  .hw-landing__card-title {
+  .bot-landing__card-title {
     margin: 0 0 8px;
     font-family: var(--sole-heading-font);
     font-size: 2.6rem;
@@ -328,27 +328,27 @@
     color: #ffffff;
   }
 
-  .hw-landing__card-subtitle {
+  .bot-landing__card-subtitle {
     margin: 0 0 12px;
     font-size: 1.38rem;
     line-height: 1.45;
     color: rgba(255,255,255,0.8);
   }
 
-  .hw-landing__card-details {
+  .bot-landing__card-details {
     margin: 0 0 14px;
     padding: 0;
     list-style: none;
   }
 
-  .hw-landing__card-details li {
+  .bot-landing__card-details li {
     margin: 0 0 6px;
     font-size: 1.2rem;
     line-height: 1.4;
     color: rgba(255,255,255,0.72);
   }
 
-  .hw-landing__card-link {
+  .bot-landing__card-link {
     display: inline-block;
     font-size: 1.15rem;
     font-weight: 800;
@@ -358,12 +358,12 @@
     transition: color 0.25s ease, transform 0.25s ease;
   }
 
-  .hw-landing__card:hover .hw-landing__card-link {
+  .bot-landing__card:hover .bot-landing__card-link {
     color: #ffffff;
     transform: translateX(4px);
   }
 
-  .hw-landing__help {
+  .bot-landing__help {
     max-width: 860px;
     margin: 0 auto;
     text-align: center;
@@ -373,7 +373,7 @@
     padding: 34px 28px;
   }
 
-  .hw-landing__help-heading {
+  .bot-landing__help-heading {
     margin: 0 0 12px;
     font-family: var(--sole-heading-font);
     font-size: clamp(2.2rem, 3vw, 3.6rem);
@@ -383,7 +383,7 @@
     color: #111111;
   }
 
-  .hw-landing__help-text {
+  .bot-landing__help-text {
     margin: 0;
     font-size: 1.5rem;
     line-height: 1.65;
@@ -391,35 +391,35 @@
   }
 
   @media screen and (max-width: 989px) {
-    .hw-landing {
+    .bot-landing {
       padding: 64px 0;
     }
 
-    .hw-landing__grid {
+    .bot-landing__grid {
       grid-template-columns: 1fr;
     }
 
-    .hw-landing__card {
+    .bot-landing__card {
       min-height: 280px;
     }
   }
 
   @media screen and (max-width: 749px) {
-    .hw-landing__heading {
+    .bot-landing__heading {
       font-size: 3.8rem;
     }
 
-    .hw-landing__card {
+    .bot-landing__card {
       min-height: 240px;
     }
 
-    .hw-landing__card-title {
+    .bot-landing__card-title {
       font-size: 2.1rem;
     }
 
-    .hw-landing__text,
-    .hw-landing__section-text,
-    .hw-landing__help-text {
+    .bot-landing__text,
+    .bot-landing__section-text,
+    .bot-landing__help-text {
       font-size: 1.4rem;
     }
   }
@@ -427,10 +427,10 @@
 
 {% schema %}
 {
-  "name": "Headwear Landing",
+  "name": "Bottoms Landing",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Custom Apparel" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Headwear" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bottoms" },
     { "type": "richtext", "id": "text", "label": "Intro text", "default": "<p>Choose the polo category that fits your project, then narrow by brand, color, material, and size. Whether you need uniforms, corporate apparel, team wear, or durable work polos, we can help guide the best option.</p>" },
     { "type": "text", "id": "primary_label", "label": "Primary button label", "default": "Request a Quote" },
     { "type": "url", "id": "primary_link", "label": "Primary button link" },
@@ -440,10 +440,10 @@
     { "type": "text", "id": "view_all_label", "label": "View All button label", "default": "View All Bottoms" },
     { "type": "text", "id": "view_all_link", "label": "View All button link", "default": "/collections/all-bottoms" },
     { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Style" },
-    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Headwear Category" },
+    { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Bottoms Category" },
     { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category is designed to help you get to the right polo faster." },
 
-    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Headwear?" },
+    { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Bottoms?" },
     { "type": "textarea", "id": "help_text", "label": "Help text", "default": "If you are deciding between performance, cotton, or work polos, we can recommend the best direction based on budget, decoration method, durability, and end use." },
     { "type": "text", "id": "help_primary_label", "label": "Help primary button label", "default": "Request a Quote" },
     { "type": "url", "id": "help_primary_link", "label": "Help primary button link" },
@@ -469,7 +469,7 @@
   "max_blocks": 4,
   "presets": [
     {
-      "name": "Headwear Landing",
+      "name": "Bottoms Landing",
       "blocks": [
         {
           "type": "subtype",
