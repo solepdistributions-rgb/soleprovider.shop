@@ -30,9 +30,13 @@
 
     <div class="sole-hero__media">
       {% if section.settings.hero_image != blank %}
+        {%- assign hero_alt = section.settings.hero_image.alt | escape -%}
+        {%- if hero_alt == blank -%}
+          {%- assign hero_alt = 'Sean Nelson, founder of The Sole Provider — corporate apparel and creative drops' -%}
+        {%- endif -%}
         <img
           src="{{ section.settings.hero_image | image_url: width: 1800 }}"
-          alt="{{ section.settings.hero_image.alt | escape }}"
+          alt="{{ hero_alt }}"
           loading="lazy"
           width="{{ section.settings.hero_image.width }}"
           height="{{ section.settings.hero_image.height }}"
@@ -111,7 +115,10 @@
   font-size: 1.7rem;
   line-height: 1.4;
   color: rgba(255, 255, 255, 0.9);
-  white-space: nowrap;
+}
+
+@media (max-width: 749px) {
+  .sole-hero__subheading p { font-size: 1.3rem; }
 }
 
   .sole-hero__buttons {

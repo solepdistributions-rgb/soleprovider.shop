@@ -19,11 +19,23 @@
       <h2 class="lp-heading">{{ section.settings.heading }}</h2>
       <p class="lp-subtext">{{ section.settings.subtext }}</p>
 
-      <form id="lp-form" class="lp-form">
-        <input type="text" name="name" placeholder="Your Name" class="lp-input" required>
-        <input type="email" name="email" placeholder="Email Address" class="lp-input" required>
-        <input type="tel" name="phone" placeholder="Phone (optional)" class="lp-input">
-        <input type="text" name="company" placeholder="Company / Organization" class="lp-input">
+      <form id="lp-form" class="lp-form" novalidate>
+        <div class="lp-field">
+          <label for="lp-name" class="lp-label">Your Name <span class="lp-req" aria-hidden="true">*</span></label>
+          <input id="lp-name" type="text" name="name" placeholder="Your Name" class="lp-input" required aria-required="true">
+        </div>
+        <div class="lp-field">
+          <label for="lp-email" class="lp-label">Email Address <span class="lp-req" aria-hidden="true">*</span></label>
+          <input id="lp-email" type="email" name="email" placeholder="you@example.com" class="lp-input" required aria-required="true">
+        </div>
+        <div class="lp-field">
+          <label for="lp-phone" class="lp-label">Phone <span class="lp-optional">(optional)</span></label>
+          <input id="lp-phone" type="tel" name="phone" placeholder="(978) 555-1234" class="lp-input">
+        </div>
+        <div class="lp-field">
+          <label for="lp-company" class="lp-label">Company / Organization <span class="lp-optional">(optional)</span></label>
+          <input id="lp-company" type="text" name="company" placeholder="Company / Organization" class="lp-input">
+        </div>
         <button type="submit" class="lp-submit">{{ section.settings.button_text }}</button>
       </form>
       <p class="lp-privacy">We respect your privacy. No spam, ever.</p>
@@ -65,7 +77,14 @@
   .lp-subtext {
     font-size: 14px; color: #555; text-align: center; margin: 0 0 20px; line-height: 1.5;
   }
-  .lp-form { display: flex; flex-direction: column; gap: 10px; }
+  .lp-form { display: flex; flex-direction: column; gap: 12px; }
+  .lp-field { display: flex; flex-direction: column; gap: 4px; }
+  .lp-label {
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+    color: #555;
+  }
+  .lp-req { color: #c41230; font-weight: 800; }
+  .lp-optional { color: #999; font-weight: 500; text-transform: none; letter-spacing: 0; }
   .lp-input {
     width: 100%; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 8px;
     font-size: 14px; font-family: inherit; box-sizing: border-box; transition: border-color 0.2s;
@@ -144,7 +163,14 @@
     .catch(function() {
       btn.disabled = false;
       btn.textContent = '{{ section.settings.button_text }}';
-      alert('Something went wrong. Please try again.');
+      var existing = form.querySelector('.lp-error');
+      if (existing) existing.remove();
+      var err = document.createElement('p');
+      err.className = 'lp-error';
+      err.setAttribute('role', 'alert');
+      err.style.cssText = 'color:#c41230;font-size:12px;margin-top:6px;text-align:center;';
+      err.textContent = 'Something went wrong. Please try again or email solepdistributions@gmail.com';
+      form.appendChild(err);
     });
   });
 })();
