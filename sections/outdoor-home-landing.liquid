@@ -88,6 +88,13 @@
           </a>
         {% endfor %}
       </div>
+      {% if section.settings.view_all_link != blank %}
+        <div style="text-align:center;margin-top:32px;">
+          <a href="{{ section.settings.view_all_link }}" class="oh-landing__button oh-landing__button--primary" style="display:inline-block;">
+            {{ section.settings.view_all_label | default: 'View All' }}
+          </a>
+        </div>
+      {% endif %}
     </div>
 
     <div class="oh-landing__help">
@@ -334,6 +341,9 @@
     { "type": "text", "id": "subtypes_eyebrow", "label": "Subtypes eyebrow", "default": "Shop By Type" },
     { "type": "text", "id": "subtypes_heading", "label": "Subtypes heading", "default": "Choose Your Outdoor & Home Category" },
     { "type": "textarea", "id": "subtypes_text", "label": "Subtypes text", "default": "Each category helps you find the right outdoor or home product for your project faster." },
+
+    { "type": "text", "id": "view_all_label", "label": "View All button label", "default": "View All Outdoor & Home" },
+    { "type": "text", "id": "view_all_link", "label": "View All button link", "default": "/collections/outdoor" },
 
     { "type": "text", "id": "help_heading", "label": "Help heading", "default": "Need Help Picking The Right Outdoor & Home Products?" },
     { "type": "textarea", "id": "help_text", "label": "Help text", "default": "Whether you need branded camping gear for outdoor events, custom BBQ sets for corporate gifts, or promotional kitchen items for client appreciation, we can help you find the best option for your project." },
