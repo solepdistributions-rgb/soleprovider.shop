@@ -21,8 +21,9 @@
   }
 {%- endstyle -%}
 
-<aside
-  class="footer-legal footer-legal--{{ section.id }} color-{{ section.settings.color_scheme }} gradient"
+<div
+  class="footer-legal footer-legal--{{ section.id }}"
+  role="navigation"
   aria-labelledby="FooterLegal-{{ section.id }}-heading"
 >
   <div class="footer-legal__inner page-width">
@@ -39,7 +40,7 @@
       {%- endfor -%}
     </ul>
   </div>
-</aside>
+</div>
 
 {% schema %}
 {
