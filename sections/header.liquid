@@ -137,6 +137,18 @@
     color: #ffffff;
   }
 
+  .header-cta-link--portal {
+    background: transparent;
+    border-color: #111111;
+    color: #111111;
+  }
+
+  .header-cta-link--portal:hover {
+    background: #111111;
+    border-color: #111111;
+    color: #ffffff;
+  }
+
   .header-cta-link__count {
     display: inline-flex;
     align-items: center;
@@ -379,6 +391,9 @@
       {%- endfor -%}
 
       <div class="header-cta-links">
+  <a href="https://sp-tools-production.up.railway.app/portal/login" class="header-cta-link header-cta-link--portal" rel="noopener">
+    Client Login
+  </a>
   <a href="/pages/request-quote" class="header-cta-link header-cta-link--quote">
     Request Quote
   </a>
