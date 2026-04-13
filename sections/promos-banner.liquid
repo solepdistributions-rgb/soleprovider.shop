@@ -11,8 +11,6 @@
 
   <button type="button" class="promos-banner__arrow promos-banner__arrow--prev" data-dir="-1" aria-label="Previous promo">&lsaquo;</button>
   <button type="button" class="promos-banner__arrow promos-banner__arrow--next" data-dir="1" aria-label="Next promo">&rsaquo;</button>
-
-  <div class="promos-banner__dots" id="promosDots-{{ section.id }}"></div>
 </section>
 
 <style>
@@ -27,7 +25,7 @@
   .promos-banner__viewport {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 60px;
+    padding: 0 52px;
     overflow: hidden;
   }
   .promos-banner__track {
@@ -37,122 +35,82 @@
   }
   .promo-slide {
     flex: 0 0 100%;
-    padding: 16px 20px;
+    max-width: 100%;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 28px;
-    min-height: 80px;
-    flex-wrap: wrap;
-    text-align: center;
+    justify-content: space-between;
+    gap: 20px;
+    min-height: 56px;
+    box-sizing: border-box;
   }
   .promo-slide__text {
     flex: 1 1 auto;
     min-width: 0;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
   }
   .promo-slide__title {
     font-family: var(--sole-heading-font);
-    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+    font-size: clamp(0.95rem, 1.5vw, 1.2rem);
     font-weight: 400;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #fff;
-    margin: 0 0 2px;
+    margin: 0;
     line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .promo-slide__desc {
     font-family: var(--sole-body-font);
-    font-size: 0.88rem;
-    color: #c8c8c8;
+    font-size: 0.78rem;
+    color: #b8b8b8;
     margin: 0;
-    line-height: 1.45;
-    max-width: 540px;
+    line-height: 1.35;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-  .promo-slide__code-wrap {
+  .promo-slide__right {
     flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 4px;
-  }
-  .promo-slide__terms {
-    flex: 0 0 100%;
-    text-align: center;
-    margin-top: 6px;
-  }
-  .promo-slide__terms a {
-    font-family: var(--sole-body-font);
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.55);
-    text-decoration: underline;
-    letter-spacing: 0.02em;
-  }
-  .promo-slide__terms a:hover {
-    color: #fff;
-  }
-  .promo-slide__tiers {
-    flex: 0 0 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 8px;
-  }
-  .promo-tier-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.18);
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-family: var(--sole-heading-font);
-    font-size: 0.78rem;
-    color: #fff;
-    letter-spacing: 0.05em;
-  }
-  .promo-tier-chip__from {
-    color: rgba(255,255,255,0.65);
-  }
-  .promo-tier-chip__arrow {
-    color: var(--sole-red, #c41230);
-    font-size: 0.85rem;
-  }
-  .promo-tier-chip__to {
-    color: #fff;
-    font-weight: 600;
-  }
-  .promo-slide__code-label {
-    font-family: var(--sole-heading-font);
-    font-size: 0.68rem;
-    color: #fff;
-    opacity: 0.7;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    gap: 14px;
   }
   .promo-slide__code {
     display: inline-block;
     font-family: var(--sole-heading-font);
-    font-size: clamp(1.15rem, 2vw, 1.55rem);
-    letter-spacing: 0.14em;
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: #fff;
     background: var(--sole-red, #c41230);
-    padding: 14px 32px;
-    border-radius: 8px;
+    padding: 9px 20px;
+    border-radius: 6px;
     text-decoration: none;
     line-height: 1;
-    border: 2px solid transparent;
     transition: all 0.15s ease;
-    box-shadow: 0 4px 14px rgba(196,18,48,0.35);
+    box-shadow: 0 2px 8px rgba(196,18,48,0.35);
+    white-space: nowrap;
   }
   .promo-slide__code:hover {
     background: #fff;
     color: var(--sole-red, #c41230);
     transform: translateY(-1px);
   }
+  .promo-slide__terms-link {
+    font-family: var(--sole-body-font);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: underline;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .promo-slide__terms-link:hover { color: #fff; }
 
   /* ===== ARROWS ===== */
   .promos-banner__arrow {
@@ -162,11 +120,11 @@
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     font-family: var(--sole-heading-font);
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     line-height: 1;
     cursor: pointer;
     display: none;
@@ -174,6 +132,7 @@
     justify-content: center;
     transition: all 0.15s ease;
     z-index: 2;
+    padding: 0;
   }
   .promos-banner.has-multiple .promos-banner__arrow { display: flex; }
   .promos-banner__arrow:hover {
@@ -183,47 +142,25 @@
   .promos-banner__arrow--prev { left: 12px; }
   .promos-banner__arrow--next { right: 12px; }
 
-  /* ===== DOTS ===== */
-  .promos-banner__dots {
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-    gap: 6px;
-    z-index: 2;
-  }
-  .promos-banner.has-multiple .promos-banner__dots { display: flex; }
-  .promos-banner__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.3);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.15s;
-  }
-  .promos-banner__dot.active {
-    background: var(--sole-red, #c41230);
-    transform: scale(1.4);
-  }
-
   /* ===== RESPONSIVE ===== */
   @media (max-width: 760px) {
-    .promos-banner__viewport { padding: 0 48px; }
+    .promos-banner__viewport { padding: 0 42px; }
     .promo-slide {
       flex-direction: column;
-      gap: 12px;
-      padding: 14px 12px 22px;
+      gap: 8px;
+      padding: 10px 12px;
       text-align: center;
+      min-height: 0;
     }
-    .promo-slide__text { text-align: center; }
-    .promo-slide__desc { font-size: 0.82rem; max-width: none; }
-    .promo-slide__code { padding: 12px 24px; font-size: 1.05rem; }
-    .promos-banner__arrow { width: 32px; height: 32px; font-size: 1.1rem; }
-    .promos-banner__arrow--prev { left: 6px; }
-    .promos-banner__arrow--next { right: 6px; }
+    .promo-slide__text { text-align: center; align-items: center; }
+    .promo-slide__title { white-space: normal; font-size: 0.95rem; }
+    .promo-slide__desc { white-space: normal; font-size: 0.75rem; line-height: 1.3; }
+    .promo-slide__right { gap: 10px; }
+    .promo-slide__code { padding: 8px 16px; font-size: 0.82rem; }
+    .promo-slide__terms-link { font-size: 0.68rem; }
+    .promos-banner__arrow { width: 26px; height: 26px; font-size: 0.95rem; }
+    .promos-banner__arrow--prev { left: 4px; }
+    .promos-banner__arrow--next { right: 4px; }
   }
 </style>
 
@@ -233,7 +170,6 @@
   var root = document.getElementById('promosBanner-' + sectionId);
   if (!root) return;
   var track = document.getElementById('promosTrack-' + sectionId);
-  var dotsEl = document.getElementById('promosDots-' + sectionId);
   var apiBase = root.getAttribute('data-api');
 
   function esc(s) {
@@ -242,47 +178,32 @@
     });
   }
 
-  // Always-first slide: referral program (hardcoded, never from DB)
+  // Always-first slide: referral program
   var REFERRAL_SLIDE = {
     code: 'REFERRAL',
-    title: 'Refer a Friend, Earn Store Credit',
-    description: 'Existing clients earn 4% store credit on every referred order. Non-clients earn 2%. Your referral gets 5% off their first order.',
+    title: 'Refer & Earn Store Credit',
+    description: 'Clients earn 4%, non-clients earn 2%. Your referral gets 5% off their first order.',
     is_referral: true,
   };
 
-  function parseTiers(config) {
-    if (!config) return [];
-    return String(config).split('\n')
-      .map(function(l) { return l.trim(); })
-      .filter(Boolean)
-      .map(function(l) {
-        var parts = l.split(':').map(function(s) { return parseFloat(s.trim()); });
-        if (isNaN(parts[0]) || isNaN(parts[1])) return null;
-        return { qty: parts[0], value: parts[1] };
-      })
-      .filter(Boolean);
-  }
-
-  function tierArrow(type) { return type === 'art_discount' ? '→ save' : '→ get'; }
-  function tierSuffix(type) { return type === 'art_discount' ? ' off art' : ' free'; }
-  function tierValue(type, v) { return type === 'art_discount' ? '$' + v : v; }
-
-  function renderTiers(p) {
-    var tiers = parseTiers(p.discount_config);
-    if (!tiers.length) return '';
-    var chips = tiers.map(function(t) {
-      return ''
-        + '<span class="promo-tier-chip">'
-        +   '<span class="promo-tier-chip__from">Order ' + t.qty + '+</span>'
-        +   '<span class="promo-tier-chip__arrow">' + tierArrow(p.discount_type) + '</span>'
-        +   '<span class="promo-tier-chip__to">' + tierValue(p.discount_type, t.value) + tierSuffix(p.discount_type) + '</span>'
-        + '</span>';
-    }).join('');
-    return '<div class="promo-slide__tiers">' + chips + '</div>';
+  // Build a compact one-line summary for tiered promos
+  function summarizeTiers(p) {
+    if (!p.discount_config) return p.description || '';
+    var tiers = String(p.discount_config).split('\n').map(function(l) {
+      return l.trim();
+    }).filter(Boolean).map(function(l) {
+      var parts = l.split(':').map(function(s) { return s.trim(); });
+      if (!parts[0] || !parts[1]) return null;
+      if (p.discount_type === 'art_discount') {
+        return parts[0] + '+ → $' + parts[1] + ' off';
+      }
+      return parts[0] + '+ → ' + parts[1] + ' free';
+    }).filter(Boolean);
+    if (!tiers.length) return p.description || '';
+    return tiers.join('  ·  ');
   }
 
   function render(promos) {
-    // Always prepend the referral slide, even if no DB promos are active
     var all = [REFERRAL_SLIDE].concat(promos || []);
     root.classList.add('has-promos');
     if (all.length > 1) root.classList.add('has-multiple');
@@ -292,23 +213,18 @@
       var termsHref = p.is_referral
         ? '/pages/referral-terms'
         : '/pages/deal-terms#' + encodeURIComponent(p.code);
+      var desc = p.is_referral ? p.description : summarizeTiers(p);
       return ''
         + '<div class="promo-slide">'
         +   '<div class="promo-slide__text">'
         +     '<h3 class="promo-slide__title">' + esc(p.title || p.code) + '</h3>'
-        +     (p.description ? '<p class="promo-slide__desc">' + esc(p.description) + '</p>' : '')
+        +     (desc ? '<p class="promo-slide__desc">' + esc(desc) + '</p>' : '')
         +   '</div>'
-        +   '<div class="promo-slide__code-wrap">'
-        +     '<span class="promo-slide__code-label">Mention Code</span>'
+        +   '<div class="promo-slide__right">'
         +     '<a class="promo-slide__code" href="' + quoteHref + '">' + esc(p.code) + '</a>'
+        +     '<a class="promo-slide__terms-link" href="' + termsHref + '">Terms</a>'
         +   '</div>'
-        +   renderTiers(p)
-        +   '<div class="promo-slide__terms"><a href="' + termsHref + '">See full terms &rsaquo;</a></div>'
         + '</div>';
-    }).join('');
-
-    dotsEl.innerHTML = all.map(function(_, i) {
-      return '<button type="button" class="promos-banner__dot' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '" aria-label="Go to promo ' + (i+1) + '"></button>';
     }).join('');
 
     var idx = 0;
@@ -317,19 +233,11 @@
     function go(next) {
       idx = ((next % total) + total) % total;
       track.style.transform = 'translateX(-' + (idx * 100) + '%)';
-      var dots = dotsEl.querySelectorAll('.promos-banner__dot');
-      for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === idx);
     }
 
     root.querySelectorAll('.promos-banner__arrow').forEach(function(btn) {
       btn.addEventListener('click', function() {
         go(idx + parseInt(btn.getAttribute('data-dir'), 10));
-        resetTimer();
-      });
-    });
-    dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d) {
-      d.addEventListener('click', function() {
-        go(parseInt(d.getAttribute('data-idx'), 10));
         resetTimer();
       });
     });
@@ -349,7 +257,7 @@
   fetch(apiBase + '/api/public/promos', { credentials: 'omit' })
     .then(function(r) { return r.json(); })
     .then(function(d) { render((d && d.promos) || []); })
-    .catch(function() { render([]); }); // still show referral slide on API failure
+    .catch(function() { render([]); });
 })();
 </script>
 
