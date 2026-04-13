@@ -76,6 +76,54 @@
     align-items: center;
     gap: 4px;
   }
+  .promo-slide__terms {
+    flex: 0 0 100%;
+    text-align: center;
+    margin-top: 6px;
+  }
+  .promo-slide__terms a {
+    font-family: var(--sole-body-font);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: underline;
+    letter-spacing: 0.02em;
+  }
+  .promo-slide__terms a:hover {
+    color: #fff;
+  }
+  .promo-slide__tiers {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .promo-tier-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--sole-heading-font);
+    font-size: 0.78rem;
+    color: #fff;
+    letter-spacing: 0.05em;
+  }
+  .promo-tier-chip__from {
+    color: rgba(255,255,255,0.65);
+  }
+  .promo-tier-chip__arrow {
+    color: var(--sole-red, #c41230);
+    font-size: 0.85rem;
+  }
+  .promo-tier-chip__to {
+    color: #fff;
+    font-weight: 600;
+  }
   .promo-slide__code-label {
     font-family: var(--sole-heading-font);
     font-size: 0.68rem;
@@ -194,15 +242,56 @@
     });
   }
 
-  function render(promos) {
-    if (!promos || !promos.length) {
-      root.classList.remove('has-promos');
-      return;
-    }
-    root.classList.add('has-promos');
-    if (promos.length > 1) root.classList.add('has-multiple');
+  // Always-first slide: referral program (hardcoded, never from DB)
+  var REFERRAL_SLIDE = {
+    code: 'REFERRAL',
+    title: 'Refer a Friend, Earn Store Credit',
+    description: 'Existing clients earn 4% store credit on every referred order. Non-clients earn 2%. Your referral gets 5% off their first order.',
+    is_referral: true,
+  };
 
-    track.innerHTML = promos.map(function(p) {
+  function parseTiers(config) {
+    if (!config) return [];
+    return String(config).split('\n')
+      .map(function(l) { return l.trim(); })
+      .filter(Boolean)
+      .map(function(l) {
+        var parts = l.split(':').map(function(s) { return parseFloat(s.trim()); });
+        if (isNaN(parts[0]) || isNaN(parts[1])) return null;
+        return { qty: parts[0], value: parts[1] };
+      })
+      .filter(Boolean);
+  }
+
+  function tierArrow(type) { return type === 'art_discount' ? '→ save' : '→ get'; }
+  function tierSuffix(type) { return type === 'art_discount' ? ' off art' : ' free'; }
+  function tierValue(type, v) { return type === 'art_discount' ? '$' + v : v; }
+
+  function renderTiers(p) {
+    var tiers = parseTiers(p.discount_config);
+    if (!tiers.length) return '';
+    var chips = tiers.map(function(t) {
+      return ''
+        + '<span class="promo-tier-chip">'
+        +   '<span class="promo-tier-chip__from">Order ' + t.qty + '+</span>'
+        +   '<span class="promo-tier-chip__arrow">' + tierArrow(p.discount_type) + '</span>'
+        +   '<span class="promo-tier-chip__to">' + tierValue(p.discount_type, t.value) + tierSuffix(p.discount_type) + '</span>'
+        + '</span>';
+    }).join('');
+    return '<div class="promo-slide__tiers">' + chips + '</div>';
+  }
+
+  function render(promos) {
+    // Always prepend the referral slide, even if no DB promos are active
+    var all = [REFERRAL_SLIDE].concat(promos || []);
+    root.classList.add('has-promos');
+    if (all.length > 1) root.classList.add('has-multiple');
+
+    track.innerHTML = all.map(function(p) {
+      var quoteHref = '/pages/request-quote?promo=' + encodeURIComponent(p.code);
+      var termsHref = p.is_referral
+        ? '/pages/referral-terms'
+        : '/pages/deal-terms#' + encodeURIComponent(p.code);
       return ''
         + '<div class="promo-slide">'
         +   '<div class="promo-slide__text">'
@@ -211,17 +300,19 @@
         +   '</div>'
         +   '<div class="promo-slide__code-wrap">'
         +     '<span class="promo-slide__code-label">Mention Code</span>'
-        +     '<a class="promo-slide__code" href="/pages/request-quote">' + esc(p.code) + '</a>'
+        +     '<a class="promo-slide__code" href="' + quoteHref + '">' + esc(p.code) + '</a>'
         +   '</div>'
+        +   renderTiers(p)
+        +   '<div class="promo-slide__terms"><a href="' + termsHref + '">See full terms &rsaquo;</a></div>'
         + '</div>';
     }).join('');
 
-    dotsEl.innerHTML = promos.map(function(_, i) {
+    dotsEl.innerHTML = all.map(function(_, i) {
       return '<button type="button" class="promos-banner__dot' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '" aria-label="Go to promo ' + (i+1) + '"></button>';
     }).join('');
 
     var idx = 0;
-    var total = promos.length;
+    var total = all.length;
 
     function go(next) {
       idx = ((next % total) + total) % total;
@@ -257,8 +348,8 @@
 
   fetch(apiBase + '/api/public/promos', { credentials: 'omit' })
     .then(function(r) { return r.json(); })
-    .then(function(d) { render(d && d.promos); })
-    .catch(function() { root.classList.remove('has-promos'); });
+    .then(function(d) { render((d && d.promos) || []); })
+    .catch(function() { render([]); }); // still show referral slide on API failure
 })();
 </script>
 

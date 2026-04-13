@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "deal-terms",
+      "settings": {
+        "api_url": "https://sp-tools-production.up.railway.app"
+      }
+    }
+  },
+  "order": ["main"]
+}
