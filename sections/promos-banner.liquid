@@ -1,0 +1,270 @@
+{%- liquid
+  assign api_url = section.settings.api_url | default: 'https://sp-tools-production.up.railway.app'
+-%}
+
+<section class="promos-banner" id="promosBanner-{{ section.id }}" data-api="{{ api_url }}">
+  <div class="promos-banner__wrap">
+    <div class="promos-banner__track" id="promosTrack-{{ section.id }}">
+      <!-- Populated by JS -->
+    </div>
+
+    <div class="promos-banner__controls" id="promosControls-{{ section.id }}" style="display:none">
+      <button type="button" class="promos-banner__arrow" data-dir="-1" aria-label="Previous promo">&lsaquo;</button>
+      <div class="promos-banner__dots" id="promosDots-{{ section.id }}"></div>
+      <button type="button" class="promos-banner__arrow" data-dir="1" aria-label="Next promo">&rsaquo;</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .promos-banner {
+    padding: 0;
+    background: var(--sole-black, #111);
+    overflow: hidden;
+    position: relative;
+    display: none; /* hidden until promos load */
+  }
+  .promos-banner.has-promos { display: block; }
+  .promos-banner__wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 24px 20px;
+    position: relative;
+  }
+  .promos-banner__track {
+    display: flex;
+    overflow: hidden;
+    transition: none;
+  }
+  .promo-slide {
+    flex: 0 0 100%;
+    padding: 20px 60px;
+    text-align: center;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: none;
+  }
+  .promo-slide.active {
+    display: block;
+    opacity: 1;
+  }
+  .promo-slide__tag {
+    display: inline-block;
+    font-family: var(--sole-heading-font);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--sole-red, #c41230);
+    background: rgba(196, 18, 48, 0.15);
+    padding: 8px 18px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .promo-slide__title {
+    font-family: var(--sole-heading-font);
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0 0 10px;
+    line-height: 1.1;
+  }
+  .promo-slide__desc {
+    font-family: var(--sole-body-font);
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    color: #d8d8d8;
+    margin: 0 0 16px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+  .promo-slide__code {
+    display: inline-block;
+    font-family: var(--sole-heading-font);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--sole-red, #c41230);
+    padding: 10px 22px;
+    border-radius: 6px;
+    margin-top: 4px;
+    text-decoration: none;
+  }
+  .promo-slide__code:hover {
+    background: #a00e26;
+  }
+  .promo-slide__code-label {
+    display: block;
+    font-size: 0.65rem;
+    color: #fff;
+    opacity: 0.7;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+
+  .promos-banner__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .promos-banner__arrow {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    font-family: var(--sole-heading-font);
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .promos-banner__arrow:hover {
+    background: var(--sole-red, #c41230);
+    border-color: var(--sole-red, #c41230);
+  }
+  .promos-banner__dots {
+    display: flex;
+    gap: 8px;
+  }
+  .promos-banner__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s;
+  }
+  .promos-banner__dot.active {
+    background: var(--sole-red, #c41230);
+    transform: scale(1.2);
+  }
+
+  @media (max-width: 640px) {
+    .promo-slide { padding: 12px 16px; }
+    .promos-banner__wrap { padding: 18px 16px 16px; }
+  }
+</style>
+
+<script>
+(function() {
+  var sectionId = {{ section.id | json }};
+  var root = document.getElementById('promosBanner-' + sectionId);
+  if (!root) return;
+  var track = document.getElementById('promosTrack-' + sectionId);
+  var controls = document.getElementById('promosControls-' + sectionId);
+  var dotsEl = document.getElementById('promosDots-' + sectionId);
+  var apiBase = root.getAttribute('data-api');
+
+  var esc = function(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+      return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+    });
+  };
+
+  function tagFor(type) {
+    var map = {
+      free_items: 'Limited Time',
+      art_discount: 'Art Discount',
+      cc_upgrade: 'Premium Upgrade',
+      reorder: 'Reorder Deal',
+      flat_pct: 'Save Now',
+    };
+    return map[type] || 'Current Offer';
+  }
+
+  function render(promos) {
+    if (!promos || !promos.length) {
+      root.classList.remove('has-promos');
+      return;
+    }
+    root.classList.add('has-promos');
+
+    track.innerHTML = promos.map(function(p, i) {
+      return ''
+        + '<div class="promo-slide' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">'
+        +   '<span class="promo-slide__tag">' + esc(tagFor(p.discount_type)) + '</span>'
+        +   '<h3 class="promo-slide__title">' + esc(p.title || p.code) + '</h3>'
+        +   (p.description ? '<p class="promo-slide__desc">' + esc(p.description) + '</p>' : '')
+        +   '<div><span class="promo-slide__code-label">Mention this code</span>'
+        +   '<a class="promo-slide__code" href="/pages/request-quote">' + esc(p.code) + '</a></div>'
+        + '</div>';
+    }).join('');
+
+    if (promos.length > 1) {
+      controls.style.display = 'flex';
+      dotsEl.innerHTML = promos.map(function(_, i) {
+        return '<button type="button" class="promos-banner__dot' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '" aria-label="Go to promo ' + (i+1) + '"></button>';
+      }).join('');
+
+      var idx = 0;
+      var total = promos.length;
+
+      function go(next) {
+        idx = (next + total) % total;
+        track.querySelectorAll('.promo-slide').forEach(function(s, i) {
+          s.classList.toggle('active', i === idx);
+        });
+        dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d, i) {
+          d.classList.toggle('active', i === idx);
+        });
+      }
+
+      controls.querySelectorAll('.promos-banner__arrow').forEach(function(btn) {
+        btn.addEventListener('click', function() { go(idx + parseInt(btn.getAttribute('data-dir'), 10)); autoRotate.reset(); });
+      });
+      dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d) {
+        d.addEventListener('click', function() { go(parseInt(d.getAttribute('data-idx'), 10)); autoRotate.reset(); });
+      });
+
+      var autoRotate = (function() {
+        var timer = null;
+        function start() { timer = setInterval(function() { go(idx + 1); }, 6000); }
+        return {
+          reset: function() { if (timer) clearInterval(timer); start(); },
+          start: start,
+        };
+      })();
+      autoRotate.start();
+    }
+  }
+
+  fetch(apiBase + '/api/public/promos', { credentials: 'omit' })
+    .then(function(r) { return r.json(); })
+    .then(function(d) { render(d && d.promos); })
+    .catch(function() { root.classList.remove('has-promos'); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "api_url",
+      "label": "SP Tools API URL",
+      "default": "https://sp-tools-production.up.railway.app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner"
+    }
+  ]
+}
+{% endschema %}
