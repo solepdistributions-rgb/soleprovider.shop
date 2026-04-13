@@ -33,11 +33,12 @@
         "apparel_2": {
           "type": "project",
           "settings": {
-            "title": "Corporate Polo Program",
+            "title": "Custom Embroidered Beanie",
             "tag": "Embroidery",
-            "client": "",
-            "description": "<p>Embroidered polos for a 50-person corporate team.</p>",
-            "size": "normal"
+            "client": "Bryant IDEA",
+            "description": "<p>Custom Embroidered Beanies, perfect for a warm giveaway!</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7314.heic"
           }
         },
         "apparel_3": {
