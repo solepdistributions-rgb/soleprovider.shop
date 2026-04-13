@@ -255,11 +255,13 @@
         "promo_6": {
           "type": "project",
           "settings": {
-            "title": "Seasonal Gift Set",
+            "title": "Custom Scratch Pads",
             "tag": "Promotional",
-            "client": "",
-            "description": "<p>Holiday gift bundle with branded products and apparel.</p>",
-            "size": "wide"
+            "client": "The Sole Provider",
+            "description": "<p>Custom Scratch pads, available in sheets of 25, 50, or 100</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_7324.heic",
+            "image_2": "shopify://shop_images/IMG_7296.heic"
           }
         }
       },
