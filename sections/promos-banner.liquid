@@ -3,146 +3,154 @@
 -%}
 
 <section class="promos-banner" id="promosBanner-{{ section.id }}" data-api="{{ api_url }}">
-  <div class="promos-banner__wrap">
+  <div class="promos-banner__viewport">
     <div class="promos-banner__track" id="promosTrack-{{ section.id }}">
       <!-- Populated by JS -->
     </div>
-
-    <div class="promos-banner__controls" id="promosControls-{{ section.id }}" style="display:none">
-      <button type="button" class="promos-banner__arrow" data-dir="-1" aria-label="Previous promo">&lsaquo;</button>
-      <div class="promos-banner__dots" id="promosDots-{{ section.id }}"></div>
-      <button type="button" class="promos-banner__arrow" data-dir="1" aria-label="Next promo">&rsaquo;</button>
-    </div>
   </div>
+
+  <button type="button" class="promos-banner__arrow promos-banner__arrow--prev" data-dir="-1" aria-label="Previous promo">&lsaquo;</button>
+  <button type="button" class="promos-banner__arrow promos-banner__arrow--next" data-dir="1" aria-label="Next promo">&rsaquo;</button>
+
+  <div class="promos-banner__dots" id="promosDots-{{ section.id }}"></div>
 </section>
 
 <style>
   .promos-banner {
-    padding: 0;
     background: var(--sole-black, #111);
-    overflow: hidden;
     position: relative;
-    display: none; /* hidden until promos load */
+    display: none;
+    overflow: hidden;
   }
   .promos-banner.has-promos { display: block; }
-  .promos-banner__wrap {
+
+  .promos-banner__viewport {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 24px 24px 20px;
-    position: relative;
+    padding: 0 60px;
+    overflow: hidden;
   }
   .promos-banner__track {
     display: flex;
-    overflow: hidden;
-    transition: none;
+    transition: transform 0.5s ease;
+    will-change: transform;
   }
   .promo-slide {
     flex: 0 0 100%;
-    padding: 20px 60px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    min-height: 80px;
+    flex-wrap: wrap;
     text-align: center;
-    color: #fff;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    display: none;
   }
-  .promo-slide.active {
-    display: block;
-    opacity: 1;
-  }
-  .promo-slide__tag {
-    display: inline-block;
-    font-family: var(--sole-heading-font);
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--sole-red, #c41230);
-    background: rgba(196, 18, 48, 0.15);
-    padding: 8px 18px;
-    border-radius: 999px;
-    margin-bottom: 14px;
+  .promo-slide__text {
+    flex: 1 1 auto;
+    min-width: 0;
+    text-align: left;
   }
   .promo-slide__title {
     font-family: var(--sole-heading-font);
-    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
     font-weight: 400;
     letter-spacing: 0.03em;
     text-transform: uppercase;
     color: #fff;
-    margin: 0 0 10px;
-    line-height: 1.1;
+    margin: 0 0 2px;
+    line-height: 1.15;
   }
   .promo-slide__desc {
     font-family: var(--sole-body-font);
-    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
-    color: #d8d8d8;
-    margin: 0 0 16px;
-    max-width: 640px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.55;
+    font-size: 0.88rem;
+    color: #c8c8c8;
+    margin: 0;
+    line-height: 1.45;
+    max-width: 540px;
+  }
+  .promo-slide__code-wrap {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .promo-slide__code-label {
+    font-family: var(--sole-heading-font);
+    font-size: 0.68rem;
+    color: #fff;
+    opacity: 0.7;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
   }
   .promo-slide__code {
     display: inline-block;
     font-family: var(--sole-heading-font);
-    font-size: 0.8rem;
+    font-size: clamp(1.15rem, 2vw, 1.55rem);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: #fff;
     background: var(--sole-red, #c41230);
-    padding: 10px 22px;
-    border-radius: 6px;
-    margin-top: 4px;
+    padding: 14px 32px;
+    border-radius: 8px;
     text-decoration: none;
+    line-height: 1;
+    border: 2px solid transparent;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 14px rgba(196,18,48,0.35);
   }
   .promo-slide__code:hover {
-    background: #a00e26;
-  }
-  .promo-slide__code-label {
-    display: block;
-    font-size: 0.65rem;
-    color: #fff;
-    opacity: 0.7;
-    letter-spacing: 0.2em;
-    margin-bottom: 4px;
+    background: #fff;
+    color: var(--sole-red, #c41230);
+    transform: translateY(-1px);
   }
 
-  .promos-banner__controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    margin-top: 8px;
-  }
+  /* ===== ARROWS ===== */
   .promos-banner__arrow {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.25);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    font-size: 1.4rem;
     font-family: var(--sole-heading-font);
+    font-size: 1.3rem;
     line-height: 1;
     cursor: pointer;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    transition: all 0.15s;
+    transition: all 0.15s ease;
+    z-index: 2;
   }
+  .promos-banner.has-multiple .promos-banner__arrow { display: flex; }
   .promos-banner__arrow:hover {
     background: var(--sole-red, #c41230);
     border-color: var(--sole-red, #c41230);
   }
+  .promos-banner__arrow--prev { left: 12px; }
+  .promos-banner__arrow--next { right: 12px; }
+
+  /* ===== DOTS ===== */
   .promos-banner__dots {
-    display: flex;
-    gap: 8px;
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    gap: 6px;
+    z-index: 2;
   }
+  .promos-banner.has-multiple .promos-banner__dots { display: flex; }
   .promos-banner__dot {
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.3);
     border: none;
     cursor: pointer;
     padding: 0;
@@ -150,12 +158,24 @@
   }
   .promos-banner__dot.active {
     background: var(--sole-red, #c41230);
-    transform: scale(1.2);
+    transform: scale(1.4);
   }
 
-  @media (max-width: 640px) {
-    .promo-slide { padding: 12px 16px; }
-    .promos-banner__wrap { padding: 18px 16px 16px; }
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 760px) {
+    .promos-banner__viewport { padding: 0 48px; }
+    .promo-slide {
+      flex-direction: column;
+      gap: 12px;
+      padding: 14px 12px 22px;
+      text-align: center;
+    }
+    .promo-slide__text { text-align: center; }
+    .promo-slide__desc { font-size: 0.82rem; max-width: none; }
+    .promo-slide__code { padding: 12px 24px; font-size: 1.05rem; }
+    .promos-banner__arrow { width: 32px; height: 32px; font-size: 1.1rem; }
+    .promos-banner__arrow--prev { left: 6px; }
+    .promos-banner__arrow--next { right: 6px; }
   }
 </style>
 
@@ -165,25 +185,13 @@
   var root = document.getElementById('promosBanner-' + sectionId);
   if (!root) return;
   var track = document.getElementById('promosTrack-' + sectionId);
-  var controls = document.getElementById('promosControls-' + sectionId);
   var dotsEl = document.getElementById('promosDots-' + sectionId);
   var apiBase = root.getAttribute('data-api');
 
-  var esc = function(s) {
+  function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
       return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
     });
-  };
-
-  function tagFor(type) {
-    var map = {
-      free_items: 'Limited Time',
-      art_discount: 'Art Discount',
-      cc_upgrade: 'Premium Upgrade',
-      reorder: 'Reorder Deal',
-      flat_pct: 'Save Now',
-    };
-    return map[type] || 'Current Offer';
   }
 
   function render(promos) {
@@ -192,54 +200,59 @@
       return;
     }
     root.classList.add('has-promos');
+    if (promos.length > 1) root.classList.add('has-multiple');
 
-    track.innerHTML = promos.map(function(p, i) {
+    track.innerHTML = promos.map(function(p) {
       return ''
-        + '<div class="promo-slide' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '">'
-        +   '<span class="promo-slide__tag">' + esc(tagFor(p.discount_type)) + '</span>'
-        +   '<h3 class="promo-slide__title">' + esc(p.title || p.code) + '</h3>'
-        +   (p.description ? '<p class="promo-slide__desc">' + esc(p.description) + '</p>' : '')
-        +   '<div><span class="promo-slide__code-label">Mention this code</span>'
-        +   '<a class="promo-slide__code" href="/pages/request-quote">' + esc(p.code) + '</a></div>'
+        + '<div class="promo-slide">'
+        +   '<div class="promo-slide__text">'
+        +     '<h3 class="promo-slide__title">' + esc(p.title || p.code) + '</h3>'
+        +     (p.description ? '<p class="promo-slide__desc">' + esc(p.description) + '</p>' : '')
+        +   '</div>'
+        +   '<div class="promo-slide__code-wrap">'
+        +     '<span class="promo-slide__code-label">Mention Code</span>'
+        +     '<a class="promo-slide__code" href="/pages/request-quote">' + esc(p.code) + '</a>'
+        +   '</div>'
         + '</div>';
     }).join('');
 
-    if (promos.length > 1) {
-      controls.style.display = 'flex';
-      dotsEl.innerHTML = promos.map(function(_, i) {
-        return '<button type="button" class="promos-banner__dot' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '" aria-label="Go to promo ' + (i+1) + '"></button>';
-      }).join('');
+    dotsEl.innerHTML = promos.map(function(_, i) {
+      return '<button type="button" class="promos-banner__dot' + (i === 0 ? ' active' : '') + '" data-idx="' + i + '" aria-label="Go to promo ' + (i+1) + '"></button>';
+    }).join('');
 
-      var idx = 0;
-      var total = promos.length;
+    var idx = 0;
+    var total = promos.length;
 
-      function go(next) {
-        idx = (next + total) % total;
-        track.querySelectorAll('.promo-slide').forEach(function(s, i) {
-          s.classList.toggle('active', i === idx);
-        });
-        dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d, i) {
-          d.classList.toggle('active', i === idx);
-        });
-      }
-
-      controls.querySelectorAll('.promos-banner__arrow').forEach(function(btn) {
-        btn.addEventListener('click', function() { go(idx + parseInt(btn.getAttribute('data-dir'), 10)); autoRotate.reset(); });
-      });
-      dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d) {
-        d.addEventListener('click', function() { go(parseInt(d.getAttribute('data-idx'), 10)); autoRotate.reset(); });
-      });
-
-      var autoRotate = (function() {
-        var timer = null;
-        function start() { timer = setInterval(function() { go(idx + 1); }, 6000); }
-        return {
-          reset: function() { if (timer) clearInterval(timer); start(); },
-          start: start,
-        };
-      })();
-      autoRotate.start();
+    function go(next) {
+      idx = ((next % total) + total) % total;
+      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      var dots = dotsEl.querySelectorAll('.promos-banner__dot');
+      for (var i = 0; i < dots.length; i++) dots[i].classList.toggle('active', i === idx);
     }
+
+    root.querySelectorAll('.promos-banner__arrow').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        go(idx + parseInt(btn.getAttribute('data-dir'), 10));
+        resetTimer();
+      });
+    });
+    dotsEl.querySelectorAll('.promos-banner__dot').forEach(function(d) {
+      d.addEventListener('click', function() {
+        go(parseInt(d.getAttribute('data-idx'), 10));
+        resetTimer();
+      });
+    });
+
+    var timer = null;
+    function startTimer() {
+      if (total <= 1) return;
+      timer = setInterval(function() { go(idx + 1); }, 6000);
+    }
+    function resetTimer() {
+      if (timer) clearInterval(timer);
+      startTimer();
+    }
+    startTimer();
   }
 
   fetch(apiBase + '/api/public/promos', { credentials: 'omit' })

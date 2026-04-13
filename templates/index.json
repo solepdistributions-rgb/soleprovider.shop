@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "promos_banner_home": {
+      "type": "promos-banner",
+      "name": "Promo Banner",
+      "settings": {
+        "api_url": "https://sp-tools-production.up.railway.app"
+      }
+    },
     "sole_hero_98Uh78": {
       "type": "sole-hero",
       "name": "Sole Hero",
@@ -394,6 +401,7 @@
     }
   },
   "order": [
+    "promos_banner_home",
     "sole_hero_98Uh78",
     "service_path_cards_RfJAEY",
     "brand_story_td4Ntt",
