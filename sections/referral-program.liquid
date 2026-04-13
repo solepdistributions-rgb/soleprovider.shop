@@ -1,42 +1,46 @@
 <section class="referral-section">
-  <div class="page-width">
-    <div class="referral-section__intro">
+  <div class="referral-wrap">
+
+    <div class="referral-hero">
       {% if section.settings.eyebrow != blank %}
-        <p class="referral-section__eyebrow">{{ section.settings.eyebrow }}</p>
+        <p class="referral-hero__eyebrow">{{ section.settings.eyebrow }}</p>
       {% endif %}
       {% if section.settings.heading != blank %}
-        <h2 class="referral-section__heading">{{ section.settings.heading }}</h2>
+        <h1 class="referral-hero__heading">{{ section.settings.heading }}</h1>
       {% endif %}
       {% if section.settings.subheading != blank %}
-        <p class="referral-section__sub">{{ section.settings.subheading }}</p>
+        <p class="referral-hero__sub">{{ section.settings.subheading }}</p>
       {% endif %}
     </div>
 
     <div class="referral-card">
+
       <div class="referral-block">
         <p class="referral-block__label">How It Works</p>
 
-        <div class="referral-step">
-          <div class="referral-step__num">1</div>
-          <div>
-            <h3>Refer Someone</h3>
-            <p>Tell a friend, colleague, or business contact about The Sole Provider. When they request a quote, they just need to mention your name.</p>
+        <div class="referral-steps">
+          <div class="referral-step">
+            <div class="referral-step__num">1</div>
+            <div class="referral-step__body">
+              <h3>Refer Someone</h3>
+              <p>Tell a friend, colleague, or business about The Sole Provider. When they request a quote, they just need to mention your name.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="referral-step">
-          <div class="referral-step__num">2</div>
-          <div>
-            <h3>They Place an Order</h3>
-            <p>When your referral becomes a customer and their first invoice is paid, your reward is automatically calculated and added to your account.</p>
+          <div class="referral-step">
+            <div class="referral-step__num">2</div>
+            <div class="referral-step__body">
+              <h3>They Place an Order</h3>
+              <p>Once the referred customer's first invoice is paid in full, your reward is automatically calculated and added to your account.</p>
+            </div>
           </div>
-        </div>
 
-        <div class="referral-step">
-          <div class="referral-step__num">3</div>
-          <div>
-            <h3>You Get Store Credit</h3>
-            <p>Credit is added to your account automatically and can be used on any future order. It never expires.</p>
+          <div class="referral-step">
+            <div class="referral-step__num">3</div>
+            <div class="referral-step__body">
+              <h3>You Get Store Credit</h3>
+              <p>Store credit lands in your account automatically and can be used on any future order. It never expires.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -44,29 +48,25 @@
       <div class="referral-block">
         <p class="referral-block__label">Reward Rates</p>
 
-        <div class="referral-rate-group">
-          <p class="referral-rate-group__title">For Existing Clients</p>
-          <div class="referral-rate-cards">
-            <div class="referral-rate-card">
-              <div class="referral-rate-card__pct">4%</div>
-              <div class="referral-rate-card__label">Store Credit</div>
-            </div>
+        <div class="referral-rates-grid">
+          <div class="referral-rate-tile">
+            <p class="referral-rate-tile__title">Existing Clients</p>
+            <div class="referral-rate-tile__pct">4<span>%</span></div>
+            <p class="referral-rate-tile__label">Store Credit</p>
+            <p class="referral-rate-tile__note">Credit is added to your account the moment the referred invoice is paid.</p>
           </div>
-        </div>
 
-        <div class="referral-rate-group">
-          <p class="referral-rate-group__title">For Non-Clients Who Refer</p>
-          <div class="referral-rate-cards">
-            <div class="referral-rate-card">
-              <div class="referral-rate-card__pct">2%</div>
-              <div class="referral-rate-card__label">Store Credit</div>
-            </div>
+          <div class="referral-rate-tile">
+            <p class="referral-rate-tile__title">Non-Clients</p>
+            <div class="referral-rate-tile__pct">2<span>%</span></div>
+            <p class="referral-rate-tile__label">Store Credit</p>
+            <p class="referral-rate-tile__note">Redeem your credit by placing your own first order with The Sole Provider.</p>
           </div>
-          <p class="referral-rate-group__note">Non-client referrers can redeem their credit by placing their own order with us.</p>
         </div>
 
         <div class="referral-highlight">
-          <strong>New customer perk:</strong> The person you refer gets <strong>5% off their first order</strong> — just for mentioning your name.
+          <span class="referral-highlight__tag">New Customer Perk</span>
+          <p>The person you refer gets <strong>5% off their first order</strong> — just for mentioning your name at quote time.</p>
         </div>
       </div>
 
@@ -75,197 +75,286 @@
         <a href="/pages/referral-terms" class="referral-terms-link">Read the full terms &rsaquo;</a>
       </div>
     </div>
+
   </div>
 </section>
 
 <style>
   .referral-section {
-    padding: 72px 0;
-    background: #f9f9f9;
+    padding: 96px 0 120px;
+    background: var(--sole-light, #f5f5f5);
   }
-  .referral-section__intro {
-    text-align: center;
-    margin: 0 auto 36px;
-    max-width: 640px;
-  }
-  .referral-section__eyebrow {
-    margin: 0 0 10px;
-    color: #c41230;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-  .referral-section__heading {
-    margin: 0;
-    font-size: clamp(2rem, 3vw, 3rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #111;
-  }
-  .referral-section__sub {
-    margin: 12px 0 0;
-    color: #666;
-    font-size: 1rem;
-  }
-  .referral-card {
-    max-width: 720px;
+  .referral-wrap {
+    max-width: 1120px;
     margin: 0 auto;
-    background: #fff;
-    border-radius: 16px;
-    padding: 48px 36px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #e5e7eb;
+    padding: 0 24px;
   }
+
+  /* ===== HERO ===== */
+  .referral-hero {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .referral-hero__eyebrow {
+    font-family: var(--sole-heading-font);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--sole-red, #c41230);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .referral-hero__heading {
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.75rem, 6vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--sole-black, #111);
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 20px;
+  }
+  .referral-hero__sub {
+    font-family: var(--sole-body-font);
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    color: #555;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ===== CARD ===== */
+  .referral-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    padding: 72px 64px;
+    border: 1px solid #ececec;
+  }
+
+  /* ===== BLOCKS ===== */
   .referral-block {
-    margin-bottom: 40px;
+    margin-bottom: 72px;
   }
   .referral-block:last-of-type {
-    margin-bottom: 24px;
+    margin-bottom: 40px;
   }
   .referral-block__label {
-    font-size: 0.7rem;
-    font-weight: 800;
+    font-family: var(--sole-heading-font);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--sole-red, #c41230);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #c41230;
-    margin: 0 0 18px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #fee2e2;
+    margin: 0 0 32px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid #fee2e6;
+  }
+
+  /* ===== STEPS ===== */
+  .referral-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
   }
   .referral-step {
     display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 28px;
     align-items: flex-start;
-  }
-  .referral-step:last-child {
-    margin-bottom: 0;
   }
   .referral-step__num {
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
-    background: #c41230;
+    width: 64px;
+    height: 64px;
+    background: var(--sole-red, #c41230);
     color: #fff;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 900;
-    font-size: 1.1rem;
+    font-family: var(--sole-heading-font);
+    font-weight: 400;
+    font-size: 1.75rem;
+    letter-spacing: 0;
   }
-  .referral-step h3 {
-    font-size: 1.05rem;
-    font-weight: 800;
-    margin: 4px 0 6px;
-    color: #111;
+  .referral-step__body h3 {
+    font-family: var(--sole-heading-font);
+    font-size: 1.65rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    color: var(--sole-black, #111);
+    margin: 6px 0 10px;
+    line-height: 1.1;
   }
-  .referral-step p {
-    font-size: 0.9rem;
-    line-height: 1.6;
+  .referral-step__body p {
+    font-family: var(--sole-body-font);
+    font-size: 1.1rem;
+    line-height: 1.65;
     color: #555;
     margin: 0;
+    max-width: 640px;
   }
-  .referral-rate-group {
-    margin-bottom: 20px;
+
+  /* ===== RATE TILES (side-by-side) ===== */
+  .referral-rates-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 36px;
   }
-  .referral-rate-group:last-of-type {
-    margin-bottom: 0;
-  }
-  .referral-rate-group__title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #111;
-    margin: 0 0 10px;
-  }
-  .referral-rate-group__note {
-    font-size: 0.8rem;
-    color: #888;
-    margin: 10px 0 0;
-    font-style: italic;
-  }
-  .referral-rate-cards {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .referral-rate-card {
-    background: #fdf2f8;
-    border: 1px solid #fce7f3;
-    border-radius: 10px;
-    padding: 18px 28px;
+  .referral-rate-tile {
+    background: linear-gradient(180deg, #fff5f6 0%, #fff 100%);
+    border: 2px solid #fde2e6;
+    border-radius: 20px;
+    padding: 44px 36px 36px;
     text-align: center;
-    min-width: 140px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
-  .referral-rate-card__pct {
-    font-size: 2rem;
-    font-weight: 900;
-    color: #c41230;
-    line-height: 1;
+  .referral-rate-tile::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--sole-red, #c41230);
   }
-  .referral-rate-card__label {
-    font-size: 0.7rem;
-    font-weight: 700;
+  .referral-rate-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(196, 18, 48, 0.12);
+  }
+  .referral-rate-tile__title {
+    font-family: var(--sole-heading-font);
+    font-size: 1.05rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
     color: #666;
-    margin-top: 6px;
+    margin: 0 0 12px;
   }
+  .referral-rate-tile__pct {
+    font-family: var(--sole-heading-font);
+    font-size: clamp(5rem, 9vw, 7rem);
+    font-weight: 400;
+    color: var(--sole-red, #c41230);
+    line-height: 0.9;
+    margin: 8px 0 12px;
+    letter-spacing: 0;
+  }
+  .referral-rate-tile__pct span {
+    font-size: 0.55em;
+    vertical-align: super;
+    margin-left: 4px;
+  }
+  .referral-rate-tile__label {
+    font-family: var(--sole-heading-font);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sole-black, #111);
+    margin: 0 0 18px;
+  }
+  .referral-rate-tile__note {
+    font-family: var(--sole-body-font);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #666;
+    margin: 0;
+    padding-top: 18px;
+    border-top: 1px solid #fde2e6;
+  }
+
+  /* ===== HIGHLIGHT BOX ===== */
   .referral-highlight {
-    background: #fff8e1;
-    border: 1px solid #ffe082;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-top: 24px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #444;
+    background: var(--sole-black, #111);
+    color: #fff;
+    border-radius: 16px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 28px;
   }
-  .referral-highlight strong {
-    color: #c41230;
+  .referral-highlight__tag {
+    flex-shrink: 0;
+    background: var(--sole-red, #c41230);
+    color: #fff;
+    font-family: var(--sole-heading-font);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 8px;
+    white-space: nowrap;
   }
+  .referral-highlight p {
+    font-family: var(--sole-body-font);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: #f0f0f0;
+    margin: 0;
+  }
+  .referral-highlight p strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  /* ===== CTA ===== */
   .referral-cta-wrap {
     text-align: center;
-    padding-top: 16px;
-    border-top: 1px solid #f0f0f0;
+    padding-top: 44px;
+    border-top: 2px solid #f0f0f0;
   }
   .referral-cta {
     display: inline-block;
-    background: #111;
+    background: var(--sole-black, #111);
     color: #fff;
-    padding: 16px 40px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    font-weight: 800;
+    padding: 22px 64px;
+    border-radius: 12px;
+    font-family: var(--sole-heading-font);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
     text-decoration: none;
-    transition: background 0.2s;
+    transition: background 0.2s ease, transform 0.2s ease;
   }
   .referral-cta:hover {
-    background: #c41230;
+    background: var(--sole-red, #c41230);
+    transform: translateY(-2px);
   }
   .referral-terms-link {
     display: block;
-    margin-top: 16px;
-    font-size: 0.8rem;
+    margin-top: 22px;
+    font-family: var(--sole-body-font);
+    font-size: 0.95rem;
     color: #888;
     text-decoration: none;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
   }
   .referral-terms-link:hover {
-    color: #c41230;
+    color: var(--sole-red, #c41230);
   }
-  @media (max-width: 640px) {
-    .referral-section {
-      padding: 48px 0;
-    }
-    .referral-card {
-      padding: 32px 24px;
-    }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .referral-section { padding: 64px 0 80px; }
+    .referral-card { padding: 48px 32px; }
+    .referral-block { margin-bottom: 56px; }
+    .referral-rates-grid { grid-template-columns: 1fr; gap: 20px; }
+    .referral-step { gap: 20px; }
+    .referral-step__num { width: 52px; height: 52px; font-size: 1.4rem; }
+    .referral-step__body h3 { font-size: 1.4rem; }
+    .referral-step__body p { font-size: 1rem; }
+    .referral-highlight { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px; }
+    .referral-cta { padding: 18px 44px; font-size: 1rem; }
+  }
+  @media (max-width: 520px) {
+    .referral-wrap { padding: 0 16px; }
+    .referral-card { padding: 36px 22px; border-radius: 18px; }
+    .referral-rate-tile { padding: 36px 24px 28px; }
   }
 </style>
 
