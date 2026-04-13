@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "referral-program",
+      "settings": {
+        "eyebrow": "Earn Store Credit",
+        "heading": "Referral Program",
+        "subheading": "Know someone who needs custom apparel or promo products? Send them our way and earn store credit on every referred order."
+      }
+    }
+  },
+  "order": ["main"]
+}

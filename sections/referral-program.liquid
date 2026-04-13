@@ -1,0 +1,302 @@
+<section class="referral-section">
+  <div class="page-width">
+    <div class="referral-section__intro">
+      {% if section.settings.eyebrow != blank %}
+        <p class="referral-section__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="referral-section__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="referral-section__sub">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="referral-card">
+      <div class="referral-block">
+        <p class="referral-block__label">How It Works</p>
+
+        <div class="referral-step">
+          <div class="referral-step__num">1</div>
+          <div>
+            <h3>Refer Someone</h3>
+            <p>Tell a friend, colleague, or business contact about The Sole Provider. When they request a quote, they just need to mention your name.</p>
+          </div>
+        </div>
+
+        <div class="referral-step">
+          <div class="referral-step__num">2</div>
+          <div>
+            <h3>They Place an Order</h3>
+            <p>When your referral becomes a customer and their first invoice is paid, your reward is automatically calculated and added to your account.</p>
+          </div>
+        </div>
+
+        <div class="referral-step">
+          <div class="referral-step__num">3</div>
+          <div>
+            <h3>You Get Store Credit</h3>
+            <p>Credit is added to your account automatically and can be used on any future order. It never expires.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="referral-block">
+        <p class="referral-block__label">Reward Rates</p>
+
+        <div class="referral-rate-group">
+          <p class="referral-rate-group__title">For Existing Clients</p>
+          <div class="referral-rate-cards">
+            <div class="referral-rate-card">
+              <div class="referral-rate-card__pct">4%</div>
+              <div class="referral-rate-card__label">Store Credit</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="referral-rate-group">
+          <p class="referral-rate-group__title">For Non-Clients Who Refer</p>
+          <div class="referral-rate-cards">
+            <div class="referral-rate-card">
+              <div class="referral-rate-card__pct">2%</div>
+              <div class="referral-rate-card__label">Store Credit</div>
+            </div>
+          </div>
+          <p class="referral-rate-group__note">Non-client referrers can redeem their credit by placing their own order with us.</p>
+        </div>
+
+        <div class="referral-highlight">
+          <strong>New customer perk:</strong> The person you refer gets <strong>5% off their first order</strong> — just for mentioning your name.
+        </div>
+      </div>
+
+      <div class="referral-cta-wrap">
+        <a href="/pages/get-a-quote" class="referral-cta">Get a Quote</a>
+        <a href="/pages/referral-terms" class="referral-terms-link">Read the full terms &rsaquo;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .referral-section {
+    padding: 72px 0;
+    background: #f9f9f9;
+  }
+  .referral-section__intro {
+    text-align: center;
+    margin: 0 auto 36px;
+    max-width: 640px;
+  }
+  .referral-section__eyebrow {
+    margin: 0 0 10px;
+    color: #c41230;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .referral-section__heading {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+  }
+  .referral-section__sub {
+    margin: 12px 0 0;
+    color: #666;
+    font-size: 1rem;
+  }
+  .referral-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    padding: 48px 36px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e5e7eb;
+  }
+  .referral-block {
+    margin-bottom: 40px;
+  }
+  .referral-block:last-of-type {
+    margin-bottom: 24px;
+  }
+  .referral-block__label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #c41230;
+    margin: 0 0 18px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #fee2e2;
+  }
+  .referral-step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: flex-start;
+  }
+  .referral-step:last-child {
+    margin-bottom: 0;
+  }
+  .referral-step__num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: #c41230;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1.1rem;
+  }
+  .referral-step h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    margin: 4px 0 6px;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  .referral-step p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+  }
+  .referral-rate-group {
+    margin-bottom: 20px;
+  }
+  .referral-rate-group:last-of-type {
+    margin-bottom: 0;
+  }
+  .referral-rate-group__title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 10px;
+  }
+  .referral-rate-group__note {
+    font-size: 0.8rem;
+    color: #888;
+    margin: 10px 0 0;
+    font-style: italic;
+  }
+  .referral-rate-cards {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .referral-rate-card {
+    background: #fdf2f8;
+    border: 1px solid #fce7f3;
+    border-radius: 10px;
+    padding: 18px 28px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .referral-rate-card__pct {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #c41230;
+    line-height: 1;
+  }
+  .referral-rate-card__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #666;
+    margin-top: 6px;
+  }
+  .referral-highlight {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 24px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #444;
+  }
+  .referral-highlight strong {
+    color: #c41230;
+  }
+  .referral-cta-wrap {
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .referral-cta {
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .referral-cta:hover {
+    background: #c41230;
+  }
+  .referral-terms-link {
+    display: block;
+    margin-top: 16px;
+    font-size: 0.8rem;
+    color: #888;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+  }
+  .referral-terms-link:hover {
+    color: #c41230;
+  }
+  @media (max-width: 640px) {
+    .referral-section {
+      padding: 48px 0;
+    }
+    .referral-card {
+      padding: 32px 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Referral Program",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Earn Store Credit"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Referral Program"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Know someone who needs custom apparel or promo products? Send them our way and earn store credit on every referred order."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Referral Program"
+    }
+  ]
+}
+{% endschema %}

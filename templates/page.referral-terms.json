@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "referral-terms",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
