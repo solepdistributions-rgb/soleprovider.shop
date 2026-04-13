@@ -29,9 +29,16 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "promos-banner": {
+      "type": "promos-banner",
+      "settings": {
+        "api_url": "https://sp-tools-production.up.railway.app"
+      }
     }
   },
   "order": [
-    "header"
+    "header",
+    "promos-banner"
   ]
 }
