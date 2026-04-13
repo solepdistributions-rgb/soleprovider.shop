@@ -222,17 +222,21 @@
             "tag": "Promotional",
             "client": "",
             "description": "<p>Branded giveaway pieces built for a larger conference rollout.</p>",
-            "size": "tall"
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7331.heic",
+            "image_2": "shopify://shop_images/IMG_7332.heic",
+            "image_3": "shopify://shop_images/IMG_7333_1.heic"
           }
         },
         "promo_4": {
           "type": "project",
           "settings": {
             "title": "Custom Drinkware",
-            "tag": "Branded Products",
-            "client": "",
-            "description": "<p>Drinkware program for gifting, events, and brand visibility.</p>",
-            "size": "normal"
+            "tag": "Engraved Mugs",
+            "client": "Bryant University",
+            "description": "<p>Custom engraved YETI mug</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7336.heic"
           }
         },
         "promo_5": {
