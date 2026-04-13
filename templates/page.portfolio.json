@@ -207,11 +207,12 @@
         "promo_2": {
           "type": "project",
           "settings": {
-            "title": "Employee Welcome Box",
-            "tag": "Branded Merch",
-            "client": "",
-            "description": "<p>Custom welcome kits created for internal onboarding.</p>",
-            "size": "normal"
+            "title": "Engraved Tumbler",
+            "tag": "Promo Products",
+            "client": "Bryant University",
+            "description": "<p>Custom engraved tumbler produced fot Bryant University class of 2030</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_7335.heic"
           }
         },
         "promo_3": {
@@ -373,4 +374,4 @@
     "portfolio_promo",
     "portfolio_gallery_e9WMPP"
   ]
-}  
+}
