@@ -199,11 +199,13 @@
         "promo_1": {
           "type": "project",
           "settings": {
-            "title": "Trade Show Kit",
-            "tag": "Promotional",
+            "title": "Keychains",
+            "tag": "Promotional Keychains",
             "client": "",
-            "description": "<p>Complete trade show package with branded giveaways and event materials.</p>",
-            "size": "wide"
+            "description": "<p>The Sole Provider offers a large range of keychain products, perfect for any promotional need</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7299.heic",
+            "image_2": "shopify://shop_images/IMG_7301.heic"
           }
         },
         "promo_2": {
