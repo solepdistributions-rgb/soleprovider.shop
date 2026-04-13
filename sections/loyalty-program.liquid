@@ -1,0 +1,383 @@
+<section class="loyalty-section">
+  <div class="loyalty-wrap">
+
+    <div class="loyalty-hero">
+      {% if section.settings.eyebrow != blank %}
+        <p class="loyalty-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h1 class="loyalty-hero__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="loyalty-hero__sub">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+
+    <div class="loyalty-card">
+
+      <div class="loyalty-block">
+        <p class="loyalty-block__label">How It Works</p>
+        <div class="loyalty-steps">
+          <div class="loyalty-step">
+            <div class="loyalty-step__num">1</div>
+            <div class="loyalty-step__body">
+              <h3>Place Your Order</h3>
+              <p>Every paid invoice this year counts toward your loyalty tier. No enrollment, no forms — you're automatically in.</p>
+            </div>
+          </div>
+          <div class="loyalty-step">
+            <div class="loyalty-step__num">2</div>
+            <div class="loyalty-step__body">
+              <h3>Climb The Ladder</h3>
+              <p>The more you order, the higher your tier. Higher tier = higher credit rate on every order going forward.</p>
+            </div>
+          </div>
+          <div class="loyalty-step">
+            <div class="loyalty-step__num">3</div>
+            <div class="loyalty-step__body">
+              <h3>Credits Land Automatically</h3>
+              <p>The moment your invoice is marked paid, your store credit is calculated on the garment subtotal and added to your account. Use it whenever you want on any future order.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loyalty-block">
+        <p class="loyalty-block__label">The Tiers</p>
+        <div class="loyalty-tiers-grid">
+          <div class="loyalty-tier">
+            <div class="loyalty-tier__range">Orders 1-2</div>
+            <div class="loyalty-tier__rate">0<span>%</span></div>
+            <div class="loyalty-tier__label">Welcome tier</div>
+          </div>
+          <div class="loyalty-tier">
+            <div class="loyalty-tier__range">Orders 3-5</div>
+            <div class="loyalty-tier__rate">1<span>%</span></div>
+            <div class="loyalty-tier__label">Store credit</div>
+          </div>
+          <div class="loyalty-tier">
+            <div class="loyalty-tier__range">Orders 6-10</div>
+            <div class="loyalty-tier__rate">2<span>%</span></div>
+            <div class="loyalty-tier__label">Store credit</div>
+          </div>
+          <div class="loyalty-tier loyalty-tier--top">
+            <div class="loyalty-tier__range">Orders 11+</div>
+            <div class="loyalty-tier__rate">3<span>%</span></div>
+            <div class="loyalty-tier__label">Top tier</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="loyalty-block">
+        <p class="loyalty-block__label">The Fine Print (Short Version)</p>
+        <ul class="loyalty-fineprint">
+          <li>Store credit <strong>never expires</strong>. Once earned, it's yours forever.</li>
+          <li>The order count <strong>resets each January 1</strong> — but any banked credits stay banked.</li>
+          <li>Credit is calculated on the <strong>garment subtotal</strong> — not tax, shipping, or setup fees.</li>
+          <li>Credits stack with referral rewards but not with other promotions (you'll automatically get the better deal).</li>
+          <li>Check your current tier and credit balance anytime in your client portal.</li>
+        </ul>
+      </div>
+
+      <div class="loyalty-cta-wrap">
+        <a href="/pages/request-quote" class="loyalty-cta">Start Your Next Order</a>
+        <a href="/account/login" class="loyalty-portal-link">Or sign in to your portal to see your current tier &rsaquo;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .loyalty-section {
+    padding: 96px 0 120px;
+    background: var(--sole-light, #f5f5f5);
+  }
+  .loyalty-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ===== HERO ===== */
+  .loyalty-hero {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .loyalty-hero__eyebrow {
+    font-family: var(--sole-heading-font);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--sole-red, #c41230);
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .loyalty-hero__heading {
+    font-family: var(--sole-heading-font);
+    font-size: clamp(2.75rem, 6vw, 5rem);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--sole-black, #111);
+    text-transform: uppercase;
+    line-height: 1;
+    margin: 0 0 20px;
+  }
+  .loyalty-hero__sub {
+    font-family: var(--sole-body-font);
+    font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+    line-height: 1.6;
+    color: #555;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  /* ===== CARD ===== */
+  .loyalty-card {
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    padding: 72px 64px;
+    border: 1px solid #ececec;
+  }
+
+  .loyalty-block {
+    margin-bottom: 72px;
+  }
+  .loyalty-block:last-of-type {
+    margin-bottom: 40px;
+  }
+  .loyalty-block__label {
+    font-family: var(--sole-heading-font);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--sole-red, #c41230);
+    text-transform: uppercase;
+    margin: 0 0 32px;
+    padding-bottom: 14px;
+    border-bottom: 3px solid #fee2e6;
+  }
+
+  /* ===== STEPS ===== */
+  .loyalty-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .loyalty-step {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  .loyalty-step__num {
+    flex-shrink: 0;
+    width: 64px;
+    height: 64px;
+    background: var(--sole-red, #c41230);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sole-heading-font);
+    font-weight: 400;
+    font-size: 1.75rem;
+  }
+  .loyalty-step__body h3 {
+    font-family: var(--sole-heading-font);
+    font-size: 1.65rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--sole-black, #111);
+    margin: 6px 0 10px;
+    line-height: 1.1;
+  }
+  .loyalty-step__body p {
+    font-family: var(--sole-body-font);
+    font-size: 1.1rem;
+    line-height: 1.65;
+    color: #555;
+    margin: 0;
+    max-width: 640px;
+  }
+
+  /* ===== TIER GRID ===== */
+  .loyalty-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  .loyalty-tier {
+    background: linear-gradient(180deg, #fff5f6 0%, #fff 100%);
+    border: 2px solid #fde2e6;
+    border-radius: 16px;
+    padding: 28px 20px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .loyalty-tier::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--sole-red, #c41230);
+  }
+  .loyalty-tier:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(196,18,48,0.12);
+  }
+  .loyalty-tier--top {
+    background: linear-gradient(180deg, #fef3c7 0%, #fff 100%);
+    border-color: #fde68a;
+  }
+  .loyalty-tier--top::before { background: #f59e0b; }
+  .loyalty-tier--top .loyalty-tier__rate { color: #b45309; }
+  .loyalty-tier__range {
+    font-family: var(--sole-heading-font);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .loyalty-tier__rate {
+    font-family: var(--sole-heading-font);
+    font-size: clamp(3rem, 5vw, 4.5rem);
+    font-weight: 400;
+    color: var(--sole-red, #c41230);
+    line-height: 0.9;
+    margin: 10px 0 8px;
+  }
+  .loyalty-tier__rate span {
+    font-size: 0.55em;
+    vertical-align: super;
+  }
+  .loyalty-tier__label {
+    font-family: var(--sole-heading-font);
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sole-black, #111);
+    padding-top: 10px;
+    border-top: 1px solid #fde2e6;
+  }
+
+  /* ===== FINE PRINT ===== */
+  .loyalty-fineprint {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .loyalty-fineprint li {
+    font-family: var(--sole-body-font);
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #444;
+    padding: 12px 0 12px 28px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+  .loyalty-fineprint li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: var(--sole-red, #c41230);
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .loyalty-fineprint li:last-child { border-bottom: 0; }
+  .loyalty-fineprint strong {
+    color: var(--sole-black, #111);
+    font-weight: 700;
+  }
+
+  /* ===== CTA ===== */
+  .loyalty-cta-wrap {
+    text-align: center;
+    padding-top: 44px;
+    border-top: 2px solid #f0f0f0;
+  }
+  .loyalty-cta {
+    display: inline-block;
+    background: var(--sole-black, #111);
+    color: #fff;
+    padding: 22px 64px;
+    border-radius: 12px;
+    font-family: var(--sole-heading-font);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .loyalty-cta:hover {
+    background: var(--sole-red, #c41230);
+    transform: translateY(-2px);
+  }
+  .loyalty-portal-link {
+    display: block;
+    margin-top: 22px;
+    font-family: var(--sole-body-font);
+    font-size: 0.95rem;
+    color: #888;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+  }
+  .loyalty-portal-link:hover { color: var(--sole-red, #c41230); }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .loyalty-section { padding: 64px 0 80px; }
+    .loyalty-card { padding: 48px 32px; }
+    .loyalty-block { margin-bottom: 56px; }
+    .loyalty-tiers-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .loyalty-step { gap: 20px; }
+    .loyalty-step__num { width: 52px; height: 52px; font-size: 1.4rem; }
+    .loyalty-step__body h3 { font-size: 1.4rem; }
+    .loyalty-step__body p { font-size: 1rem; }
+    .loyalty-cta { padding: 18px 44px; font-size: 1rem; }
+  }
+  @media (max-width: 520px) {
+    .loyalty-wrap { padding: 0 16px; }
+    .loyalty-card { padding: 36px 22px; border-radius: 18px; }
+    .loyalty-tiers-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Loyalty Program",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Earn On Every Order"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Loyalty Program"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Every order you place earns you store credit toward your next one. The more you order, the more you save — automatic, no enrollment, no forms."
+    }
+  ],
+  "presets": [
+    { "name": "Loyalty Program" }
+  ]
+}
+{% endschema %}

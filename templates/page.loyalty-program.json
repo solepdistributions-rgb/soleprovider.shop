@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "loyalty-program",
+      "settings": {
+        "eyebrow": "Earn On Every Order",
+        "heading": "Loyalty Program",
+        "subheading": "Every order you place earns you store credit toward your next one. The more you order, the more you save — automatic, no enrollment, no forms."
+      }
+    }
+  },
+  "order": ["main"]
+}
