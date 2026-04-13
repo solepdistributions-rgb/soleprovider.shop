@@ -218,10 +218,10 @@
         "promo_3": {
           "type": "project",
           "settings": {
-            "title": "Conference Giveaways",
+            "title": "Office Giveaways",
             "tag": "Promotional",
-            "client": "",
-            "description": "<p>Branded giveaway pieces built for a larger conference rollout.</p>",
+            "client": "Bryant IDEA",
+            "description": "<p>Branded sticky notebooks perfect for the classroom or office</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_7331.heic",
             "image_2": "shopify://shop_images/IMG_7332.heic",
