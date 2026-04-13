@@ -32,16 +32,17 @@
     display: flex;
     transition: transform 0.5s ease;
     will-change: transform;
+    width: max-content;
   }
   .promo-slide {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 10px 12px;
+    width: 100vw;
+    max-width: 1096px; /* 1200 max - 2*52 padding */
+    padding: 14px 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    min-height: 56px;
+    gap: 22px;
+    min-height: 68px;
     box-sizing: border-box;
   }
   .promo-slide__text {
@@ -230,10 +231,18 @@
     var idx = 0;
     var total = all.length;
 
+    function slideWidth() {
+      var first = track.querySelector('.promo-slide');
+      return first ? first.getBoundingClientRect().width : 0;
+    }
+
     function go(next) {
       idx = ((next % total) + total) % total;
-      track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+      var w = slideWidth();
+      track.style.transform = 'translateX(-' + (idx * w) + 'px)';
     }
+
+    window.addEventListener('resize', function() { go(idx); });
 
     root.querySelectorAll('.promos-banner__arrow').forEach(function(btn) {
       btn.addEventListener('click', function() {
