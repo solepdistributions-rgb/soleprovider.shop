@@ -49,7 +49,18 @@
           <input type="hidden" name="contact[portfolio_image]" id="RequestQuote-portfolio-image" value="">
           <input type="hidden" name="contact[request_id]" id="RequestQuote-request-id" value="">
           <input type="hidden" name="contact[source_page]" id="RequestQuote-source-page" value="">
+          <input type="hidden" name="contact[promo_code]" id="RequestQuote-promo-code" value="">
           <input type="hidden" id="rq-form-success-flag" value="{% if form.posted_successfully? %}true{% else %}false{% endif %}">
+
+          <!-- Promo code notice (shown only when ?promo=CODE is in the URL) -->
+          <div id="RequestQuote-promo-notice" class="rq-promo-notice" style="display:none">
+            <div class="rq-promo-notice__inner">
+              <span class="rq-promo-notice__label">Promo Applied</span>
+              <span class="rq-promo-notice__code" id="RequestQuote-promo-display"></span>
+              <span class="rq-promo-notice__text">We'll automatically apply this promo when we build your quote.</span>
+              <button type="button" class="rq-promo-notice__remove" onclick="document.getElementById('RequestQuote-promo-notice').style.display='none';document.getElementById('RequestQuote-promo-code').value='';" aria-label="Remove promo">&times;</button>
+            </div>
+          </div>
 
           <div class="rq-form__grid">
             <div class="rq-field">
@@ -729,9 +740,84 @@
   .rq-side-card--dark a {
     color: rgba(255,255,255,0.92) !important;
   }
+
+  /* Promo notice bar (shown when ?promo=CODE is in URL) */
+  .rq-promo-notice {
+    margin: 0 0 24px;
+  }
+  .rq-promo-notice__inner {
+    background: linear-gradient(135deg, #fff5f6 0%, #fde2e6 100%);
+    border: 2px solid #c41230;
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 16px rgba(196,18,48,0.12);
+  }
+  .rq-promo-notice__label {
+    font-family: var(--sole-heading-font);
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c41230;
+    flex: 0 0 auto;
+  }
+  .rq-promo-notice__code {
+    font-family: var(--sole-heading-font);
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    background: #c41230;
+    padding: 8px 18px;
+    border-radius: 6px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .rq-promo-notice__text {
+    font-family: var(--sole-body-font);
+    font-size: 0.85rem;
+    color: #555;
+    flex: 1 1 200px;
+    line-height: 1.4;
+  }
+  .rq-promo-notice__remove {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 6px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .rq-promo-notice__remove:hover { color: #c41230; }
+  @media (max-width: 520px) {
+    .rq-promo-notice__inner { flex-direction: column; align-items: flex-start; }
+    .rq-promo-notice__text { flex: 1 1 100%; }
+  }
 </style>
 
 <script>
+  // Promo autofill — reads ?promo=CODE from URL and populates the hidden field + notice
+  (function() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var promo = params.get('promo');
+      if (!promo) return;
+      promo = String(promo).toUpperCase().slice(0, 40);
+      var hidden = document.getElementById('RequestQuote-promo-code');
+      var notice = document.getElementById('RequestQuote-promo-notice');
+      var display = document.getElementById('RequestQuote-promo-display');
+      if (hidden) hidden.value = promo;
+      if (display) display.textContent = promo;
+      if (notice) notice.style.display = '';
+    } catch (e) {}
+  })();
+
   document.addEventListener('DOMContentLoaded', function () {
     var form = document.getElementById('RequestQuoteForm');
     if (!form) return;

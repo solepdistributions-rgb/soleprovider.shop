@@ -210,7 +210,11 @@
     if (all.length > 1) root.classList.add('has-multiple');
 
     track.innerHTML = all.map(function(p) {
-      var quoteHref = '/pages/request-quote?promo=' + encodeURIComponent(p.code);
+      // Referral slide links to the referral program page; all other promos
+      // link to the request-quote form with the code pre-filled via URL param.
+      var quoteHref = p.is_referral
+        ? '/pages/referral-program'
+        : '/pages/request-quote?promo=' + encodeURIComponent(p.code);
       var termsHref = p.is_referral
         ? '/pages/referral-terms'
         : '/pages/deal-terms#' + encodeURIComponent(p.code);
