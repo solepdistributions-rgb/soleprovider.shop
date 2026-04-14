@@ -113,6 +113,29 @@
     overflow: hidden;
   }
 
+  .review-card.is-expanded .review-card__text {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
+
+  .review-card__more {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: -8px 0 16px;
+    color: #c41230;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .review-card__more:hover { text-decoration: underline; }
+  .review-card.has-overflow .review-card__more { display: inline-block; }
+
   .review-card__author {
     font-size: 0.9rem;
     font-weight: 800;
@@ -160,6 +183,7 @@
           return '<div class="review-card">' +
             '<div class="review-card__stars">' + stars + '</div>' +
             '<div class="review-card__text">' + r.review_text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+            '<button type="button" class="review-card__more" aria-expanded="false">Read more</button>' +
             '<div class="review-card__author">' + (r.display_name || 'Client') +
             (r.service_type ? '<span class="review-card__service"> — ' + r.service_type + '</span>' : '') +
             '</div></div>';
@@ -175,6 +199,25 @@
           track.style.justifyContent = 'center';
         }
         track.innerHTML = html;
+
+        // Flag cards whose text is actually clamped so the "Read more" button shows only on those
+        requestAnimationFrame(function() {
+          track.querySelectorAll('.review-card').forEach(function(card) {
+            var textEl = card.querySelector('.review-card__text');
+            if (textEl && textEl.scrollHeight - textEl.clientHeight > 2) {
+              card.classList.add('has-overflow');
+            }
+          });
+        });
+
+        track.addEventListener('click', function(e) {
+          var btn = e.target.closest('.review-card__more');
+          if (!btn) return;
+          var card = btn.closest('.review-card');
+          var expanded = card.classList.toggle('is-expanded');
+          btn.textContent = expanded ? 'Show less' : 'Read more';
+          btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        });
       })
       .catch(function() {});
   })();
