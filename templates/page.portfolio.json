@@ -112,11 +112,13 @@
         "design_1": {
           "type": "project",
           "settings": {
-            "title": "Brand Identity Package",
-            "tag": "Logo Design",
-            "client": "",
-            "description": "<p>Full brand identity including logo, color direction, and visual style.</p>",
-            "size": "wide"
+            "title": "Street Eats Design Package",
+            "tag": "Brand Creation",
+            "client": "Bryant University",
+            "description": "<p>Full re-work of brand to match requested 'street vibe' design. Multiple Designs created for application on both trailer wrap and promo shirts</p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/EATS_T_FRONT.png",
+            "image_2": "shopify://shop_images/EATS_T_BACK.png"
           }
         },
         "design_2": {
