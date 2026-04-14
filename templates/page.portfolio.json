@@ -46,11 +46,13 @@
         "apparel_3": {
           "type": "project",
           "settings": {
-            "title": "Event Hoodie Drop",
-            "tag": "DTF Transfer",
-            "client": "",
-            "description": "<p>Limited-run event hoodies with full-color transfers.</p>",
-            "size": "tall"
+            "title": "Embroidered Beanies",
+            "tag": "Embroidery",
+            "client": "Ellen Wilson Leadership Center",
+            "description": "<p>Custom Designed North Face beanies with embroidery.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7310.heic",
+            "image_2": "shopify://shop_images/IMG_7311.heic"
           }
         },
         "apparel_4": {
