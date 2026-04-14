@@ -112,6 +112,17 @@
     "portfolio_design": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_M3QwUU": {
+          "type": "project",
+          "settings": {
+            "title": "Exclusive Merch",
+            "tag": "Screen Print",
+            "client": "The Sole Provider",
+            "description": "<p>Design made as an exclusive release to the Bryant University community</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/TUPPERTapBACK_3.jpg"
+          }
+        },
         "project_VdCMNW": {
           "type": "project",
           "settings": {
@@ -193,6 +204,7 @@
         }
       },
       "block_order": [
+        "project_M3QwUU",
         "project_VdCMNW",
         "design_1",
         "design_2",
