@@ -127,11 +127,12 @@
         "design_2": {
           "type": "project",
           "settings": {
-            "title": "Apparel Print Artwork",
+            "title": "Bar Art",
             "tag": "Screen Print Art",
-            "client": "",
+            "client": "Thirsty Beaver",
             "description": "<p>Print-ready apparel artwork built for production and merch use.</p>",
-            "size": "normal"
+            "size": "normal",
+            "image_1": "shopify://shop_images/BACK_FINAL_THIRSTY_BEAVER_1.jpg"
           }
         },
         "design_3": {
