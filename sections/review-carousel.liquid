@@ -69,6 +69,7 @@
 
   .review-carousel__track {
     display: flex;
+    align-items: flex-start;
     gap: 24px;
     animation: reviewScroll 40s linear infinite;
     width: max-content;
@@ -105,6 +106,11 @@
     line-height: 1.7;
     color: #333;
     margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    overflow: hidden;
   }
 
   .review-card__author {
