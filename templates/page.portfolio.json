@@ -341,55 +341,11 @@
             "image_2": "shopify://shop_images/IMG_6774_1.jpg",
             "image_3": "shopify://shop_images/IMG_6781.jpg"
           }
-        },
-        "project_MTJWCE": {
-          "type": "project",
-          "settings": {
-            "title": "Retractable Banner Set",
-            "tag": "Trade Show Display",
-            "client": "",
-            "description": "<p>Matching pull-up banners designed for events, expos, and on-site promotion.</p>",
-            "size": "tall"
-          }
-        },
-        "project_WXzpzQ": {
-          "type": "project",
-          "settings": {
-            "title": "Table Cover Package",
-            "tag": "Event Display",
-            "client": "",
-            "description": "<p>Custom printed table covers produced for polished trade show and event setups.</p>",
-            "size": "normal"
-          }
-        },
-        "project_YUQ7KN": {
-          "type": "project",
-          "settings": {
-            "title": "Storefront Window Decals",
-            "tag": "Retail Branding",
-            "client": "",
-            "description": "<p>Window graphics created to boost visibility, branding, and seasonal promotions.</p>",
-            "size": "normal"
-          }
-        },
-        "project_gr3AkP": {
-          "type": "project",
-          "settings": {
-            "title": "Outdoor Banner System",
-            "tag": "Large Format",
-            "client": "",
-            "description": "<p>Weather-ready banner solution for events, schools, and business promotions.</p>",
-            "size": "wide"
-          }
         }
       },
       "block_order": [
         "project_PL6aQU",
-        "project_QAYdCw",
-        "project_MTJWCE",
-        "project_WXzpzQ",
-        "project_YUQ7KN",
-        "project_gr3AkP"
+        "project_QAYdCw"
       ],
       "settings": {
         "background_style": "white",
