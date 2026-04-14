@@ -132,47 +132,52 @@
             "client": "Thirsty Beaver",
             "description": "<p>Print-ready apparel artwork built for production and merch use.</p>",
             "size": "normal",
-            "image_1": "shopify://shop_images/BACK_FINAL_THIRSTY_BEAVER_1.jpg"
+            "image_1": "shopify://shop_images/BACK_FINAL_THIRSTY_BEAVER_1.jpg",
+            "image_2": "shopify://shop_images/FRONT_FINAL_THIRSTY_BEAVER_1.jpg"
           }
         },
         "design_3": {
           "type": "project",
           "settings": {
-            "title": "Event Poster Series",
-            "tag": "Print Design",
-            "client": "",
-            "description": "<p>Poster set designed for a venue and event campaign.</p>",
-            "size": "tall"
+            "title": "Bulldog Art",
+            "tag": "Garment Art",
+            "client": "The Women's Network",
+            "description": "<p>Art designed for use on a shirt</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/TWN_FINALS_PRINT_SP_BACK.jpg"
           }
         },
         "design_4": {
           "type": "project",
           "settings": {
-            "title": "Embroidery Digitizing",
-            "tag": "Embroidery Art",
-            "client": "",
-            "description": "<p>Artwork adapted and prepared for clean embroidery results.</p>",
-            "size": "normal"
+            "title": "Bulldog Art",
+            "tag": "Screen Printing Art",
+            "client": "Bryant Singers",
+            "description": "<p>Artwork Created for use on DTF shirts</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/BRYANT_SINGERS_FINAL_1.jpg"
           }
         },
         "design_5": {
           "type": "project",
           "settings": {
-            "title": "Corporate Rebrand",
-            "tag": "Brand Identity",
-            "client": "",
-            "description": "<p>Updated look and feel for a local company refresh.</p>",
-            "size": "normal"
+            "title": "Embroidery Creation",
+            "tag": "Embroidery",
+            "client": "Lil' Rhody Coffee",
+            "description": "<p>Art adapted for use in high-end embroidery</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/Screenshot_2026-04-14_010920.png"
           }
         },
         "design_6": {
           "type": "project",
           "settings": {
-            "title": "Team Logo Redesign",
-            "tag": "Logo Design",
-            "client": "",
-            "description": "<p>Modernized team identity built for apparel, print, and digital use.</p>",
-            "size": "wide"
+            "title": "Embroidery Design",
+            "tag": "Re-design",
+            "client": "Bryant University",
+            "description": "<p>Original logo re-designed to conform with official brand guidelines. Digitized for embroidery.</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/Screenshot_2026-04-14_010855.png"
           }
         }
       },
