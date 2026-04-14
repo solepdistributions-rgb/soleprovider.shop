@@ -175,8 +175,6 @@
           return;
         }
 
-        var shouldScroll = reviews.length >= 4;
-
         function buildCard(r) {
           var stars = '';
           for (var i = 0; i < 5; i++) { stars += i < r.stars ? '★' : '☆'; }
@@ -189,19 +187,24 @@
             '</div></div>';
         }
 
-        var html = '';
-        reviews.forEach(function(r) { html += buildCard(r); });
-        // Only duplicate for scroll effect if enough reviews
-        if (shouldScroll) {
-          reviews.forEach(function(r) { html += buildCard(r); });
-        } else {
-          track.style.animation = 'none';
-          track.style.justifyContent = 'center';
-        }
-        track.innerHTML = html;
+        var singleHtml = '';
+        reviews.forEach(function(r) { singleHtml += buildCard(r); });
+        track.innerHTML = singleHtml;
 
-        // Flag cards whose text is actually clamped so the "Read more" button shows only on those
+        // After a frame, check if the single copy already overflows the viewport.
+        // If it does, duplicate for a seamless loop and let the marquee animation run.
+        // If it fits, center it and stop the animation.
         requestAnimationFrame(function() {
+          var viewport = track.parentElement;
+          var overflows = track.scrollWidth > viewport.clientWidth + 1;
+          if (overflows) {
+            track.innerHTML = singleHtml + singleHtml;
+          } else {
+            track.style.animation = 'none';
+            track.style.justifyContent = 'center';
+          }
+
+          // Flag cards whose text is actually clamped so the "Read more" button shows only on those
           track.querySelectorAll('.review-card').forEach(function(card) {
             var textEl = card.querySelector('.review-card__text');
             if (textEl && textEl.scrollHeight - textEl.clientHeight > 2) {
