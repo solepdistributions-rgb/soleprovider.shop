@@ -23,11 +23,12 @@
         "apparel_1": {
           "type": "project",
           "settings": {
-            "title": "Team Uniform Package",
-            "tag": "Screen Print",
-            "client": "",
-            "description": "<p>Full uniform package for a local sports team.</p>",
-            "size": "wide"
+            "title": "Custom Socks",
+            "tag": "Embroidery",
+            "client": "The Sole Provider",
+            "description": "<p>Custom socks, perfect for affordable mass giveaways, proven to last.</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_7316.heic"
           }
         },
         "apparel_2": {
