@@ -320,21 +320,26 @@
         "project_PL6aQU": {
           "type": "project",
           "settings": {
-            "title": "Step and Repeat Backdrop",
-            "tag": "Event Branding",
-            "client": "",
-            "description": "<p>Custom branded backdrop created for photos, events, and sponsor visibility.</p>",
-            "size": "wide"
+            "title": "Food Truck Design & Application",
+            "tag": "Vinyl Wraps",
+            "client": "Bryant University",
+            "description": "<p>Custom made design to match brand guidelines. Related wrap designed and applied all in one job. </p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/IMG_6958.jpg",
+            "image_2": "shopify://shop_images/IMG_6951.jpg"
           }
         },
         "project_QAYdCw": {
           "type": "project",
           "settings": {
-            "title": "Vinyl Wall Graphics",
-            "tag": "Interior Branding",
-            "client": "",
-            "description": "<p>Large-format wall graphics installed to bring a brand experience into the space.</p>",
-            "size": "normal"
+            "title": "Fleet Vehicle Design",
+            "tag": "Vinyl Wrap",
+            "client": "The Shine Mechanic",
+            "description": "<p>Custom car wrap designed to match with brand guidelines. </p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/IMG_6766_1.jpg",
+            "image_2": "shopify://shop_images/IMG_6774_1.jpg",
+            "image_3": "shopify://shop_images/IMG_6781.jpg"
           }
         },
         "project_MTJWCE": {
