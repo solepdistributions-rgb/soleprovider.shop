@@ -196,6 +196,28 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_Lp8Qcb": {
+          "type": "project",
+          "settings": {
+            "title": "Stress Balls",
+            "tag": "Silk Screen",
+            "client": "Bryant IDEA",
+            "description": "<p>Custom made Stress balls for giveaway items</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_7292.heic"
+          }
+        },
+        "project_m38WYz": {
+          "type": "project",
+          "settings": {
+            "title": "Custom Waterbottles",
+            "tag": "Silk Screen",
+            "client": "The Shine Mechanic",
+            "description": "<p>Custom CAMELBAK water bottles, perfect for on the job work</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_7294.heic"
+          }
+        },
         "promo_1": {
           "type": "project",
           "settings": {
@@ -268,6 +290,8 @@
         }
       },
       "block_order": [
+        "project_Lp8Qcb",
+        "project_m38WYz",
         "promo_1",
         "promo_2",
         "promo_3",
