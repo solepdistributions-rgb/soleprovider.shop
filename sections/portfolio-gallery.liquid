@@ -524,7 +524,10 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) 360px;
     width: min(1100px, 92vw);
-    max-height: 90vh;
+    /* Use an explicit height (not max-height) so both grid columns have a
+       defined size to fill — otherwise a long description would push the
+       modal past the viewport and the bottom would be clipped. */
+    height: min(90vh, 800px);
     margin: 5vh auto;
     overflow: hidden;
     background: #111111;
@@ -553,6 +556,10 @@
 
   .pf-lightbox__gallery {
     position: relative;
+    /* Fill the modal row so the contained image can size against a
+       defined height. Without this the gallery only takes its
+       min-height and tall images get either letterboxed or clipped. */
+    height: 100%;
     min-height: 420px;
     background: #000000;
     overflow: hidden;
@@ -633,6 +640,10 @@
     padding: 36px 28px;
     border-left: 3px solid #c41230;
     overflow-y: auto;
+    /* Required so this column can scroll instead of pushing the modal
+       past its fixed height. */
+    min-height: 0;
+    min-width: 0;
   }
 
   .pf-lightbox__tag {
@@ -718,15 +729,19 @@
 
     .pf-lightbox__modal {
       grid-template-columns: 1fr;
-      grid-template-rows: minmax(300px, 55vw) auto;
+      /* Image takes a fixed share, info row absorbs the remaining space
+         and scrolls internally — without this the info column overflows
+         the modal and the bottom (CTA + description tail) gets clipped. */
+      grid-template-rows: minmax(220px, 45vh) minmax(0, 1fr);
       width: 96vw;
-      max-height: 92vh;
+      height: 92vh;
       margin: 4vh auto;
     }
 
     .pf-lightbox__info {
       border-left: 0;
       border-top: 3px solid #c41230;
+      min-height: 0; /* required so the auto-row can shrink and scroll */
     }
   }
 
