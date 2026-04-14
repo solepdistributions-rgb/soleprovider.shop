@@ -134,6 +134,17 @@
             "image_1": "shopify://shop_images/USAMBARA_FINAL_BACK.jpg"
           }
         },
+        "design_5": {
+          "type": "project",
+          "settings": {
+            "title": "Embroidery Creation",
+            "tag": "Embroidery",
+            "client": "Lil' Rhody Coffee",
+            "description": "<p>Art adapted for use in high-end embroidery</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/Screenshot_2026-04-14_010920.png"
+          }
+        },
         "design_1": {
           "type": "project",
           "settings": {
@@ -180,17 +191,6 @@
             "image_1": "shopify://shop_images/BRYANT_SINGERS_FINAL_1.jpg"
           }
         },
-        "design_5": {
-          "type": "project",
-          "settings": {
-            "title": "Embroidery Creation",
-            "tag": "Embroidery",
-            "client": "Lil' Rhody Coffee",
-            "description": "<p>Art adapted for use in high-end embroidery</p>",
-            "size": "normal",
-            "image_1": "shopify://shop_images/Screenshot_2026-04-14_010920.png"
-          }
-        },
         "design_6": {
           "type": "project",
           "settings": {
@@ -206,11 +206,11 @@
       "block_order": [
         "project_M3QwUU",
         "project_VdCMNW",
+        "design_5",
         "design_1",
         "design_2",
         "design_3",
         "design_4",
-        "design_5",
         "design_6"
       ],
       "settings": {
