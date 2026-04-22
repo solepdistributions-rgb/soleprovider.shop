@@ -50,6 +50,7 @@
             "text": "Custom merch, promotional products, branded print pieces, and giveaway items built for your audience.",
             "cta_text": "Explore",
             "link": "/pages/promotional-products#promo-categories",
+            "image": "shopify://shop_images/IMG_7331_1.heic",
             "icon_text": "PP"
           }
         },
@@ -60,6 +61,7 @@
             "text": "Creative support for apparel, branding, print pieces, and promotional visuals.",
             "cta_text": "View Design",
             "link": "/pages/graphic-design",
+            "image": "shopify://shop_images/BACK_FINAL_THIRSTY_BEAVER_1.jpg",
             "icon_text": "GD"
           }
         },
@@ -70,6 +72,7 @@
             "text": "Shop Sole Provider featured products, limited releases, and exclusive monthly drops.",
             "cta_text": "Shop Drops",
             "link": "/pages/exclusive-drops",
+            "image": "shopify://shop_images/IMG_7305.heic",
             "icon_text": "XD"
           }
         },
@@ -90,6 +93,7 @@
             "text": "Custom signage, car wraps, wall murals, neon signs, and large-scale printing.",
             "cta_text": "Explore",
             "link": "/pages/large-format",
+            "image": "shopify://shop_images/IMG_6766_1.jpg",
             "icon_text": "LF"
           }
         }
@@ -117,7 +121,7 @@
         "paragraph_1": "The Sole Provider was founded in 2021 with $125 as a sneaker resale company. The name and slogans were dreamed up by Sean and his father at a brewery in Burlington, VT. Over time, The Sole Provider grew in the industry, becoming a well known name in the sneaker world. What began with a passion for product, style, and culture evolved into a full-service promotional branding agency. Built to make things easier for our clients.",
         "paragraph_2": "Today, the name represents what we aim to be for every client: a one-stop source for custom apparel, branded items, creative design, and promotional support. We focus on quality, detail, and service at every step, while keeping the process approachable and affordable.",
         "paragraph_3": "At its core, The Sole Provider is about more than products. It is about helping people feel seen, supported, and confident that their vision is being handled with real care.",
-        "logo_image": "shopify://shop_images/Fullcolor_Shirt.png",
+        "logo_image": "shopify://shop_images/PNG_2c2babf7-14e2-4e60-a294-cca40c9198cd.png",
         "placeholder_text": "The Sole Provider",
         "button_label": "View on Instagram",
         "button_link": "https://www.instagram.com/the_sole_provider_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
