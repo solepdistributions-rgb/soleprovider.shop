@@ -74,7 +74,9 @@
             "tag": "Embroidery",
             "client": "",
             "description": "<p>Softshell jackets finished with clean logo embroidery.</p>",
-            "size": "normal"
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_2470.jpg",
+            "image_2": "shopify://shop_images/IMG_2475.jpg"
           }
         },
         "apparel_6": {
