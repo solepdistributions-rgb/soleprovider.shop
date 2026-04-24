@@ -56,6 +56,18 @@
             "image_2": "shopify://shop_images/IMG_7315.heic"
           }
         },
+        "apparel_6": {
+          "type": "project",
+          "settings": {
+            "title": "Brand Launch Kit",
+            "tag": "Multiple Methods",
+            "client": "",
+            "description": "<p>Complete branded apparel package for a new business launch.</p>",
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_2500.jpg",
+            "image_2": "shopify://shop_images/IMG_2490.jpg"
+          }
+        },
         "apparel_3": {
           "type": "project",
           "settings": {
@@ -91,28 +103,16 @@
             "image_1": "shopify://shop_images/IMG_2470.jpg",
             "image_2": "shopify://shop_images/IMG_2475.jpg"
           }
-        },
-        "apparel_6": {
-          "type": "project",
-          "settings": {
-            "title": "Brand Launch Kit",
-            "tag": "Multiple Methods",
-            "client": "",
-            "description": "<p>Complete branded apparel package for a new business launch.</p>",
-            "size": "tall",
-            "image_1": "shopify://shop_images/IMG_2500.jpg",
-            "image_2": "shopify://shop_images/IMG_2490.jpg"
-          }
         }
       },
       "block_order": [
         "project_QKma9i",
         "apparel_1",
         "apparel_2",
+        "apparel_6",
         "apparel_3",
         "apparel_4",
-        "apparel_5",
-        "apparel_6"
+        "apparel_5"
       ],
       "settings": {
         "background_style": "dark",
