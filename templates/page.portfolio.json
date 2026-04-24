@@ -20,6 +20,18 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_XGKeaW": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2542.jpg",
+            "image_2": "shopify://shop_images/IMG_2547.jpg"
+          }
+        },
         "project_g3w83X": {
           "type": "project",
           "settings": {
@@ -118,6 +130,7 @@
         }
       },
       "block_order": [
+        "project_XGKeaW",
         "project_g3w83X",
         "project_QKma9i",
         "apparel_1",
