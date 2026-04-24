@@ -86,7 +86,9 @@
             "tag": "Multiple Methods",
             "client": "",
             "description": "<p>Complete branded apparel package for a new business launch.</p>",
-            "size": "wide"
+            "size": "tall",
+            "image_1": "shopify://shop_images/IMG_2500.jpg",
+            "image_2": "shopify://shop_images/IMG_2490.jpg"
           }
         }
       },
