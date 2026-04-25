@@ -1054,6 +1054,16 @@
       if (successRequestIdBox) {
         successRequestIdBox.textContent = 'Request ID: ' + requestId;
       }
+
+      // Google Ads conversion tracking — fires once per successful quote submission
+      try {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-18110723639/QUOTE_REQUEST',
+            'transaction_id': requestId
+          });
+        }
+      } catch (e) {}
     }
 
     var syncAttempts = 0;
