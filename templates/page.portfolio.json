@@ -20,6 +20,32 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_TdVmYb": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2805.jpg",
+            "image_2": "shopify://shop_images/IMG_2817.jpg",
+            "image_3": "shopify://shop_images/IMG_2813.jpg"
+          }
+        },
+        "project_nPwV4K": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2618.jpg",
+            "image_2": "shopify://shop_images/IMG_2634.jpg",
+            "image_3": "shopify://shop_images/IMG_2631.jpg"
+          }
+        },
         "project_UkeynT": {
           "type": "project",
           "settings": {
@@ -197,6 +223,8 @@
         }
       },
       "block_order": [
+        "project_TdVmYb",
+        "project_nPwV4K",
         "project_UkeynT",
         "project_wxWJNG",
         "project_UJ4Mfx",
