@@ -349,6 +349,17 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_KtThJK": {
+          "type": "project",
+          "settings": {
+            "title": "Enamel Pins",
+            "tag": "Custom Pins",
+            "client": "Bryant University",
+            "description": "<p>Custom bulldog inspired pins for the Graduate program</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_7908.jpg"
+          }
+        },
         "project_Lp8Qcb": {
           "type": "project",
           "settings": {
@@ -443,6 +454,7 @@
         }
       },
       "block_order": [
+        "project_KtThJK",
         "project_Lp8Qcb",
         "project_m38WYz",
         "promo_1",
