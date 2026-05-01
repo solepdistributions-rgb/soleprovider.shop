@@ -20,6 +20,43 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_KggiiE": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2572.jpg",
+            "image_2": "shopify://shop_images/IMG_2583.jpg",
+            "image_3": "shopify://shop_images/IMG_2579.jpg"
+          }
+        },
+        "project_EbBm39": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2676.jpg"
+          }
+        },
+        "project_F6mEDy": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_2683.jpg",
+            "image_2": "shopify://shop_images/IMG_2700.jpg",
+            "image_3": "shopify://shop_images/IMG_2687.jpg"
+          }
+        },
         "project_TdVmYb": {
           "type": "project",
           "settings": {
@@ -223,6 +260,9 @@
         }
       },
       "block_order": [
+        "project_KggiiE",
+        "project_EbBm39",
+        "project_F6mEDy",
         "project_TdVmYb",
         "project_nPwV4K",
         "project_UkeynT",
