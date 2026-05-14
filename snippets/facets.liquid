@@ -117,10 +117,22 @@
           if (summary.dataset.spClickBound === '1') return;
           summary.dataset.spClickBound = '1';
           summary.addEventListener('click', function (e) {
-            // Stop Dawn's bound onSummaryClick from running. Native
-            // <summary> still toggles its parent <details> via the
-            // browser's default action — no preventDefault here.
+            // Stop everything: Dawn's handler, propagation, and the
+            // native <summary> toggle. iOS Safari has a quirk where
+            // stopImmediatePropagation alone can also suppress the
+            // native toggle, so we just take full control and toggle
+            // the parent details manually.
+            e.preventDefault();
             e.stopImmediatePropagation();
+            var details = summary.parentNode;
+            if (!details || details.tagName !== 'DETAILS') return;
+            if (details.hasAttribute('open')) {
+              details.removeAttribute('open');
+              summary.setAttribute('aria-expanded', 'false');
+            } else {
+              details.setAttribute('open', '');
+              summary.setAttribute('aria-expanded', 'true');
+            }
           }, true /* capture phase: runs before bubbling listeners */);
         });
     }
