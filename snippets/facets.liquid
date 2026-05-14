@@ -58,17 +58,60 @@
 </style>
 
 {%- comment -%}
-  Sean / mobile filter — Dawn's slide-in submenu pattern is broken on
-  touch (proven by screen recording: tapping a row triggers JS that adds
-  `.submenu-open` to .mobile-facets__main and hides the panel, reading
-  as the drawer closing). Strip Dawn's row-click behavior with a capture-
-  phase stopImmediatePropagation listener that runs BEFORE Dawn's own
-  listener, then let native <details> toggle the row inline. Paired with
-  the accordion CSS in component-facets.css.
+  Sean / mobile filter — three layers of defense for the row-tap-closes-
+  drawer bug (confirmed on multiple iPhones):
+
+  1. Capture-phase stopImmediatePropagation on inner row summaries —
+     stops Dawn's onSummaryClick from running before any other listener.
+
+  2. Aggressive body scroll lock when the drawer opens — sets body to
+     position:fixed and offsets by saved scrollY. This fixes the iOS
+     Safari hit-test bug where taps on position:fixed overlays get
+     routed to elements at (scrollY + tapY) on the underlying page.
+     Without this, tapping a filter row mid-screen can land on the
+     "Filter and sort" button behind the drawer, which closes it.
+
+  3. Click-trap on the page underneath while drawer is open — any click
+     that falls outside the .mobile-facets form gets swallowed.
+     Belt-and-suspenders for #2.
 {%- endcomment -%}
 <script>
   (function () {
-    function init() {
+    var savedScrollY = 0;
+    var bodyLocked = false;
+
+    function lockBody() {
+      if (bodyLocked) return;
+      savedScrollY = window.scrollY || window.pageYOffset || 0;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + savedScrollY + 'px';
+      document.body.style.left = '0';
+      document.body.style.right = '0';
+      document.body.style.width = '100%';
+      bodyLocked = true;
+    }
+    function unlockBody() {
+      if (!bodyLocked) return;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.width = '';
+      window.scrollTo(0, savedScrollY);
+      bodyLocked = false;
+    }
+
+    function syncBodyLock() {
+      var disc = document.querySelector('.mobile-facets__disclosure');
+      if (!disc) return;
+      if (disc.hasAttribute('open') && window.matchMedia('(max-width: 749px)').matches) {
+        lockBody();
+      } else {
+        unlockBody();
+      }
+    }
+
+    function bindInnerSummaries() {
       document.querySelectorAll('#FacetFiltersFormMobile .mobile-facets__summary')
         .forEach(function (summary) {
           if (summary.dataset.spClickBound === '1') return;
@@ -81,6 +124,32 @@
           }, true /* capture phase: runs before bubbling listeners */);
         });
     }
+
+    // Capture-phase click trap: while the filter drawer is open on mobile,
+    // any click that falls outside the .mobile-facets form gets swallowed.
+    // This blocks taps routed to elements behind the drawer by the iOS
+    // hit-test bug — including the outer summary that would close us.
+    document.addEventListener('click', function (e) {
+      if (!window.matchMedia('(max-width: 749px)').matches) return;
+      var disc = document.querySelector('.mobile-facets__disclosure');
+      if (!disc || !disc.hasAttribute('open')) return;
+      var form = disc.querySelector('.mobile-facets');
+      if (!form) return;
+      // Allow clicks inside the form (the drawer panel + its X button via
+      // .mobile-facets__close which is inside the summary that is inside
+      // .mobile-facets__disclosure → not inside .mobile-facets — exclude that).
+      var close = disc.querySelector('.mobile-facets__close');
+      if (close && close.contains(e.target)) return; // X-close is allowed
+      if (form.contains(e.target)) return; // anything inside the drawer is allowed
+      // Otherwise: kill the click.
+      e.stopImmediatePropagation();
+      e.preventDefault();
+    }, true);
+
+    function init() {
+      bindInnerSummaries();
+      syncBodyLock();
+    }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', init);
     } else {
@@ -88,9 +157,15 @@
     }
     // Re-bind after AJAX filter renders (facets.js replaces the form HTML).
     document.addEventListener('shopify:section:load', init);
-    var mo = new MutationObserver(init);
+    var disc = document.querySelector('.mobile-facets__disclosure');
+    if (disc) {
+      // Watch for [open] attribute toggle to trigger lock/unlock.
+      new MutationObserver(syncBodyLock).observe(disc, {
+        attributes: true, attributeFilter: ['open']
+      });
+    }
     var target = document.getElementById('FacetFiltersFormMobile');
-    if (target) mo.observe(target, { childList: true, subtree: true });
+    if (target) new MutationObserver(bindInnerSummaries).observe(target, { childList: true, subtree: true });
   })();
 </script>
 
