@@ -431,23 +431,12 @@ class MenuDrawer extends HTMLElement {
   }
 
   bindEvents() {
-    // Skip filter-row summaries (.mobile-facets__summary) — those are nested
-    // <details> elements inside the filter drawer. The base onSummaryClick
-    // logic was designed for navigation submenus; on iOS Safari it interferes
-    // with native nested-details toggling and ends up collapsing the parent
-    // drawer when a row is tapped. CSS handles row expand/collapse natively.
-    this.querySelectorAll('summary').forEach((summary) => {
-      if (summary.classList.contains('mobile-facets__summary')) return;
-      summary.addEventListener('click', this.onSummaryClick.bind(this));
-    });
-    // Same reason: don't auto-close on buttons inside the filter drawer
-    // (Apply has its own explicit onclick that closes the outer drawer).
+    this.querySelectorAll('summary').forEach((summary) =>
+      summary.addEventListener('click', this.onSummaryClick.bind(this))
+    );
     this.querySelectorAll(
       'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)'
-    ).forEach((button) => {
-      if (button.closest('.mobile-facets__inner')) return;
-      button.addEventListener('click', this.onCloseButtonClick.bind(this));
-    });
+    ).forEach((button) => button.addEventListener('click', this.onCloseButtonClick.bind(this)));
     // Close the drawer the moment a real navigation link is tapped — gives
     // instant visual feedback during page-load lag on mobile, and handles
     // same-page links that wouldn't trigger a reload.
