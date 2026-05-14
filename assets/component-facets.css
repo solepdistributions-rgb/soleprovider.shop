@@ -1255,3 +1255,64 @@ input.mobile-facets__checkbox {
     padding: 0 1rem 1rem;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile filter polish
+   - 44px tap targets on filter open button + checkboxes
+   - kill iOS auto-zoom on price inputs and sort dropdown
+   - prevent highlight overlay from intercepting taps
+   - constrain active-facets row so chips can scroll instead of wrap-overflow
+   ------------------------------------------------------------------ */
+@media screen and (max-width: 749px) {
+  /* "Filter" + "Sort" open button — was ~24px tall, below the 44px minimum. */
+  .mobile-facets__open {
+    min-height: 4.4rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  /* Filter list rows — guarantee a 44px tap target and make pointer obvious. */
+  .mobile-facets__label {
+    min-height: 4.4rem;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
+  /* Highlight overlay sits on top of the label; if anything ever picks up
+     pointer-events it would swallow the tap. Belt-and-suspenders. */
+  .mobile-facets__highlight {
+    pointer-events: none;
+  }
+
+  /* Sort dropdown — native <select>. Bump to 16px to stop iOS focus zoom. */
+  .mobile-facets__sort .select__select {
+    font-size: 1.6rem;
+    min-height: 4.4rem;
+  }
+
+  /* Price range inputs inside the drawer — same 16px rule. */
+  .mobile-facets__details .field__input,
+  .mobile-facets price-range input[type='number'] {
+    font-size: 1.6rem;
+  }
+
+  /* Active-filter chip row — let chips scroll horizontally instead of
+     wrapping to 3 rows that push "Clear All" off-screen. */
+  .active-facets-mobile {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.6rem;
+    padding-bottom: 0.4rem;
+    scrollbar-width: none;
+  }
+  .active-facets-mobile::-webkit-scrollbar {
+    display: none;
+  }
+  .active-facets-mobile .active-facets__button {
+    flex-shrink: 0;
+  }
+}

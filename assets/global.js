@@ -437,6 +437,19 @@ class MenuDrawer extends HTMLElement {
     this.querySelectorAll(
       'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)'
     ).forEach((button) => button.addEventListener('click', this.onCloseButtonClick.bind(this)));
+    // Close the drawer the moment a real navigation link is tapped — gives
+    // instant visual feedback during page-load lag on mobile, and handles
+    // same-page links that wouldn't trigger a reload.
+    this.querySelectorAll('.menu-drawer__menu a[href]:not([href^="#"])').forEach((link) =>
+      link.addEventListener('click', this.onMenuLinkClick.bind(this))
+    );
+  }
+
+  onMenuLinkClick(event) {
+    if (!this.mainDetailsToggle) return;
+    const summary = this.mainDetailsToggle.querySelector('summary');
+    if (!summary) return;
+    this.closeMenuDrawer(event, summary);
   }
 
   onKeyUp(event) {

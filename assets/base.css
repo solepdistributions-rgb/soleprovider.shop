@@ -4453,3 +4453,43 @@ button,
 .product__media-item.is-active {
   display: block !important;
 }
+
+/* ==================================================================
+   Mobile polish — tap targets, iOS zoom guards, safe-area
+   ================================================================== */
+@media screen and (max-width: 749px) {
+  /* Quantity +/- buttons:
+     base rule is calc(4.5rem / var(--font-body-scale)) which collapses to
+     ~36px when the body-scale token > 1. Force 44px minimum so cart and
+     PDP quantity controls hit Apple's tap-target floor. */
+  .quantity {
+    min-height: 4.4rem;
+  }
+  .quantity__button {
+    min-width: 4.4rem;
+    min-height: 4.4rem;
+    width: 4.4rem;
+  }
+
+  /* Select dropdowns currently render at 12px, which triggers iOS to zoom
+     when focused. 16px is the breakpoint where Safari stops zooming. */
+  .select__select,
+  select.customer,
+  .customer select,
+  .localization-form__select select {
+    font-size: 1.6rem;
+  }
+
+  /* Form labels — keep them legible without zooming the page. */
+  .form__label {
+    font-size: 1.4rem;
+  }
+
+  /* Announcement bar — long promo text wraps to 3+ lines at 320–375px.
+     Shrink slightly and tighten letter-spacing so it fits in one line. */
+  .announcement-bar__message {
+    font-size: 1.25rem;
+    letter-spacing: 0.04rem;
+    padding: 0.8rem 1.2rem;
+  }
+}

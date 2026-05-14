@@ -153,6 +153,29 @@
               {%- endfor -%}
             </ul>
           </nav>
+          <div class="menu-drawer__cta-links">
+            <a
+              href="/pages/request-quote"
+              class="menu-drawer__cta-link menu-drawer__cta-link--primary"
+            >
+              Request Quote
+            </a>
+            <a
+              href="/pages/quote-cart"
+              class="menu-drawer__cta-link menu-drawer__cta-link--secondary"
+            >
+              Quote Cart
+              <span class="menu-drawer__cta-link__count js-quote-cart-count">0</span>
+            </a>
+            <a
+              href="https://sp-tools-production.up.railway.app/portal/login"
+              class="menu-drawer__cta-link menu-drawer__cta-link--secondary"
+              target="_blank"
+              rel="noopener"
+            >
+              Client Login
+            </a>
+          </div>
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
               <a

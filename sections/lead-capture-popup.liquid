@@ -54,16 +54,21 @@
     position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 9999;
     display: flex; align-items: center; justify-content: center; padding: 16px;
     backdrop-filter: blur(3px);
+    overflow-y: auto;
   }
   .lp-popup {
     background: #fff; border-radius: 16px; max-width: 420px; width: 100%;
     padding: 40px 32px; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
     animation: lpSlideUp 0.3s ease;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
   }
   @keyframes lpSlideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   .lp-close {
-    position: absolute; top: 12px; right: 16px; background: none; border: none;
+    position: absolute; top: 6px; right: 6px; background: none; border: none;
     font-size: 28px; color: #999; cursor: pointer; line-height: 1;
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
   }
   .lp-close:hover { color: #111; }
   .lp-logo { text-align: center; margin-bottom: 16px; }
@@ -87,7 +92,7 @@
   .lp-optional { color: #999; font-weight: 500; text-transform: none; letter-spacing: 0; }
   .lp-input {
     width: 100%; padding: 12px 14px; border: 2px solid #e0e0e0; border-radius: 8px;
-    font-size: 14px; font-family: inherit; box-sizing: border-box; transition: border-color 0.2s;
+    font-size: 16px; font-family: inherit; box-sizing: border-box; transition: border-color 0.2s;
   }
   .lp-input:focus { outline: none; border-color: #c41230; }
   .lp-submit {

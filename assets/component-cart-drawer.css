@@ -412,3 +412,23 @@ cart-drawer-items::-webkit-scrollbar-track-piece {
     margin-left: 0;
   }
 }
+
+/* ------------------------------------------------------------------
+   Mobile cart-drawer polish
+   - safe-area-inset-bottom so iOS home indicator doesn't cover checkout
+   - wider side margins so the drawer doesn't run flush to the screen edge
+   ------------------------------------------------------------------ */
+@media screen and (max-width: 749px) {
+  /* Push the drawer footer (subtotal + checkout button) above the iOS
+     home indicator. env() falls back to 0 on browsers without safe-area. */
+  .cart-drawer .drawer__footer,
+  .cart-notification__footer {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0));
+  }
+
+  /* Was: max-width: calc(100vw - 3rem) — only 3rem total breathing room.
+     Bump to 4rem total so the drawer isn't pinned to both screen edges. */
+  .drawer__inner {
+    max-width: calc(100vw - 4rem);
+  }
+}
