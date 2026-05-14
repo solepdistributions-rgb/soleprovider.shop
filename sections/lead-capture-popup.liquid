@@ -126,17 +126,48 @@
   var formView = document.getElementById('lp-form-view');
   var successView = document.getElementById('lp-success-view');
 
+  // iOS hit-test fix: when a position:fixed overlay is shown over a
+  // scrolled page, iOS routes taps to (scrollY + tapY) of the underlying
+  // document, so the X button never receives the click. Lock the body
+  // with position:fixed + saved scrollY so the page underneath is
+  // effectively unscrolled while the popup is open.
+  var savedScrollY = 0;
+  function lockBody() {
+    savedScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + savedScrollY + 'px';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+  }
+  function unlockBody() {
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    window.scrollTo(0, savedScrollY);
+  }
+
   // Show after delay
   setTimeout(function() {
     overlay.style.display = 'flex';
+    lockBody();
   }, DELAY);
 
   // Close
   function dismiss() {
     overlay.style.display = 'none';
+    unlockBody();
     localStorage.setItem(STORAGE_KEY, Date.now());
   }
   closeBtn.addEventListener('click', dismiss);
+  closeBtn.addEventListener('touchend', function (e) {
+    // Some iOS versions don't fire `click` reliably on absolute-positioned
+    // controls inside fixed overlays — bind touchend as a fallback.
+    e.preventDefault();
+    dismiss();
+  });
   overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
 
   // Submit
