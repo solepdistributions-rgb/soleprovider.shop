@@ -1264,7 +1264,10 @@ input.mobile-facets__checkbox {
    The accordion / body-lock / JS-skip experiments were reverted; only
    this baseline fix remains. */
 @media screen and (max-width: 749px) {
-  /* Full-screen drawer (confirmed working). */
+  /* Full-screen drawer. transform:none kills Dawn's translateX(105vw)
+     off-screen rule that depended on the .menu-opening class added by
+     Dawn JS — which we now no-op for the filter wrapper. Native details
+     [open] makes the form display, and we anchor the inner to viewport. */
   .mobile-facets__inner {
     position: fixed !important;
     top: 0 !important;
@@ -1278,6 +1281,8 @@ input.mobile-facets__checkbox {
     margin: 0 !important;
     z-index: 102 !important;
     pointer-events: auto !important;
+    transform: none !important;
+    visibility: visible !important;
   }
   .mobile-facets {
     pointer-events: auto;

@@ -1356,103 +1356,35 @@ class CartPerformance {
 }
 
 /* ==================================================================
-   Mobile filter fix — moved here from inline because Shopify caches
-   collection-page HTML per-edge and inline scripts don't propagate.
-   Three layers: capture-phase row handler with manual toggle, body
-   scroll lock against iOS hit-test bug, click trap behind drawer.
+   Mobile filter — minimal native approach.
+
+   Hours of layered JS fixes failed because Dawn's MenuDrawer JS was
+   interfering with native <details>/<summary> on iOS Safari in ways
+   that were hard to reverse-engineer. New strategy: completely
+   disable Dawn's MenuDrawer for the mobile filter wrapper, then
+   trust native browser behavior + the accordion CSS.
+
+   Override MenuDrawer.prototype.bindEvents so it's a no-op when the
+   element has class .mobile-facets__wrapper. That means Dawn binds
+   nothing — no onSummaryClick, no onCloseButtonClick, no focus trap.
+   Native <details>/<summary> toggles fire alone, the CSS accordion
+   shows submenus inline, the Apply button's own inline onclick still
+   closes the drawer.
    ================================================================== */
-(function spMobileFilterFix() {
-  var savedScrollY = 0;
-  var bodyLocked = false;
-
-  function lockBody() {
-    if (bodyLocked) return;
-    savedScrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + savedScrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    bodyLocked = true;
-  }
-  function unlockBody() {
-    if (!bodyLocked) return;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
-    bodyLocked = false;
-  }
-  function syncBodyLock() {
-    var disc = document.querySelector('.mobile-facets__disclosure');
-    if (!disc) return;
-    if (disc.hasAttribute('open') && window.matchMedia('(max-width: 749px)').matches) {
-      lockBody();
-    } else {
-      unlockBody();
+(function spDisableDawnFilterJS() {
+  if (typeof MenuDrawer === 'undefined') return;
+  var origBindEvents = MenuDrawer.prototype.bindEvents;
+  MenuDrawer.prototype.bindEvents = function () {
+    if (this.classList && this.classList.contains('mobile-facets__wrapper')) {
+      // No-op: let native <details> toggling do everything.
+      return;
     }
-  }
-
-  function bindInnerSummaries() {
-    document.querySelectorAll('#FacetFiltersFormMobile .mobile-facets__summary')
-      .forEach(function (summary) {
-        if (summary.dataset.spClickBound === '1') return;
-        summary.dataset.spClickBound = '1';
-        summary.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          var details = summary.parentNode;
-          if (!details || details.tagName !== 'DETAILS') return;
-          if (details.hasAttribute('open')) {
-            details.removeAttribute('open');
-            summary.setAttribute('aria-expanded', 'false');
-          } else {
-            details.setAttribute('open', '');
-            summary.setAttribute('aria-expanded', 'true');
-          }
-        }, true);
-      });
-  }
-
-  // Click trap: any click outside the drawer while it's open gets swallowed.
-  // The X close button (inside the outer summary, NOT inside the form) is
-  // explicitly allowed so the drawer remains closeable.
-  document.addEventListener('click', function (e) {
-    if (!window.matchMedia('(max-width: 749px)').matches) return;
-    var disc = document.querySelector('.mobile-facets__disclosure');
-    if (!disc || !disc.hasAttribute('open')) return;
-    var form = disc.querySelector('.mobile-facets');
-    if (!form) return;
-    var close = disc.querySelector('.mobile-facets__close');
-    if (close && close.contains(e.target)) return;
-    if (form.contains(e.target)) return;
-    e.stopImmediatePropagation();
-    e.preventDefault();
-  }, true);
-
-  function init() {
-    bindInnerSummaries();
-    syncBodyLock();
-    var disc = document.querySelector('.mobile-facets__disclosure');
-    if (disc && !disc.dataset.spLockObserver) {
-      disc.dataset.spLockObserver = '1';
-      new MutationObserver(syncBodyLock).observe(disc, {
-        attributes: true, attributeFilter: ['open']
-      });
-    }
-    var target = document.getElementById('FacetFiltersFormMobile');
-    if (target && !target.dataset.spBindObserver) {
-      target.dataset.spBindObserver = '1';
-      new MutationObserver(bindInnerSummaries).observe(target, { childList: true, subtree: true });
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-  document.addEventListener('shopify:section:load', init);
+    return origBindEvents.apply(this, arguments);
+  };
+  // Also override the focus-trap and key handlers to no-op for filter wrappers.
+  var origOnFocusOut = MenuDrawer.prototype.onFocusOut;
+  MenuDrawer.prototype.onFocusOut = function () {
+    if (this.classList && this.classList.contains('mobile-facets__wrapper')) return;
+    return origOnFocusOut.apply(this, arguments);
+  };
 })();
