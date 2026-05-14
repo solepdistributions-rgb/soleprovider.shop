@@ -1298,21 +1298,6 @@ input.mobile-facets__checkbox {
     font-size: 1.6rem;
   }
 
-  /* Active-filter chip row — let chips scroll horizontally instead of
-     wrapping to 3 rows that push "Clear All" off-screen. */
-  .active-facets-mobile {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 0.6rem;
-    padding-bottom: 0.4rem;
-    scrollbar-width: none;
-  }
-  .active-facets-mobile::-webkit-scrollbar {
-    display: none;
-  }
-  .active-facets-mobile .active-facets__button {
-    flex-shrink: 0;
-  }
+  /* Active-filter chip row left at Dawn defaults — the previous flex+scroll
+     override was a behavior shift that risked breaking the filter UI. */
 }
