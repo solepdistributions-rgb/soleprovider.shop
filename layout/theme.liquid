@@ -316,6 +316,71 @@
       filenames bypass that cache.
     {%- endcomment -%}
     <script src="{{ 'sp-filter-fix.js' | asset_url }}" defer="defer"></script>
+
+    {%- comment -%}
+      Mobile filter CSS override — inlined because the CDN-served
+      component-facets.css has been stuck on a stale revision (2026-05-14:
+      live file was 21,928 bytes, missing the entire @media (max-width:749px)
+      override block that makes the accordion work). Inlining in theme.liquid
+      bypasses the CDN asset cache entirely. Mirrors the block in
+      assets/component-facets.css lines 1266–1341.
+    {%- endcomment -%}
+    <style>
+      @media screen and (max-width: 749px) {
+        .mobile-facets__inner {
+          position: fixed !important;
+          top: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          height: 100vh !important;
+          height: 100dvh !important;
+          margin: 0 !important;
+          z-index: 102 !important;
+          pointer-events: auto !important;
+          transform: none !important;
+          visibility: visible !important;
+        }
+        .mobile-facets { pointer-events: auto; }
+        .js .mobile-facets__main.submenu-open { visibility: visible !important; }
+        .mobile-facets__submenu {
+          position: static !important;
+          transform: none !important;
+          visibility: visible !important;
+          height: auto !important;
+          z-index: auto !important;
+          overflow-y: visible !important;
+          transition: none !important;
+        }
+        .mobile-facets__details:not([open]) > .mobile-facets__submenu {
+          display: none !important;
+        }
+        .mobile-facets__close-button { display: none !important; }
+        .mobile-facets__open {
+          min-height: 4.4rem;
+          padding-top: 1rem;
+          padding-bottom: 1rem;
+          font-size: 1.5rem;
+        }
+        .mobile-facets__label {
+          min-height: 4.4rem;
+          align-items: center;
+          cursor: pointer;
+          font-size: 1.5rem;
+        }
+        .mobile-facets__highlight { pointer-events: none; }
+        .mobile-facets__sort .select__select {
+          font-size: 1.6rem;
+          min-height: 4.4rem;
+        }
+        .mobile-facets__details .field__input,
+        .mobile-facets price-range input[type='number'] {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
