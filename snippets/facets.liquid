@@ -57,6 +57,43 @@
   }
 </style>
 
+{%- comment -%}
+  Sean / mobile filter — Dawn's slide-in submenu pattern is broken on
+  touch (proven by screen recording: tapping a row triggers JS that adds
+  `.submenu-open` to .mobile-facets__main and hides the panel, reading
+  as the drawer closing). Strip Dawn's row-click behavior with a capture-
+  phase stopImmediatePropagation listener that runs BEFORE Dawn's own
+  listener, then let native <details> toggle the row inline. Paired with
+  the accordion CSS in component-facets.css.
+{%- endcomment -%}
+<script>
+  (function () {
+    function init() {
+      document.querySelectorAll('#FacetFiltersFormMobile .mobile-facets__summary')
+        .forEach(function (summary) {
+          if (summary.dataset.spClickBound === '1') return;
+          summary.dataset.spClickBound = '1';
+          summary.addEventListener('click', function (e) {
+            // Stop Dawn's bound onSummaryClick from running. Native
+            // <summary> still toggles its parent <details> via the
+            // browser's default action — no preventDefault here.
+            e.stopImmediatePropagation();
+          }, true /* capture phase: runs before bubbling listeners */);
+        });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    // Re-bind after AJAX filter renders (facets.js replaces the form HTML).
+    document.addEventListener('shopify:section:load', init);
+    var mo = new MutationObserver(init);
+    var target = document.getElementById('FacetFiltersFormMobile');
+    if (target) mo.observe(target, { childList: true, subtree: true });
+  })();
+</script>
+
 {%- liquid
   assign sort_by = results.sort_by | default: results.default_sort_by
   assign total_active_values = 0
