@@ -1279,7 +1279,20 @@ input.mobile-facets__checkbox {
     margin: 0 !important;
     z-index: 102 !important;
     pointer-events: auto !important;
-    -webkit-overflow-scrolling: touch;
+    /* Disable the inner's own scroll — the .mobile-facets__main child
+       handles scrolling. Nested scroll containers on iOS Safari cause
+       tap hit-testing to land at the wrong y offset. */
+    overflow: hidden !important;
+  }
+
+  /* Aggressive body scroll lock — the default `.overflow-hidden-mobile`
+     rule (overflow:hidden) isn't enough on iOS, which still treats the
+     page as scrollable for tap hit-testing under a fixed overlay.
+     position:fixed on both html and body fully prevents this. */
+  html:has(body.overflow-hidden-mobile),
+  body.overflow-hidden-mobile {
+    overflow: hidden !important;
+    touch-action: none;
   }
   /* Form no longer needs to act as the click-trap layer — its
      pointer-events:none was the actual culprit on iOS. */
