@@ -1264,6 +1264,33 @@ input.mobile-facets__checkbox {
    - constrain active-facets row so chips can scroll instead of wrap-overflow
    ------------------------------------------------------------------ */
 @media screen and (max-width: 749px) {
+  /* Filter drawer: anchor the panel directly to the viewport with
+     position:fixed instead of relying on the parent .mobile-facets form
+     (which is also fixed but uses pointer-events:none — iOS Safari has
+     known issues delivering touches through that combination, which is
+     why Sean reported "filter opens but I can't click anything"). Make
+     it a full-screen modal on mobile while preserving Dawn's slide-in
+     animation via transform. */
+  .mobile-facets__inner {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    z-index: 102 !important;
+    pointer-events: auto !important;
+  }
+  /* Form no longer needs to act as the click-trap layer — its
+     pointer-events:none was the actual culprit on iOS. */
+  .mobile-facets {
+    pointer-events: auto;
+  }
+
   /* "Filter" + "Sort" open button — was ~24px tall, below the 44px minimum. */
   .mobile-facets__open {
     min-height: 4.4rem;
