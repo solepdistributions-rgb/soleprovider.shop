@@ -431,12 +431,23 @@ class MenuDrawer extends HTMLElement {
   }
 
   bindEvents() {
-    this.querySelectorAll('summary').forEach((summary) =>
-      summary.addEventListener('click', this.onSummaryClick.bind(this))
-    );
+    // Skip filter-row summaries — Dawn's onSummaryClick adds `submenu-open`
+    // to .mobile-facets__main (which has `has-submenu`), which then triggers
+    // `visibility:hidden` on the main panel and makes the whole drawer
+    // appear to close. Native <details>/<summary> toggle + the accordion
+    // CSS handle row expand/collapse without that side effect.
+    this.querySelectorAll('summary').forEach((summary) => {
+      if (summary.classList.contains('mobile-facets__summary')) return;
+      summary.addEventListener('click', this.onSummaryClick.bind(this));
+    });
+    // Same: skip onCloseButtonClick for buttons inside the mobile filter
+    // inner panel. Apply has its own explicit inline `onclick`.
     this.querySelectorAll(
       'button:not(.localization-selector):not(.country-selector__close-button):not(.country-filter__reset-button)'
-    ).forEach((button) => button.addEventListener('click', this.onCloseButtonClick.bind(this)));
+    ).forEach((button) => {
+      if (button.closest('.mobile-facets__inner')) return;
+      button.addEventListener('click', this.onCloseButtonClick.bind(this));
+    });
     // Close the drawer the moment a real navigation link is tapped — gives
     // instant visual feedback during page-load lag on mobile, and handles
     // same-page links that wouldn't trigger a reload.

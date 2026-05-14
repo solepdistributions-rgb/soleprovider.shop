@@ -1264,6 +1264,7 @@ input.mobile-facets__checkbox {
    The accordion / body-lock / JS-skip experiments were reverted; only
    this baseline fix remains. */
 @media screen and (max-width: 749px) {
+  /* Full-screen drawer (confirmed working). */
   .mobile-facets__inner {
     position: fixed !important;
     top: 0 !important;
@@ -1281,6 +1282,34 @@ input.mobile-facets__checkbox {
   .mobile-facets {
     pointer-events: auto;
   }
+
+  /* The screen recording showed: tapping an inner filter row's <summary>
+     triggered Dawn's logic to ALSO add .submenu-open to .mobile-facets__main
+     (which has class `has-submenu`). That hides main via
+     `.mobile-facets .submenu-open { visibility:hidden }`, and the inner
+     panel reads as "closing". Replace Dawn's slide-in submenu with a
+     plain inline accordion + neutralize the submenu-open class on mobile. */
+  .js .mobile-facets__main.submenu-open {
+    visibility: visible !important;
+  }
+  .mobile-facets__submenu {
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    height: auto !important;
+    z-index: auto !important;
+    overflow-y: visible !important;
+    transition: none !important;
+  }
+  .mobile-facets__details:not([open]) > .mobile-facets__submenu {
+    display: none !important;
+  }
+  /* The back button only made sense for the slide-in pattern. */
+  .mobile-facets__close-button {
+    display: none !important;
+  }
+
+  /* Tap targets + iOS zoom fixes (additive). */
   .mobile-facets__open {
     min-height: 4.4rem;
     padding-top: 1rem;
