@@ -1267,10 +1267,7 @@ input.mobile-facets__checkbox {
   /* Filter drawer: anchor the panel directly to the viewport with
      position:fixed instead of relying on the parent .mobile-facets form
      (which is also fixed but uses pointer-events:none — iOS Safari has
-     known issues delivering touches through that combination, which is
-     why Sean reported "filter opens but I can't click anything"). Make
-     it a full-screen modal on mobile while preserving Dawn's slide-in
-     animation via transform. */
+     known issues delivering touches through that combination). */
   .mobile-facets__inner {
     position: fixed !important;
     top: 0 !important;
@@ -1279,16 +1276,40 @@ input.mobile-facets__checkbox {
     left: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: 100vh !important;
-    height: 100dvh !important;
     margin: 0 !important;
     z-index: 102 !important;
     pointer-events: auto !important;
+    -webkit-overflow-scrolling: touch;
   }
   /* Form no longer needs to act as the click-trap layer — its
      pointer-events:none was the actual culprit on iOS. */
   .mobile-facets {
     pointer-events: auto;
+  }
+
+  /* Replace Dawn's slide-in submenu pattern with a simple accordion.
+     The slide-in relies on JS adding a `.menu-opening` class via
+     setTimeout, which is flaky on touch — Sean reported filter rows
+     wouldn't expand. Native <details>/<summary> handles this reliably. */
+  .mobile-facets__submenu {
+    position: static !important;
+    transform: none !important;
+    visibility: visible !important;
+    height: auto !important;
+    z-index: auto !important;
+    overflow-y: visible !important;
+  }
+  .mobile-facets__details:not([open]) > .mobile-facets__submenu {
+    display: none !important;
+  }
+  /* The back button only made sense for the slide-in pattern. */
+  .mobile-facets__close-button {
+    display: none !important;
+  }
+  /* Ensure the main scroll area can actually scroll on iOS. */
+  .mobile-facets__main {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
   }
 
   /* "Filter" + "Sort" open button — was ~24px tall, below the 44px minimum. */
