@@ -309,6 +309,13 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {%- comment -%}
+      Mobile filter fix — loaded as its own asset because Shopify's CDN
+      has been propagating global.js changes very slowly. New asset
+      filenames bypass that cache.
+    {%- endcomment -%}
+    <script src="{{ 'sp-filter-fix.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
