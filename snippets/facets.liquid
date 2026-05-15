@@ -195,19 +195,12 @@
               %}
 
               {%- liquid
-                # Auto-open desktop filter rows that have active values
-                # so the user finds the row they were working in still
-                # expanded after a filter-applying navigation.
+                # Server-side default: closed (except Dawn's first-row-open
+                # on vertical layout for fresh visits). JS restores the
+                # rows the user had open at the time of the last filter
+                # edit from sessionStorage — which OVERRIDES this default
+                # whenever there's saved state.
                 assign desktop_row_open = false
-                if filter.active_values.size > 0
-                  assign desktop_row_open = true
-                elsif filter.type == 'price_range'
-                  if filter.min_value.value != blank or filter.max_value.value != blank
-                    assign desktop_row_open = true
-                  endif
-                endif
-                # Preserve Dawn default of opening the first row on vertical
-                # layout when no filter is otherwise active.
                 if filter_type == 'vertical' and forloop.index == 1
                   assign desktop_row_open = true
                 endif
@@ -619,17 +612,10 @@
                     else
                       assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
                     endif
-                    # Auto-open the row if this filter has active values, so
-                    # after a filter-applying navigation the user finds the
-                    # row they were working in still expanded.
+                    # Server-side default: collapsed. JS in theme.liquid
+                    # restores the rows the user had open at the time of the
+                    # last filter edit from sessionStorage.
                     assign mobile_row_open = false
-                    if filter.active_values.size > 0
-                      assign mobile_row_open = true
-                    elsif filter.type == 'price_range'
-                      if filter.min_value.value != blank or filter.max_value.value != blank
-                        assign mobile_row_open = true
-                      endif
-                    endif
                   %}
 
                   {% case filter.type %}

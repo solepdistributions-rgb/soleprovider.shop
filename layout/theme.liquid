@@ -342,6 +342,64 @@
       (function () {
         'use strict';
 
+        // === Persisted open-row state across filter navigations ===
+        //
+        // Sean wants: after a filter-applying navigation, only the rows
+        // that were OPEN at the moment of edit should re-open. Other
+        // rows (even ones with active filters) stay collapsed if they
+        // were collapsed when the user clicked.
+        //
+        // Implemented via sessionStorage. We snapshot the open row IDs
+        // immediately before any nav we control (Apply, desktop change,
+        // facet-remove). On the next page load, restoreOpenRows() applies
+        // those IDs and explicitly closes everything else, overriding the
+        // server-rendered defaults.
+        var SP_OPEN_KEY = 'spfOpenRows';
+        function captureOpenRows() {
+          try {
+            var ids = [];
+            document.querySelectorAll(
+              '.spmf-row.is-open, details.facets__disclosure-vertical[open], details.facets__disclosure[open]'
+            ).forEach(function (el) { if (el.id) ids.push(el.id); });
+            sessionStorage.setItem(SP_OPEN_KEY, JSON.stringify(ids));
+          } catch (_) {}
+        }
+        function restoreOpenRows() {
+          var ids;
+          try { ids = JSON.parse(sessionStorage.getItem(SP_OPEN_KEY) || '[]'); } catch (_) { return; }
+          if (!Array.isArray(ids) || ids.length === 0) return;
+          // Close everything first to override server-rendered defaults
+          document.querySelectorAll('details.facets__disclosure-vertical[open], details.facets__disclosure[open]').forEach(function (el) {
+            el.removeAttribute('open');
+          });
+          document.querySelectorAll('.spmf-row.is-open').forEach(function (el) {
+            el.classList.remove('is-open');
+            var trig = el.querySelector('[data-spmf-row-trigger]');
+            if (trig) trig.setAttribute('aria-expanded', 'false');
+            var content = el.querySelector('.spmf-row-content');
+            if (content) content.setAttribute('hidden', '');
+          });
+          // Open only the saved IDs
+          ids.forEach(function (id) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            if (el.tagName === 'DETAILS') {
+              el.setAttribute('open', '');
+            } else if (el.classList && el.classList.contains('spmf-row')) {
+              el.classList.add('is-open');
+              var trig = el.querySelector('[data-spmf-row-trigger]');
+              if (trig) trig.setAttribute('aria-expanded', 'true');
+              var content = el.querySelector('.spmf-row-content');
+              if (content) content.removeAttribute('hidden');
+            }
+          });
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', restoreOpenRows);
+        } else {
+          restoreOpenRows();
+        }
+
         function openModal() {
           var m = document.querySelector('[data-spmf-modal]');
           var trig = document.querySelector('[data-spmf-open]');
@@ -364,6 +422,7 @@
         function applyFilters() {
           var form = document.getElementById('FacetFiltersFormMobile');
           if (!form) { closeModal(); return; }
+          captureOpenRows();
           // Show inline busy state on the Apply button so user gets immediate
           // feedback while the new URL is being navigated to.
           var btn = document.querySelector('[data-spmf-apply]');
@@ -452,6 +511,7 @@
             e.stopImmediatePropagation();
             var href = fra.getAttribute('href');
             if (href) {
+              captureOpenRows();
               var btn = document.querySelector('[data-spmf-apply]');
               if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
               window.location.href = href;
@@ -512,6 +572,7 @@
         //     navigation per change is faster and deterministic.
         var spDesktopNavTimer = null;
         function navigateDesktopFilters() {
+          captureOpenRows();
           var parts = [];
           document.querySelectorAll('facet-filters-form form').forEach(function (f) {
             if (f.id === 'FacetFiltersForm' || f.id === 'FacetSortForm' || f.id === 'FacetSortDrawerForm') {
