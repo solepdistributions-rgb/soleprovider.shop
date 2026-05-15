@@ -1,101 +1,64 @@
 /*
- * sp-filter-fix.js — mobile filter row-tap fix
+ * sp-filter-fix.js v2 — mobile filter accordion
  *
- * Stand-alone version of the fix that's also in global.js. global.js
- * is a large file that Shopify's CDN has been propagating slowly;
- * this small new file gets a fresh asset version and (hopefully)
- * deploys faster.
+ * Bypasses Dawn's broken slide-in submenu pattern and works around the
+ * iOS Safari bug where styles keyed off the [open] attribute on a
+ * <details> element don't always recalc when the attribute is set
+ * programmatically.
  *
- * Strategy: capture-phase click handler on every mobile filter row
- * <summary>, manual toggle of the parent <details>, body scroll
- * lock to defeat the iOS hit-test bug, and a click trap that
- * swallows taps that land outside the drawer.
+ * When a filter row <summary> is tapped we set BOTH:
+ *   - the [open] attribute (for native semantics + a11y)
+ *   - a custom .sp-open class on the parent <details>
+ *
+ * The CSS in theme.liquid <head> keys submenu visibility off .sp-open
+ * (with [open] as a fallback), so the accordion works regardless of
+ * any Safari [open] recalc quirks.
  */
-(function spFilterFix() {
-  var savedScrollY = 0;
-  var bodyLocked = false;
+(function () {
+  'use strict';
 
-  function lockBody() {
-    if (bodyLocked) return;
-    savedScrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + savedScrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    bodyLocked = true;
-  }
-  function unlockBody() {
-    if (!bodyLocked) return;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, savedScrollY);
-    bodyLocked = false;
+  function setRowOpen(details, summary, shouldOpen) {
+    if (shouldOpen) {
+      details.classList.add('sp-open');
+      details.setAttribute('open', '');
+      if (summary) summary.setAttribute('aria-expanded', 'true');
+    } else {
+      details.classList.remove('sp-open');
+      details.removeAttribute('open');
+      if (summary) summary.setAttribute('aria-expanded', 'false');
+    }
   }
 
-  function bindSummaries(disc) {
-    disc.querySelectorAll('.mobile-facets__summary').forEach(function (s) {
-      if (s.dataset.spfSummaryBound === '1') return;
-      s.dataset.spfSummaryBound = '1';
-      s.addEventListener('click', function (e) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        var d = s.parentNode;
-        if (!d || d.tagName !== 'DETAILS') return;
-        if (d.hasAttribute('open')) {
-          d.removeAttribute('open');
-          s.setAttribute('aria-expanded', 'false');
-        } else {
-          d.setAttribute('open', '');
-          s.setAttribute('aria-expanded', 'true');
-        }
-      }, true);
-    });
+  function bindSummary(summary) {
+    if (summary.dataset.spfBound === '1') return;
+    summary.dataset.spfBound = '1';
+    summary.addEventListener('click', function (e) {
+      var details = summary.parentNode;
+      if (!details || details.tagName !== 'DETAILS') return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      var isOpen = details.classList.contains('sp-open') || details.hasAttribute('open');
+      setRowOpen(details, summary, !isOpen);
+    }, true);
+  }
+
+  function bindAll(root) {
+    var nodes = root.querySelectorAll('details.mobile-facets__details > summary.mobile-facets__summary');
+    for (var i = 0; i < nodes.length; i++) bindSummary(nodes[i]);
   }
 
   function init() {
     var disc = document.querySelector('.mobile-facets__disclosure');
     if (!disc) return;
+    bindAll(disc);
 
-    bindSummaries(disc);
-
-    function sync() {
-      if (disc.hasAttribute('open') && window.matchMedia('(max-width: 749px)').matches) {
-        lockBody();
-      } else {
-        unlockBody();
-      }
-    }
-    sync();
-
-    if (!disc.dataset.spfLockObserver) {
-      disc.dataset.spfLockObserver = '1';
-      new MutationObserver(sync).observe(disc, { attributes: true, attributeFilter: ['open'] });
-    }
     var grid = document.getElementById('FacetFiltersFormMobile');
-    if (grid && !grid.dataset.spfBindObserver) {
-      grid.dataset.spfBindObserver = '1';
-      new MutationObserver(function () { bindSummaries(disc); })
+    if (grid && grid.dataset.spfObs !== '1') {
+      grid.dataset.spfObs = '1';
+      new MutationObserver(function () { bindAll(disc); })
         .observe(grid, { childList: true, subtree: true });
     }
   }
-
-  // Click trap: swallow clicks that land outside the drawer while it's open.
-  document.addEventListener('click', function (e) {
-    if (!window.matchMedia('(max-width: 749px)').matches) return;
-    var disc = document.querySelector('.mobile-facets__disclosure');
-    if (!disc || !disc.hasAttribute('open')) return;
-    var form = disc.querySelector('.mobile-facets');
-    if (!form) return;
-    var close = disc.querySelector('.mobile-facets__close');
-    if (close && close.contains(e.target)) return;
-    if (form.contains(e.target)) return;
-    e.stopImmediatePropagation();
-    e.preventDefault();
-  }, true);
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

@@ -318,15 +318,16 @@
     <script src="{{ 'sp-filter-fix.js' | asset_url }}" defer="defer"></script>
 
     {%- comment -%}
-      Mobile filter CSS override — inlined because the CDN-served
-      component-facets.css has been stuck on a stale revision (2026-05-14:
-      live file was 21,928 bytes, missing the entire @media (max-width:749px)
-      override block that makes the accordion work). Inlining in theme.liquid
-      bypasses the CDN asset cache entirely. Mirrors the block in
-      assets/component-facets.css lines 1266–1341.
+      Mobile filter CSS — inlined to bypass Shopify's asset CDN entirely
+      (component-facets.css has been stuck on a stale revision for hours).
+      Submenu visibility is keyed off the custom .sp-open class set by
+      sp-filter-fix.js, NOT off the [open] attribute — iOS Safari has a
+      known bug where styles based on [open] don't always recalc when the
+      attribute is toggled programmatically. [open] is a fallback only.
     {%- endcomment -%}
     <style>
       @media screen and (max-width: 749px) {
+        /* Fullscreen drawer */
         .mobile-facets__inner {
           position: fixed !important;
           top: 0 !important;
@@ -345,24 +346,36 @@
         }
         .mobile-facets { pointer-events: auto; }
         .js .mobile-facets__main.submenu-open { visibility: visible !important; }
-        .mobile-facets__submenu {
+        .mobile-facets__close-button { display: none !important; }
+
+        /* Inline accordion — submenu hidden by default, shown when row
+           has .sp-open (primary) or [open] (fallback). */
+        .mobile-facets__details > .mobile-facets__submenu {
+          display: none !important;
           position: static !important;
           transform: none !important;
           visibility: visible !important;
           height: auto !important;
+          width: 100% !important;
           z-index: auto !important;
-          overflow-y: visible !important;
+          overflow: visible !important;
           transition: none !important;
         }
-        .mobile-facets__details:not([open]) > .mobile-facets__submenu {
-          display: none !important;
+        .mobile-facets__details.sp-open > .mobile-facets__submenu,
+        .mobile-facets__details[open] > .mobile-facets__submenu {
+          display: block !important;
         }
-        .mobile-facets__close-button { display: none !important; }
+
+        /* Tap targets + iOS zoom fixes */
         .mobile-facets__open {
           min-height: 4.4rem;
           padding-top: 1rem;
           padding-bottom: 1rem;
           font-size: 1.5rem;
+        }
+        .mobile-facets__summary {
+          min-height: 4.4rem;
+          cursor: pointer;
         }
         .mobile-facets__label {
           min-height: 4.4rem;
