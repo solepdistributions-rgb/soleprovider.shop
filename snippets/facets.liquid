@@ -194,15 +194,31 @@
                 endif
               %}
 
+              {%- liquid
+                # Auto-open desktop filter rows that have active values
+                # so the user finds the row they were working in still
+                # expanded after a filter-applying navigation.
+                assign desktop_row_open = false
+                if filter.active_values.size > 0
+                  assign desktop_row_open = true
+                elsif filter.type == 'price_range'
+                  if filter.min_value.value != blank or filter.max_value.value != blank
+                    assign desktop_row_open = true
+                  endif
+                endif
+                # Preserve Dawn default of opening the first row on vertical
+                # layout when no filter is otherwise active.
+                if filter_type == 'vertical' and forloop.index == 1
+                  assign desktop_row_open = true
+                endif
+              -%}
               {% case filter.type %}
                 {% when 'boolean', 'list' %}
                   <details
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
-                      open
-                    {% endif %}
+                    {% if desktop_row_open %}open{% endif %}
                   >
                     <summary
                       class="facets__summary caption-large focus-offset"
@@ -371,9 +387,7 @@
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
-                      open
-                    {% endif %}
+                    {% if desktop_row_open %}open{% endif %}
                   >
                     <summary class="facets__summary caption-large focus-offset">
                       <div>
@@ -539,7 +553,7 @@
           {{ 'products.facets.sort_button' | t }}
         {%- endif -%}
       </span>
-      <span class="spmf-version" aria-hidden="true">v3.7</span>
+      <span class="spmf-version" aria-hidden="true">v3.8</span>
     </button>
   </div>
   <div class="spmf-modal medium-hide large-up-hide" data-spmf-modal role="dialog" aria-modal="true" aria-label="Filter and sort" hidden>
@@ -596,17 +610,28 @@
                     else
                       assign visual_layout_class = 'facets-layout facets-layout-list facets-layout-list--' | append: presentation
                     endif
+                    # Auto-open the row if this filter has active values, so
+                    # after a filter-applying navigation the user finds the
+                    # row they were working in still expanded.
+                    assign mobile_row_open = false
+                    if filter.active_values.size > 0
+                      assign mobile_row_open = true
+                    elsif filter.type == 'price_range'
+                      if filter.min_value.value != blank or filter.max_value.value != blank
+                        assign mobile_row_open = true
+                      endif
+                    endif
                   %}
 
                   {% case filter.type %}
                     {% when 'boolean', 'list' %}
                       <div
                         id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
-                        class="spmf-row js-filter"
+                        class="spmf-row js-filter{% if mobile_row_open %} is-open{% endif %}"
                         data-spmf-row
                         data-index="mobile-{{ forloop.index }}"
                       >
-                        <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="false" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
+                        <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="{% if mobile_row_open %}true{% else %}false{% endif %}" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
                           <span class="spmf-row-label">{{ filter.label | escape }}</span>
                           <span class="spmf-row-arrow" aria-hidden="true">
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -615,7 +640,7 @@
                         <div
                           id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
                           class="spmf-row-content"
-                          hidden
+                          {% unless mobile_row_open %}hidden{% endunless %}
                         >
                           {%- if filter.operator == 'AND' -%}
                             <p class="facets__and-helptext">
@@ -729,11 +754,11 @@
                     {% when 'price_range' %}
                       <div
                         id="Details-Mobile-{{ filter.param_name | escape }}-{{ section.id }}"
-                        class="spmf-row js-filter"
+                        class="spmf-row js-filter{% if mobile_row_open %} is-open{% endif %}"
                         data-spmf-row
                         data-index="mobile-{{ forloop.index }}"
                       >
-                        <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="false" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
+                        <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="{% if mobile_row_open %}true{% else %}false{% endif %}" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
                           <span class="spmf-row-label">{{ filter.label | escape }}</span>
                           <span class="spmf-row-arrow" aria-hidden="true">
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -742,7 +767,7 @@
                         <div
                           id="FacetMobile-{{ forloop.index }}-{{ section.id }}"
                           class="spmf-row-content"
-                          hidden
+                          {% unless mobile_row_open %}hidden{% endunless %}
                         >
                           {%- assign max_price_amount = filter.range_max | money | strip_html | escape -%}
                           <p class="spmf-price-info">
