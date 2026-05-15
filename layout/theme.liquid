@@ -311,11 +311,62 @@
     </script>
 
     {%- comment -%}
-      Mobile filter fix — loaded as its own asset because Shopify's CDN
-      has been propagating global.js changes very slowly. New asset
-      filenames bypass that cache.
+      Mobile filter JS — inlined because Shopify's asset CDN has been
+      serving stale sp-filter-fix.js for hours despite repeated pushes.
+      Inlining here renders per-request and bypasses the asset cache
+      entirely. Sets BOTH [open] (a11y) AND a custom .sp-open class on
+      tap (iOS Safari has a known bug where styles keyed off [open]
+      don't reliably recalc when toggled programmatically).
     {%- endcomment -%}
-    <script src="{{ 'sp-filter-fix.js' | asset_url }}" defer="defer"></script>
+    <script>
+      (function () {
+        'use strict';
+        function setRowOpen(d, s, on) {
+          if (on) {
+            d.classList.add('sp-open');
+            d.setAttribute('open', '');
+            if (s) s.setAttribute('aria-expanded', 'true');
+          } else {
+            d.classList.remove('sp-open');
+            d.removeAttribute('open');
+            if (s) s.setAttribute('aria-expanded', 'false');
+          }
+        }
+        function bindSummary(s) {
+          if (s.dataset.spfBound === '1') return;
+          s.dataset.spfBound = '1';
+          s.addEventListener('click', function (e) {
+            var d = s.parentNode;
+            if (!d || d.tagName !== 'DETAILS') return;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var isOpen = d.classList.contains('sp-open') || d.hasAttribute('open');
+            setRowOpen(d, s, !isOpen);
+          }, true);
+        }
+        function bindAll(root) {
+          var nodes = root.querySelectorAll('details.mobile-facets__details > summary.mobile-facets__summary');
+          for (var i = 0; i < nodes.length; i++) bindSummary(nodes[i]);
+        }
+        function init() {
+          var disc = document.querySelector('.mobile-facets__disclosure');
+          if (!disc) return;
+          bindAll(disc);
+          var grid = document.getElementById('FacetFiltersFormMobile');
+          if (grid && grid.dataset.spfObs !== '1') {
+            grid.dataset.spfObs = '1';
+            new MutationObserver(function () { bindAll(disc); })
+              .observe(grid, { childList: true, subtree: true });
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+        } else {
+          init();
+        }
+        document.addEventListener('shopify:section:load', init);
+      })();
+    </script>
 
     {%- comment -%}
       Mobile filter CSS — inlined to bypass Shopify's asset CDN entirely
