@@ -480,11 +480,24 @@
           //    summary clicks — which cancels the browser's native
           //    <details> toggle activation. Block summary clicks here in
           //    capture phase so Dawn's handler never fires for them. Native
-          //    toggle proceeds normally. (Checkbox clicks inside desktop
-          //    facet forms are unaffected — they still reach Dawn's handler
-          //    so the auto-AJAX filter behavior is preserved on desktop.)
+          //    toggle proceeds normally.
           var summary = t.closest('summary');
           if (summary && summary.closest('facet-filters-form')) {
+            e.stopImmediatePropagation();
+            return;
+          }
+
+          // 8. Desktop filter form (FacetFiltersForm / FacetSortForm /
+          //    FacetSortDrawerForm) clicks on checkboxes, labels, inputs:
+          //    block Dawn's bubble-phase CLICK handler from firing. Same
+          //    root cause as mobile — preventDefault on label click cancels
+          //    the native checkbox toggle activation, AND fires a separate
+          //    AJAX request with old form state. Race with the CHANGE
+          //    handler's AJAX caused "indefinite load" and "filter replaces
+          //    previous" symptoms. Letting only CHANGE through means one
+          //    AJAX with the correct toggled state.
+          var dForm = t.closest('#FacetFiltersForm, #FacetSortForm, #FacetSortDrawerForm');
+          if (dForm) {
             e.stopImmediatePropagation();
             return;
           }
