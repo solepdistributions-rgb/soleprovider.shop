@@ -451,6 +451,21 @@
             e.stopImmediatePropagation();
             return;
           }
+
+          // 6. Desktop sidebar: <summary> clicks inside ANY facet-filters-form
+          //    need to expand the parent <details>. Dawn's form click handler
+          //    (bubble phase) calls preventDefault on every click — including
+          //    summary clicks — which cancels the browser's native
+          //    <details> toggle activation. Block summary clicks here in
+          //    capture phase so Dawn's handler never fires for them. Native
+          //    toggle proceeds normally. (Checkbox clicks inside desktop
+          //    facet forms are unaffected — they still reach Dawn's handler
+          //    so the auto-AJAX filter behavior is preserved on desktop.)
+          var summary = t.closest('summary');
+          if (summary && summary.closest('facet-filters-form')) {
+            e.stopImmediatePropagation();
+            return;
+          }
         }, true);
 
         // Block change + input events inside the mobile filter form from
