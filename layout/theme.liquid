@@ -503,15 +503,39 @@
           }
         }, true);
 
-        // Block change + input events inside the mobile filter form from
-        // reaching Dawn's auto-submit handlers. Same batch-on-apply logic
-        // as the click handler above.
+        // Block change + input events on filter forms from reaching Dawn's
+        // auto-submit handlers.
+        //   - Mobile: batched, Apply button does the nav.
+        //   - Desktop: navigate immediately per change (debounced ~200ms).
+        //     Dawn's AJAX path is unreliable on this site — slow, sometimes
+        //     hangs, sometimes races on combined selections. Full
+        //     navigation per change is faster and deterministic.
+        var spDesktopNavTimer = null;
+        function navigateDesktopFilters() {
+          var parts = [];
+          document.querySelectorAll('facet-filters-form form').forEach(function (f) {
+            if (f.id === 'FacetFiltersForm' || f.id === 'FacetSortForm' || f.id === 'FacetSortDrawerForm') {
+              var p = new URLSearchParams(new FormData(f)).toString();
+              if (p) parts.push(p);
+            }
+          });
+          window.location.href = window.location.pathname + (parts.length ? '?' + parts.join('&') : '');
+        }
         ['change', 'input'].forEach(function (type) {
           document.addEventListener(type, function (e) {
             if (!e.target || !e.target.closest) return;
-            var form = document.getElementById('FacetFiltersFormMobile');
-            if (form && form.contains(e.target)) {
+            // Mobile form — block, batched via Apply
+            var mForm = document.getElementById('FacetFiltersFormMobile');
+            if (mForm && mForm.contains(e.target)) {
               e.stopImmediatePropagation();
+              return;
+            }
+            // Desktop filter / sort forms — block Dawn's AJAX, schedule nav
+            var dForm = e.target.closest('#FacetFiltersForm, #FacetSortForm, #FacetSortDrawerForm');
+            if (dForm) {
+              e.stopImmediatePropagation();
+              clearTimeout(spDesktopNavTimer);
+              spDesktopNavTimer = setTimeout(navigateDesktopFilters, 200);
             }
           }, true);
         });
