@@ -1339,3 +1339,20 @@ input.mobile-facets__checkbox {
     font-size: 1.6rem;
   }
 }
+/* Mobile Safari filter fix */
+.facets__display,
+.facets__list,
+.facets__item,
+.facets__label {
+  pointer-events: auto !important;
+}
+
+.swatch-input-wrapper input[type="checkbox"] {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
