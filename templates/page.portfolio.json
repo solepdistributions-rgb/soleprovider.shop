@@ -20,6 +20,16 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_aWFGd9": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal"
+          }
+        },
         "project_4Lnqpp": {
           "type": "project",
           "settings": {
@@ -285,6 +295,7 @@
         }
       },
       "block_order": [
+        "project_aWFGd9",
         "project_4Lnqpp",
         "project_b6Tqpa",
         "project_KggiiE",
@@ -444,6 +455,18 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_AgMt9P": {
+          "type": "project",
+          "settings": {
+            "title": "Ruby Slipper",
+            "tag": "Luxury Hand Towels",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_8365.jpg",
+            "image_2": "shopify://shop_images/IMG_8366.jpg"
+          }
+        },
         "project_KtThJK": {
           "type": "project",
           "settings": {
@@ -549,6 +572,7 @@
         }
       },
       "block_order": [
+        "project_AgMt9P",
         "project_KtThJK",
         "project_Lp8Qcb",
         "project_m38WYz",
@@ -577,6 +601,18 @@
     "portfolio_gallery_e9WMPP": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_6GUJ78": {
+          "type": "project",
+          "settings": {
+            "title": "Canopy Tent",
+            "tag": "10x10 Steel Team Tent",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_8334.jpg",
+            "image_2": "shopify://shop_images/IMG_8342.jpg"
+          }
+        },
         "project_PL6aQU": {
           "type": "project",
           "settings": {
@@ -604,6 +640,7 @@
         }
       },
       "block_order": [
+        "project_6GUJ78",
         "project_PL6aQU",
         "project_QAYdCw"
       ],
