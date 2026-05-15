@@ -361,6 +361,24 @@
           if (trig) trig.setAttribute('aria-expanded', 'false');
           document.documentElement.classList.remove('spmf-modal-open');
         }
+        function applyFilters() {
+          var form = document.getElementById('FacetFiltersFormMobile');
+          if (!form) { closeModal(); return; }
+          // Show inline busy state on the Apply button so user gets immediate
+          // feedback while the new URL is being navigated to.
+          var btn = document.querySelector('[data-spmf-apply]');
+          if (btn) {
+            btn.disabled = true;
+            btn.dataset.spmfOrigText = btn.textContent;
+            btn.textContent = 'Loading…';
+          }
+          var fd = new FormData(form);
+          var params = new URLSearchParams(fd).toString();
+          var url = window.location.pathname + (params ? '?' + params : '');
+          // Full navigation — one request, no AJAX race conditions, no
+          // partial-render hangs. Modal closes via the page reload.
+          window.location.href = url;
+        }
         function toggleRow(row) {
           if (!row) return;
           var trig = row.querySelector('[data-spmf-row-trigger]');
@@ -403,7 +421,15 @@
             return;
           }
 
-          // 3. Close modal triggers (backdrop, X, Apply)
+          // 3. Apply button — batch submit all filter state via navigation
+          if (t.closest('[data-spmf-apply]')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            applyFilters();
+            return;
+          }
+
+          // 4. Other close triggers (backdrop, X) — close without applying
           if (t.closest('[data-spmf-close]')) {
             e.preventDefault();
             e.stopImmediatePropagation();
@@ -411,23 +437,34 @@
             return;
           }
 
-          // 4. Inside the mobile filter form (checkbox label, input, etc):
+          // 5. Inside the mobile filter form (checkbox label, input, etc):
           //    stopImmediatePropagation (NOT preventDefault). Dawn's
-          //    FacetFiltersForm binds a CLICK handler on the form in bubble
-          //    phase that calls preventDefault() on every click — including
-          //    on the input/label itself. That cancels the browser's native
-          //    checkbox toggle (which would otherwise run as the activation
-          //    behavior AFTER all listeners). By stopping propagation here,
-          //    Dawn's bubble handler never fires, the toggle proceeds
-          //    normally, and the resulting CHANGE event still bubbles up
-          //    to Dawn's separate change handler which submits the filter.
+          //    FacetFiltersForm binds CLICK + CHANGE + INPUT handlers on
+          //    the form that auto-submit via AJAX on every interaction.
+          //    On mobile, we want to BATCH selections and only submit
+          //    when Apply is tapped — so block all three event types here.
+          //    Native toggle still works (no preventDefault), form state
+          //    accumulates in DOM, applyFilters() reads it via FormData
+          //    and navigates with the combined query string.
           var form = document.getElementById('FacetFiltersFormMobile');
           if (form && form.contains(t)) {
             e.stopImmediatePropagation();
-            // DO NOT preventDefault — let native toggle run.
             return;
           }
         }, true);
+
+        // Block change + input events inside the mobile filter form from
+        // reaching Dawn's auto-submit handlers. Same batch-on-apply logic
+        // as the click handler above.
+        ['change', 'input'].forEach(function (type) {
+          document.addEventListener(type, function (e) {
+            if (!e.target || !e.target.closest) return;
+            var form = document.getElementById('FacetFiltersFormMobile');
+            if (form && form.contains(e.target)) {
+              e.stopImmediatePropagation();
+            }
+          }, true);
+        });
 
         // Close on Escape
         document.addEventListener('keydown', function (e) {
