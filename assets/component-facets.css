@@ -1356,3 +1356,25 @@ input.mobile-facets__checkbox {
   z-index: 10;
   cursor: pointer;
 }
+/* FORCE FILTER INTERACTION RESET */
+.facets-container,
+.facets__disclosure,
+.facets__summary,
+.facets__display {
+  position: relative !important;
+  z-index: auto !important;
+  pointer-events: auto !important;
+}
+
+.facets__header,
+.facets__form {
+  pointer-events: auto !important;
+}
+
+/* kill common blocking overlays */
+.modal-backdrop,
+.js-menu-drawer__overlay,
+.mobile-facets__overlay {
+  display: none !important;
+  pointer-events: none !important;
+}
