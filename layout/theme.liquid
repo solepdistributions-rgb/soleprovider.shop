@@ -410,6 +410,23 @@
             closeModal();
             return;
           }
+
+          // 4. Inside the mobile filter form (checkbox label, input, etc):
+          //    stopImmediatePropagation (NOT preventDefault). Dawn's
+          //    FacetFiltersForm binds a CLICK handler on the form in bubble
+          //    phase that calls preventDefault() on every click — including
+          //    on the input/label itself. That cancels the browser's native
+          //    checkbox toggle (which would otherwise run as the activation
+          //    behavior AFTER all listeners). By stopping propagation here,
+          //    Dawn's bubble handler never fires, the toggle proceeds
+          //    normally, and the resulting CHANGE event still bubbles up
+          //    to Dawn's separate change handler which submits the filter.
+          var form = document.getElementById('FacetFiltersFormMobile');
+          if (form && form.contains(t)) {
+            e.stopImmediatePropagation();
+            // DO NOT preventDefault — let native toggle run.
+            return;
+          }
         }, true);
 
         // Close on Escape
@@ -489,6 +506,23 @@
         overflow: hidden;
         animation: spmf-slide-up 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
         box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
+      }
+      /* Pass flex chain through facet-filters-form custom element and
+         form so .spmf-body can fill the remaining height and scroll. */
+      .spmf-panel > facet-filters-form {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+      }
+      .spmf-form {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        margin: 0;
       }
       @keyframes spmf-fade-in { from { opacity: 0; } to { opacity: 1; } }
       @keyframes spmf-slide-up { from { transform: translateY(4%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
