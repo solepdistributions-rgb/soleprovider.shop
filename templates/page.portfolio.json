@@ -455,6 +455,17 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_TiCXRC": {
+          "type": "project",
+          "settings": {
+            "title": "Graduation Stoles",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom graduation stoles</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_8357.jpg"
+          }
+        },
         "project_AgMt9P": {
           "type": "project",
           "settings": {
@@ -572,6 +583,7 @@
         }
       },
       "block_order": [
+        "project_TiCXRC",
         "project_AgMt9P",
         "project_KtThJK",
         "project_Lp8Qcb",
