@@ -580,11 +580,24 @@
       .spmf-trigger:active { background: #a00e28; box-shadow: 0 1px 4px rgba(196, 18, 48, 0.35); }
       .spmf-trigger-icon { display: inline-flex; align-items: center; }
       .spmf-trigger-icon svg { width: 1.8rem; height: 1.8rem; }
-      .spmf-version {
-        font-size: 0.95rem;
-        opacity: 0.7;
+      .spmf-trigger-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2.2rem;
+        height: 2.2rem;
+        padding: 0 0.6rem;
         margin-left: 0.4rem;
-        font-weight: 500;
+        background: #fff;
+        color: #c41230;
+        border-radius: 999px;
+        font-size: 1.2rem;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .spmf-trigger--active {
+        background: #c41230;
+        box-shadow: 0 4px 14px rgba(196, 18, 48, 0.4);
       }
 
       /* ===== Modal ===== */
@@ -713,7 +726,26 @@
         transition: background 0.12s ease;
       }
       .spmf-row-trigger:active { background: #f8f8f8; }
-      .spmf-row-label { flex: 1 1 auto; }
+      .spmf-row-label {
+        flex: 1 1 auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .spmf-row-count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 2rem;
+        height: 2rem;
+        padding: 0 0.6rem;
+        background: #c41230;
+        color: #fff;
+        border-radius: 999px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1;
+      }
       .spmf-row-arrow {
         flex: 0 0 auto;
         display: inline-flex;
@@ -731,7 +763,14 @@
          keeps state correct across facets.js re-renders (which restore
          [hidden] but leave the outer .is-open class intact). */
       .spmf-row > .spmf-row-content { display: none; padding: 0 2rem 1.8rem; background: #fafafa; }
-      .spmf-row.is-open > .spmf-row-content { display: block !important; }
+      .spmf-row.is-open > .spmf-row-content {
+        display: block !important;
+        animation: spmf-row-expand 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      @keyframes spmf-row-expand {
+        from { opacity: 0; transform: translateY(-4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
 
       .spmf-row-content .mobile-facets__list,
       .spmf-row-content .facets-layout {
@@ -883,6 +922,61 @@
       /* Price range input adjustments */
       .spmf-row-content price-range { display: block; padding: 0.8rem 0; }
       .spmf-price-info { font-size: 1.3rem; color: #777; margin: 0 0 0.8rem; }
+
+      /* =================================================================
+         Desktop filter polish (sidebar / vertical facets layout).
+         Light-touch overrides on top of Dawn's facets__* classes. Keeps
+         Dawn's structure but adds brand accents and breathing room.
+         ================================================================= */
+      @media screen and (min-width: 750px) {
+        .facets__disclosure-vertical {
+          padding: 0;
+          border-bottom: 1px solid #eaeaea;
+        }
+        .facets__disclosure-vertical > .facets__summary {
+          padding: 1.4rem 0.4rem;
+          font-weight: 700;
+          font-size: 1.5rem;
+          letter-spacing: 0.02em;
+          color: #111;
+          cursor: pointer;
+          transition: color 0.15s ease;
+        }
+        .facets__disclosure-vertical[open] > .facets__summary { color: #c41230; }
+        .facets__disclosure-vertical > .facets__summary:hover { color: #c41230; }
+        .facets__disclosure-vertical .facets__summary > div {
+          display: flex; align-items: center; gap: 0.8rem;
+        }
+        .facets__selected {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 1.8rem;
+          height: 1.8rem;
+          padding: 0 0.5rem;
+          background: #c41230;
+          color: #fff;
+          border-radius: 999px;
+          font-size: 1.05rem;
+          font-weight: 700;
+          line-height: 1;
+          margin-left: 0.4rem;
+        }
+        .facets__selected.hidden { display: none; }
+        /* Native checkbox accent for desktop too */
+        .facets__form input[type='checkbox'] { accent-color: #c41230; }
+        /* Active filter label highlight */
+        .facets__label.active,
+        .facet-checkbox--swatch .swatch-input:checked + .swatch-input__label {
+          color: #c41230;
+          font-weight: 700;
+        }
+        /* Active facet pills (X buttons) on desktop */
+        .active-facets-desktop .active-facets__button {
+          border-color: #c41230;
+          color: #c41230;
+        }
+      }
     </style>
   </head>
 

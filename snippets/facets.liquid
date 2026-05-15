@@ -541,8 +541,15 @@
     no menu-drawer, no nested-Dawn quirks. All controlled by JS in
     theme.liquid inline (renders per-request, never CDN-cached).
   {% endcomment %}
+  {%- liquid
+    # Total active filter count for the trigger button badge
+    assign sp_active_count = 0
+    for filter in results.filters
+      assign sp_active_count = sp_active_count | plus: filter.active_values.size
+    endfor
+  -%}
   <div class="spmf-trigger-wrap medium-hide large-up-hide">
-    <button type="button" class="spmf-trigger" data-spmf-open aria-haspopup="dialog" aria-expanded="false">
+    <button type="button" class="spmf-trigger{% if sp_active_count > 0 %} spmf-trigger--active{% endif %}" data-spmf-open aria-haspopup="dialog" aria-expanded="false">
       <span class="spmf-trigger-icon svg-wrapper">{{- 'icon-filter.svg' | inline_asset_content -}}</span>
       <span class="spmf-trigger-label">
         {%- if enable_filtering and enable_sorting -%}
@@ -553,7 +560,9 @@
           {{ 'products.facets.sort_button' | t }}
         {%- endif -%}
       </span>
-      <span class="spmf-version" aria-hidden="true">v3.8</span>
+      {%- if sp_active_count > 0 -%}
+        <span class="spmf-trigger-badge" aria-label="{{ sp_active_count }} active">{{ sp_active_count }}</span>
+      {%- endif -%}
     </button>
   </div>
   <div class="spmf-modal medium-hide large-up-hide" data-spmf-modal role="dialog" aria-modal="true" aria-label="Filter and sort" hidden>
@@ -632,7 +641,12 @@
                         data-index="mobile-{{ forloop.index }}"
                       >
                         <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="{% if mobile_row_open %}true{% else %}false{% endif %}" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
-                          <span class="spmf-row-label">{{ filter.label | escape }}</span>
+                          <span class="spmf-row-label">
+                            {{ filter.label | escape }}
+                            {%- if filter.active_values.size > 0 -%}
+                              <span class="spmf-row-count">{{ filter.active_values.size }}</span>
+                            {%- endif -%}
+                          </span>
                           <span class="spmf-row-arrow" aria-hidden="true">
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
                           </span>
@@ -759,7 +773,12 @@
                         data-index="mobile-{{ forloop.index }}"
                       >
                         <button type="button" class="spmf-row-trigger" data-spmf-row-trigger aria-expanded="{% if mobile_row_open %}true{% else %}false{% endif %}" aria-controls="FacetMobile-{{ forloop.index }}-{{ section.id }}">
-                          <span class="spmf-row-label">{{ filter.label | escape }}</span>
+                          <span class="spmf-row-label">
+                            {{ filter.label | escape }}
+                            {%- if filter.active_values.size > 0 -%}
+                              <span class="spmf-row-count">{{ filter.active_values.size }}</span>
+                            {%- endif -%}
+                          </span>
                           <span class="spmf-row-arrow" aria-hidden="true">
                             {{- 'icon-arrow.svg' | inline_asset_content -}}
                           </span>
