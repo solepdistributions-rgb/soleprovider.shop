@@ -342,19 +342,15 @@
       (function () {
         'use strict';
 
-        var lockedScrollY = 0;
         function openModal() {
           var m = document.querySelector('[data-spmf-modal]');
           var trig = document.querySelector('[data-spmf-open]');
           if (!m) return;
           m.removeAttribute('hidden');
           if (trig) trig.setAttribute('aria-expanded', 'true');
-          lockedScrollY = window.scrollY || window.pageYOffset || 0;
-          document.body.style.position = 'fixed';
-          document.body.style.top = '-' + lockedScrollY + 'px';
-          document.body.style.left = '0';
-          document.body.style.right = '0';
-          document.body.style.width = '100%';
+          // Lock html scroll only — body must stay normal so the modal's
+          // own overflow-y:auto can scroll on iOS Safari. position:fixed
+          // on body breaks nested scrolling in iOS.
           document.documentElement.classList.add('spmf-modal-open');
         }
         function closeModal() {
@@ -363,13 +359,7 @@
           if (!m) return;
           m.setAttribute('hidden', '');
           if (trig) trig.setAttribute('aria-expanded', 'false');
-          document.body.style.position = '';
-          document.body.style.top = '';
-          document.body.style.left = '';
-          document.body.style.right = '';
-          document.body.style.width = '';
           document.documentElement.classList.remove('spmf-modal-open');
-          window.scrollTo(0, lockedScrollY);
         }
         function toggleRow(row) {
           if (!row) return;
@@ -433,56 +423,63 @@
     </script>
 
     {%- comment -%}
-      Mobile filter CSS — spmf v3. Inlined for cache-bypass.
-      Styles the custom modal trigger/panel/accordion built in
-      snippets/facets.liquid. Mobile-only via media query.
+      Mobile filter CSS — spmf v3.1. Inlined for cache-bypass.
+      Styles the custom modal trigger/panel/accordion. Mobile-only.
     {%- endcomment -%}
     <style>
-      /* Trigger button — visible only on mobile */
-      .spmf-trigger-wrap {
-        margin: 1rem 0;
-      }
+      /* ===== Trigger button ===== */
+      .spmf-trigger-wrap { margin: 1.2rem 0; }
       .spmf-trigger {
         display: inline-flex;
         align-items: center;
-        gap: 0.8rem;
-        min-height: 4.4rem;
-        padding: 1rem 1.6rem;
-        background: rgb(var(--color-foreground));
-        color: rgb(var(--color-background));
-        border: none;
-        border-radius: var(--buttons-radius, 0);
+        justify-content: center;
+        gap: 1rem;
+        min-height: 4.8rem;
+        padding: 1rem 2rem;
+        background: #c41230;
+        color: #fff;
+        border: 2px solid #c41230;
+        border-radius: 4px;
         font-size: 1.5rem;
-        font-weight: 500;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
         cursor: pointer;
         font-family: inherit;
+        box-shadow: 0 2px 8px rgba(196, 18, 48, 0.25);
+        transition: background 0.15s ease, box-shadow 0.15s ease;
       }
-      .spmf-trigger-icon svg { width: 1.6rem; height: 1.6rem; }
+      .spmf-trigger:active { background: #a00e28; box-shadow: 0 1px 4px rgba(196, 18, 48, 0.35); }
+      .spmf-trigger-icon { display: inline-flex; align-items: center; }
+      .spmf-trigger-icon svg { width: 1.8rem; height: 1.8rem; }
       .spmf-version {
-        font-size: 0.9rem;
-        opacity: 0.5;
-        margin-left: 0.6rem;
-        font-weight: 400;
+        font-size: 0.95rem;
+        opacity: 0.7;
+        margin-left: 0.4rem;
+        font-weight: 500;
       }
 
-      /* Modal — hidden by default via [hidden]. Position fixed full viewport. */
+      /* ===== Modal ===== */
       .spmf-modal {
         position: fixed;
         inset: 0;
-        z-index: 100;
+        z-index: 1000;
         display: flex;
+        animation: spmf-fade-in 0.18s ease;
       }
       .spmf-modal[hidden] { display: none !important; }
       .spmf-backdrop {
         position: absolute;
         inset: 0;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
       }
       .spmf-panel {
         position: relative;
         margin-left: auto;
-        background: rgb(var(--color-background));
-        color: rgb(var(--color-foreground));
+        background: #fff;
+        color: #111;
         width: 100%;
         max-width: 100%;
         height: 100vh;
@@ -490,26 +487,33 @@
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        animation: spmf-slide-up 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.2);
       }
+      @keyframes spmf-fade-in { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes spmf-slide-up { from { transform: translateY(4%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-      /* Header */
+      /* ===== Header ===== */
       .spmf-header {
         flex: 0 0 auto;
-        padding: 1.6rem 1.6rem 1.2rem;
-        border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+        padding: 1.8rem 6rem 1.4rem 2rem;
+        border-bottom: 1px solid #eaeaea;
         position: relative;
+        background: #fff;
       }
       .spmf-heading {
         margin: 0 0 0.4rem;
-        font-size: 1.8rem;
-        font-weight: 700;
+        font-size: 2rem;
+        font-weight: 900;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.04em;
+        color: #111;
       }
       .spmf-count {
         margin: 0;
         font-size: 1.3rem;
-        opacity: 0.7;
+        color: #777;
+        font-weight: 500;
       }
       .spmf-close {
         position: absolute;
@@ -520,52 +524,70 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: none;
+        background: #f5f5f5;
         border: none;
+        border-radius: 50%;
         cursor: pointer;
-        color: inherit;
+        color: #111;
         font-family: inherit;
+        transition: background 0.15s ease;
       }
-      .spmf-close .svg-wrapper,
-      .spmf-close svg { width: 1.8rem; height: 1.8rem; }
+      .spmf-close:active { background: #e5e5e5; }
+      .spmf-close .svg-wrapper svg,
+      .spmf-close svg { width: 1.6rem; height: 1.6rem; display: block; }
 
-      /* Body (scrollable area containing rows) */
-      .spmf-body { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+      /* ===== Body (scrollable rows area) ===== */
+      .spmf-body {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        background: #fff;
+      }
       .spmf-rows { display: flex; flex-direction: column; }
 
-      /* Row */
-      .spmf-row {
-        border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
-      }
+      /* ===== Row ===== */
+      .spmf-row { border-bottom: 1px solid #eaeaea; }
       .spmf-row-trigger {
         width: 100%;
-        min-height: 5.4rem;
-        padding: 1.6rem;
+        min-height: 5.8rem;
+        padding: 1.6rem 2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
-        background: none;
+        background: #fff;
         border: none;
         text-align: left;
         cursor: pointer;
         font-family: inherit;
         font-size: 1.6rem;
-        color: inherit;
+        color: #111;
+        font-weight: 600;
+        transition: background 0.12s ease;
       }
-      .spmf-row-label { flex: 1 1 auto; font-weight: 500; }
+      .spmf-row-trigger:active { background: #f8f8f8; }
+      .spmf-row-label { flex: 1 1 auto; }
       .spmf-row-arrow {
         flex: 0 0 auto;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        transition: transform 0.2s ease;
+        color: #c41230;
+        transition: transform 0.25s ease;
       }
-      .spmf-row-arrow svg { width: 1.4rem; height: 1.4rem; }
+      .spmf-row-arrow svg { width: 1.6rem; height: 1.6rem; display: block; }
       .spmf-row.is-open .spmf-row-arrow { transform: rotate(90deg); }
+      .spmf-row.is-open .spmf-row-trigger { background: #fafafa; }
 
-      .spmf-row-content { padding: 0 1.6rem 1.6rem; }
-      .spmf-row-content[hidden] { display: none !important; }
+      /* Row content — show/hide governed by .is-open class on outer row
+         (with !important so it beats the [hidden] attribute default). This
+         keeps state correct across facets.js re-renders (which restore
+         [hidden] but leave the outer .is-open class intact). */
+      .spmf-row > .spmf-row-content { display: none; padding: 0 2rem 1.8rem; background: #fafafa; }
+      .spmf-row.is-open > .spmf-row-content { display: block !important; }
+
       .spmf-row-content .mobile-facets__list,
       .spmf-row-content .facets-layout {
         list-style: none;
@@ -573,85 +595,149 @@
         padding: 0;
         display: flex;
         flex-direction: column;
+        gap: 0.2rem;
       }
-      .spmf-row-content .mobile-facets__item { padding: 0; margin: 0; }
+      .spmf-row-content .mobile-facets__item { padding: 0; margin: 0; position: static !important; }
+
+      /* Label is the tap target — covers the full row width, generous height */
       .spmf-row-content .mobile-facets__label,
       .spmf-row-content .facets__label {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        min-height: 4.4rem;
-        padding: 0.4rem 0;
-        font-size: 1.5rem;
+        display: flex !important;
+        align-items: center !important;
+        gap: 1.2rem !important;
+        min-height: 4.8rem !important;
+        padding: 0.8rem 0 !important;
+        font-size: 1.5rem !important;
+        cursor: pointer !important;
+        position: static !important;
+        margin: 0 !important;
+        color: #222 !important;
+      }
+      .spmf-row-content .mobile-facets__label.disabled { opacity: 0.4; cursor: not-allowed; }
+      .spmf-row-content .mobile-facets__label.active { color: #c41230; font-weight: 700; }
+
+      /* Hide Dawn's decorative SVGs + highlight — we use native checkbox */
+      .spmf-row-content .mobile-facets__highlight,
+      .spmf-row-content .mobile-facets__label > svg,
+      .spmf-row-content .facets__label > svg {
+        display: none !important;
+      }
+
+      /* Native checkbox — overrides Dawn's absolute positioning hack */
+      .spmf-row-content input.mobile-facets__checkbox {
+        position: static !important;
+        width: 2.2rem !important;
+        height: 2.2rem !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+        appearance: auto !important;
+        -webkit-appearance: auto !important;
+        accent-color: #c41230;
         cursor: pointer;
       }
-      .spmf-row-content .mobile-facets__highlight { display: none; }
-      .spmf-row-content .mobile-facets__checkbox {
-        width: 2rem;
-        height: 2rem;
-        margin: 0;
+
+      .facets__and-helptext {
+        margin: 0 0 1.2rem;
+        font-size: 1.3rem;
+        color: #777;
+        font-style: italic;
       }
+
       .spmf-row-clear {
         margin-top: 1.2rem;
         padding-top: 1rem;
-        border-top: 1px dashed rgba(var(--color-foreground), 0.1);
+        border-top: 1px dashed #ddd;
       }
-      .spmf-row-clear-link { font-size: 1.3rem; }
+      .spmf-row-clear-link { font-size: 1.3rem; color: #c41230; }
 
-      /* Sort (no expand/collapse) */
+      /* ===== Sort ===== */
       .spmf-sort {
-        padding: 1.6rem;
-        border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+        padding: 1.6rem 2rem;
+        border-bottom: 1px solid #eaeaea;
+        background: #fafafa;
       }
       .spmf-sort-label {
         display: block;
         font-size: 1.2rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        margin-bottom: 0.6rem;
-        opacity: 0.7;
+        margin-bottom: 0.8rem;
+        color: #555;
       }
       .spmf-sort-select-wrap { position: relative; }
       .spmf-sort-select {
         width: 100%;
-        min-height: 4.4rem;
-        padding: 1rem 3rem 1rem 1rem;
+        min-height: 4.8rem;
+        padding: 1rem 3.6rem 1rem 1.4rem;
         font-size: 1.6rem;
         font-family: inherit;
-        background: rgb(var(--color-background));
-        color: inherit;
-        border: 1px solid rgba(var(--color-foreground), 0.2);
-        border-radius: var(--inputs-radius, 0);
+        background: #fff;
+        color: #111;
+        border: 1.5px solid #ddd;
+        border-radius: 4px;
         -webkit-appearance: none;
         appearance: none;
+        font-weight: 500;
       }
       .spmf-sort-select-wrap .svg-wrapper {
         position: absolute;
-        right: 1rem;
+        right: 1.2rem;
         top: 50%;
         transform: translateY(-50%);
         pointer-events: none;
+        color: #555;
       }
+      .spmf-sort-select-wrap svg { width: 1.4rem; height: 1.4rem; display: block; }
 
-      /* Footer (sticky apply/clear) */
+      /* ===== Footer (sticky bottom) ===== */
       .spmf-footer {
         flex: 0 0 auto;
         display: flex;
         align-items: center;
-        gap: 1.2rem;
-        padding: 1.2rem 1.6rem calc(1.2rem + env(safe-area-inset-bottom));
-        border-top: 1px solid rgba(var(--color-foreground), 0.1);
-        background: rgb(var(--color-background));
+        gap: 1.4rem;
+        padding: 1.4rem 2rem calc(1.4rem + env(safe-area-inset-bottom));
+        border-top: 1px solid #eaeaea;
+        background: #fff;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
       }
       .spmf-clear-wrap { flex: 0 0 auto; }
-      .spmf-clear-all { font-size: 1.4rem; }
-      .spmf-apply { flex: 1 1 auto; min-height: 4.8rem; font-size: 1.5rem; }
+      .spmf-clear-all {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #555;
+        text-decoration: underline;
+        text-underline-offset: 0.3rem;
+      }
+      .spmf-apply {
+        flex: 1 1 auto;
+        min-height: 5.2rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        background: #c41230;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 2px 12px rgba(196, 18, 48, 0.3);
+        transition: background 0.15s ease;
+      }
+      .spmf-apply:active { background: #a00e28; }
 
-      /* Lock html scroll when modal open (body lock is handled in JS) */
+      /* Body scroll lock when modal open — only html overflow, body stays
+         normal so internal modal scrolling works on iOS Safari. */
       html.spmf-modal-open { overflow: hidden; }
+      html.spmf-modal-open body { overflow: hidden; touch-action: none; }
+      html.spmf-modal-open .spmf-body { touch-action: pan-y; }
 
-      /* Hide any remnants of the old mobile facet drawer if it sneaks in */
+      /* Hide any remnants of the old mobile facet drawer */
       .mobile-facets__wrapper { display: none !important; }
+
+      /* Price range input adjustments */
+      .spmf-row-content price-range { display: block; padding: 0.8rem 0; }
+      .spmf-price-info { font-size: 1.3rem; color: #777; margin: 0 0 0.8rem; }
     </style>
   </head>
 
