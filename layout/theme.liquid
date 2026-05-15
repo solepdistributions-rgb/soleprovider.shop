@@ -311,209 +311,347 @@
     </script>
 
     {%- comment -%}
-      Mobile filter ALL-IN-ONE inline block. Inlined because Shopify's
-      asset CDN + Cloudflare were serving stale revisions of separate
-      asset files for HOURS, even after repeated pushes. theme.liquid
-      renders per-request, so this code is always fresh.
+      Mobile filter — spmf v3 (REBUILT 2026-05-15).
+      Custom modal + class-based accordion. Replaces Dawn's <details>/
+      <summary>/menu-drawer pattern entirely on mobile. Inlined here so
+      theme.liquid renders the JS per-request — never CDN/Cloudflare
+      cached, always fresh.
 
-      What it does:
-        1. Summary tap → toggle .sp-open + [open] on the parent <details>.
-           iOS Safari has a known bug where [open]-keyed CSS doesn't
-           recalc on JS toggle. .sp-open is the workaround.
-           Capture phase + stopImmediatePropagation blocks Dawn's
-           bubble-phase form click handler from also firing.
-        2. Body scroll lock when the outer drawer is open on mobile.
-           Fixes iOS Safari hit-test misrouting where taps on a
-           position:fixed overlay get routed to (scrollY + tapY) of
-           the underlying page.
-        3. Document-level capture click trap. Swallows any click
-           landing OUTSIDE the form while the drawer is open. Prevents
-           misrouted taps from reaching MenuDrawer.onSummaryClick on
-           the outer "Filter" summary, which would close the drawer.
-           X close button is exempted.
+      Markup (see snippets/facets.liquid mobile section):
+        <button data-spmf-open>Filter</button>
+        <div data-spmf-modal hidden>
+          <div data-spmf-close></div> (backdrop)
+          <div spmf-panel>
+            <header><button data-spmf-close>X</button></header>
+            <form>
+              <div spmf-rows>
+                <div data-spmf-row>
+                  <button data-spmf-row-trigger aria-expanded="false"/>
+                  <div spmf-row-content hidden/>
+                </div>
+                ...
+              </div>
+              <div spmf-footer>
+                <button data-spmf-close>Apply</button>
+              </div>
+            </form>
+          </div>
+        </div>
     {%- endcomment -%}
     <script>
       (function () {
         'use strict';
 
-        /* Body scroll lock */
-        var savedScrollY = 0;
-        var bodyLocked = false;
-        function lockBody() {
-          if (bodyLocked) return;
-          savedScrollY = window.scrollY || window.pageYOffset || 0;
+        var lockedScrollY = 0;
+        function openModal() {
+          var m = document.querySelector('[data-spmf-modal]');
+          var trig = document.querySelector('[data-spmf-open]');
+          if (!m) return;
+          m.removeAttribute('hidden');
+          if (trig) trig.setAttribute('aria-expanded', 'true');
+          lockedScrollY = window.scrollY || window.pageYOffset || 0;
           document.body.style.position = 'fixed';
-          document.body.style.top = '-' + savedScrollY + 'px';
+          document.body.style.top = '-' + lockedScrollY + 'px';
           document.body.style.left = '0';
           document.body.style.right = '0';
           document.body.style.width = '100%';
-          bodyLocked = true;
+          document.documentElement.classList.add('spmf-modal-open');
         }
-        function unlockBody() {
-          if (!bodyLocked) return;
+        function closeModal() {
+          var m = document.querySelector('[data-spmf-modal]');
+          var trig = document.querySelector('[data-spmf-open]');
+          if (!m) return;
+          m.setAttribute('hidden', '');
+          if (trig) trig.setAttribute('aria-expanded', 'false');
           document.body.style.position = '';
           document.body.style.top = '';
           document.body.style.left = '';
           document.body.style.right = '';
           document.body.style.width = '';
-          window.scrollTo(0, savedScrollY);
-          bodyLocked = false;
+          document.documentElement.classList.remove('spmf-modal-open');
+          window.scrollTo(0, lockedScrollY);
         }
-
-        /* Filter row toggle */
-        function setRowOpen(d, s, on) {
-          if (on) {
-            d.classList.add('sp-open');
-            d.setAttribute('open', '');
-            if (s) s.setAttribute('aria-expanded', 'true');
+        function toggleRow(row) {
+          if (!row) return;
+          var trig = row.querySelector('[data-spmf-row-trigger]');
+          var content = row.querySelector('.spmf-row-content');
+          if (!content) return;
+          var isOpen = !content.hasAttribute('hidden');
+          if (isOpen) {
+            content.setAttribute('hidden', '');
+            row.classList.remove('is-open');
+            if (trig) trig.setAttribute('aria-expanded', 'false');
           } else {
-            d.classList.remove('sp-open');
-            d.removeAttribute('open');
-            if (s) s.setAttribute('aria-expanded', 'false');
+            content.removeAttribute('hidden');
+            row.classList.add('is-open');
+            if (trig) trig.setAttribute('aria-expanded', 'true');
           }
         }
-        function bindSummary(s) {
-          if (s.dataset.spfBound === '1') return;
-          s.dataset.spfBound = '1';
-          s.addEventListener('click', function (e) {
-            var d = s.parentNode;
-            if (!d || d.tagName !== 'DETAILS') return;
+
+        // Single delegated click handler on document, capture phase.
+        // Capture + stopImmediatePropagation on row triggers prevents
+        // Dawn's FacetFiltersForm bubble-phase form click handler from
+        // also firing (which would treat the click as a filter change).
+        document.addEventListener('click', function (e) {
+          var t = e.target;
+          if (!t || !t.closest) return;
+
+          // 1. Row trigger — toggle accordion
+          var rowTrig = t.closest('[data-spmf-row-trigger]');
+          if (rowTrig) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            var isOpen = d.classList.contains('sp-open') || d.hasAttribute('open');
-            setRowOpen(d, s, !isOpen);
-          }, true);
-        }
-        function bindAll(root) {
-          var nodes = root.querySelectorAll('details.mobile-facets__details > summary.mobile-facets__summary');
-          for (var i = 0; i < nodes.length; i++) bindSummary(nodes[i]);
-        }
+            toggleRow(rowTrig.closest('[data-spmf-row]'));
+            return;
+          }
 
-        /* Click trap — registered immediately so it's always active */
-        document.addEventListener('click', function (e) {
-          if (!window.matchMedia('(max-width: 749px)').matches) return;
-          var disc = document.querySelector('.mobile-facets__disclosure');
-          if (!disc || !disc.hasAttribute('open')) return;
-          var form = disc.querySelector('.mobile-facets');
-          if (!form) return;
-          var close = disc.querySelector('.mobile-facets__close');
-          if (close && close.contains(e.target)) return;
-          if (form.contains(e.target)) return;
-          e.stopImmediatePropagation();
-          e.preventDefault();
+          // 2. Open modal trigger
+          if (t.closest('[data-spmf-open]')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            openModal();
+            return;
+          }
+
+          // 3. Close modal triggers (backdrop, X, Apply)
+          if (t.closest('[data-spmf-close]')) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            closeModal();
+            return;
+          }
         }, true);
 
-        function init() {
-          var disc = document.querySelector('.mobile-facets__disclosure');
-          if (!disc) return;
-          bindAll(disc);
-
-          function sync() {
-            if (disc.hasAttribute('open') && window.matchMedia('(max-width: 749px)').matches) {
-              lockBody();
-            } else {
-              unlockBody();
-            }
-          }
-          sync();
-
-          if (!disc.dataset.spLockObserver) {
-            disc.dataset.spLockObserver = '1';
-            new MutationObserver(sync).observe(disc, { attributes: true, attributeFilter: ['open'] });
-          }
-
-          var grid = document.getElementById('FacetFiltersFormMobile');
-          if (grid && grid.dataset.spfObs !== '1') {
-            grid.dataset.spfObs = '1';
-            new MutationObserver(function () { bindAll(disc); })
-              .observe(grid, { childList: true, subtree: true });
-          }
-        }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', init);
-        } else {
-          init();
-        }
-        document.addEventListener('shopify:section:load', init);
+        // Close on Escape
+        document.addEventListener('keydown', function (e) {
+          if (e.key !== 'Escape') return;
+          var m = document.querySelector('[data-spmf-modal]');
+          if (!m || m.hasAttribute('hidden')) return;
+          closeModal();
+        });
       })();
     </script>
 
     {%- comment -%}
-      Mobile filter CSS — inlined to bypass Shopify's asset CDN entirely
-      (component-facets.css has been stuck on a stale revision for hours).
-      Submenu visibility is keyed off the custom .sp-open class set by
-      sp-filter-fix.js, NOT off the [open] attribute — iOS Safari has a
-      known bug where styles based on [open] don't always recalc when the
-      attribute is toggled programmatically. [open] is a fallback only.
+      Mobile filter CSS — spmf v3. Inlined for cache-bypass.
+      Styles the custom modal trigger/panel/accordion built in
+      snippets/facets.liquid. Mobile-only via media query.
     {%- endcomment -%}
     <style>
-      @media screen and (max-width: 749px) {
-        /* Fullscreen drawer */
-        .mobile-facets__inner {
-          position: fixed !important;
-          top: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-          left: 0 !important;
-          width: 100% !important;
-          max-width: 100% !important;
-          height: 100vh !important;
-          height: 100dvh !important;
-          margin: 0 !important;
-          z-index: 102 !important;
-          pointer-events: auto !important;
-          transform: none !important;
-          visibility: visible !important;
-        }
-        .mobile-facets { pointer-events: auto; }
-        .js .mobile-facets__main.submenu-open { visibility: visible !important; }
-        .mobile-facets__close-button { display: none !important; }
-
-        /* Inline accordion — submenu hidden by default, shown when row
-           has .sp-open (primary) or [open] (fallback). */
-        .mobile-facets__details > .mobile-facets__submenu {
-          display: none !important;
-          position: static !important;
-          transform: none !important;
-          visibility: visible !important;
-          height: auto !important;
-          width: 100% !important;
-          z-index: auto !important;
-          overflow: visible !important;
-          transition: none !important;
-        }
-        .mobile-facets__details.sp-open > .mobile-facets__submenu,
-        .mobile-facets__details[open] > .mobile-facets__submenu {
-          display: block !important;
-        }
-
-        /* Tap targets + iOS zoom fixes */
-        .mobile-facets__open {
-          min-height: 4.4rem;
-          padding-top: 1rem;
-          padding-bottom: 1rem;
-          font-size: 1.5rem;
-        }
-        .mobile-facets__summary {
-          min-height: 4.4rem;
-          cursor: pointer;
-        }
-        .mobile-facets__label {
-          min-height: 4.4rem;
-          align-items: center;
-          cursor: pointer;
-          font-size: 1.5rem;
-        }
-        .mobile-facets__highlight { pointer-events: none; }
-        .mobile-facets__sort .select__select {
-          font-size: 1.6rem;
-          min-height: 4.4rem;
-        }
-        .mobile-facets__details .field__input,
-        .mobile-facets price-range input[type='number'] {
-          font-size: 1.6rem;
-        }
+      /* Trigger button — visible only on mobile */
+      .spmf-trigger-wrap {
+        margin: 1rem 0;
       }
+      .spmf-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        min-height: 4.4rem;
+        padding: 1rem 1.6rem;
+        background: rgb(var(--color-foreground));
+        color: rgb(var(--color-background));
+        border: none;
+        border-radius: var(--buttons-radius, 0);
+        font-size: 1.5rem;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .spmf-trigger-icon svg { width: 1.6rem; height: 1.6rem; }
+      .spmf-version {
+        font-size: 0.9rem;
+        opacity: 0.5;
+        margin-left: 0.6rem;
+        font-weight: 400;
+      }
+
+      /* Modal — hidden by default via [hidden]. Position fixed full viewport. */
+      .spmf-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+      }
+      .spmf-modal[hidden] { display: none !important; }
+      .spmf-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .spmf-panel {
+        position: relative;
+        margin-left: auto;
+        background: rgb(var(--color-background));
+        color: rgb(var(--color-foreground));
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      /* Header */
+      .spmf-header {
+        flex: 0 0 auto;
+        padding: 1.6rem 1.6rem 1.2rem;
+        border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+        position: relative;
+      }
+      .spmf-heading {
+        margin: 0 0 0.4rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .spmf-count {
+        margin: 0;
+        font-size: 1.3rem;
+        opacity: 0.7;
+      }
+      .spmf-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        width: 4.4rem;
+        height: 4.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: inherit;
+        font-family: inherit;
+      }
+      .spmf-close .svg-wrapper,
+      .spmf-close svg { width: 1.8rem; height: 1.8rem; }
+
+      /* Body (scrollable area containing rows) */
+      .spmf-body { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+      .spmf-rows { display: flex; flex-direction: column; }
+
+      /* Row */
+      .spmf-row {
+        border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+      }
+      .spmf-row-trigger {
+        width: 100%;
+        min-height: 5.4rem;
+        padding: 1.6rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        background: none;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 1.6rem;
+        color: inherit;
+      }
+      .spmf-row-label { flex: 1 1 auto; font-weight: 500; }
+      .spmf-row-arrow {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease;
+      }
+      .spmf-row-arrow svg { width: 1.4rem; height: 1.4rem; }
+      .spmf-row.is-open .spmf-row-arrow { transform: rotate(90deg); }
+
+      .spmf-row-content { padding: 0 1.6rem 1.6rem; }
+      .spmf-row-content[hidden] { display: none !important; }
+      .spmf-row-content .mobile-facets__list,
+      .spmf-row-content .facets-layout {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .spmf-row-content .mobile-facets__item { padding: 0; margin: 0; }
+      .spmf-row-content .mobile-facets__label,
+      .spmf-row-content .facets__label {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        min-height: 4.4rem;
+        padding: 0.4rem 0;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      .spmf-row-content .mobile-facets__highlight { display: none; }
+      .spmf-row-content .mobile-facets__checkbox {
+        width: 2rem;
+        height: 2rem;
+        margin: 0;
+      }
+      .spmf-row-clear {
+        margin-top: 1.2rem;
+        padding-top: 1rem;
+        border-top: 1px dashed rgba(var(--color-foreground), 0.1);
+      }
+      .spmf-row-clear-link { font-size: 1.3rem; }
+
+      /* Sort (no expand/collapse) */
+      .spmf-sort {
+        padding: 1.6rem;
+        border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+      }
+      .spmf-sort-label {
+        display: block;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.6rem;
+        opacity: 0.7;
+      }
+      .spmf-sort-select-wrap { position: relative; }
+      .spmf-sort-select {
+        width: 100%;
+        min-height: 4.4rem;
+        padding: 1rem 3rem 1rem 1rem;
+        font-size: 1.6rem;
+        font-family: inherit;
+        background: rgb(var(--color-background));
+        color: inherit;
+        border: 1px solid rgba(var(--color-foreground), 0.2);
+        border-radius: var(--inputs-radius, 0);
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .spmf-sort-select-wrap .svg-wrapper {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+
+      /* Footer (sticky apply/clear) */
+      .spmf-footer {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 1.2rem 1.6rem calc(1.2rem + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(var(--color-foreground), 0.1);
+        background: rgb(var(--color-background));
+      }
+      .spmf-clear-wrap { flex: 0 0 auto; }
+      .spmf-clear-all { font-size: 1.4rem; }
+      .spmf-apply { flex: 1 1 auto; min-height: 4.8rem; font-size: 1.5rem; }
+
+      /* Lock html scroll when modal open (body lock is handled in JS) */
+      html.spmf-modal-open { overflow: hidden; }
+
+      /* Hide any remnants of the old mobile facet drawer if it sneaks in */
+      .mobile-facets__wrapper { display: none !important; }
     </style>
   </head>
 
