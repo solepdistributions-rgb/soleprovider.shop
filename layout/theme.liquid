@@ -311,16 +311,56 @@
     </script>
 
     {%- comment -%}
-      Mobile filter JS — inlined because Shopify's asset CDN has been
-      serving stale sp-filter-fix.js for hours despite repeated pushes.
-      Inlining here renders per-request and bypasses the asset cache
-      entirely. Sets BOTH [open] (a11y) AND a custom .sp-open class on
-      tap (iOS Safari has a known bug where styles keyed off [open]
-      don't reliably recalc when toggled programmatically).
+      Mobile filter ALL-IN-ONE inline block. Inlined because Shopify's
+      asset CDN + Cloudflare were serving stale revisions of separate
+      asset files for HOURS, even after repeated pushes. theme.liquid
+      renders per-request, so this code is always fresh.
+
+      What it does:
+        1. Summary tap → toggle .sp-open + [open] on the parent <details>.
+           iOS Safari has a known bug where [open]-keyed CSS doesn't
+           recalc on JS toggle. .sp-open is the workaround.
+           Capture phase + stopImmediatePropagation blocks Dawn's
+           bubble-phase form click handler from also firing.
+        2. Body scroll lock when the outer drawer is open on mobile.
+           Fixes iOS Safari hit-test misrouting where taps on a
+           position:fixed overlay get routed to (scrollY + tapY) of
+           the underlying page.
+        3. Document-level capture click trap. Swallows any click
+           landing OUTSIDE the form while the drawer is open. Prevents
+           misrouted taps from reaching MenuDrawer.onSummaryClick on
+           the outer "Filter" summary, which would close the drawer.
+           X close button is exempted.
     {%- endcomment -%}
     <script>
       (function () {
         'use strict';
+
+        /* Body scroll lock */
+        var savedScrollY = 0;
+        var bodyLocked = false;
+        function lockBody() {
+          if (bodyLocked) return;
+          savedScrollY = window.scrollY || window.pageYOffset || 0;
+          document.body.style.position = 'fixed';
+          document.body.style.top = '-' + savedScrollY + 'px';
+          document.body.style.left = '0';
+          document.body.style.right = '0';
+          document.body.style.width = '100%';
+          bodyLocked = true;
+        }
+        function unlockBody() {
+          if (!bodyLocked) return;
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.left = '';
+          document.body.style.right = '';
+          document.body.style.width = '';
+          window.scrollTo(0, savedScrollY);
+          bodyLocked = false;
+        }
+
+        /* Filter row toggle */
         function setRowOpen(d, s, on) {
           if (on) {
             d.classList.add('sp-open');
@@ -348,10 +388,40 @@
           var nodes = root.querySelectorAll('details.mobile-facets__details > summary.mobile-facets__summary');
           for (var i = 0; i < nodes.length; i++) bindSummary(nodes[i]);
         }
+
+        /* Click trap — registered immediately so it's always active */
+        document.addEventListener('click', function (e) {
+          if (!window.matchMedia('(max-width: 749px)').matches) return;
+          var disc = document.querySelector('.mobile-facets__disclosure');
+          if (!disc || !disc.hasAttribute('open')) return;
+          var form = disc.querySelector('.mobile-facets');
+          if (!form) return;
+          var close = disc.querySelector('.mobile-facets__close');
+          if (close && close.contains(e.target)) return;
+          if (form.contains(e.target)) return;
+          e.stopImmediatePropagation();
+          e.preventDefault();
+        }, true);
+
         function init() {
           var disc = document.querySelector('.mobile-facets__disclosure');
           if (!disc) return;
           bindAll(disc);
+
+          function sync() {
+            if (disc.hasAttribute('open') && window.matchMedia('(max-width: 749px)').matches) {
+              lockBody();
+            } else {
+              unlockBody();
+            }
+          }
+          sync();
+
+          if (!disc.dataset.spLockObserver) {
+            disc.dataset.spLockObserver = '1';
+            new MutationObserver(sync).observe(disc, { attributes: true, attributeFilter: ['open'] });
+          }
+
           var grid = document.getElementById('FacetFiltersFormMobile');
           if (grid && grid.dataset.spfObs !== '1') {
             grid.dataset.spfObs = '1';
