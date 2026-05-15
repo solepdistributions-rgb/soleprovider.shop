@@ -437,7 +437,29 @@
             return;
           }
 
-          // 5. Inside the mobile filter form (checkbox label, input, etc):
+          // 5. Filter REMOVAL anchors (facet-remove > a) — explicitly
+          //    navigate to the href. Dawn's FacetRemove custom element
+          //    binds a click handler on these anchors that calls
+          //    preventDefault and does an AJAX removal via renderPage
+          //    (same hanging-AJAX path). Block Dawn's listener and
+          //    explicitly navigate so the page reloads cleanly with the
+          //    filter removed. Covers per-row "Clear" inside the modal,
+          //    the "Remove all" link at the modal footer, AND the
+          //    active-facet pills outside the modal.
+          var fra = t.closest('facet-remove a');
+          if (fra) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var href = fra.getAttribute('href');
+            if (href) {
+              var btn = document.querySelector('[data-spmf-apply]');
+              if (btn) { btn.disabled = true; btn.textContent = 'Loading…'; }
+              window.location.href = href;
+            }
+            return;
+          }
+
+          // 6. Inside the mobile filter form (checkbox label, input, etc):
           //    stopImmediatePropagation (NOT preventDefault). Dawn's
           //    FacetFiltersForm binds CLICK + CHANGE + INPUT handlers on
           //    the form that auto-submit via AJAX on every interaction.
@@ -452,7 +474,7 @@
             return;
           }
 
-          // 6. Desktop sidebar: <summary> clicks inside ANY facet-filters-form
+          // 7. Desktop sidebar: <summary> clicks inside ANY facet-filters-form
           //    need to expand the parent <details>. Dawn's form click handler
           //    (bubble phase) calls preventDefault on every click — including
           //    summary clicks — which cancels the browser's native
