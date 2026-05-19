@@ -8,20 +8,33 @@
 <style>
   #sph-bubble{position:fixed;right:18px;bottom:18px;z-index:9998;background:#c41230;color:#fff;border:none;border-radius:999px;padding:13px 18px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;gap:8px}
   #sph-bubble:hover{background:#a50f28}
-  #sph-panel{position:fixed;right:18px;bottom:18px;z-index:9999;width:370px;max-width:calc(100vw - 24px);height:540px;max-height:calc(100vh - 36px);background:#fff;border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.32);display:none;flex-direction:column;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+  #sph-bubble .sph-bub-long{display:inline}
+  #sph-bubble .sph-bub-short{display:none}
+  @media (max-width:520px){
+    #sph-bubble{padding:12px 14px;font-size:13.5px}
+    #sph-bubble .sph-bub-long{display:none}
+    #sph-bubble .sph-bub-short{display:inline}
+  }
+  #sph-panel{position:fixed;right:18px;bottom:18px;z-index:9999;width:380px;max-width:calc(100vw - 24px);height:580px;max-height:calc(100vh - 36px);background:#fff;border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.32);display:none;flex-direction:column;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
   #sph-panel.sph-open{display:flex}
-  #sph-head{background:#111;color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+  #sph-head{background:#111;color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+  #sph-head .sph-htext{flex:1;min-width:0}
   #sph-head .sph-t{font-weight:800;font-size:15px;letter-spacing:.3px}
   #sph-head .sph-s{font-size:11px;color:#bbb;margin-top:2px}
-  #sph-close{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+  #sph-head .sph-hbtns{display:flex;align-items:center;gap:4px}
+  #sph-reset,#sph-close{background:none;border:none;color:#fff;cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px}
+  #sph-reset{font-size:14px;opacity:.7}
+  #sph-reset:hover,#sph-close:hover{background:rgba(255,255,255,.1);opacity:1}
+  #sph-close{font-size:22px}
   #sph-msgs{flex:1;overflow-y:auto;padding:14px;background:#f5f5f5}
   .sph-row{margin-bottom:12px;display:flex}
   .sph-row.sph-user{justify-content:flex-end}
-  .sph-b{max-width:84%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.5}
+  .sph-b{max-width:84%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.5;word-wrap:break-word}
   .sph-user .sph-b{background:#c41230;color:#fff;border-bottom-right-radius:3px}
   .sph-ai .sph-b{background:#fff;color:#222;border:1px solid #e3e3e3;border-bottom-left-radius:3px}
   .sph-cards{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
-  .sph-card{width:calc(50% - 4px);background:#fff;border:1px solid #e3e3e3;border-radius:9px;overflow:hidden;text-decoration:none;color:#222}
+  .sph-card{width:calc(50% - 4px);background:#fff;border:1px solid #e3e3e3;border-radius:9px;overflow:hidden;text-decoration:none;color:#222;transition:transform .12s,box-shadow .12s}
+  .sph-card:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.08)}
   .sph-card img{width:100%;height:96px;object-fit:cover;display:block;background:#eee}
   .sph-card .sph-ct{padding:6px 8px}
   .sph-card .sph-cn{font-size:11.5px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
@@ -30,6 +43,17 @@
   .sph-shop{display:block;margin:8px 0 2px;background:#c41230;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:8px;text-align:center}
   .sph-shop:hover{background:#a50f28}
   .sph-quote{display:inline-block;margin-top:8px;background:#111;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:8px}
+  .sph-empty{margin-top:6px;font-size:11.5px;color:#888;font-style:italic}
+  /* Animated typing dots. */
+  .sph-dots{display:inline-flex;align-items:center;gap:3px;padding:2px 0}
+  .sph-dots span{width:6px;height:6px;border-radius:50%;background:#bbb;display:inline-block;animation:sphbounce 1.2s infinite ease-in-out}
+  .sph-dots span:nth-child(2){animation-delay:.15s}
+  .sph-dots span:nth-child(3){animation-delay:.3s}
+  @keyframes sphbounce{0%,80%,100%{transform:scale(.5);opacity:.4}40%{transform:scale(1);opacity:1}}
+  /* Starter chips — quick prompts that auto-hide after the first user msg. */
+  #sph-chips{display:flex;gap:6px;padding:8px 10px 0;flex-wrap:wrap;background:#fff;border-top:1px solid #f0f0f0}
+  .sph-chip{background:#f5f5f5;color:#222;border:1px solid #e3e3e3;border-radius:999px;font-size:12px;font-weight:600;padding:6px 11px;cursor:pointer;font-family:inherit;white-space:nowrap}
+  .sph-chip:hover{background:#fde2e6;border-color:#c41230;color:#c41230}
   #sph-foot{border-top:1px solid #e3e3e3;padding:10px;display:flex;gap:8px;background:#fff}
   #sph-in{flex:1;border:1px solid #ccc;border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;outline:none}
   #sph-in:focus{border-color:#c41230}
@@ -37,17 +61,24 @@
   #sph-send:disabled{opacity:.5;cursor:default}
 </style>
 
-<button id="sph-bubble" aria-label="Open product helper">💬 Need help finding something?</button>
+<button id="sph-bubble" aria-label="Open product helper">
+  <span class="sph-bub-long">💬 Need help finding something?</span>
+  <span class="sph-bub-short">💬 Help</span>
+</button>
 
 <div id="sph-panel" role="dialog" aria-label="Product helper">
   <div id="sph-head">
-    <div>
+    <div class="sph-htext">
       <div class="sph-t">The Sole Provider</div>
       <div class="sph-s">Tell me what you're looking for</div>
     </div>
-    <button id="sph-close" aria-label="Close">&times;</button>
+    <div class="sph-hbtns">
+      <button id="sph-reset" aria-label="Start over" title="Start a new chat">↻</button>
+      <button id="sph-close" aria-label="Close">&times;</button>
+    </div>
   </div>
-  <div id="sph-msgs"></div>
+  <div id="sph-msgs" aria-live="polite" aria-atomic="false"></div>
+  <div id="sph-chips" aria-label="Quick prompts"></div>
   <div id="sph-foot">
     <input id="sph-in" type="text" placeholder="e.g. hoodies for my team" maxlength="300" autocomplete="off">
     <button id="sph-send">Send</button>
@@ -58,13 +89,16 @@
 (function(){
   var ENDPOINT = 'https://sp-tools-production.up.railway.app/api/site-helper';
   var SKEY = 'sph_convo_v1';
-  var bubble = document.getElementById('sph-bubble');
-  var panel  = document.getElementById('sph-panel');
-  var msgs   = document.getElementById('sph-msgs');
-  var input  = document.getElementById('sph-in');
-  var send   = document.getElementById('sph-send');
-  var GREETING = "Hey, I'm here to help you find what you need. Tell me what you're after and I'll pull up some options.";
-  var convo = [];      // [{t:'user',text} | {t:'ai',reply,suggestions,wants_quote}]
+  var bubble   = document.getElementById('sph-bubble');
+  var panel    = document.getElementById('sph-panel');
+  var msgs     = document.getElementById('sph-msgs');
+  var input    = document.getElementById('sph-in');
+  var send     = document.getElementById('sph-send');
+  var chips    = document.getElementById('sph-chips');
+  var resetBtn = document.getElementById('sph-reset');
+  var GREETING = "Hey, I'm here to help you find what you need. Tell me what you're looking for and I'll pull up some options.";
+  var STARTER_CHIPS = ['Show top sellers', 'Team apparel', 'Promo gifts', 'I want a custom quote'];
+  var convo  = [];     // [{t:'user',text} | {t:'ai',reply,suggestions,wants_quote}]
   var isOpen = false;
 
   function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -72,6 +106,42 @@
   // Persist the chat so it survives the visitor clicking to a product page.
   function persist(){
     try { sessionStorage.setItem(SKEY, JSON.stringify({ open:isOpen, convo:convo })); } catch(e){}
+  }
+
+  // Starter chips — one-tap prompts when the chat is fresh. Auto-hide once
+  // the visitor sends their first message.
+  function renderChips(){
+    if (!chips) return;
+    chips.innerHTML = '';
+    STARTER_CHIPS.forEach(function(p){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sph-chip';
+      b.textContent = p;
+      b.addEventListener('click', function(){ hideChips(); ask(p); });
+      chips.appendChild(b);
+    });
+    chips.style.display = 'flex';
+  }
+  function hideChips(){ if (chips) chips.style.display = 'none'; }
+
+  // Clear the conversation and start fresh. Triggered by the ↻ button.
+  function reset(){
+    convo = [];
+    try { sessionStorage.removeItem(SKEY); } catch(e){}
+    msgs.innerHTML = '';
+    isOpen = true;
+    pushEntry({ t:'ai', reply:GREETING, suggestions:[], wants_quote:false });
+    renderChips();
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+
+  // Current page context — sent with each message so the AI can answer
+  // page-specific questions ("what sizes does THIS come in?", etc.).
+  function pageContext(){
+    try {
+      return { path: window.location.pathname, title: document.title || '' };
+    } catch (e) { return {}; }
   }
 
   function fmtPrice(p){
@@ -132,7 +202,7 @@
       // Swap the Shop button to a search URL so it can't 404.
       var q = sug.query || sug.label || '';
       if(q) shop.href = '/search?q=' + encodeURIComponent(q);
-      if(!q) return;
+      if(!q) { showEmpty(); return; }
       fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=4', { headers:{ 'Accept':'application/json' } })
         .then(function(r){ return r.json(); })
         .then(function(d){
@@ -141,9 +211,19 @@
                      image:(p.featured_image&&p.featured_image.url)||p.image||'',
                      price:fmtPrice(p.price) };
           });
-          renderCards(items);
+          if (items.length) renderCards(items);
+          else showEmpty();
         })
-        .catch(function(){});
+        .catch(showEmpty);
+    }
+
+    function showEmpty(){
+      if (wrap.querySelector('.sph-empty')) return;
+      var n = document.createElement('div');
+      n.className = 'sph-empty';
+      n.textContent = "Couldn't pull up exact matches. Tap Shop above to browse, or ask me for a quote.";
+      wrap.appendChild(n);
+      msgs.scrollTop = msgs.scrollHeight;
     }
 
     if(sug.collection){
@@ -202,20 +282,21 @@
   }
 
   function ask(text){
+    hideChips();
     pushEntry({ t:'user', text:text });
     var hist = apiHistory().slice(0, -1); // exclude the just-added message
     var typing = rowEl('ai');
     typing.parentElement.setAttribute('data-typing','1');
-    typing.innerHTML = '<em style="color:#999">looking…</em>';
+    typing.innerHTML = '<span class="sph-dots"><span></span><span></span><span></span></span>';
     msgs.scrollTop = msgs.scrollHeight;
     // 25s ceiling so a slow/dead endpoint can't leave the visitor staring
-    // at "looking…" forever — they get a friendly error and can try again.
+    // forever — they get a friendly error and can try again.
     var ctrl = ('AbortController' in window) ? new AbortController() : null;
     var timer = setTimeout(function(){ if(ctrl) try{ ctrl.abort(); }catch(e){} }, 25000);
     var dropTyping = function(){ var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove(); };
     fetch(ENDPOINT, {
       method:'POST', headers:{ 'Content-Type':'application/json' },
-      body: JSON.stringify({ message:text, history:hist }),
+      body: JSON.stringify({ message:text, history:hist, page:pageContext() }),
       signal: ctrl ? ctrl.signal : undefined
     })
     .then(function(r){ return r.json(); })
@@ -245,8 +326,15 @@
     isOpen = true;
     panel.classList.add('sph-open');
     bubble.style.display = 'none';
-    if(!convo.length){ pushEntry({ t:'ai', reply:GREETING, suggestions:[], wants_quote:false }); }
-    else persist();
+    if(!convo.length){
+      pushEntry({ t:'ai', reply:GREETING, suggestions:[], wants_quote:false });
+      renderChips();
+    } else {
+      persist();
+      // Show chips only when the visitor hasn't asked anything yet.
+      var hasUserMsg = convo.some(function(e){ return e.t === 'user'; });
+      if (hasUserMsg) hideChips(); else renderChips();
+    }
     setTimeout(function(){ input.focus(); }, 50);
   }
   function close(){
@@ -265,6 +353,7 @@
 
   bubble.addEventListener('click', open);
   document.getElementById('sph-close').addEventListener('click', close);
+  if (resetBtn) resetBtn.addEventListener('click', reset);
   send.addEventListener('click', submit);
   input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); submit(); } });
 
@@ -275,11 +364,17 @@
     if(saved && Array.isArray(saved.convo) && saved.convo.length){
       convo = saved.convo;
       convo.forEach(renderEntry);
-      if(saved.open){
+      var hasUserMsg = convo.some(function(e){ return e.t === 'user'; });
+      if (saved.open){
         isOpen = true;
         panel.classList.add('sph-open');
         bubble.style.display = 'none';
+        if (hasUserMsg) hideChips(); else renderChips();
+      } else {
+        hideChips();
       }
+    } else {
+      hideChips(); // no convo yet, chips render on first open()
     }
   })();
 })();
