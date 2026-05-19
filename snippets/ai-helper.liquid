@@ -93,8 +93,10 @@
     return '/search?q=' + encodeURIComponent(sug.query || '');
   }
 
-  // Render one suggestion: a "Shop" button that takes the visitor to the
-  // right collection with filters applied, plus a few top-item preview cards.
+  // Render one suggestion: a "Shop" button into the right collection with
+  // filters, plus a few top-item preview cards. If the collection 404s or
+  // is empty, fall back to a plain search so the visitor never lands on a
+  // dead page.
   function showSuggestion(container, sug){
     var grp = document.createElement('div');
     grp.className = 'sph-grp';
@@ -112,39 +114,54 @@
     container.appendChild(wrap);
     msgs.scrollTop = msgs.scrollHeight;
 
-    var fetchUrl = sug.collection
-      ? '/collections/' + encodeURIComponent(sug.collection) + '/products.json?limit=4'
-      : '/search/suggest.json?q=' + encodeURIComponent(sug.query||'') + '&resources[type]=product&resources[limit]=4';
-    fetch(fetchUrl, { headers:{ 'Accept':'application/json' } })
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        var items = [];
-        if(d && d.products){ // collection products.json
-          items = d.products.map(function(p){
-            return { title:p.title, url:'/products/'+p.handle,
-                     image:(p.images&&p.images[0]&&(p.images[0].src||p.images[0]))||'',
-                     price:fmtPrice(p.variants&&p.variants[0]&&p.variants[0].price) };
-          });
-        } else if(d && d.resources && d.resources.results){ // predictive search
-          items = (d.resources.results.products||[]).map(function(p){
+    function renderCards(items){
+      items.slice(0,4).forEach(function(p){
+        var a = document.createElement('a');
+        a.className = 'sph-card';
+        a.href = p.url;
+        a.innerHTML =
+          (p.image ? '<img loading="lazy" src="' + esc(p.image) + '" alt="">' : '') +
+          '<div class="sph-ct"><div class="sph-cn">' + esc(p.title) + '</div>' +
+          (p.price ? '<div class="sph-cp">' + esc(p.price) + '</div>' : '') + '</div>';
+        wrap.appendChild(a);
+      });
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function searchFallback(){
+      // Swap the Shop button to a search URL so it can't 404.
+      var q = sug.query || sug.label || '';
+      if(q) shop.href = '/search?q=' + encodeURIComponent(q);
+      if(!q) return;
+      fetch('/search/suggest.json?q=' + encodeURIComponent(q) + '&resources[type]=product&resources[limit]=4', { headers:{ 'Accept':'application/json' } })
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          var items = ((d && d.resources && d.resources.results && d.resources.results.products) || []).map(function(p){
             return { title:p.title, url:p.url,
                      image:(p.featured_image&&p.featured_image.url)||p.image||'',
                      price:fmtPrice(p.price) };
           });
-        }
-        items.slice(0,4).forEach(function(p){
-          var a = document.createElement('a');
-          a.className = 'sph-card';
-          a.href = p.url;
-          a.innerHTML =
-            (p.image ? '<img loading="lazy" src="' + esc(p.image) + '" alt="">' : '') +
-            '<div class="sph-ct"><div class="sph-cn">' + esc(p.title) + '</div>' +
-            (p.price ? '<div class="sph-cp">' + esc(p.price) + '</div>' : '') + '</div>';
-          wrap.appendChild(a);
-        });
-        msgs.scrollTop = msgs.scrollHeight;
-      })
-      .catch(function(){});
+          renderCards(items);
+        })
+        .catch(function(){});
+    }
+
+    if(sug.collection){
+      fetch('/collections/' + encodeURIComponent(sug.collection) + '/products.json?limit=4', { headers:{ 'Accept':'application/json' } })
+        .then(function(r){ if(!r.ok) throw new Error('bad collection'); return r.json(); })
+        .then(function(d){
+          var items = ((d && d.products) || []).map(function(p){
+            return { title:p.title, url:'/products/'+p.handle,
+                     image:(p.images&&p.images[0]&&(p.images[0].src||p.images[0]))||'',
+                     price:fmtPrice(p.variants&&p.variants[0]&&p.variants[0].price) };
+          });
+          if(items.length) renderCards(items);
+          else searchFallback();
+        })
+        .catch(searchFallback);
+    } else {
+      searchFallback();
+    }
   }
 
   function rowEl(who){
@@ -217,8 +234,8 @@
       pushEntry({
         t:'ai',
         reply: aborted
-          ? "That took longer than expected. Give it another try, or reach us through the contact page."
-          : "I had trouble there. Try again, or reach us through the contact page.",
+          ? "That took longer than expected. Give it another try in a moment."
+          : "I had trouble there. Try again in a moment.",
         suggestions: [], wants_quote: false
       });
     });
