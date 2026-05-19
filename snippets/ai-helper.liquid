@@ -1,0 +1,256 @@
+{%- comment -%}
+  AI product helper — a floating chat bubble on every storefront page.
+  The visitor describes what they want; the SP Tools endpoint turns that into
+  a friendly reply plus product searches, which we run against the store's own
+  predictive search and show as product cards. Self-contained snippet; render
+  it once near the end of layout/theme.liquid.
+{%- endcomment -%}
+<style>
+  #sph-bubble{position:fixed;right:18px;bottom:18px;z-index:9998;background:#c41230;color:#fff;border:none;border-radius:999px;padding:13px 18px;font-weight:700;font-size:14px;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;gap:8px}
+  #sph-bubble:hover{background:#a50f28}
+  #sph-panel{position:fixed;right:18px;bottom:18px;z-index:9999;width:370px;max-width:calc(100vw - 24px);height:540px;max-height:calc(100vh - 36px);background:#fff;border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.32);display:none;flex-direction:column;overflow:hidden;font-family:Arial,Helvetica,sans-serif}
+  #sph-panel.sph-open{display:flex}
+  #sph-head{background:#111;color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+  #sph-head .sph-t{font-weight:800;font-size:15px;letter-spacing:.3px}
+  #sph-head .sph-s{font-size:11px;color:#bbb;margin-top:2px}
+  #sph-close{background:none;border:none;color:#fff;font-size:22px;cursor:pointer;line-height:1}
+  #sph-msgs{flex:1;overflow-y:auto;padding:14px;background:#f5f5f5}
+  .sph-row{margin-bottom:12px;display:flex}
+  .sph-row.sph-user{justify-content:flex-end}
+  .sph-b{max-width:84%;padding:9px 12px;border-radius:12px;font-size:13.5px;line-height:1.5}
+  .sph-user .sph-b{background:#c41230;color:#fff;border-bottom-right-radius:3px}
+  .sph-ai .sph-b{background:#fff;color:#222;border:1px solid #e3e3e3;border-bottom-left-radius:3px}
+  .sph-cards{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .sph-card{width:calc(50% - 4px);background:#fff;border:1px solid #e3e3e3;border-radius:9px;overflow:hidden;text-decoration:none;color:#222}
+  .sph-card img{width:100%;height:96px;object-fit:cover;display:block;background:#eee}
+  .sph-card .sph-ct{padding:6px 8px}
+  .sph-card .sph-cn{font-size:11.5px;font-weight:700;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .sph-card .sph-cp{font-size:11.5px;color:#c41230;font-weight:700;margin-top:2px}
+  .sph-grp{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#888;margin:10px 0 4px}
+  .sph-shop{display:block;margin:8px 0 2px;background:#c41230;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:9px 14px;border-radius:8px;text-align:center}
+  .sph-shop:hover{background:#a50f28}
+  .sph-quote{display:inline-block;margin-top:8px;background:#111;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:8px}
+  #sph-foot{border-top:1px solid #e3e3e3;padding:10px;display:flex;gap:8px;background:#fff}
+  #sph-in{flex:1;border:1px solid #ccc;border-radius:8px;padding:9px 11px;font-size:13.5px;font-family:inherit;outline:none}
+  #sph-in:focus{border-color:#c41230}
+  #sph-send{background:#c41230;color:#fff;border:none;border-radius:8px;padding:0 14px;font-weight:700;cursor:pointer;font-size:13px}
+  #sph-send:disabled{opacity:.5;cursor:default}
+</style>
+
+<button id="sph-bubble" aria-label="Open product helper">💬 Need help finding something?</button>
+
+<div id="sph-panel" role="dialog" aria-label="Product helper">
+  <div id="sph-head">
+    <div>
+      <div class="sph-t">The Sole Provider</div>
+      <div class="sph-s">Tell me what you're looking for</div>
+    </div>
+    <button id="sph-close" aria-label="Close">&times;</button>
+  </div>
+  <div id="sph-msgs"></div>
+  <div id="sph-foot">
+    <input id="sph-in" type="text" placeholder="e.g. hoodies for my team" maxlength="300" autocomplete="off">
+    <button id="sph-send">Send</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ENDPOINT = 'https://sp-tools-production.up.railway.app/api/site-helper';
+  var SKEY = 'sph_convo_v1';
+  var bubble = document.getElementById('sph-bubble');
+  var panel  = document.getElementById('sph-panel');
+  var msgs   = document.getElementById('sph-msgs');
+  var input  = document.getElementById('sph-in');
+  var send   = document.getElementById('sph-send');
+  var GREETING = "Hey, I'm here to help you find what you need. Tell me what you're after and I'll pull up some options.";
+  var convo = [];      // [{t:'user',text} | {t:'ai',reply,suggestions,wants_quote}]
+  var isOpen = false;
+
+  function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  // Persist the chat so it survives the visitor clicking to a product page.
+  function persist(){
+    try { sessionStorage.setItem(SKEY, JSON.stringify({ open:isOpen, convo:convo })); } catch(e){}
+  }
+
+  function fmtPrice(p){
+    if(p==null||p==='') return '';
+    if(typeof p==='string' && p.indexOf('$')>=0) return p; // already formatted
+    var n = parseFloat(p);
+    return isNaN(n) ? '' : '$' + n.toFixed(2);
+  }
+
+  // Build the filtered, best-selling-sorted collection URL for a suggestion.
+  function collectionUrl(sug){
+    if(sug.collection){
+      var u = '/collections/' + encodeURIComponent(sug.collection) + '?sort_by=best-selling';
+      var f = sug.filters || {};
+      if(f.color) u += '&filter.v.option.color=' + encodeURIComponent(f.color);
+      if(f.size)  u += '&filter.v.option.size='  + encodeURIComponent(f.size);
+      return u;
+    }
+    return '/search?q=' + encodeURIComponent(sug.query || '');
+  }
+
+  // Render one suggestion: a "Shop" button that takes the visitor to the
+  // right collection with filters applied, plus a few top-item preview cards.
+  function showSuggestion(container, sug){
+    var grp = document.createElement('div');
+    grp.className = 'sph-grp';
+    grp.textContent = sug.label;
+    container.appendChild(grp);
+
+    var shop = document.createElement('a');
+    shop.className = 'sph-shop';
+    shop.href = collectionUrl(sug);
+    shop.textContent = 'Shop ' + sug.label + ' →';
+    container.appendChild(shop);
+
+    var wrap = document.createElement('div');
+    wrap.className = 'sph-cards';
+    container.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+
+    var fetchUrl = sug.collection
+      ? '/collections/' + encodeURIComponent(sug.collection) + '/products.json?limit=4'
+      : '/search/suggest.json?q=' + encodeURIComponent(sug.query||'') + '&resources[type]=product&resources[limit]=4';
+    fetch(fetchUrl, { headers:{ 'Accept':'application/json' } })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        var items = [];
+        if(d && d.products){ // collection products.json
+          items = d.products.map(function(p){
+            return { title:p.title, url:'/products/'+p.handle,
+                     image:(p.images&&p.images[0]&&(p.images[0].src||p.images[0]))||'',
+                     price:fmtPrice(p.variants&&p.variants[0]&&p.variants[0].price) };
+          });
+        } else if(d && d.resources && d.resources.results){ // predictive search
+          items = (d.resources.results.products||[]).map(function(p){
+            return { title:p.title, url:p.url,
+                     image:(p.featured_image&&p.featured_image.url)||p.image||'',
+                     price:fmtPrice(p.price) };
+          });
+        }
+        items.slice(0,4).forEach(function(p){
+          var a = document.createElement('a');
+          a.className = 'sph-card';
+          a.href = p.url;
+          a.innerHTML =
+            (p.image ? '<img loading="lazy" src="' + esc(p.image) + '" alt="">' : '') +
+            '<div class="sph-ct"><div class="sph-cn">' + esc(p.title) + '</div>' +
+            (p.price ? '<div class="sph-cp">' + esc(p.price) + '</div>' : '') + '</div>';
+          wrap.appendChild(a);
+        });
+        msgs.scrollTop = msgs.scrollHeight;
+      })
+      .catch(function(){});
+  }
+
+  function rowEl(who){
+    var r = document.createElement('div');
+    r.className = 'sph-row sph-' + who;
+    var b = document.createElement('div');
+    b.className = 'sph-b';
+    r.appendChild(b);
+    msgs.appendChild(r);
+    return b;
+  }
+
+  // Render one stored conversation entry into the panel.
+  function renderEntry(e){
+    if(e.t === 'user'){
+      rowEl('user').textContent = e.text || '';
+    } else {
+      var body = rowEl('ai');
+      body.appendChild(document.createTextNode(e.reply || ''));
+      (e.suggestions || []).forEach(function(s){ showSuggestion(body, s); });
+      if(e.wants_quote){
+        var q = document.createElement('a');
+        q.className = 'sph-quote';
+        q.href = '/pages/request-quote';
+        q.textContent = 'Request a quote →';
+        body.appendChild(q);
+      }
+    }
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function pushEntry(e){ convo.push(e); renderEntry(e); persist(); }
+
+  function apiHistory(){
+    return convo
+      .filter(function(e){ return e.t === 'user' ? e.text : e.reply; })
+      .map(function(e){ return { role: e.t === 'user' ? 'user' : 'assistant', content: e.t === 'user' ? e.text : e.reply }; });
+  }
+
+  function ask(text){
+    pushEntry({ t:'user', text:text });
+    var hist = apiHistory().slice(0, -1); // exclude the just-added message
+    var typing = rowEl('ai');
+    typing.parentElement.setAttribute('data-typing','1');
+    typing.innerHTML = '<em style="color:#999">looking…</em>';
+    msgs.scrollTop = msgs.scrollHeight;
+    fetch(ENDPOINT, {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ message:text, history:hist })
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove();
+      pushEntry({
+        t:'ai',
+        reply: (d && d.reply) || "Tell me a little more and I'll point you the right way.",
+        suggestions: (d && d.suggestions) || [],
+        wants_quote: !!(d && d.wants_quote)
+      });
+    })
+    .catch(function(){
+      var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove();
+      pushEntry({ t:'ai', reply:"I had trouble there. Try again, or reach us through the contact page.", suggestions:[], wants_quote:false });
+    });
+  }
+
+  function open(){
+    isOpen = true;
+    panel.classList.add('sph-open');
+    bubble.style.display = 'none';
+    if(!convo.length){ pushEntry({ t:'ai', reply:GREETING, suggestions:[], wants_quote:false }); }
+    else persist();
+    setTimeout(function(){ input.focus(); }, 50);
+  }
+  function close(){
+    isOpen = false;
+    panel.classList.remove('sph-open');
+    bubble.style.display = 'flex';
+    persist();
+  }
+
+  function submit(){
+    var t = input.value.trim();
+    if(!t) return;
+    input.value = '';
+    ask(t);
+  }
+
+  bubble.addEventListener('click', open);
+  document.getElementById('sph-close').addEventListener('click', close);
+  send.addEventListener('click', submit);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); submit(); } });
+
+  // Restore the conversation after a page navigation so the chat continues.
+  (function restore(){
+    var saved = null;
+    try { saved = JSON.parse(sessionStorage.getItem(SKEY) || 'null'); } catch(e){}
+    if(saved && Array.isArray(saved.convo) && saved.convo.length){
+      convo = saved.convo;
+      convo.forEach(renderEntry);
+      if(saved.open){
+        isOpen = true;
+        panel.classList.add('sph-open');
+        bubble.style.display = 'none';
+      }
+    }
+  })();
+})();
+</script>
