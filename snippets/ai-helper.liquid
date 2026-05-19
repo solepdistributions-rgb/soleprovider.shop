@@ -191,13 +191,19 @@
     typing.parentElement.setAttribute('data-typing','1');
     typing.innerHTML = '<em style="color:#999">looking…</em>';
     msgs.scrollTop = msgs.scrollHeight;
+    // 25s ceiling so a slow/dead endpoint can't leave the visitor staring
+    // at "looking…" forever — they get a friendly error and can try again.
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function(){ if(ctrl) try{ ctrl.abort(); }catch(e){} }, 25000);
+    var dropTyping = function(){ var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove(); };
     fetch(ENDPOINT, {
       method:'POST', headers:{ 'Content-Type':'application/json' },
-      body: JSON.stringify({ message:text, history:hist })
+      body: JSON.stringify({ message:text, history:hist }),
+      signal: ctrl ? ctrl.signal : undefined
     })
     .then(function(r){ return r.json(); })
     .then(function(d){
-      var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove();
+      clearTimeout(timer); dropTyping();
       pushEntry({
         t:'ai',
         reply: (d && d.reply) || "Tell me a little more and I'll point you the right way.",
@@ -205,9 +211,16 @@
         wants_quote: !!(d && d.wants_quote)
       });
     })
-    .catch(function(){
-      var tn = msgs.querySelector('[data-typing]'); if(tn) tn.remove();
-      pushEntry({ t:'ai', reply:"I had trouble there. Try again, or reach us through the contact page.", suggestions:[], wants_quote:false });
+    .catch(function(err){
+      clearTimeout(timer); dropTyping();
+      var aborted = err && (err.name === 'AbortError' || /abort/i.test(err.message || ''));
+      pushEntry({
+        t:'ai',
+        reply: aborted
+          ? "That took longer than expected. Give it another try, or reach us through the contact page."
+          : "I had trouble there. Try again, or reach us through the contact page.",
+        suggestions: [], wants_quote: false
+      });
     });
   }
 
