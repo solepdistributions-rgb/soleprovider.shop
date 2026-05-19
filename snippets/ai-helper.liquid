@@ -44,6 +44,10 @@
   .sph-shop:hover{background:#a50f28}
   .sph-quote{display:inline-block;margin-top:8px;background:#111;color:#fff;text-decoration:none;font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:8px}
   .sph-empty{margin-top:6px;font-size:11.5px;color:#888;font-style:italic}
+  /* Offline / "under construction" banner. */
+  #sph-offline{display:none;background:#fef3c7;color:#92400e;border-bottom:1px solid #fde68a;padding:9px 12px;font-size:12.5px;font-weight:600;text-align:center;line-height:1.45}
+  #sph-offline.sph-on{display:block}
+  #sph-offline a{color:#7c2d12;text-decoration:underline;font-weight:800}
   /* Animated typing dots. */
   .sph-dots{display:inline-flex;align-items:center;gap:3px;padding:2px 0}
   .sph-dots span{width:6px;height:6px;border-radius:50%;background:#bbb;display:inline-block;animation:sphbounce 1.2s infinite ease-in-out}
@@ -77,6 +81,7 @@
       <button id="sph-close" aria-label="Close">&times;</button>
     </div>
   </div>
+  <div id="sph-offline" role="alert">🛠 The helper is offline right now. <a href="/pages/request-quote">Request a quote →</a></div>
   <div id="sph-msgs" aria-live="polite" aria-atomic="false"></div>
   <div id="sph-chips" aria-label="Quick prompts"></div>
   <div id="sph-foot">
@@ -96,6 +101,8 @@
   var send     = document.getElementById('sph-send');
   var chips    = document.getElementById('sph-chips');
   var resetBtn = document.getElementById('sph-reset');
+  var offline  = document.getElementById('sph-offline');
+  var HEALTH   = ENDPOINT + '/health';
   var GREETING = "Hey, I'm here to help you find what you need. Tell me what you're looking for and I'll pull up some options.";
   var STARTER_CHIPS = ['Show top sellers', 'Team apparel', 'Promo gifts', 'I want a custom quote'];
   var convo  = [];     // [{t:'user',text} | {t:'ai',reply,suggestions,wants_quote}]
@@ -142,6 +149,25 @@
     try {
       return { path: window.location.pathname, title: document.title || '' };
     } catch (e) { return {}; }
+  }
+
+  // Toggle the "under construction" banner + input availability when the
+  // SP Tools endpoint is unreachable (Railway hiccup, etc.).
+  function setOnline(ok){
+    if (offline) offline.classList.toggle('sph-on', !ok);
+    if (input)   { input.disabled = !ok; input.placeholder = ok ? 'e.g. hoodies for my team' : 'Helper is offline — try again in a bit'; }
+    if (send)    send.disabled = !ok;
+    if (chips && !ok) hideChips();
+  }
+
+  // Quick health probe so we know up front whether to show the banner
+  // instead of letting the visitor type a message and wait for it to fail.
+  function checkHealth(){
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var timer = setTimeout(function(){ if (ctrl) try { ctrl.abort(); } catch(e){} }, 5000);
+    fetch(HEALTH, { signal: ctrl ? ctrl.signal : undefined, headers:{ 'Accept':'application/json' } })
+      .then(function(r){ clearTimeout(timer); setOnline(r && r.ok); })
+      .catch(function(){ clearTimeout(timer); setOnline(false); });
   }
 
   function fmtPrice(p){
@@ -302,6 +328,7 @@
     .then(function(r){ return r.json(); })
     .then(function(d){
       clearTimeout(timer); dropTyping();
+      setOnline(true); // a real response means the endpoint is back
       pushEntry({
         t:'ai',
         reply: (d && d.reply) || "Tell me a little more and I'll point you the right way.",
@@ -311,12 +338,13 @@
     })
     .catch(function(err){
       clearTimeout(timer); dropTyping();
+      setOnline(false); // surface the offline banner — the endpoint is down
       var aborted = err && (err.name === 'AbortError' || /abort/i.test(err.message || ''));
       pushEntry({
         t:'ai',
         reply: aborted
-          ? "That took longer than expected. Give it another try in a moment."
-          : "I had trouble there. Try again in a moment.",
+          ? "That took longer than expected. The helper looks offline. Try again in a bit, or request a quote and we'll help directly."
+          : "I'm offline at the moment. Browse the shop or request a quote and we'll help directly.",
         suggestions: [], wants_quote: false
       });
     });
@@ -331,10 +359,10 @@
       renderChips();
     } else {
       persist();
-      // Show chips only when the visitor hasn't asked anything yet.
       var hasUserMsg = convo.some(function(e){ return e.t === 'user'; });
       if (hasUserMsg) hideChips(); else renderChips();
     }
+    checkHealth(); // surface the offline banner if the endpoint is down
     setTimeout(function(){ input.focus(); }, 50);
   }
   function close(){
