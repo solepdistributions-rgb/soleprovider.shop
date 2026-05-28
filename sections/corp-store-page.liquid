@@ -1,0 +1,258 @@
+{%- comment -%}
+  Corporate store page section.
+
+  Renders a private branded storefront for one corporate-store client.
+  The Shopify page handle drives which store: e.g. /pages/store-acme-corp
+  loads the 'acme-corp' store config from SP Tools and shows products in
+  the auto-generated 'corp-store-acme-corp' smart collection.
+
+  Page handle convention: must start with 'store-'. The slug after the
+  prefix is the corp-store slug from SP Tools.
+
+  Flow:
+   1. Liquid renders the product grid from the per-store smart collection
+      (those products were created by SP Tools' duplicateProductForStore).
+   2. JS fetches /api/corp/by-slug/:slug for branding (logo, accent color,
+      company name) and applies it to a small header band.
+   3. JS shows a password-gate overlay until the visitor enters the right
+      password (verified against /api/corp/by-slug/:slug/auth). Cookie
+      remembers the auth for 30 days.
+   4. Add-to-cart + checkout use Shopify's standard cart, so payment flows
+      through the normal checkout. SP Tools learns about orders via the
+      order webhook on the SP Tools side.
+
+  Section settings let Sean override the SP Tools host (Railway URL) or
+  the storefront title/footer copy without touching this file.
+{%- endcomment -%}
+
+{%- liquid
+  assign slug = page.handle | remove_first: 'store-' | downcase
+  assign coll_handle = 'corp-store-' | append: slug
+  assign coll = collections[coll_handle]
+  assign sp_host = section.settings.sp_tools_host | default: 'https://sp-tools-production.up.railway.app'
+-%}
+
+<section class="corp-store" data-slug="{{ slug }}" data-host="{{ sp_host }}">
+  <!-- ── Password gate overlay (shown until cookie set) ─────────────── -->
+  <div id="cs-gate" class="cs-gate" hidden>
+    <div class="cs-gate-card">
+      <div class="cs-gate-logo" id="cs-gate-logo"></div>
+      <h2 class="cs-gate-h" id="cs-gate-h">{{ section.settings.gate_heading | default: 'Welcome' }}</h2>
+      <p class="cs-gate-p" id="cs-gate-p">{{ section.settings.gate_body | default: 'Enter the store password to continue.' }}</p>
+      <form id="cs-gate-form">
+        <input type="password" id="cs-gate-pw" class="cs-gate-input" placeholder="Store password" autocomplete="off" required>
+        <button type="submit" class="cs-gate-btn">Continue</button>
+        <div id="cs-gate-err" class="cs-gate-err" hidden>Wrong password.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Branded header band (populated from SP Tools) ──────────────── -->
+  <div class="cs-band" id="cs-band" hidden>
+    <div class="cs-band-inner">
+      <img id="cs-band-logo" alt="" class="cs-band-logo">
+      <div class="cs-band-text">
+        <div class="cs-band-eyebrow">Private Store</div>
+        <h1 class="cs-band-h" id="cs-band-h"></h1>
+      </div>
+      <div class="cs-band-status" id="cs-band-status"></div>
+    </div>
+  </div>
+
+  <!-- ── Product grid (rendered server-side from the smart collection) ── -->
+  <div class="cs-body" id="cs-body" hidden>
+    <div class="page-width">
+      {% if coll == blank or coll.products_count == 0 %}
+        <div class="cs-empty">
+          <h3>This store is being set up.</h3>
+          <p>Products will appear here once your administrator finishes the catalog. Check back soon.</p>
+        </div>
+      {% else %}
+        <div class="cs-grid">
+          {% for p in coll.products %}
+            <a href="{{ p.url }}" class="cs-card">
+              {% if p.featured_image %}
+                <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" loading="lazy" class="cs-card-img">
+              {% endif %}
+              <div class="cs-card-body">
+                <div class="cs-card-title">{{ p.title }}</div>
+                <div class="cs-card-price">{{ p.price | money }}</div>
+                {%- if p.variants.size > 1 -%}
+                  <div class="cs-card-vars">{{ p.variants.size }} options</div>
+                {%- endif -%}
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.footer_text != blank %}
+        <p class="cs-footer rte">{{ section.settings.footer_text }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var root  = document.querySelector('.corp-store');
+  if (!root) return;
+  var slug  = root.dataset.slug;
+  var host  = root.dataset.host;
+  var COOKIE_KEY = 'cs_authed_' + slug;
+  var COOKIE_DAYS = 30;
+
+  var gate = document.getElementById('cs-gate');
+  var band = document.getElementById('cs-band');
+  var body = document.getElementById('cs-body');
+  var gateForm = document.getElementById('cs-gate-form');
+  var gateErr  = document.getElementById('cs-gate-err');
+  var gatePw   = document.getElementById('cs-gate-pw');
+
+  function setCookie(name, val, days) {
+    var d = new Date();
+    d.setTime(d.getTime() + days * 86400000);
+    document.cookie = name + '=' + val + '; expires=' + d.toUTCString() + '; path=/; SameSite=Lax';
+  }
+  function getCookie(name) {
+    return document.cookie.split('; ').reduce(function (a, p) {
+      var i = p.indexOf('=');
+      var k = p.slice(0, i);
+      return k === name ? p.slice(i + 1) : a;
+    }, '');
+  }
+
+  function showAfterGate() {
+    gate.hidden = true;
+    band.hidden = false;
+    body.hidden = false;
+  }
+
+  function loadConfig() {
+    fetch(host + '/api/corp/by-slug/' + encodeURIComponent(slug), { headers: { 'Accept': 'application/json' } })
+      .then(function (r) {
+        if (!r.ok) throw new Error('Store not found');
+        return r.json();
+      })
+      .then(function (data) {
+        var s = data.store || {};
+        // Apply branding
+        var accent = s.accent_color || '#c41230';
+        root.style.setProperty('--cs-accent', accent);
+        if (s.logo_url) {
+          var l = document.getElementById('cs-band-logo'); l.src = s.logo_url; l.style.display = 'block';
+          var gl = document.getElementById('cs-gate-logo');
+          gl.innerHTML = '<img src="' + s.logo_url.replace(/"/g, '&quot;') + '" alt="" style="max-width:180px;max-height:80px;object-fit:contain">';
+        }
+        document.getElementById('cs-band-h').textContent = s.company_name || 'Private Store';
+        document.getElementById('cs-gate-h').textContent = 'Welcome to ' + (s.company_name || 'your store');
+
+        // Status pill (open/pending/closed for windowed stores)
+        var st = document.getElementById('cs-band-status');
+        if (s.status === 'closed') {
+          st.innerHTML = '<span class="cs-pill cs-pill-closed">Store closed</span>';
+        } else if (s.status === 'pending') {
+          st.innerHTML = '<span class="cs-pill cs-pill-pending">Opens soon</span>';
+        } else {
+          st.innerHTML = '<span class="cs-pill cs-pill-open">Open</span>';
+        }
+      })
+      .catch(function () { /* fall back to defaults already in markup */ });
+  }
+
+  function attemptAuth(pw) {
+    return fetch(host + '/api/corp/by-slug/' + encodeURIComponent(slug) + '/auth', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pw }),
+    }).then(function (r) { return r.json(); });
+  }
+
+  // Boot: if cookie is already there, skip the gate and show the store.
+  // Either way, fetch config so the branding lands as soon as possible.
+  loadConfig();
+  if (getCookie(COOKIE_KEY) === '1') {
+    showAfterGate();
+  } else {
+    gate.hidden = false;
+    setTimeout(function () { gatePw.focus(); }, 50);
+  }
+
+  gateForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    gateErr.hidden = true;
+    attemptAuth(gatePw.value).then(function (res) {
+      if (res && res.ok) {
+        setCookie(COOKIE_KEY, '1', COOKIE_DAYS);
+        showAfterGate();
+      } else {
+        gateErr.hidden = false;
+        gatePw.select();
+      }
+    }).catch(function () {
+      gateErr.textContent = 'Network error. Try again in a moment.';
+      gateErr.hidden = false;
+    });
+  });
+})();
+</script>
+
+<style>
+  .corp-store { --cs-accent: #c41230; }
+
+  /* Password gate */
+  .cs-gate { position: fixed; inset: 0; z-index: 9999; background: rgba(17,17,17,0.92); display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .cs-gate-card { background: #fff; border-radius: 14px; padding: 36px 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+  .cs-gate-logo { min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+  .cs-gate-h { font-family: var(--sole-heading-font, Arial), Arial, sans-serif; font-size: 2.4rem; font-weight: 900; text-transform: uppercase; margin: 0 0 8px; color: #111; line-height: 1; }
+  .cs-gate-p { color: #6b7280; margin: 0 0 22px; font-size: 1.3rem; }
+  .cs-gate-input { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1.5rem; box-sizing: border-box; }
+  .cs-gate-input:focus { outline: none; border-color: var(--cs-accent); }
+  .cs-gate-btn { width: 100%; margin-top: 12px; padding: 13px; background: var(--cs-accent); color: #fff; border: 0; border-radius: 8px; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; }
+  .cs-gate-btn:hover { filter: brightness(0.92); }
+  .cs-gate-err { color: #b91c1c; font-size: 1.2rem; margin-top: 10px; }
+
+  /* Branded header band */
+  .cs-band { background: #111; color: #fff; padding: 28px 0; border-bottom: 4px solid var(--cs-accent); }
+  .cs-band-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .cs-band-logo { max-height: 60px; max-width: 180px; object-fit: contain; display: none; background: #fff; padding: 6px 10px; border-radius: 6px; }
+  .cs-band-text { flex: 1; min-width: 200px; }
+  .cs-band-eyebrow { font-size: 1rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cs-accent); margin-bottom: 4px; }
+  .cs-band-h { font-family: var(--sole-heading-font, Arial), Arial, sans-serif; margin: 0; font-size: clamp(2.6rem, 4vw, 4.4rem); line-height: 1; font-weight: 900; text-transform: uppercase; }
+  .cs-band-status { margin-left: auto; }
+  .cs-pill { display: inline-block; padding: 6px 14px; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 999px; }
+  .cs-pill-open { background: rgba(21,128,61,0.18); color: #4ade80; }
+  .cs-pill-pending { background: rgba(245,158,11,0.18); color: #fbbf24; }
+  .cs-pill-closed { background: rgba(220,38,38,0.18); color: #fca5a5; }
+
+  /* Body / grid */
+  .cs-body { padding: 48px 0 64px; background: #f5f5f5; min-height: 60vh; }
+  .cs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin-top: 18px; }
+  .cs-card { display: block; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; overflow: hidden; text-decoration: none; color: #111; transition: transform 0.15s, box-shadow 0.15s; }
+  .cs-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.08); }
+  .cs-card-img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; background: #f3f4f6; }
+  .cs-card-body { padding: 12px 14px; }
+  .cs-card-title { font-size: 1.3rem; font-weight: 800; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 3.4rem; }
+  .cs-card-price { margin-top: 6px; color: var(--cs-accent); font-weight: 800; font-size: 1.4rem; }
+  .cs-card-vars { margin-top: 2px; font-size: 1.05rem; color: #6b7280; }
+
+  .cs-empty { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 56px 24px; text-align: center; color: #6b7280; }
+  .cs-empty h3 { font-family: var(--sole-heading-font, Arial), Arial, sans-serif; font-size: 2rem; font-weight: 900; text-transform: uppercase; color: #111; margin: 0 0 8px; }
+
+  .cs-footer { margin: 32px auto 0; max-width: 720px; text-align: center; color: #6b7280; font-size: 1.2rem; line-height: 1.6; }
+</style>
+
+{% schema %}
+{
+  "name": "Corporate Store Page",
+  "settings": [
+    { "type": "text", "id": "sp_tools_host", "label": "SP Tools host URL", "default": "https://sp-tools-production.up.railway.app", "info": "Where to fetch store config + auth. Change only if you move SP Tools to a new domain." },
+    { "type": "text", "id": "gate_heading", "label": "Password gate heading", "default": "Welcome" },
+    { "type": "textarea", "id": "gate_body", "label": "Password gate body", "default": "Enter the store password to continue." },
+    { "type": "richtext", "id": "footer_text", "label": "Footer note (optional)" }
+  ],
+  "presets": [
+    { "name": "Corporate Store Page" }
+  ]
+}
+{% endschema %}

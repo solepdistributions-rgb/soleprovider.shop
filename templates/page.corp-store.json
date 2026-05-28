@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "corp-store-page",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
