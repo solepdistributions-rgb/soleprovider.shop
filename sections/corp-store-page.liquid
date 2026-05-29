@@ -35,6 +35,7 @@
 <section class="corp-store" data-slug="{{ slug }}" data-host="{{ sp_host }}">
   <!-- ── Password gate overlay (shown until cookie set) ─────────────── -->
   <div id="cs-gate" class="cs-gate" hidden>
+    <button id="cs-gate-close" class="cs-gate-close" type="button" aria-label="Close and return to main site" title="Close (ESC) — returns you to the main site">&times;</button>
     <div class="cs-gate-card">
       <div class="cs-gate-logo" id="cs-gate-logo"></div>
       <h2 class="cs-gate-h" id="cs-gate-h">{{ section.settings.gate_heading | default: 'Welcome' }}</h2>
@@ -251,6 +252,20 @@
     setTimeout(function () { gatePw.focus(); }, 50);
   }
 
+  // Dismissable gate: clicking the X or pressing ESC sends visitors back
+  // to the home page. Storefront grid + branded band stay hidden until
+  // they auth, so this is just a UX exit, not a security bypass.
+  function dismissGate() {
+    gate.hidden = true;
+    // Send them away from the private store entirely — without auth
+    // there's nothing on this page to show.
+    window.location.href = '/';
+  }
+  document.getElementById('cs-gate-close').addEventListener('click', dismissGate);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !gate.hidden) dismissGate();
+  });
+
   gateForm.addEventListener('submit', function (e) {
     e.preventDefault();
     gateErr.hidden = true;
@@ -279,6 +294,8 @@
 
   /* Password gate */
   .cs-gate { position: fixed; inset: 0; z-index: 9999; background: rgba(17,17,17,0.92); display: flex; align-items: center; justify-content: center; padding: 24px; }
+  .cs-gate-close { position: absolute; top: 18px; right: 22px; background: transparent; border: 0; color: #fff; font-size: 2.6rem; line-height: 1; cursor: pointer; padding: 4px 12px; opacity: 0.7; }
+  .cs-gate-close:hover { opacity: 1; }
   .cs-gate-card { background: #fff; border-radius: 14px; padding: 36px 32px; max-width: 420px; width: 100%; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
   .cs-gate-logo { min-height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
   .cs-gate-h { font-family: var(--sole-heading-font, Arial), Arial, sans-serif; font-size: 2.4rem; font-weight: 900; text-transform: uppercase; margin: 0 0 8px; color: #111; line-height: 1; }
