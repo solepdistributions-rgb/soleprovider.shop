@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "team-store-login",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

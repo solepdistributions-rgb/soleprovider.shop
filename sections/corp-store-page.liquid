@@ -42,7 +42,10 @@
       <p class="cs-gate-p" id="cs-gate-p">{{ section.settings.gate_body | default: 'Enter the store password to continue.' }}</p>
       <form id="cs-gate-form">
         <input type="email" id="cs-gate-email" class="cs-gate-input" placeholder="Your work email" autocomplete="email" required style="margin-bottom:10px">
-        <input type="password" id="cs-gate-pw" class="cs-gate-input" placeholder="Store password" autocomplete="off" required>
+        <div class="cs-gate-pw-wrap">
+          <input type="password" id="cs-gate-pw" class="cs-gate-input" placeholder="Store password" autocomplete="current-password" required>
+          <button type="button" id="cs-gate-pw-toggle" class="cs-gate-pw-toggle" aria-label="Show or hide password">Show</button>
+        </div>
         <button type="submit" class="cs-gate-btn">Continue</button>
         <div id="cs-gate-err" class="cs-gate-err" hidden>Wrong password.</div>
         <p class="cs-gate-note">We use your email to track your per-employee limit and show you when your order ships.</p>
@@ -252,6 +255,16 @@
     setTimeout(function () { gatePw.focus(); }, 50);
   }
 
+  // Show/hide password toggle on the gate input.
+  var pwToggle = document.getElementById('cs-gate-pw-toggle');
+  if (pwToggle) {
+    pwToggle.addEventListener('click', function () {
+      var showing = gatePw.type === 'text';
+      gatePw.type = showing ? 'password' : 'text';
+      pwToggle.textContent = showing ? 'Show' : 'Hide';
+    });
+  }
+
   // Dismissable gate: clicking the X or pressing ESC sends visitors back
   // to the home page. Storefront grid + branded band stay hidden until
   // they auth, so this is just a UX exit, not a security bypass.
@@ -302,6 +315,10 @@
   .cs-gate-p { color: #6b7280; margin: 0 0 22px; font-size: 1.3rem; }
   .cs-gate-input { width: 100%; padding: 12px 14px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 1.5rem; box-sizing: border-box; }
   .cs-gate-input:focus { outline: none; border-color: var(--cs-accent); }
+  .cs-gate-pw-wrap { position: relative; }
+  .cs-gate-pw-wrap .cs-gate-input { padding-right: 70px; }
+  .cs-gate-pw-toggle { position: absolute; top: 50%; right: 6px; transform: translateY(-50%); background: transparent; border: 0; color: #6b7280; font-size: 1.1rem; font-weight: 700; padding: 6px 10px; cursor: pointer; }
+  .cs-gate-pw-toggle:hover { color: #111; }
   .cs-gate-btn { width: 100%; margin-top: 12px; padding: 13px; background: var(--cs-accent); color: #fff; border: 0; border-radius: 8px; font-weight: 800; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 0.08em; cursor: pointer; }
   .cs-gate-btn:hover { filter: brightness(0.92); }
   .cs-gate-err { color: #b91c1c; font-size: 1.2rem; margin-top: 10px; }
