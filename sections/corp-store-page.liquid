@@ -65,6 +65,15 @@
   <!-- ── Product grid (rendered server-side from the smart collection) ── -->
   <div class="cs-body" id="cs-body" hidden>
     <div class="page-width">
+      <!-- Reorder banner: only shows when the SP Tools last-order lookup finds something -->
+      <div id="cs-reorder" class="cs-reorder" hidden>
+        <div class="cs-reorder-text">
+          <div class="cs-reorder-eyebrow">Welcome back</div>
+          <div class="cs-reorder-h" id="cs-reorder-h"></div>
+        </div>
+        <a id="cs-reorder-btn" href="#" class="cs-reorder-btn">Re-order last order</a>
+      </div>
+
       {% if coll == blank or coll.products_count == 0 %}
         <div class="cs-empty">
           <h3>This store is being set up.</h3>
@@ -134,7 +143,26 @@
     band.hidden = false;
     body.hidden = false;
     refreshQuota();
+    refreshReorder();
     wireCardSoftWarn();
+  }
+
+  function refreshReorder() {
+    var email = getEmail();
+    var box = document.getElementById('cs-reorder');
+    var btn = document.getElementById('cs-reorder-btn');
+    var h   = document.getElementById('cs-reorder-h');
+    if (!email) { box.hidden = true; return; }
+    fetch(host + '/api/corp/by-slug/' + encodeURIComponent(slug) + '/last-order?email=' + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j || !j.has_order || !j.cart_permalink || !j.items || !j.items.length) { box.hidden = true; return; }
+        var when = (j.created_at || '').replace('T', ' ').slice(0, 10);
+        h.textContent = 'Last order ' + when + ' · ' + j.units + ' unit' + (j.units === 1 ? '' : 's') + ' · $' + Number(j.total_usd || 0).toFixed(2);
+        btn.href = j.cart_permalink;
+        box.hidden = false;
+      })
+      .catch(function () { box.hidden = true; });
   }
 
   function getEmail() {
@@ -271,6 +299,13 @@
   .cs-band-status { margin-left: auto; }
   .cs-band-quota { font-size: 1.05rem; color: #f5f5f5; }
   .cs-gate-note { font-size: 1rem; color: #6b7280; margin: 14px 0 0; text-align: left; line-height: 1.4; }
+
+  .cs-reorder { background: #fff; border: 1px solid #e5e7eb; border-left: 4px solid var(--cs-accent); border-radius: 10px; padding: 18px 22px; margin-bottom: 22px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .cs-reorder-text { flex: 1; min-width: 220px; }
+  .cs-reorder-eyebrow { font-size: .95rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--cs-accent); }
+  .cs-reorder-h { font-size: 1.5rem; font-weight: 800; color: #111; margin-top: 2px; }
+  .cs-reorder-btn { background: var(--cs-accent); color: #fff; padding: 11px 22px; border-radius: 8px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; font-size: 1.2rem; text-decoration: none; }
+  .cs-reorder-btn:hover { filter: brightness(0.92); }
   .cs-pill { display: inline-block; padding: 6px 14px; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 999px; }
   .cs-pill-open { background: rgba(21,128,61,0.18); color: #4ade80; }
   .cs-pill-pending { background: rgba(245,158,11,0.18); color: #fbbf24; }
