@@ -40,9 +40,11 @@
       <h2 class="cs-gate-h" id="cs-gate-h">{{ section.settings.gate_heading | default: 'Welcome' }}</h2>
       <p class="cs-gate-p" id="cs-gate-p">{{ section.settings.gate_body | default: 'Enter the store password to continue.' }}</p>
       <form id="cs-gate-form">
+        <input type="email" id="cs-gate-email" class="cs-gate-input" placeholder="Your work email" autocomplete="email" required style="margin-bottom:10px">
         <input type="password" id="cs-gate-pw" class="cs-gate-input" placeholder="Store password" autocomplete="off" required>
         <button type="submit" class="cs-gate-btn">Continue</button>
         <div id="cs-gate-err" class="cs-gate-err" hidden>Wrong password.</div>
+        <p class="cs-gate-note">We use your email to track your per-employee limit and show you when your order ships.</p>
       </form>
     </div>
   </div>
@@ -56,6 +58,7 @@
         <h1 class="cs-band-h" id="cs-band-h"></h1>
       </div>
       <div class="cs-band-status" id="cs-band-status"></div>
+      <div class="cs-band-quota" id="cs-band-quota" hidden></div>
     </div>
   </div>
 
@@ -70,7 +73,7 @@
       {% else %}
         <div class="cs-grid">
           {% for p in coll.products %}
-            <a href="{{ p.url }}" class="cs-card">
+            <a href="{{ p.url }}" class="cs-card" data-cs-card>
               {% if p.featured_image %}
                 <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title | escape }}" loading="lazy" class="cs-card-img">
               {% endif %}
@@ -100,6 +103,7 @@
   var slug  = root.dataset.slug;
   var host  = root.dataset.host;
   var COOKIE_KEY = 'cs_authed_' + slug;
+  var EMAIL_KEY  = 'cs_email_'  + slug;
   var COOKIE_DAYS = 30;
 
   var gate = document.getElementById('cs-gate');
@@ -108,6 +112,9 @@
   var gateForm = document.getElementById('cs-gate-form');
   var gateErr  = document.getElementById('cs-gate-err');
   var gatePw   = document.getElementById('cs-gate-pw');
+  var gateEmail = document.getElementById('cs-gate-email');
+  var quotaEl  = document.getElementById('cs-band-quota');
+  var quotaInfo = null; // { ok, used, cap, period, remaining }
 
   function setCookie(name, val, days) {
     var d = new Date();
@@ -126,6 +133,44 @@
     gate.hidden = true;
     band.hidden = false;
     body.hidden = false;
+    refreshQuota();
+    wireCardSoftWarn();
+  }
+
+  function getEmail() {
+    return getCookie(EMAIL_KEY) || '';
+  }
+
+  function refreshQuota() {
+    var email = getEmail();
+    if (!email) { quotaEl.hidden = true; return; }
+    fetch(host + '/api/corp/by-slug/' + encodeURIComponent(slug) + '/quota?email=' + encodeURIComponent(email))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.error) { quotaEl.hidden = true; return; }
+        quotaInfo = j;
+        if (!j.cap) { quotaEl.hidden = true; return; }
+        quotaEl.hidden = false;
+        var pillCls = 'cs-pill ' + (j.remaining <= 0 ? 'cs-pill-closed' : (j.remaining <= 2 ? 'cs-pill-pending' : 'cs-pill-open'));
+        quotaEl.innerHTML = '<span class="' + pillCls + '">' + j.used + ' / ' + j.cap + ' used</span>';
+      })
+      .catch(function () { quotaEl.hidden = true; });
+  }
+
+  // Honor-system soft warn: when the visitor clicks a product card, if
+  // they're already at their cap we show a confirmation. Doesn't block
+  // direct-link visits to product pages — per spec, this is honor system.
+  function wireCardSoftWarn() {
+    var cards = document.querySelectorAll('[data-cs-card]');
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].addEventListener('click', function (e) {
+        if (!quotaInfo || !quotaInfo.cap) return;
+        if (quotaInfo.remaining > 0) return;
+        var msg = 'You\'ve already ordered ' + quotaInfo.used + ' of your ' + quotaInfo.cap + ' allowed units. '
+                + 'Adding more may exceed your limit. Continue anyway?';
+        if (!window.confirm(msg)) e.preventDefault();
+      });
+    }
   }
 
   function loadConfig() {
@@ -181,11 +226,15 @@
   gateForm.addEventListener('submit', function (e) {
     e.preventDefault();
     gateErr.hidden = true;
+    var email = (gateEmail.value || '').trim().toLowerCase();
+    if (!email) { gateErr.textContent = 'Email required.'; gateErr.hidden = false; return; }
     attemptAuth(gatePw.value).then(function (res) {
       if (res && res.ok) {
         setCookie(COOKIE_KEY, '1', COOKIE_DAYS);
+        setCookie(EMAIL_KEY, email, COOKIE_DAYS);
         showAfterGate();
       } else {
+        gateErr.textContent = 'Wrong password.';
         gateErr.hidden = false;
         gatePw.select();
       }
@@ -220,6 +269,8 @@
   .cs-band-eyebrow { font-size: 1rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cs-accent); margin-bottom: 4px; }
   .cs-band-h { font-family: var(--sole-heading-font, Arial), Arial, sans-serif; margin: 0; font-size: clamp(2.6rem, 4vw, 4.4rem); line-height: 1; font-weight: 900; text-transform: uppercase; }
   .cs-band-status { margin-left: auto; }
+  .cs-band-quota { font-size: 1.05rem; color: #f5f5f5; }
+  .cs-gate-note { font-size: 1rem; color: #6b7280; margin: 14px 0 0; text-align: left; line-height: 1.4; }
   .cs-pill { display: inline-block; padding: 6px 14px; font-size: 1.1rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 999px; }
   .cs-pill-open { background: rgba(21,128,61,0.18); color: #4ade80; }
   .cs-pill-pending { background: rgba(245,158,11,0.18); color: #fbbf24; }
