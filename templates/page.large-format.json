@@ -12,6 +12,15 @@
     "portfolio": {
       "type": "large-format-portfolio",
       "blocks": {
+        "project_rybm4j": {
+          "type": "project",
+          "settings": {
+            "image": "shopify://shop_images/IMG_8344_8e056d8b-1ab7-47dc-b915-b21033106b5d.jpg",
+            "caption": "Tent",
+            "client": "Bryant Athletics",
+            "service_type": "Tent"
+          }
+        },
         "project_cN83rG": {
           "type": "project",
           "settings": {
@@ -48,6 +57,7 @@
         }
       },
       "block_order": [
+        "project_rybm4j",
         "project_cN83rG",
         "project_hfHUT7",
         "project_1",
