@@ -1378,3 +1378,22 @@ input.mobile-facets__checkbox {
   display: none !important;
   pointer-events: none !important;
 }
+
+/* SP: keep long filter lists (Brand, Color, Size) internally scrollable in
+   the desktop vertical sidebar. Without this, clicking "Show more" on a
+   filter with 30+ values dumps the whole list inline and pushes the product
+   grid way down with no way to scroll just the filter. */
+@media screen and (min-width: 750px) {
+  .facets__display-vertical .facets__list--vertical {
+    max-height: 28rem;
+    overflow-y: auto;
+    padding-right: 0.4rem;
+  }
+  .facets__display-vertical .facets__list--vertical::-webkit-scrollbar {
+    width: 8px;
+  }
+  .facets__display-vertical .facets__list--vertical::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+}
