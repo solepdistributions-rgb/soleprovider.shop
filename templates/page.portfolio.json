@@ -401,6 +401,17 @@
     "portfolio_design": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_7ifKd3": {
+          "type": "project",
+          "settings": {
+            "title": "Screen print design",
+            "tag": "",
+            "client": "",
+            "description": "<p>Design made for Ski Club</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/Screenshot_2026-04-25_at_4.18.37_PM.png"
+          }
+        },
         "project_M3QwUU": {
           "type": "project",
           "settings": {
@@ -493,6 +504,7 @@
         }
       },
       "block_order": [
+        "project_7ifKd3",
         "project_M3QwUU",
         "project_VdCMNW",
         "design_5",
