@@ -33,20 +33,22 @@
         "project_7L8EcA": {
           "type": "project",
           "settings": {
-            "title": "Project Name",
+            "title": "Travel Merch",
             "tag": "Screen Print",
             "client": "",
-            "description": "<p>Describe the project, what was made, and what made it special.</p>",
-            "size": "normal"
+            "description": "<p>Cape town merch</p><p>Customer Supplied Art</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4159.jpg",
+            "image_2": "shopify://shop_images/IMG_4164.jpg"
           }
         },
         "project_Wt7JtJ": {
           "type": "project",
           "settings": {
-            "title": "Project Name",
+            "title": "Screen Printed Clothes",
             "tag": "Screen Print",
             "client": "",
-            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "description": "<p>Describe the project, what was made, and what made it special.</p><p>Sole Provider Design</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4149.jpg",
             "image_2": "shopify://shop_images/IMG_4151.jpg",
@@ -60,7 +62,7 @@
             "title": "Quarter Zips",
             "tag": "Embroidery",
             "client": "",
-            "description": "<p>Embroidered 1/4-zips for client</p>",
+            "description": "<p>Embroidered 1/4-zips for client</p><p>Customer Supplied Art</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4144.jpg",
             "image_2": "shopify://shop_images/IMG_4147.jpg"
@@ -72,7 +74,7 @@
             "title": "High-End Products",
             "tag": "Embroidery",
             "client": "",
-            "description": "<p>High end Helly Hansen embroidery for Yacht client</p>",
+            "description": "<p>High end Helly Hansen embroidery for Yacht client</p><p>Customer Supplied Art</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4134.jpg",
             "image_2": "shopify://shop_images/IMG_4142.jpg"
@@ -84,7 +86,7 @@
             "title": "Finance Fleece Vest",
             "tag": "Embroidery",
             "client": "",
-            "description": "<p>Branded Fleece Vests</p>",
+            "description": "<p>Branded Fleece Vests</p><p>Customer Supplied Art</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4126.jpg",
             "image_2": "shopify://shop_images/IMG_4131.jpg"
