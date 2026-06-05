@@ -20,7 +20,7 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
-        "project_aWFGd9": {
+        "project_tRnQ9L": {
           "type": "project",
           "settings": {
             "title": "Project Name",
@@ -28,6 +28,18 @@
             "client": "",
             "description": "<p>Describe the project, what was made, and what made it special.</p>",
             "size": "normal"
+          }
+        },
+        "project_aWFGd9": {
+          "type": "project",
+          "settings": {
+            "title": "Finance Fleece Vest",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Branded Fleece Vests</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4126.jpg",
+            "image_2": "shopify://shop_images/IMG_4131.jpg"
           }
         },
         "project_4Lnqpp": {
@@ -295,6 +307,7 @@
         }
       },
       "block_order": [
+        "project_tRnQ9L",
         "project_aWFGd9",
         "project_4Lnqpp",
         "project_b6Tqpa",
