@@ -20,6 +20,40 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_FxficM": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal"
+          }
+        },
+        "project_7L8EcA": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal"
+          }
+        },
+        "project_Wt7JtJ": {
+          "type": "project",
+          "settings": {
+            "title": "Project Name",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4149.jpg",
+            "image_2": "shopify://shop_images/IMG_4151.jpg",
+            "image_3": "shopify://shop_images/IMG_4155.jpg",
+            "image_4": "shopify://shop_images/IMG_4154.jpg"
+          }
+        },
         "project_UAaQjh": {
           "type": "project",
           "settings": {
@@ -321,6 +355,9 @@
         }
       },
       "block_order": [
+        "project_FxficM",
+        "project_7L8EcA",
+        "project_Wt7JtJ",
         "project_UAaQjh",
         "project_tRnQ9L",
         "project_aWFGd9",
