@@ -20,6 +20,18 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_UAaQjh": {
+          "type": "project",
+          "settings": {
+            "title": "Quarter Zips",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Embroidered 1/4-zips for client</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4144.jpg",
+            "image_2": "shopify://shop_images/IMG_4147.jpg"
+          }
+        },
         "project_tRnQ9L": {
           "type": "project",
           "settings": {
@@ -309,6 +321,7 @@
         }
       },
       "block_order": [
+        "project_UAaQjh",
         "project_tRnQ9L",
         "project_aWFGd9",
         "project_4Lnqpp",
