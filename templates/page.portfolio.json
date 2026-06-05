@@ -23,11 +23,13 @@
         "project_tRnQ9L": {
           "type": "project",
           "settings": {
-            "title": "Project Name",
-            "tag": "Screen Print",
+            "title": "High-End Products",
+            "tag": "Embroidery",
             "client": "",
-            "description": "<p>Describe the project, what was made, and what made it special.</p>",
-            "size": "normal"
+            "description": "<p>High end Helly Hansen embroidery for Yacht client</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4134.jpg",
+            "image_2": "shopify://shop_images/IMG_4142.jpg"
           }
         },
         "project_aWFGd9": {
