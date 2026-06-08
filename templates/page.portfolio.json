@@ -20,6 +20,30 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_hTdbBd": {
+          "type": "project",
+          "settings": {
+            "title": "Custom Shirts",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4214.jpg",
+            "image_2": "shopify://shop_images/IMG_4218.jpg"
+          }
+        },
+        "project_PDLGTq": {
+          "type": "project",
+          "settings": {
+            "title": "Comfort Colors tees",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom shirts and design for Frat</p><p>Sole Provider Design</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4193.jpg",
+            "image_2": "shopify://shop_images/IMG_4197.jpg"
+          }
+        },
         "project_bEzDhR": {
           "type": "project",
           "settings": {
@@ -398,6 +422,8 @@
         }
       },
       "block_order": [
+        "project_hTdbBd",
+        "project_PDLGTq",
         "project_bEzDhR",
         "project_TWq4BX",
         "project_XNtfik",
