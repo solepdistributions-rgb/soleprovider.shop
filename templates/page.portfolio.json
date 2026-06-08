@@ -20,6 +20,54 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_mBFjca": {
+          "type": "project",
+          "settings": {
+            "title": "Staff Jackets",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Embroidered staff jackets for the Lil' Rhody Coffee Company</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4286.jpg",
+            "image_2": "shopify://shop_images/IMG_4295.jpg"
+          }
+        },
+        "project_8cRHaE": {
+          "type": "project",
+          "settings": {
+            "title": "Embroidered Hoodie",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Embroidered staff merch for Bryant IDEA</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4278.jpg",
+            "image_2": "shopify://shop_images/IMG_4280.jpg"
+          }
+        },
+        "project_yBN9Ue": {
+          "type": "project",
+          "settings": {
+            "title": "Carhartt Hoodies",
+            "tag": "Embroidery",
+            "client": "",
+            "description": "<p>Embroidered logo for Bryant Math & Econ</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4265.jpg",
+            "image_2": "shopify://shop_images/IMG_4267.jpg"
+          }
+        },
+        "project_GcK8D3": {
+          "type": "project",
+          "settings": {
+            "title": "Special Olympics",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Special Olympics shirts and crewnecks</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4249.jpg",
+            "image_2": "shopify://shop_images/IMG_4252.jpg"
+          }
+        },
         "project_XBJUpi": {
           "type": "project",
           "settings": {
@@ -458,6 +506,10 @@
         }
       },
       "block_order": [
+        "project_mBFjca",
+        "project_8cRHaE",
+        "project_yBN9Ue",
+        "project_GcK8D3",
         "project_XBJUpi",
         "project_rygmy6",
         "project_Hhe3cz",
