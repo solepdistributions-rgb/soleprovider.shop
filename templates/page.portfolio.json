@@ -403,6 +403,18 @@
     "portfolio_design": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_jHmXq6": {
+          "type": "project",
+          "settings": {
+            "title": "Youth Program Rebrand",
+            "tag": "Design work",
+            "client": "",
+            "description": "<p>Describe the project, what was made, and what made it special.</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/Screenshot_2026-06-08_113654.png",
+            "image_2": "shopify://shop_images/Screenshot_2026-06-08_113640.png"
+          }
+        },
         "project_7ifKd3": {
           "type": "project",
           "settings": {
@@ -506,6 +518,7 @@
         }
       },
       "block_order": [
+        "project_jHmXq6",
         "project_7ifKd3",
         "project_M3QwUU",
         "project_VdCMNW",
