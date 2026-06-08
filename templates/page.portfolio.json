@@ -23,11 +23,14 @@
         "project_bEzDhR": {
           "type": "project",
           "settings": {
-            "title": "Project Name",
+            "title": "Screen Printed Tees",
             "tag": "Screen Print",
             "client": "",
-            "description": "<p>Describe the project, what was made, and what made it special.</p>",
-            "size": "normal"
+            "description": "<p>Custom logo and shirts</p><p>Sole Provider Design</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4185.jpg",
+            "image_2": "shopify://shop_images/IMG_4190.jpg",
+            "image_3": "shopify://shop_images/IMG_4189.jpg"
           }
         },
         "project_TWq4BX": {
@@ -36,7 +39,7 @@
             "title": "Screen Printed Shirts",
             "tag": "Screen Print",
             "client": "",
-            "description": "<p>Merch made in collaboration with local bar</p>",
+            "description": "<p>Merch made in collaboration with local bar</p><p>Sole Provider Design</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4178.jpg",
             "image_2": "shopify://shop_images/IMG_4181.jpg",
@@ -62,7 +65,7 @@
             "title": "Embroidered Polos",
             "tag": "Embroidery",
             "client": "",
-            "description": "<p>Polos made for Bryant University College of Business</p>",
+            "description": "<p>Polos made for Bryant University College of Business</p><p>Sole Provider Design</p>",
             "size": "normal",
             "image_1": "shopify://shop_images/IMG_4166.jpg",
             "image_2": "shopify://shop_images/IMG_4170.jpg"
