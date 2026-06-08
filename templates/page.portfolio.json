@@ -20,6 +20,18 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_Hhe3cz": {
+          "type": "project",
+          "settings": {
+            "title": "Bryant Singers",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom shirts made for club</p><p>Sole Provider Design</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4220.jpg",
+            "image_2": "shopify://shop_images/IMG_4224.jpg"
+          }
+        },
         "project_hTdbBd": {
           "type": "project",
           "settings": {
@@ -422,6 +434,7 @@
         }
       },
       "block_order": [
+        "project_Hhe3cz",
         "project_hTdbBd",
         "project_PDLGTq",
         "project_bEzDhR",
