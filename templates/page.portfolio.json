@@ -20,6 +20,30 @@
     "portfolio_apparel": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_XBJUpi": {
+          "type": "project",
+          "settings": {
+            "title": "Shirts",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom shirts </p><p>Sole Provider Design</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4238.jpg",
+            "image_2": "shopify://shop_images/IMG_4240.jpg"
+          }
+        },
+        "project_rygmy6": {
+          "type": "project",
+          "settings": {
+            "title": "Religious Shirts",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom shirts and design made for campus ministry</p><p>Sole Provider Design</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_4228.jpg",
+            "image_2": "shopify://shop_images/IMG_4233.jpg"
+          }
+        },
         "project_Hhe3cz": {
           "type": "project",
           "settings": {
@@ -434,6 +458,8 @@
         }
       },
       "block_order": [
+        "project_XBJUpi",
+        "project_rygmy6",
         "project_Hhe3cz",
         "project_hTdbBd",
         "project_PDLGTq",
