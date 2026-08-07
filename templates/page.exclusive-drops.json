@@ -15,6 +15,7 @@
         "eyebrow": "Limited Release",
         "heading": "Exclusive Drops",
         "text": "<p>Featured product from The Sole Provider. Limited runs, featured pieces available to shop directly.</p>",
+        "image": "shopify://shop_images/MASTER_SP_LOGO_1.png",
         "primary_label": "Shop Current Drop",
         "primary_link": "#current-drop",
         "secondary_label": "View Portfolio",
