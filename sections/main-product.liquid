@@ -501,6 +501,7 @@
     -%}
   {% endunless %}
 
+  {% unless product.tags contains 'no-quote' %}
   <button type="button" class="quote-modal-trigger" onclick="document.getElementById('quoteModal').showModal()">
     Request Quote
   </button>
@@ -515,6 +516,7 @@
       </div>
     </div>
   </dialog>
+  {% endunless %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
