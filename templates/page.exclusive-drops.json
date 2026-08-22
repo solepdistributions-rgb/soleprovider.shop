@@ -34,10 +34,24 @@
         "show_description": true,
         "note": "Limited quantities available. Product availability may change without notice."
       }
+    },
+    "exclusive_drops_feature_crewneck": {
+      "type": "exclusive-drops-feature",
+      "settings": {
+        "eyebrow": "Current Drop",
+        "heading": "Shop the Crewneck",
+        "text": "<p>The Sole Provider crewneck, made to order in six colorways.</p>",
+        "product": "sole-provider-crewneck",
+        "badge_text": "Exclusive Release",
+        "custom_text": "<p>Limited release. Once it’s gone, it may not return.</p>",
+        "show_description": true,
+        "note": "Made to order. Product availability may change without notice."
+      }
     }
   },
   "order": [
     "exclusive_drops_hero",
-    "exclusive_drops_feature"
+    "exclusive_drops_feature",
+    "exclusive_drops_feature_crewneck"
   ]
 }

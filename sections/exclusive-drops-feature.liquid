@@ -388,11 +388,13 @@
 <script>
   (function() {
     var sectionId = '{{ section.id }}';
-    var form = document.querySelector('.drops-feature__form');
     var productDataEl = document.getElementById('DropsProductData-' + sectionId);
-    var variantIdInput = document.querySelector('.drops-feature__variant-id');
+    // Scope every lookup to this section so multiple drops can coexist on one page.
+    var root = productDataEl ? productDataEl.closest('.drops-feature') : document;
+    var form = root.querySelector('.drops-feature__form');
+    var variantIdInput = root.querySelector('.drops-feature__variant-id');
     var priceWrap = document.getElementById('DropsPrice-' + sectionId);
-    var mediaImg = document.querySelector('.drops-feature__media img');
+    var mediaImg = root.querySelector('.drops-feature__media img');
 
     if (!form || !productDataEl || !variantIdInput) return;
 
