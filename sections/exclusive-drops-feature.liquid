@@ -1,6 +1,4 @@
-{% assign featured_product = all_products[section.settings.product] %}
-
-<section class="drops-feature" id="current-drop">
+<section class="drops-feature" id="current-drop" data-drops-section="{{ section.id }}">
   <div class="page-width">
     <div class="drops-feature__intro">
       {% if section.settings.eyebrow != blank %}
@@ -16,134 +14,88 @@
       {% endif %}
     </div>
 
-    {% if featured_product != blank %}
-      {% assign current_variant = featured_product.selected_or_first_available_variant %}
+    {% assign drop_count = 0 %}
+    <div class="drops-grid">
+      {% for block in section.blocks %}
+        {% assign featured_product = all_products[block.settings.product] %}
+        {% if featured_product != blank %}
+          {% assign drop_count = drop_count | plus: 1 %}
 
-      <div class="drops-feature__card">
-        <div class="drops-feature__media">
-          <a href="{{ featured_product.url }}">
-            {% if featured_product.featured_image != blank %}
-              <img
-                src="{{ featured_product.featured_image | image_url: width: 1600 }}"
-                alt="{{ featured_product.title | escape }}"
-                loading="lazy"
-                width="{{ featured_product.featured_image.width }}"
-                height="{{ featured_product.featured_image.height }}"
-              >
-            {% else %}
-              <div class="drops-feature__placeholder">
-                <span>{{ featured_product.title }}</span>
-              </div>
+          {%- comment -%} Find the colour option and build a colour -> image map. {%- endcomment -%}
+          {% assign color_option = null %}
+          {% for opt in featured_product.options_with_values %}
+            {% if opt.name == 'Color' or opt.name == 'Colour' %}
+              {% assign color_option = opt %}
             {% endif %}
-          </a>
-        </div>
+          {% endfor %}
 
-        <div class="drops-feature__content">
-          {% if section.settings.badge_text != blank %}
-            <p class="drops-feature__badge">{{ section.settings.badge_text }}</p>
-          {% endif %}
+          <div class="drops-card" {{ block.shopify_attributes }} data-drops-card>
+            <a class="drops-card__media" href="{{ featured_product.url }}" data-drops-link>
+              {% if block.settings.badge_text != blank %}
+                <span class="drops-card__badge">{{ block.settings.badge_text }}</span>
+              {% endif %}
 
-          <h3 class="drops-feature__product-title">
-            <a href="{{ featured_product.url }}">{{ featured_product.title }}</a>
-          </h3>
+              {% if featured_product.featured_image != blank %}
+                <img
+                  src="{{ featured_product.featured_image | image_url: width: 1200 }}"
+                  alt="{{ featured_product.title | escape }}"
+                  loading="lazy"
+                  width="{{ featured_product.featured_image.width }}"
+                  height="{{ featured_product.featured_image.height }}"
+                  data-drops-img
+                >
+              {% else %}
+                <span class="drops-card__placeholder">{{ featured_product.title }}</span>
+              {% endif %}
+            </a>
 
-          <div class="drops-feature__price" id="DropsPrice-{{ section.id }}">
-            {% render 'price', product: featured_product, use_variant: true, show_badges: false, price_class: 'price--large' %}
-          </div>
+            <div class="drops-card__body">
+              <h3 class="drops-card__title">
+                <a href="{{ featured_product.url }}" data-drops-link>{{ featured_product.title }}</a>
+              </h3>
 
-          {% if section.settings.show_description and featured_product.description != blank %}
-            <div class="drops-feature__description rte">
-              {{ featured_product.description }}
-            </div>
-          {% elsif section.settings.custom_text != blank %}
-            <div class="drops-feature__description rte">
-              {{ section.settings.custom_text }}
-            </div>
-          {% endif %}
-
-          {%- form 'product', featured_product, class: 'drops-feature__form', novalidate: 'novalidate' -%}
-            <input
-              type="hidden"
-              name="id"
-              value="{{ current_variant.id }}"
-              class="drops-feature__variant-id"
-            >
-
-            {% unless featured_product.has_only_default_variant %}
-              <div class="drops-feature__options">
-                {% for option in featured_product.options_with_values %}
-                  <div class="drops-feature__option">
-                    <label class="drops-feature__option-label" for="DropsOption-{{ section.id }}-{{ forloop.index0 }}">
-                      {{ option.name }}
-                    </label>
-
-                    <select
-                      id="DropsOption-{{ section.id }}-{{ forloop.index0 }}"
-                      class="drops-feature__select"
-                      data-option-index="{{ forloop.index0 }}"
-                    >
-                      {% for value in option.values %}
-                        <option
-                          value="{{ value | escape }}"
-                          {% if option.selected_value == value %}selected{% endif %}
-                        >
-                          {{ value }}
-                        </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endfor %}
+              <div class="drops-card__price">
+                {% render 'price', product: featured_product, use_variant: false, show_badges: false %}
               </div>
 
-              <script type="application/json" id="DropsProductData-{{ section.id }}">
+              {% if color_option %}
+                <div class="drops-card__swatches" role="group" aria-label="Colours for {{ featured_product.title | escape }}">
+                  {% for value in color_option.values %}
+                    <button
+                      type="button"
+                      class="drops-card__swatch{% if forloop.first %} is-active{% endif %}"
+                      data-drops-swatch
+                      data-color="{{ value | escape }}"
+                      title="{{ value | escape }}"
+                      aria-label="{{ value | escape }}"
+                      {% if value.swatch.color %}style="--swatch: {{ value.swatch.color }};"{% endif %}
+                    ></button>
+                  {% endfor %}
+                </div>
+
+                <p class="drops-card__color-name" data-drops-color-name>
+                  {{ color_option.values.first }}
+                </p>
+              {% endif %}
+
+              <script type="application/json" data-drops-data>
                 {{ featured_product.variants | json }}
               </script>
-            {% endunless %}
-
-            <div class="drops-feature__actions">
-              <div class="drops-feature__qty-wrap">
-                <label class="drops-feature__option-label" for="DropsQuantity-{{ section.id }}">Quantity</label>
-                <input
-                  id="DropsQuantity-{{ section.id }}"
-                  class="drops-feature__qty"
-                  type="number"
-                  name="quantity"
-                  min="1"
-                  value="1"
-                >
-              </div>
-
-              <div class="drops-feature__buttons">
-                <button
-                  type="submit"
-                  name="add"
-                  class="drops-feature__button drops-feature__button--primary"
-                  {% unless current_variant.available %}disabled{% endunless %}
-                >
-                  {% if current_variant.available %}
-                    Add to Cart
-                  {% else %}
-                    Sold Out
-                  {% endif %}
-                </button>
-
-                <a href="{{ featured_product.url }}" class="drops-feature__button drops-feature__button--secondary">
-                  View Product
-                </a>
-              </div>
             </div>
-          {%- endform -%}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
 
-          {% if section.settings.note != blank %}
-            <p class="drops-feature__note">{{ section.settings.note }}</p>
-          {% endif %}
-        </div>
-      </div>
-    {% else %}
+    {% if drop_count == 0 %}
       <div class="drops-feature__empty">
         <h3>No drop selected yet</h3>
-        <p>Choose a product in the theme editor to feature the current monthly drop here.</p>
+        <p>Add a product block in the theme editor to feature it here.</p>
       </div>
+    {% endif %}
+
+    {% if section.settings.note != blank %}
+      <p class="drops-feature__note">{{ section.settings.note }}</p>
     {% endif %}
   </div>
 </section>
@@ -157,7 +109,7 @@
 
   .drops-feature__intro {
     max-width: 760px;
-    margin: 0 auto 34px;
+    margin: 0 auto 40px;
     text-align: center;
   }
 
@@ -182,273 +134,213 @@
 
   .drops-feature__text {
     font-size: 1.55rem;
-    line-height: 1.75;
-    color: #555555;
-  }
-
-  .drops-feature__card {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
-    gap: 30px;
-    align-items: start;
-    background: #ffffff;
-    border: 1px solid #e4e4e4;
-    box-shadow: 0 8px 0 #d9d9d9, 0 18px 36px rgba(0,0,0,0.06);
-    padding: 28px;
-  }
-
-  .drops-feature__media img,
-  .drops-feature__placeholder {
-    display: block;
-    width: 100%;
-    border-radius: 18px;
-    overflow: hidden;
-    background: #f4f4f4;
-  }
-
-  .drops-feature__media img {
-    height: auto;
-    object-fit: cover;
-  }
-
-  .drops-feature__placeholder {
-    min-height: 520px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: linear-gradient(135deg, #ececec 0%, #dcdcdc 100%);
-  }
-
-  .drops-feature__placeholder span {
-    font-family: var(--sole-heading-font);
-    font-size: 2.4rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    text-align: center;
-  }
-
-  .drops-feature__badge {
-    margin: 0 0 10px;
-    color: #c41230;
-    font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .drops-feature__product-title {
-    margin: 0 0 10px;
-    font-family: var(--sole-heading-font);
-    font-size: clamp(2.6rem, 3vw, 4.2rem);
-    line-height: 0.95;
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-
-  .drops-feature__product-title a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .drops-feature__price {
-    margin-bottom: 18px;
-  }
-
-  .drops-feature__description {
-    margin-bottom: 22px;
-    font-size: 1.5rem;
-    line-height: 1.75;
     color: #444444;
   }
 
-  .drops-feature__options {
+  .drops-grid {
     display: grid;
-    gap: 14px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    align-items: start;
   }
 
-  .drops-feature__option-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .drops-feature__select,
-  .drops-feature__qty {
-    width: 100%;
-    min-height: 48px;
-    padding: 0 14px;
-    border: 1px solid #d8d8d8;
-    background: #ffffff;
-    color: #111111;
-    font-size: 1.45rem;
-    box-sizing: border-box;
-  }
-
-  .drops-feature__actions {
-    display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: 16px;
-    align-items: end;
-  }
-
-  .drops-feature__buttons {
+  .drops-card {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid #e4e4e4;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
 
-  .drops-feature__button {
-    display: inline-flex;
+  .drops-card:hover {
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+    transform: translateY(-2px);
+  }
+
+  .drops-card__media {
+    position: relative;
+    display: block;
+    background: #f4f4f4;
+    aspect-ratio: 483 / 724;
+  }
+
+  .drops-card__media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .drops-card__placeholder {
+    display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 50px;
-    padding: 0 22px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 0.06em;
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.22s ease;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+    color: #777777;
   }
 
-  .drops-feature__button--primary {
-    background: #111111;
-    color: #ffffff;
-    border-color: #111111;
-  }
-
-  .drops-feature__button--primary:hover {
+  .drops-card__badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 1;
+    padding: 6px 12px;
+    border-radius: 999px;
     background: #c41230;
-    border-color: #c41230;
     color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  .drops-feature__button--secondary {
-    background: transparent;
+  .drops-card__body {
+    padding: 20px 20px 24px;
+  }
+
+  .drops-card__title {
+    margin: 0 0 6px;
+    font-size: 1.9rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .drops-card__title a {
     color: #111111;
-    border-color: #111111;
+    text-decoration: none;
   }
 
-  .drops-feature__button--secondary:hover {
-    background: #111111;
-    color: #ffffff;
+  .drops-card__title a:hover {
+    text-decoration: underline;
   }
 
-  .drops-feature__button[disabled] {
-    opacity: 0.5;
-    cursor: not-allowed;
+  .drops-card__price {
+    margin-bottom: 14px;
+    font-size: 1.6rem;
+    color: #333333;
   }
 
-  .drops-feature__note {
-    margin: 18px 0 0;
-    font-size: 1.3rem;
-    line-height: 1.6;
+  .drops-card__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .drops-card__swatch {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    padding: 0;
+    border: 1px solid #cccccc;
+    border-radius: 50%;
+    background: var(--swatch, #dddddd);
+    cursor: pointer;
+    outline-offset: 3px;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .drops-card__swatch.is-active {
+    box-shadow: 0 0 0 2px #ffffff inset, 0 0 0 2px #111111;
+  }
+
+  .drops-card__color-name {
+    margin: 0;
+    font-size: 1.35rem;
     color: #666666;
   }
 
-  .drops-feature__empty {
-    padding: 28px;
+  .drops-feature__note {
+    margin: 28px 0 0;
     text-align: center;
-    border: 1px solid #e4e4e4;
-    background: #f8f8f8;
+    font-size: 1.3rem;
+    color: #777777;
   }
 
-  @media screen and (max-width: 989px) {
-    .drops-feature {
-      padding: 64px 0;
-    }
-
-    .drops-feature__card {
-      grid-template-columns: 1fr;
-    }
-
-    .drops-feature__actions {
-      grid-template-columns: 1fr;
-    }
+  .drops-feature__empty {
+    text-align: center;
+    color: #666666;
   }
 
   @media screen and (max-width: 749px) {
-    .drops-feature__buttons {
-      flex-direction: column;
+    .drops-feature {
+      padding: 56px 0;
     }
 
-    .drops-feature__button {
-      width: 100%;
+    .drops-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    /* Comfortable tap targets on touch screens. */
+    .drops-card__swatch {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
     }
   }
 </style>
 
 <script>
-  (function() {
-    var sectionId = '{{ section.id }}';
-    var productDataEl = document.getElementById('DropsProductData-' + sectionId);
-    // Scope every lookup to this section so multiple drops can coexist on one page.
-    var root = productDataEl ? productDataEl.closest('.drops-feature') : document;
-    var form = root.querySelector('.drops-feature__form');
-    var variantIdInput = root.querySelector('.drops-feature__variant-id');
-    var priceWrap = document.getElementById('DropsPrice-' + sectionId);
-    var mediaImg = root.querySelector('.drops-feature__media img');
+  (function () {
+    var section = document.querySelector('[data-drops-section="{{ section.id }}"]');
+    if (!section) return;
 
-    if (!form || !productDataEl || !variantIdInput) return;
+    section.querySelectorAll('[data-drops-card]').forEach(function (card) {
+      var dataEl = card.querySelector('[data-drops-data]');
+      var img = card.querySelector('[data-drops-img]');
+      var swatches = card.querySelectorAll('[data-drops-swatch]');
+      var colorName = card.querySelector('[data-drops-color-name]');
+      var links = card.querySelectorAll('[data-drops-link]');
+      if (!dataEl || !swatches.length) return;
 
-    var variants = JSON.parse(productDataEl.textContent);
-    var selectors = form.querySelectorAll('[data-option-index]');
+      var variants;
+      try {
+        variants = JSON.parse(dataEl.textContent);
+      } catch (e) {
+        return;
+      }
 
-    function moneyFormat(cents) {
-      return Shopify.formatMoney(cents, "{{ shop.money_format | escape }}");
-    }
+      function firstVariantFor(color) {
+        for (var i = 0; i < variants.length; i++) {
+          if (variants[i].options.indexOf(color) !== -1) return variants[i];
+        }
+        return null;
+      }
 
-    function findVariant() {
-      var selectedOptions = [];
+      function select(color, swatch) {
+        var variant = firstVariantFor(color);
+        if (!variant) return;
 
-      selectors.forEach(function(select) {
-        selectedOptions.push(select.value);
-      });
+        if (img && variant.featured_image && variant.featured_image.src) {
+          var src = variant.featured_image.src;
+          if (src.slice(0, 2) === '//') src = 'https:' + src;
+          src += (src.indexOf('?') === -1 ? '?' : '&') + 'width=1200';
+          img.src = src;
+          img.alt = variant.name || '';
+        }
 
-      return variants.find(function(variant) {
-        return variant.options.every(function(option, index) {
-          return option === selectedOptions[index];
+        if (colorName) colorName.textContent = color;
+
+        // Deep-link into the product page on the chosen colour.
+        links.forEach(function (link) {
+          link.href = link.pathname + '?variant=' + variant.id;
+        });
+
+        swatches.forEach(function (s) { s.classList.remove('is-active'); });
+        if (swatch) swatch.classList.add('is-active');
+      }
+
+      swatches.forEach(function (swatch) {
+        swatch.addEventListener('click', function () {
+          select(swatch.dataset.color, swatch);
         });
       });
-    }
-
-    function updateVariant() {
-      var variant = findVariant();
-      if (!variant) return;
-
-      variantIdInput.value = variant.id;
-
-      if (mediaImg && variant.featured_image && variant.featured_image.src) {
-        var newSrc = variant.featured_image.src;
-        if (newSrc.slice(0, 2) === '//') { newSrc = 'https:' + newSrc; }
-        newSrc += (newSrc.indexOf('?') === -1 ? '?' : '&') + 'width=1600';
-        mediaImg.src = newSrc;
-        mediaImg.alt = variant.name || '';
-      }
-
-      var submitButton = form.querySelector('[type="submit"][name="add"]');
-      if (submitButton) {
-        submitButton.disabled = !variant.available;
-        submitButton.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
-      }
-
-      if (priceWrap && variant.price) {
-        priceWrap.innerHTML = '<div class="price price--large"><div class="price__container"><div class="price__regular"><span class="visually-hidden">Regular price</span><span class="price-item price-item--regular">' + moneyFormat(variant.price) + '</span></div></div></div>';
-      }
-    }
-
-    selectors.forEach(function(select) {
-      select.addEventListener('change', updateVariant);
     });
-
-    updateVariant();
   })();
 </script>
 
@@ -475,38 +367,36 @@
       "default": "<p>A featured Sole Provider release available to purchase directly while it lasts.</p>"
     },
     {
-      "type": "product",
-      "id": "product",
-      "label": "Featured product"
-    },
-    {
-      "type": "text",
-      "id": "badge_text",
-      "label": "Badge text",
-      "default": "Monthly Drop"
-    },
-    {
-      "type": "richtext",
-      "id": "custom_text",
-      "label": "Custom text override",
-      "default": "<p>Limited release. Once it’s gone, it may not return in the same form again.</p>"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_description",
-      "label": "Show product description instead of custom text",
-      "default": true
-    },
-    {
       "type": "text",
       "id": "note",
       "label": "Small note",
       "default": "Limited quantities available. Product availability may change without notice."
     }
   ],
+  "blocks": [
+    {
+      "type": "drop_product",
+      "name": "Drop product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge text"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
-      "name": "Exclusive Drops Feature"
+      "name": "Exclusive Drops Feature",
+      "blocks": [
+        { "type": "drop_product" }
+      ]
     }
   ]
 }

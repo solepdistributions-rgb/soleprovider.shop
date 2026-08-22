@@ -24,34 +24,36 @@
     },
     "exclusive_drops_feature": {
       "type": "exclusive-drops-feature",
+      "blocks": {
+        "drop_shirt": {
+          "type": "drop_product",
+          "settings": {
+            "product": "sole-provider-shirt",
+            "badge_text": "Exclusive Release"
+          }
+        },
+        "drop_crewneck": {
+          "type": "drop_product",
+          "settings": {
+            "product": "sole-provider-crewneck",
+            "badge_text": "Exclusive Release"
+          }
+        }
+      },
+      "block_order": [
+        "drop_shirt",
+        "drop_crewneck"
+      ],
       "settings": {
         "eyebrow": "Current Drop",
         "heading": "Shop the Current Release",
-        "text": "<p>A featured Sole Provider release available to purchase directly while it lasts.</p>",
-        "product": "sole-provider-shirt",
-        "badge_text": "Exclusive Release",
-        "custom_text": "<p>Limited release. Once it’s gone, it may not return.</p>",
-        "show_description": true,
+        "text": "<p>Limited Sole Provider releases, available to shop directly while they last.</p>",
         "note": "Limited quantities available. Product availability may change without notice."
-      }
-    },
-    "exclusive_drops_feature_crewneck": {
-      "type": "exclusive-drops-feature",
-      "settings": {
-        "eyebrow": "",
-        "heading": "",
-        "text": "",
-        "product": "sole-provider-crewneck",
-        "badge_text": "Exclusive Release",
-        "custom_text": "<p>Limited release. Once it’s gone, it may not return.</p>",
-        "show_description": true,
-        "note": "Made to order. Product availability may change without notice."
       }
     }
   },
   "order": [
     "exclusive_drops_hero",
-    "exclusive_drops_feature",
-    "exclusive_drops_feature_crewneck"
+    "exclusive_drops_feature"
   ]
 }
