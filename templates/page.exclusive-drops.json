@@ -38,9 +38,9 @@
     "exclusive_drops_feature_crewneck": {
       "type": "exclusive-drops-feature",
       "settings": {
-        "eyebrow": "Current Drop",
-        "heading": "Shop the Crewneck",
-        "text": "<p>The Sole Provider crewneck, made to order in six colorways.</p>",
+        "eyebrow": "",
+        "heading": "",
+        "text": "",
         "product": "sole-provider-crewneck",
         "badge_text": "Exclusive Release",
         "custom_text": "<p>Limited release. Once it’s gone, it may not return.</p>",
