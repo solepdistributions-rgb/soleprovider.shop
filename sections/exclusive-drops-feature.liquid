@@ -340,6 +340,10 @@
           select(swatch.dataset.color, swatch);
         });
       });
+
+      // The product's featured image is whatever media sits first, which is not
+      // necessarily the first colour. Sync the card to the active swatch on load.
+      select(swatches[0].dataset.color, swatches[0]);
     });
   })();
 </script>
