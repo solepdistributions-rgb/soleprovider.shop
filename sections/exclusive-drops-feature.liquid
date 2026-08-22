@@ -392,6 +392,7 @@
     var productDataEl = document.getElementById('DropsProductData-' + sectionId);
     var variantIdInput = document.querySelector('.drops-feature__variant-id');
     var priceWrap = document.getElementById('DropsPrice-' + sectionId);
+    var mediaImg = document.querySelector('.drops-feature__media img');
 
     if (!form || !productDataEl || !variantIdInput) return;
 
@@ -422,6 +423,14 @@
 
       variantIdInput.value = variant.id;
 
+      if (mediaImg && variant.featured_image && variant.featured_image.src) {
+        var newSrc = variant.featured_image.src;
+        if (newSrc.slice(0, 2) === '//') { newSrc = 'https:' + newSrc; }
+        newSrc += (newSrc.indexOf('?') === -1 ? '?' : '&') + 'width=1600';
+        mediaImg.src = newSrc;
+        mediaImg.alt = variant.name || '';
+      }
+
       var submitButton = form.querySelector('[type="submit"][name="add"]');
       if (submitButton) {
         submitButton.disabled = !variant.available;
@@ -436,6 +445,8 @@
     selectors.forEach(function(select) {
       select.addEventListener('change', updateVariant);
     });
+
+    updateVariant();
   })();
 </script>
 
