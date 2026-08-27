@@ -564,6 +564,20 @@
     "portfolio_design": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_Bt79Eh": {
+          "type": "project",
+          "settings": {
+            "title": "Brand Buildout",
+            "tag": "Branding",
+            "client": "Black & Gold Cafe",
+            "description": "<p>Built a customized brand for cafe. Full font, brand guidelines, logos and more. Custom & to stand as the centerpiece of the brand</p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/MASTER_B_G_WORDMARK_LG.jpg",
+            "image_2": "shopify://shop_images/B_G_MASTERS_ICONS-02.jpg",
+            "image_3": "shopify://shop_images/MASTER_ALT.jpg",
+            "image_4": "shopify://shop_images/MASTER_B_G_WORDMARK_SM.jpg"
+          }
+        },
         "project_jHmXq6": {
           "type": "project",
           "settings": {
@@ -679,6 +693,7 @@
         }
       },
       "block_order": [
+        "project_Bt79Eh",
         "project_jHmXq6",
         "project_7ifKd3",
         "project_M3QwUU",
