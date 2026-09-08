@@ -22,35 +22,6 @@
         "secondary_link": "/pages/portfolio"
       }
     },
-    "exclusive_drops_feature": {
-      "type": "exclusive-drops-feature",
-      "blocks": {
-        "drop_shirt": {
-          "type": "drop_product",
-          "settings": {
-            "product": "sole-provider-shirt",
-            "badge_text": "Exclusive Release"
-          }
-        },
-        "drop_crewneck": {
-          "type": "drop_product",
-          "settings": {
-            "product": "sole-provider-crewneck",
-            "badge_text": "Exclusive Release"
-          }
-        }
-      },
-      "block_order": [
-        "drop_shirt",
-        "drop_crewneck"
-      ],
-      "settings": {
-        "eyebrow": "Current Drop",
-        "heading": "Shop the Current Release",
-        "text": "<p>Limited Sole Provider releases, available to shop directly while they last.</p>",
-        "note": "Limited quantities available. Product availability may change without notice."
-      }
-    },
     "featured_product_cMhFrY": {
       "type": "featured-product",
       "blocks": {
@@ -119,6 +90,35 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "exclusive_drops_feature": {
+      "type": "exclusive-drops-feature",
+      "blocks": {
+        "drop_shirt": {
+          "type": "drop_product",
+          "settings": {
+            "product": "sole-provider-shirt",
+            "badge_text": "Exclusive Release"
+          }
+        },
+        "drop_crewneck": {
+          "type": "drop_product",
+          "settings": {
+            "product": "sole-provider-crewneck",
+            "badge_text": "Exclusive Release"
+          }
+        }
+      },
+      "block_order": [
+        "drop_shirt",
+        "drop_crewneck"
+      ],
+      "settings": {
+        "eyebrow": "Current Drop",
+        "heading": "Shop the Current Release",
+        "text": "<p>Limited Sole Provider releases, available to shop directly while they last.</p>",
+        "note": "Limited quantities available. Product availability may change without notice."
       }
     }
   },
