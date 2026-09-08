@@ -50,10 +50,81 @@
         "text": "<p>Limited Sole Provider releases, available to shop directly while they last.</p>",
         "note": "Limited quantities available. Product availability may change without notice."
       }
+    },
+    "featured_product_cMhFrY": {
+      "type": "featured-product",
+      "blocks": {
+        "text_xKk7PD": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_3Fpaab": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_nTRajA": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_6ae6Jz": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_9dfAjk": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_4p6GJ9": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_rKRALM": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_xKk7PD",
+        "title_3Fpaab",
+        "price_nTRajA",
+        "variant_picker_6ae6Jz",
+        "quantity_selector_9dfAjk",
+        "buy_buttons_4p6GJ9",
+        "share_rKRALM"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "tupper-on-tap-shirt",
+        "color_scheme": "scheme-1",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "exclusive_drops_hero",
-    "exclusive_drops_feature"
+    "exclusive_drops_feature",
+    "featured_product_cMhFrY"
   ]
 }
