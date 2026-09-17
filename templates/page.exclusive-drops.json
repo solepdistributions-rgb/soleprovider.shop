@@ -105,7 +105,6 @@
         "buy_buttons_4p6GJ9",
         "share_rKRALM"
       ],
-      "disabled": true,
       "name": "t:sections.featured-product.presets.name",
       "settings": {
         "product": "tupper-on-tap-shirt",
@@ -125,7 +124,7 @@
   },
   "order": [
     "exclusive_drops_hero",
-    "exclusive_drops_feature",
-    "featured_product_cMhFrY"
+    "featured_product_cMhFrY",
+    "exclusive_drops_feature"
   ]
 }
