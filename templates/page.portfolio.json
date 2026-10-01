@@ -723,6 +723,17 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_BeMaVa": {
+          "type": "project",
+          "settings": {
+            "title": "Pen",
+            "tag": "laser Engraved",
+            "client": "",
+            "description": "<p>Custom branded pens</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_8755.jpg"
+          }
+        },
         "project_TiCXRC": {
           "type": "project",
           "settings": {
@@ -851,6 +862,7 @@
         }
       },
       "block_order": [
+        "project_BeMaVa",
         "project_TiCXRC",
         "project_AgMt9P",
         "project_KtThJK",
