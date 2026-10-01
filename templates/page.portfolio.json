@@ -723,6 +723,17 @@
     "portfolio_promo": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_wXcTfr": {
+          "type": "project",
+          "settings": {
+            "title": "Custom Folder",
+            "tag": "Screen Print",
+            "client": "",
+            "description": "<p>Custom folder for AI summit</p>",
+            "size": "normal",
+            "image_1": "shopify://shop_images/IMG_8762.jpg"
+          }
+        },
         "project_BeMaVa": {
           "type": "project",
           "settings": {
@@ -862,6 +873,7 @@
         }
       },
       "block_order": [
+        "project_wXcTfr",
         "project_BeMaVa",
         "project_TiCXRC",
         "project_AgMt9P",
