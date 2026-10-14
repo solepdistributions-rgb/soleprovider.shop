@@ -905,6 +905,18 @@
     "portfolio_gallery_e9WMPP": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_dPnUtb": {
+          "type": "project",
+          "settings": {
+            "title": "Table Throw",
+            "tag": "Digital Printing",
+            "client": "",
+            "description": "<p>Table throw for University client</p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/IMG_5264.jpg",
+            "image_2": "shopify://shop_images/IMG_5267.jpg"
+          }
+        },
         "project_LGjAdP": {
           "type": "project",
           "settings": {
@@ -956,6 +968,7 @@
         }
       },
       "block_order": [
+        "project_dPnUtb",
         "project_LGjAdP",
         "project_6GUJ78",
         "project_PL6aQU",
