@@ -905,6 +905,18 @@
     "portfolio_gallery_e9WMPP": {
       "type": "portfolio-gallery",
       "blocks": {
+        "project_LGjAdP": {
+          "type": "project",
+          "settings": {
+            "title": "Table Throw",
+            "tag": "Convention Printing",
+            "client": "The Sole Provider",
+            "description": "<p>Custom table throw made for the company</p>",
+            "size": "wide",
+            "image_1": "shopify://shop_images/IMG_5621.jpg",
+            "image_2": "shopify://shop_images/IMG_5625.jpg"
+          }
+        },
         "project_6GUJ78": {
           "type": "project",
           "settings": {
@@ -944,6 +956,7 @@
         }
       },
       "block_order": [
+        "project_LGjAdP",
         "project_6GUJ78",
         "project_PL6aQU",
         "project_QAYdCw"
