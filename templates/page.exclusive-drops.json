@@ -121,11 +121,82 @@
         "text": "<p>Limited Sole Provider releases, available to shop directly while they last.</p>",
         "note": "Limited quantities available. Product availability may change without notice."
       }
+    },
+    "featured_product_gQWFXa": {
+      "type": "featured-product",
+      "blocks": {
+        "text_B4n7pW": {
+          "type": "text",
+          "settings": {
+            "text": "{{ section.settings.product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title_bAhgwU": {
+          "type": "title",
+          "settings": {
+            "heading_size": "h1"
+          }
+        },
+        "price_8etPkV": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker_3XYV7z": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector_rJUijx": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons_KPdbhb": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "share_KjLRVw": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        }
+      },
+      "block_order": [
+        "text_B4n7pW",
+        "title_bAhgwU",
+        "price_8etPkV",
+        "variant_picker_3XYV7z",
+        "quantity_selector_rJUijx",
+        "buy_buttons_KPdbhb",
+        "share_KjLRVw"
+      ],
+      "name": "t:sections.featured-product.presets.name",
+      "settings": {
+        "product": "dawgs-puff-hat",
+        "color_scheme": "",
+        "secondary_background": false,
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "exclusive_drops_hero",
     "featured_product_cMhFrY",
-    "exclusive_drops_feature"
+    "exclusive_drops_feature",
+    "featured_product_gQWFXa"
   ]
 }
